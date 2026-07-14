@@ -42,6 +42,23 @@ The strongest completed fallback run is
 `artifacts/runs/day1-20260714T191408-b65f0439`; its exact replay is
 `artifacts/replays/replay-20260714T192011-50b1712a`.
 
+## Blocker-Resolution Outcome
+
+- Preserved target failures were schema-compliance failures; no inference/runtime defect was found.
+- Untouched OLMo remained 0/8 schema-valid on a fixed validation diagnostic, with every generation
+  ending on EOS. The correct baseline classification is
+  `UNTOUCHED_TARGET_HAS_ZERO_SCHEMA_VALIDITY; TARGET_TRAINABILITY_UNTESTED`.
+- A bounded 32-example LoRA gate improved Qwen from 3/8 to 8/8 schema-valid on the validation subset.
+- The successful OLMo run `micro-lora-target_micro_lora-20260714T195848-79e58f44` produced 7/8
+  schema-valid and 2/8 semantic-exact contracts with finite decreasing loss and exact replay.
+- Final decision: `OLMO_TRAINABILITY_CONFIRMED`. SmolLM2 fallback training was not triggered.
+- Machine-readable decision: `artifacts/blocker-resolution/decision/decision-77a945960ddfdb7e`.
+- Day 2 experimentation is scientifically unblocked for Qwen→OLMo, but this sprint stops before
+  full Day 2 work. Modal remains unavailable until external workspace-export approval is granted.
+
+Blocker evidence lives under `artifacts/blocker-resolution`; adapters are separate under
+`adapters/blocker-resolution`. Existing Day 1 artifacts remain unchanged.
+
 ## Quick Start
 
 ```bash
@@ -122,6 +139,8 @@ parser result. Unrun work is never represented as a zero score.
 - Exact model output identity is not claimed across hardware backends.
 - LoRA targets are structural observations only and remain provisional.
 - Modal is a bounded preflight, not a training or orchestration platform.
+- The blocker-resolution trainability gate uses 32 train and eight validation examples; it is not a
+  full benchmark result, and its semantic exactness remains limited.
 
 See `docs/EVALUATION_PROTOCOL.md`, `docs/COMPUTE_PLAN.md`, and `docs/LICENSING.md` for the
 scientific, compute, and licensing contracts.

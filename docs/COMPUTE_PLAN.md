@@ -43,3 +43,30 @@ The execution environment rejected the L4 invocation before any remote function 
 workspace code to a third-party service was not approved. The immutable artifact
 `artifacts/modal/modal-smoke-20260714T192115-de421316.json` records `BLOCKED`, zero attempts, no
 remote metadata, and no GPU allocation. No workaround was attempted.
+
+## Blocker-Resolution Measurements
+
+- All micro-LoRA runs used Apple MPS, float32 training, batch size 1, accumulation 4, and sequential
+  model residency.
+- Qwen two-epoch run: 1,081,344 trainable of 495,114,112 total parameters; 16 optimizer steps;
+  25.97 seconds measured training duration.
+- OLMo two-epoch run: 2,097,152 trainable of 1,487,013,888 total parameters; 16 optimizer steps;
+  63.73 seconds measured training duration.
+- OLMo six-epoch run: 48 optimizer steps; 136.93 seconds measured training duration; post-training
+  MPS driver allocation snapshot 15,068,872,704 bytes. PyTorch MPS exposed no peak allocator metric,
+  so peak memory is recorded as `null` in the corrected artifact schema.
+- Earlier two-epoch artifacts mislabeled the post-training driver allocation snapshot as a peak.
+  They remain immutable; `artifacts/blocker-resolution/corrections/correction-8f21fbaa169460c8`
+  records the clarification.
+
+### Modal Next Action
+
+The blocker is an external data-export approval imposed before Modal launch. After explicitly
+approving workspace-code export to Modal, run:
+
+```bash
+uv run inheritbench compute modal-smoke --gpu L4 --output-root artifacts/modal
+```
+
+Return the new immutable Modal JSON artifact or complete terminal output to Codex. The existing
+blocked record remains preserved and does not count as a GPU attempt.

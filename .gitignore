@@ -20,6 +20,7 @@ huggingface/
 *.bin
 *.pt
 *.pth
+adapters/
 
 # Atomic artifact staging directories
 artifacts/**/.tmp-*/

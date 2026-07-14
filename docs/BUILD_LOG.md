@@ -78,3 +78,65 @@ This file is append-only. Results are recorded only after the corresponding comm
 - Foundation, dataset, loading, inspection, inference traversal, immutability, and replay gates pass.
 - Day 2 is blocked because neither target candidate produced a strict or fenced-schema-valid output
   after the original and one simplified prompt contract. The kill switch stops further pair search.
+
+## 2026-07-14 — Blocker-Resolution Diagnosis
+
+- Diagnosed all 16 preserved OLMo and SmolLM2 target outputs at
+  `artifacts/blocker-resolution/diagnosis/diagnosis-a617178ecb317ada`.
+- Observed task-directed JSON in every output. Failure forms were malformed JSON, valid JSON with
+  the wrong schema, missing required fields, wrong enums/tools, and one repetitive malformed output.
+- Found no verified inference/runtime defect. Native templates accepted the supplied roles, prompt
+  and input-ID hashes matched, prompt lengths stayed below 1,024, completion slicing was correct,
+  and model/tokenizer revisions matched configs.
+- Added backward-compatible prompt/output token counts, resolved EOS IDs, finish conditions, and
+  completion-only decoding regression coverage for new predictions.
+
+## 2026-07-14 — Controlled Validation Diagnostics
+
+- Froze eight validation IDs and 32 train IDs at
+  `artifacts/blocker-resolution/subsets/subsets-c0e0abb99d3f9e7d`.
+- Untouched OLMo run `diagnostic-20260714T194526-544a6811` completed 8/8 generations, all ending
+  on EOS after 23–28 generated tokens. It produced 8/8 valid JSON objects and 0/8 schema-valid
+  contracts, ruling out max-token truncation for this diagnostic subset.
+- Untouched Qwen run `diagnostic-20260714T195815-8d4219d2` produced 3/8 schema-valid and 0/8
+  semantic-exact contracts on the same validation subset.
+- Both diagnostic runs replayed exactly under `artifacts/blocker-resolution/replays`.
+
+## 2026-07-14 — Micro-LoRA Trainability Gates
+
+- Added locked `peft==0.19.1`; no Datasets, TRL, bitsandbytes, or full Day 2 matrix was added.
+- Configuration 1: rank 8, alpha 16, dropout 0.05, AdamW, learning rate 0.0002, batch size 1,
+  accumulation 4, two epochs, float32 MPS, fixed order, seed `20260714`, and attention targets
+  `q_proj`, `k_proj`, `v_proj`, `o_proj`.
+- Source run `micro-lora-source_micro_lora-20260714T195119-5b707d58`: loss 1.1359→0.6712,
+  8/8 schema-valid and 0/8 semantic-exact validation contracts. A later duplicate run occurred
+  because artifact finalization outlived polling; the immutable correction is
+  `artifacts/blocker-resolution/corrections/correction-8f21fbaa169460c8`.
+- OLMo configuration-1 run `micro-lora-target_micro_lora-20260714T195432-b12b2708`: loss
+  1.4788→0.5775, 8/8 schema-valid and 0/8 semantic-exact contracts.
+- Because configuration 1 established stable formatting but no semantic exactness, the one allowed
+  second configuration changed only epochs from 2 to 6.
+- OLMo configuration-2 run `micro-lora-target_micro_lora-20260714T195848-79e58f44`: loss
+  1.4788→0.0428, 7/8 schema-valid and 2/8 semantic-exact contracts. Exact replay passed.
+- Decision: `OLMO_TRAINABILITY_CONFIRMED`. SmolLM2 fallback training was not triggered.
+- Final machine-readable decision:
+  `artifacts/blocker-resolution/decision/decision-77a945960ddfdb7e/decision.json`.
+
+## 2026-07-14 — Modal Blocker Classification
+
+- Re-inspection confirms `artifacts/modal/modal-smoke-20260714T192115-de421316.json` records an
+  interactive external data-export/Codex execution-permission block, not authentication, billing,
+  profile, package, network, model, or benchmark failure.
+- Attempts remain zero; the blocked invocation is not counted as a remote GPU attempt.
+- Local MPS completed the bounded trainability work, so Modal remains an infrastructure limitation.
+
+## 2026-07-14 — Blocker-Resolution Final Gates
+
+- Ruff lint passed; all 53 files passed the format check.
+- Strict mypy passed for 32 source files.
+- Offline pytest passed: 35 selected tests passed and one real-model smoke test was deselected.
+- Dataset regeneration verified the unchanged 320-record dataset SHA-256
+  `9202ecdf200a86cf3899a9ff3eb71722effe9421c04f353fd575d62c6c7d492b`.
+- Frozen `uv` sync passed with 76 installed packages checked.
+- All 24 pre-sprint artifact files captured by the diagnosis baseline retained their exact byte
+  hashes. Parser behavior and every Day 1 artifact remain unchanged.

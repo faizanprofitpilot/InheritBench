@@ -13,6 +13,13 @@ from inheritbench.evaluation.contracts import ActionContract
 from inheritbench.evaluation.metrics import AtomicMetrics
 from inheritbench.evaluation.parser import ParserResult
 
+ModelRole = Literal[
+    "source_base",
+    "target_base",
+    "source_micro_lora",
+    "target_micro_lora",
+]
+
 
 class ArtifactModel(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
@@ -33,7 +40,7 @@ class PredictionRecord(ArtifactModel):
     error_type: Literal["MODEL_ERROR", "OOM", "TIMEOUT"] | None
     example_id: str
     split: str
-    model_role: Literal["source_base", "target_base"]
+    model_role: ModelRole
     model_id: str
     model_revision: FullCommitSha
     model_config_sha256: Sha256
@@ -46,6 +53,11 @@ class PredictionRecord(ArtifactModel):
     prompt_sha256: Sha256 | None
     input_ids_sha256: Sha256 | None
     generation: GenerationConfig
+    prompt_token_count: int | None = Field(default=None, ge=0)
+    generated_token_count: int | None = Field(default=None, ge=0)
+    finish_condition: Literal["EOS", "MAX_NEW_TOKENS", "OTHER"] | None = None
+    generation_eos_token_ids: list[int] = Field(default_factory=list)
+    decoded_special_tokens_skipped: bool | None = None
     raw_output: str
     parser_result: ParserResult | None
     expected_contract: ActionContract

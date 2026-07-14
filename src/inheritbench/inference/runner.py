@@ -26,6 +26,7 @@ from inheritbench.artifacts.schemas import (
     EnvironmentState,
     GenerationConfig,
     GitState,
+    ModelRole,
     PredictionRecord,
     ReplayVerification,
     RunSummary,
@@ -273,7 +274,7 @@ def _infer_one(
     *,
     loaded: LoadedModel,
     config: ModelConfig,
-    role: Literal["source_base", "target_base"],
+    role: ModelRole,
     example: OpsRouteExample,
     task_config: OpsRouteTaskConfig,
     generation: GenerationConfig,
@@ -285,6 +286,7 @@ def _infer_one(
     monotonic_start = time.perf_counter()
     prompt_hash: str | None = None
     ids_hash: str | None = None
+    prompt_token_count: int | None = None
     try:
         prompt = render_prompt(
             loaded.tokenizer,
@@ -294,6 +296,7 @@ def _infer_one(
         prompt_hash = sha256_text(prompt)
         encoded = loaded.tokenizer(prompt, return_tensors="pt", add_special_tokens=False)
         token_ids = encoded["input_ids"][0].tolist()
+        prompt_token_count = len(token_ids)
         ids_hash = input_ids_sha256(token_ids)
         if len(token_ids) > task_config.maximum_prompt_tokens:
             raise ValueError(
@@ -316,6 +319,15 @@ def _infer_one(
         if loaded.device == "cuda":
             torch.cuda.synchronize()
         completion_ids = generated[0, encoded["input_ids"].shape[1] :]
+        generated_token_count = int(completion_ids.shape[0])
+        eos_token_ids = _generation_eos_token_ids(loaded)
+        finish_condition: Literal["EOS", "MAX_NEW_TOKENS", "OTHER"]
+        if generated_token_count and int(completion_ids[-1]) in eos_token_ids:
+            finish_condition = "EOS"
+        elif generated_token_count >= generation.max_new_tokens:
+            finish_condition = "MAX_NEW_TOKENS"
+        else:
+            finish_condition = "OTHER"
         raw_output = loaded.tokenizer.decode(completion_ids, skip_special_tokens=True)
         parser_result = parse_action_contract(raw_output)
         metrics = score_prediction(parser_result, example.expected, example.evaluation)
@@ -341,6 +353,11 @@ def _infer_one(
             "prompt_sha256": prompt_hash,
             "input_ids_sha256": ids_hash,
             "generation": generation.model_dump(mode="json"),
+            "prompt_token_count": prompt_token_count,
+            "generated_token_count": generated_token_count,
+            "finish_condition": finish_condition,
+            "generation_eos_token_ids": eos_token_ids,
+            "decoded_special_tokens_skipped": True,
             "raw_output": raw_output,
             "parser_result": parser_result.model_dump(mode="json"),
             "expected_contract": example.expected.model_dump(mode="json"),
@@ -375,6 +392,7 @@ def _infer_one(
             loaded=loaded,
             prompt_sha256=prompt_hash,
             ids_sha256=ids_hash,
+            prompt_token_count=prompt_token_count,
             latency_ms=max(0, round((time.perf_counter() - monotonic_start) * 1000)),
         )
 
@@ -382,7 +400,7 @@ def _infer_one(
 def _failed_prediction(
     *,
     config: ModelConfig,
-    role: Literal["source_base", "target_base"],
+    role: ModelRole,
     example: OpsRouteExample,
     task_config: OpsRouteTaskConfig,
     generation: GenerationConfig,
@@ -393,6 +411,7 @@ def _failed_prediction(
     loaded: LoadedModel | None,
     prompt_sha256: str | None = None,
     ids_sha256: str | None = None,
+    prompt_token_count: int | None = None,
     latency_ms: int = 0,
 ) -> PredictionRecord:
     message = f"{type(error).__name__}: {error}"
@@ -421,6 +440,13 @@ def _failed_prediction(
         "prompt_sha256": prompt_sha256,
         "input_ids_sha256": ids_sha256,
         "generation": generation.model_dump(mode="json"),
+        "prompt_token_count": prompt_token_count,
+        "generated_token_count": None,
+        "finish_condition": None,
+        "generation_eos_token_ids": (
+            _generation_eos_token_ids(loaded) if loaded is not None else []
+        ),
+        "decoded_special_tokens_skipped": None,
         "raw_output": "",
         "parser_result": None,
         "expected_contract": example.expected.model_dump(mode="json"),
@@ -525,6 +551,7 @@ def _read_predictions(path: Path) -> list[PredictionRecord]:
 def _aggregates_by_role(
     predictions: list[PredictionRecord],
 ) -> dict[str, dict[str, dict[str, float | int | None]]]:
+    roles = sorted({prediction.model_role for prediction in predictions})
     return {
         role: aggregate_metrics(
             [
@@ -533,8 +560,20 @@ def _aggregates_by_role(
                 if prediction.model_role == role and prediction.metrics is not None
             ]
         )
-        for role in ("source_base", "target_base")
+        for role in roles
     }
+
+
+def _generation_eos_token_ids(loaded: LoadedModel) -> list[int]:
+    generation_config = getattr(loaded.model, "generation_config", None)
+    configured = getattr(generation_config, "eos_token_id", None)
+    if configured is None:
+        configured = getattr(loaded.tokenizer, "eos_token_id", None)
+    if configured is None:
+        return []
+    if isinstance(configured, int):
+        return [configured]
+    return [int(token_id) for token_id in configured]
 
 
 def _loaded_inspection(

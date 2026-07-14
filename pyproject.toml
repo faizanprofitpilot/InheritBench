@@ -26,6 +26,7 @@ model = [
   "transformers>=4.48,<5",
   "accelerate>=1.2,<2",
   "huggingface-hub>=0.27,<1",
+  "peft>=0.14,<1",
   "safetensors>=0.4,<1",
 ]
 modal = ["modal>=1,<2"]
@@ -64,7 +65,7 @@ mypy_path = "src"
 warn_unreachable = true
 
 [[tool.mypy.overrides]]
-module = ["yaml", "transformers.*", "torch.*", "modal.*", "psutil"]
+module = ["yaml", "transformers.*", "torch.*", "peft.*", "modal.*", "psutil"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

@@ -29,6 +29,7 @@ class FakeTokenizer:
 
     def decode(self, token_ids, *, skip_special_tokens):
         assert skip_special_tokens is True
+        assert token_ids.tolist() == [4]
         return json.dumps(
             {
                 "decision": "no_action",
@@ -42,6 +43,8 @@ class FakeTokenizer:
 
 
 class FakeModel:
+    generation_config = SimpleNamespace(eos_token_id=4)
+
     def generate(self, **encoded):
         input_ids = encoded["input_ids"]
         return torch.cat([input_ids, torch.tensor([[4]])], dim=1)
@@ -91,6 +94,9 @@ def test_mock_pair_inference_to_replay(monkeypatch, tmp_path: Path) -> None:
     predictions = run.joinpath("predictions.jsonl").read_text(encoding="utf-8").splitlines()
     assert len(predictions) == 8
     assert all(json.loads(line)["status"] == "COMPLETED" for line in predictions)
+    assert all(json.loads(line)["prompt_token_count"] == 3 for line in predictions)
+    assert all(json.loads(line)["generated_token_count"] == 1 for line in predictions)
+    assert all(json.loads(line)["finish_condition"] == "EOS" for line in predictions)
 
     replay = replay_run(
         run_directory=run,

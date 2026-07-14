@@ -69,3 +69,75 @@ Replay verifies original prediction and summary byte hashes, reparses every save
 recomputes every atomic metric using preserved evaluator metadata, compares stored values exactly,
 and writes a new immutable replay bundle. It never edits the original run and makes no claim that a
 fresh model generation will be byte-identical across hardware backends.
+
+## Blocker-Resolution Subsets
+
+The immutable subset bundle is
+`artifacts/blocker-resolution/subsets/subsets-c0e0abb99d3f9e7d`.
+
+Training uses only variants 00 and 01 from each of the 16 archetypes. The 32 exact IDs are stored in
+`micro-lora-train.json`; its source split is `train`, record hashes are embedded, and fixture evidence
+is false:
+
+```text
+opsroute_v010_refund_duplicate_approval_00_8ac1b8f0
+opsroute_v010_refund_duplicate_approval_01_bc3ef00f
+opsroute_v010_refund_duplicate_auto_refund_00_a3fc39fe
+opsroute_v010_refund_duplicate_auto_refund_01_1bbef901
+opsroute_v010_refund_expired_window_00_0d62e494
+opsroute_v010_refund_expired_window_01_1840c401
+opsroute_v010_refund_fraud_review_00_fbebf056
+opsroute_v010_refund_fraud_review_01_cce5d625
+opsroute_v010_refund_incomplete_evidence_00_d144be17
+opsroute_v010_refund_incomplete_evidence_01_66ac3032
+opsroute_v010_refund_no_refund_request_00_10e8054b
+opsroute_v010_refund_no_refund_request_01_d389f17d
+opsroute_v010_refund_pending_payment_00_4200d719
+opsroute_v010_refund_pending_payment_01_b8c42ef3
+opsroute_v010_refund_unauthorized_requester_00_0cd666e6
+opsroute_v010_refund_unauthorized_requester_01_009025c0
+opsroute_v010_subscription_cancellation_approval_00_ddd4213b
+opsroute_v010_subscription_cancellation_approval_01_f9b33f4c
+opsroute_v010_subscription_confirmation_required_00_cc0357ef
+opsroute_v010_subscription_confirmation_required_01_35e527e6
+opsroute_v010_subscription_eligible_cancellation_00_1378ab1e
+opsroute_v010_subscription_eligible_cancellation_01_11609aab
+opsroute_v010_subscription_eligible_pause_00_aa857144
+opsroute_v010_subscription_eligible_pause_01_fa311be0
+opsroute_v010_subscription_eligible_retention_00_e382330d
+opsroute_v010_subscription_eligible_retention_01_d5d98332
+opsroute_v010_subscription_ineligible_retention_00_5632d52b
+opsroute_v010_subscription_ineligible_retention_01_2a1f21b8
+opsroute_v010_subscription_no_subscription_request_00_ffee5896
+opsroute_v010_subscription_no_subscription_request_01_e23a5c5d
+opsroute_v010_subscription_unauthorized_requester_00_c1e2beae
+opsroute_v010_subscription_unauthorized_requester_01_2508999e
+```
+
+Validation uses only these eight IDs:
+
+- `opsroute_v010_refund_duplicate_auto_refund_14_b8c67d25`
+- `opsroute_v010_refund_duplicate_approval_14_0afe2f3f`
+- `opsroute_v010_refund_pending_payment_14_fa263dd7`
+- `opsroute_v010_refund_incomplete_evidence_14_03f983ef`
+- `opsroute_v010_subscription_eligible_cancellation_14_120956a1`
+- `opsroute_v010_subscription_cancellation_approval_14_88285026`
+- `opsroute_v010_subscription_no_subscription_request_14_9c2a5275`
+- `opsroute_v010_subscription_ineligible_retention_14_89a3c6e8`
+
+No test or adversarial record is loaded by the diagnosis or trainability paths.
+
+## Supervised Formatting and Gate Threshold
+
+- Build the same system/user semantic messages used by base inference.
+- Append the canonical exact expected ActionContract as the assistant response through the native
+  chat template.
+- Mask every prompt token with label `-100`; train only on assistant-contract tokens.
+- Reject sequences above 1,024 tokens rather than truncating them.
+- Keep parsing and metrics unchanged; no output repair is introduced.
+- Confirm target trainability only when loss is finite and decreasing, at least 4/8 validation
+  outputs are schema-valid, at least one is semantic-exact, and exact replay passes.
+
+OLMo configuration 1 reached 8/8 schema validity but 0/8 semantic exactness. The bounded six-epoch
+extension reached 7/8 schema validity and 2/8 semantic exactness, satisfying the engineering gate.
+This is not a final benchmark score and does not justify test-set evaluation during model selection.
