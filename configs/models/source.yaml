@@ -1,0 +1,30 @@
+schema_version: model-config-v0.1
+internal_name: qwen2_5_0_5b_instruct_source
+role: source
+selection_status: provisional
+model_id: Qwen/Qwen2.5-0.5B-Instruct
+revision: 7ae557604adf67be50417f59c2c2f167def9a775
+expected_architecture_class: Qwen2ForCausalLM
+model_family: qwen2.5
+tokenizer_id: Qwen/Qwen2.5-0.5B-Instruct
+tokenizer_revision: 7ae557604adf67be50417f59c2c2f167def9a775
+trust_remote_code: false
+chat_template_strategy: native
+explicit_chat_template_path: null
+requested_dtype: auto
+device_policy: auto
+quantization: none
+attention_implementation: eager
+maximum_sequence_length: 1024
+special_tokens:
+  pad_strategy: eos_if_missing
+  use_default_bos: true
+  use_default_eos: true
+  add_new_tokens: false
+license:
+  spdx: Apache-2.0
+  review_status: reviewed
+  access: public
+  source_url: https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct
+intended_lora_target_modules: [q_proj, k_proj, v_proj, o_proj]
+lora_target_status: provisional

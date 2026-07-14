@@ -1,0 +1,25 @@
+schema_version: task-config-v0.1
+task_id: opsroute
+task_version: 0.1.0
+generator_version: 0.1.0
+template_version: 0.1.0
+prompt_template_version: 0.1.1
+output_contract_version: 0.1.0
+seed: 20260714
+families:
+  - refund_policy_routing
+  - subscription_cancellation_retention
+variants_per_archetype: 20
+split_counts_per_archetype:
+  train: 14
+  validation: 2
+  test: 2
+  adversarial: 2
+currency: USD
+refund_auto_approval_limit_minor: 5000
+refund_window_days: 30
+cancellation_balance_approval_limit_minor: 10000
+allowed_pause_days: [30, 60, 90]
+retention_offer_code: SAVE10_3MO
+maximum_prompt_tokens: 1024
+maximum_new_tokens: 256
