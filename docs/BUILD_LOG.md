@@ -216,3 +216,11 @@ This file is append-only. Results are recorded only after the corresponding comm
   its packaged SHA-256 hash.
 - Immutable verification `day2-release-verification-5acbafb44fc44722` has status `VERIFIED` and
   content SHA-256 `860a912f2cc253260138a656cb9891ac16fb3e56aed65d8f4ed3d1b24e5675cc`.
+- Commit lineage for judge review:
+  - `78e616bdd852b95766936e7dba8966938c2fe760` contains the completed scientific execution and
+    evidence.
+  - Release tag `day2-v0.1.0` resolves to `d731dba292d13d3818deb78662ae27c6df459078`, which adds
+    deterministic archive checksums and publication metadata without changing scientific results.
+  - `33a9dc520eff5ae7f4e52e6a5d58be60d0b0e9d3` adds post-release anonymous-download verification,
+    documentation, and its evidence-matrix assertion; no scientific artifact or adapter changed.
+  - Any later `main` commits in this lineage are documentation-only clarity updates.

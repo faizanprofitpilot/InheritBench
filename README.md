@@ -33,6 +33,11 @@ the [Day 2 v0.1.0 release](https://github.com/faizanprofitpilot/InheritBench/rel
 All public downloads match their recorded SHA-256 hashes; immutable verification metadata lives
 under `artifacts/day2/publications`.
 
+Release lineage is intentionally immutable: scientific execution is captured at `78e616b`, the
+`day2-v0.1.0` tag resolves to `d731dba` after adding deterministic release checksums, and post-tag
+`main` history beginning at `33a9dc5` contains only public-download verification and documentation.
+No scientific run, adapter, prediction, metric, or release archive changed after `78e616b`.
+
 ## Day 1 Scope
 
 The implemented vertical slice is:
