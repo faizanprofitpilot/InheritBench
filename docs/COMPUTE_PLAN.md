@@ -91,3 +91,28 @@ target. These are explicitly allocation snapshots, not peak-memory measurements.
 
 Modal remained unused. Completed local experiments were not migrated or repeated for provider
 symmetry.
+
+## Day 3 Compute Contract
+
+- Teacher generation loads pinned Qwen plus the publicly verified Day 2 source adapter in float16
+  on MPS, batch size 1, greedy decoding, and at most 256 new tokens.
+- Synthetic target training loads untouched pinned OLMo in float32 on MPS with batch size 1,
+  accumulation 4, rank-8 Q/K/V/O LoRA, clipping 1.0, and linear warmup/decay.
+- Validation and the single held-out test load one fresh float16 OLMo base at a time.
+- The whole-sequence schedule stops before 272,643 tokens and records the residual; examples are
+  never truncated to hit a numeric budget.
+- Telemetry names MPS current and driver allocation snapshots accurately. It does not claim a peak
+  measurement unavailable from the backend.
+- Modal remains unused and is not required for scientific or distribution completion.
+
+### Day 3 Measured Teacher Compute
+
+| Phase | Candidates | Prompt tokens | Completion tokens | Processed tokens | Active seconds |
+|---|---:|---:|---:|---:|---:|
+| Initial | 512 | 196,900 | 24,855 | 221,755 | 728.85 |
+| Expansion | 256 | 98,430 | 10,293 | 108,723 | 362.80 |
+| Total | 768 | 295,330 | 35,148 | 330,478 | 1,091.65 |
+
+Both runs used float16 MPS, batch size 1, greedy decoding, and zero infrastructure retries. The
+terminal synthetic-data gate failed before target training, so target training, validation, test,
+adapter packaging, and publication consumed no Day 3 compute.

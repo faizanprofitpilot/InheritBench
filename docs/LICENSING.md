@@ -40,3 +40,15 @@ Only the three selected final adapters are eligible for deterministic GitHub Rel
 
 Each release archive includes its adapter config, safetensors, README, and machine-readable lineage.
 Users must obtain the corresponding pinned base model separately and remain subject to its license.
+
+## Day 3 Teacher and Adapter
+
+Day 3 verifies the Day 2 Qwen source adapter from the public `day2-v0.1.0` release before teacher
+inference. The frozen archive hash is
+`8ee07058b71056bf7119582eb15f9fee4febf20b60f8942efa470be44b84a007`; every internal adapter file
+must also match the immutable Day 2 release-verification artifact.
+
+No Day 3 OLMo adapter was produced because the synthetic-data acceptance gate failed before
+training. Consequently no `day3-v0.1.0` release was created. Any future selected Day 3 adapter would
+remain ignored under `adapters/day3`; Qwen and OLMo remain subject to their reviewed Apache-2.0
+licenses.

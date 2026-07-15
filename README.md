@@ -7,6 +7,38 @@ operational capability when an organization replaces one open-weight model famil
 Day 1 establishes OpsRoute, a policy-aware enterprise action-routing capability spanning refund
 routing and subscription cancellation/retention.
 
+## Day 3 Synthetic Distillation
+
+Day 3 adds `target_synthetic_distillation`: a fresh OLMo target trained only on independently
+generated inputs and exact strict outputs from the verified Day 2 Qwen teacher. It preserves the
+frozen OpsRoute splits, prompt/parser `0.1.0`, evaluator `v0`, model revisions, and seed `20260714`.
+
+- The initial pool contains 512 balanced candidates, 32 per archetype. One fixed 256-candidate
+  expansion is available only if strict filtering cannot supply 14 accepted examples per archetype.
+- Leakage protection uses separate surface, full prompt-visible input, and value-sensitive typed
+  semantic hashes. Opaque identifier values and request paraphrases do not conceal or create
+  semantic collisions.
+- The teacher never receives the evaluator-only oracle. Only strict JSON outputs exactly matching
+  the deterministic policy contract can enter the 224-record synthetic training set.
+- Scientific completion and public distribution are separate. A completed, replayed six-system
+  comparison sets `DAY4_UNBLOCKED`; release failure can only set `PUBLICATION_BLOCKED`.
+- Day 4 is never started automatically.
+
+### Current Day 3 Outcome
+
+Day 3 stopped at its predeclared synthetic-data gate. The verified teacher completed all 768
+candidates across the initial and single allowed expansion pools, but only 59 outputs were strict,
+policy-exact, and safety-valid. Accepted outputs covered five of sixteen archetypes, so the required
+224-record set with 14 examples per archetype could not be selected.
+
+- Terminal dataset: `artifacts/day3/synthetic-data/day3-synthetic-dataset-9d186a0dde24549f`
+- Result: `SCIENTIFICALLY_FAILED / DAY4_BLOCKED`
+- Reason: `INSUFFICIENT_ACCEPTED_SYNTHETIC_EXAMPLES`
+- Distribution: `NOT_ATTEMPTED`; no target training, test evaluation, adapter, comparison, release,
+  or Day 4 work was run.
+- Both teacher runs and the 768-record filter replay exactly. Low teacher agreement remains visible;
+  no parser repair, quality retry, prompt change, or label rewriting was used.
+
 ## Current Day 2 Outcome
 
 Day 2 trains and evaluates the learned capability across five frozen systems on the same 32-record
@@ -26,7 +58,7 @@ test split. The source capability gate passed every criterion before any test ev
   approval bypasses, or false actions on validation and final test.
 - All five final runs replay exactly. The machine-readable comparison is under
   `artifacts/day2/comparisons/day2-comparison-8d0e9e5ac1494449`.
-- Adversarial evaluation, distillation, repeated seeds, UI work, and Day 3 remain untouched.
+- Adversarial evaluation, repeated seeds, and UI work remain untouched. Day 3 is reported separately.
 
 The three selected LoRA adapters remain outside Git and are published as deterministic assets in
 the [Day 2 v0.1.0 release](https://github.com/faizanprofitpilot/InheritBench/releases/tag/day2-v0.1.0).
@@ -110,6 +142,28 @@ uv run inheritbench day2 freeze-data
 The production Day 2 command group also provides `train`, `recover`, `evaluate`, `source-gate`,
 `replay`, `compare`, `package-adapters`, and `verify-release`. Every finalization refuses overwrite.
 
+Run the guarded Day 3 sequence:
+
+```bash
+uv run inheritbench day3 validate-configs
+uv run inheritbench day3 freeze-pool
+uv run inheritbench day3 verify-teacher
+uv run inheritbench day3 run-teacher --pool initial --device mps
+uv run inheritbench day3 filter
+# Only when the filter reports NEEDS_EXPANSION:
+uv run inheritbench day3 expand-pool
+uv run inheritbench day3 run-teacher --pool expansion --device mps
+uv run inheritbench day3 filter
+# Stop when the terminal filter reports FAILED. Continue only after COMPLETED:
+uv run inheritbench day3 freeze-schedule
+uv run inheritbench day3 train --device mps
+uv run inheritbench day3 evaluate --split test --device mps
+```
+
+The remaining Day 3 commands provide replay, failure analysis, six-row comparison, separate
+scientific/distribution finalization, deterministic adapter packaging, and public release
+verification. Every command fails closed on missing or mismatched lineage.
+
 Generate or verify the committed dataset:
 
 ```bash
@@ -161,6 +215,9 @@ uv run inheritbench evaluate \
 - `src/inheritbench/inference/` owns sequential inference and replay.
 - `src/inheritbench/day2/` owns learned-method configs, schedules, training, checkpoint selection,
   source gating, final comparison, replay, and release packaging.
+- `src/inheritbench/day3/` owns independent candidate generation, value-sensitive leakage audits,
+  verified teacher inference, strict synthetic filtering, target training, replay, status decisions,
+  and one-adapter publication.
 - `src/inheritbench/artifacts/` owns canonical hashes and no-overwrite finalization.
 - `artifacts/` contains run evidence; no UI or prose document is scoring truth.
 
@@ -189,6 +246,13 @@ parser result. Unrun work is never represented as a zero score.
 - `semantic_decision_score_v0` remains exact full ActionContract equality, not a broader
   normalized decision-only score.
 - MPS memory values are allocation snapshots, not peak-memory measurements.
+- Day 3 synthetic examples still depend upstream on 224 original labels used to train the source
+  teacher; the method is not described as label-free.
+- Public adapter distribution is not evidence of scientific validity, and publication failure does
+  not revise a completed scientific decision.
+- The frozen Day 3 teacher produced only 59 accepted outputs across five archetypes, so no synthetic
+  target was trained and no six-row comparison exists. This is a failed scientific gate, not a zero
+  benchmark score.
 
 See `docs/EVALUATION_PROTOCOL.md`, `docs/COMPUTE_PLAN.md`, and `docs/LICENSING.md` for the
 scientific, compute, and licensing contracts.

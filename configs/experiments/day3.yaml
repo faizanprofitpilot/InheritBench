@@ -1,0 +1,14 @@
+schema_version: day3-experiment-v0.1
+experiment_id: inheritbench-day3-v0.1
+dataset_directory: data/opsroute/v0.1.0
+task_config_path: configs/tasks/opsroute.yaml
+source_model_config_path: configs/models/source.yaml
+target_model_config_path: configs/models/target.yaml
+method_config_path: configs/methods/target_synthetic_distillation.yaml
+pool_config_path: configs/distillation/opsroute_synthetic_v0.1.yaml
+day2_artifact_root: artifacts/day2
+artifact_root: artifacts/day3
+adapter_root: adapters/day3
+seed: 20260714
+adversarial_evaluation: false
+automatic_day4: false

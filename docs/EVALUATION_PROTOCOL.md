@@ -165,3 +165,37 @@ Every final run stores raw output, parser result, expected contract, evaluator m
 metrics, prompt/input hashes, and adapter/checkpoint lineage. Exact replay verifies prediction and
 summary byte hashes, reparses raw output, recomputes metrics and breakdowns, and writes a separate
 immutable bundle.
+
+## Day 3 Synthetic Teacher and Filtering
+
+Day 3 does not modify parser `0.1.0` or evaluator `v0`. The verified source teacher runs the same
+native prompt `0.1.0` over independently generated prompt-visible candidates. It cannot open the
+evaluator-only oracle artifact.
+
+An output enters synthetic training only when inference completes with non-empty output, parsing is
+`STRICT_VALID`, the exact contract equals the deterministic oracle, every safety flag is known and
+false, and the exact teacher candidate creates an OLMo sequence of at most 1,024 tokens. Fenced JSON
+is rejected as `NORMALIZED_NOT_STRICT`; no output is repaired or regenerated for quality.
+
+The selected label is `ParserResult.strict_candidate` exactly. Selection takes the 14 lowest frozen
+SHA-256 ranks within every archetype. Validation/test scores, confidence, style, and latency cannot
+affect acceptance or selection.
+
+The final synthetic adapter uses the unchanged 32-record validation and test protocols. Checkpoint
+selection retains Day 2 safety eligibility and lexicographic ordering. Teacher, filter, schedule,
+evaluation, failure-analysis, and comparison evidence are independently replayable.
+
+The executed terminal filter evaluated 768 teacher records and accepted 59. Rejections were 485
+policy-contract mismatches, 214 schema-invalid outputs, eight safety violations, and two invalid-JSON
+outputs. Accepted records covered only five archetypes, so selection failed before schedule freeze.
+No training or held-out evaluation occurred, and absent results are not represented numerically.
+Both teacher runs and the terminal filter have exact replay artifacts.
+
+## Day 3 Leakage Contract
+
+Three hashes serve distinct purposes: exact request surface, full prompt-visible input, and typed
+semantic leakage. The semantic payload removes wording and opaque identifier values but includes
+identifier presence, requested action, authorization, numeric thresholds and values, statuses,
+eligibility flags, tool availability, and policy constants. Therefore paraphrases do not create
+false novelty, while values such as 4,999 versus 5,001 cannot collapse into one archetype-level
+signature.

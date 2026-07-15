@@ -134,3 +134,46 @@
   one because it scores 100% versus 96.875% for the source.
 - Publish only the three selected final LoRA adapters as deterministic GitHub Release assets under
   tag `day2-v0.1.0`; keep all weights ignored by Git.
+
+## 2026-07-15 — Day 3 Synthetic Distillation Freeze
+
+- Preserve OpsRoute v0.1.0, prompt/parser `0.1.0`, evaluator `v0`, both pinned model revisions, all
+  four split memberships, and seed `20260714`.
+- Generate 512 independent non-adversarial candidates balanced 32 per archetype. Permit exactly one
+  separately seeded 256-candidate expansion only after an insufficient strict filter.
+- Use value-sensitive typed semantic leakage facts rather than family/archetype labels. Normalize
+  opaque identifier values while preserving identifier presence, every decision-relevant value,
+  available tools, and policy constants.
+- Keep candidate input and evaluator-only oracle artifacts separate. Teacher inference may open only
+  prompt-visible candidate inputs.
+- Accept only `STRICT_VALID` outputs that exactly equal the policy oracle and have no safety flag.
+  Preserve the teacher's trimmed strict candidate byte-for-byte as the assistant label.
+- Select exactly 14 accepted examples per archetype using the frozen SHA-256 rank; never select by
+  validation/test behavior, latency, or output style.
+- Train untouched OLMo with the Day 2 full-target LoRA/optimizer settings up to 272,643 whole-sequence
+  tokens. Permit only the declared numerical-instability restart at learning rate `1e-4`.
+- Preserve Day 2 checkpoint safety eligibility and lexicographic selection unchanged. Test exactly
+  once after a checkpoint is frozen; leave adversarial untouched.
+
+## 2026-07-15 — Scientific and Distribution Status Separation
+
+- Scientific completion requires completed training, a safety-eligible checkpoint, 32 terminal
+  held-out test predictions, exact evaluation replay, deterministic failure analysis, and a valid
+  replayed six-row comparison.
+- `SCIENTIFICALLY_COMPLETED` always sets `DAY4_UNBLOCKED`, independent of publication.
+- Publication is a separate distribution decision: `PUBLISHED_VERIFIED`, `PUBLICATION_BLOCKED`, or
+  `NOT_ATTEMPTED`. A second identical-byte publication failure cannot change the scientific status
+  or Day 4 gate.
+- Day 4 becomes eligible but is never started automatically.
+
+## 2026-07-15 — Day 3 Terminal Scientific Decision
+
+- Invoke the one allowed expansion because the initial strict filter accepted only 46 candidates.
+- Preserve the terminal 59/768 acceptance result without prompt revision, regeneration for quality,
+  parser repair, oracle rewriting, or relaxed archetype balance.
+- Classify Day 3 as `SCIENTIFICALLY_FAILED` with
+  `INSUFFICIENT_ACCEPTED_SYNTHETIC_EXAMPLES`; this is not a numeric zero result.
+- Keep `DAY4_BLOCKED` because target training, checkpoint selection, held-out evaluation, failure
+  analysis, and the six-row comparison were correctly not run.
+- Record distribution as `NOT_ATTEMPTED`. The publication/science independence rule remains intact,
+  but no publishable adapter exists in this failed branch.

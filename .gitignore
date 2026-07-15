@@ -22,6 +22,8 @@ huggingface/
 *.pth
 adapters/
 artifacts/day2/publications/**/*.zip
+artifacts/day3/publications/**/*.zip
+artifacts/day3/active/
 
 # Atomic artifact staging directories
 artifacts/**/.tmp-*/

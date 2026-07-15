@@ -2,10 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Protocol
 
 from inheritbench.artifacts.hashing import canonical_json
-from inheritbench.data.opsroute.schemas import OpsRouteExample
+from inheritbench.config import ScenarioFamily
+from inheritbench.data.opsroute.schemas import OpsRouteInput
+
+
+class PromptRecord(Protocol):
+    scenario_family: ScenarioFamily
+    input: OpsRouteInput
+
 
 _SYSTEM_PROMPT_V0_1_0 = "\n".join(
     (
@@ -89,7 +96,7 @@ _SUBSCRIPTION_RULES = "\n".join(
 
 
 def build_messages(
-    example: OpsRouteExample, prompt_template_version: str = "0.1.0"
+    example: PromptRecord, prompt_template_version: str = "0.1.0"
 ) -> list[dict[str, str]]:
     user_payload = {
         "request": example.input.request,
@@ -115,7 +122,7 @@ def build_messages(
 
 
 def render_prompt(
-    tokenizer: Any, example: OpsRouteExample, prompt_template_version: str = "0.1.0"
+    tokenizer: Any, example: PromptRecord, prompt_template_version: str = "0.1.0"
 ) -> str:
     rendered = tokenizer.apply_chat_template(
         build_messages(example, prompt_template_version),

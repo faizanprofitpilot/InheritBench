@@ -1,0 +1,14 @@
+schema_version: synthetic-pool-config-v0.1
+generator_version: day3-candidate-v0.1.0
+template_version: day3-synthetic-template-v0.1.0
+leakage_signature_version: day3-semantic-leakage-v0.1
+filter_version: day3-filter-v0.1.0
+selection_version: day3-synthetic-select-v0.1.0
+schedule_version: day3-synthetic-schedule-v0.1
+seed: 20260714
+initial_per_archetype: 32
+expansion_per_archetype: 16
+selected_per_archetype: 14
+maximum_collision_attempts: 64
+include_adversarial_text: false
+target_processed_tokens: 272643

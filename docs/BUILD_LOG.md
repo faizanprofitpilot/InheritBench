@@ -224,3 +224,62 @@ This file is append-only. Results are recorded only after the corresponding comm
   - `33a9dc520eff5ae7f4e52e6a5d58be60d0b0e9d3` adds post-release anonymous-download verification,
     documentation, and its evidence-matrix assertion; no scientific artifact or adapter changed.
   - Any later `main` commits in this lineage are documentation-only clarity updates.
+
+## 2026-07-15 — Day 3 Foundation and Initial Pool
+
+- Added isolated Day 3 strict schemas, configs, CLI, verified-teacher runner, strict filtering,
+  whole-sequence scheduling, resumable OLMo training, checkpoint selection, frozen-split evaluation,
+  replay, failure analysis, six-row comparison, scientific/distribution decisions, and deterministic
+  one-adapter publication.
+- Generalized only the prompt-record type interface; rendered Day 1/2 prompts remain unchanged.
+- Froze 512 initial candidates at
+  `artifacts/day3/pools/day3-pool-initial-af5ae874b4e54637`: 32 per archetype, 512 unique semantic
+  leakage signatures, and zero overlap with frozen splits, fixtures, smoke IDs, blocker subsets, or
+  Day 2 manifests.
+- Added regression tests proving decision-relevant values alter semantic signatures while request
+  paraphrases and opaque identifier substitutions do not.
+- The first anonymous teacher download returned 404 because the repository was private. After the
+  owner made the repository public, anonymous archive and internal-file verification passed at
+  `artifacts/day3/teacher-verifications/day3-teacher-verification-51f66637be7badc8`.
+- Started the real initial 512-candidate teacher run on local float16 MPS. Final run/filter IDs and
+  measured durations are appended only after immutable finalization.
+
+## 2026-07-15 — Day 3 Teacher Execution and Terminal Gate
+
+- Initial teacher run `day3-teacher-initial-20260715T110543-9be5df3c` completed all 512 candidates
+  with zero infrastructure failures, 221,755 processed generation tokens, and 728.85 seconds of
+  measured active duration.
+- Strict filtering accepted 46 initial outputs, so the one allowed expansion was triggered.
+- Expansion pool `day3-pool-expansion-7c12780f52bbe378` preserved 16 candidates per archetype and
+  zero leakage collisions. Teacher run `day3-teacher-expansion-20260715T111958-735173bf` completed
+  all 256 candidates with zero infrastructure failures, 108,723 processed generation tokens, and
+  362.80 seconds of measured active duration.
+- Terminal filter `day3-filter-9d186a0dde24549f` evaluated all 768 outputs. It accepted 59 and
+  rejected 709: 485 policy-contract mismatches, 214 schema-invalid outputs, eight safety
+  violations, and two invalid-JSON outputs.
+- Accepted outputs covered five of sixteen archetypes; only `pending_payment`, refund unauthorized,
+  eligible cancellation, ineligible retention, and subscription unauthorized had any accepted
+  records. The exact 224-record, 14-per-archetype set was therefore impossible.
+- Teacher replays `day3-replay-teacher-d86202f1df684f79` and
+  `day3-replay-teacher-83fb428b6d4a4fa3`, plus filter replay
+  `day3-replay-filter-afad3d01fa2b4bc9`, all passed exactly.
+- Scientific decision `day3-scientific-decision-41735df24888461c` finalized
+  `SCIENTIFICALLY_FAILED / DAY4_BLOCKED / INSUFFICIENT_ACCEPTED_SYNTHETIC_EXAMPLES`.
+- Distribution decision `day3-distribution-decision-a20ce4a5e30545e8` finalized `NOT_ATTEMPTED`.
+  No target training, validation, held-out test, comparison, adapter packaging, release, or Day 4
+  execution occurred.
+- During filtering, strict JSONL replay exposed datetime strings being passed through Pydantic's
+  Python-mode strict validator. Day 3 JSONL readers now use strict JSON-mode validation, with a
+  regression test; immutable teacher outputs were unchanged.
+
+## 2026-07-15 — Day 3 Final Quality Gates
+
+- Frozen sync checked all 76 locked packages.
+- Ruff lint and format checks passed across 82 files.
+- Strict mypy passed across 51 source files.
+- Offline pytest passed with 83 selected tests and one opt-in real-model smoke test deselected.
+- OpsRoute v0.1.0 regenerated exactly at
+  `9202ecdf200a86cf3899a9ff3eb71722effe9421c04f353fd575d62c6c7d492b`.
+- The real-evidence integration test validates both pools, teacher verification, 768 terminal
+  predictions, the failed synthetic dataset, all three replays, scientific/distribution decisions,
+  and the absence of training, test, comparison, publication, or target-adapter evidence.

@@ -13,5 +13,9 @@ Later work must preserve this separation: evaluated models may produce predictio
 owned expected contracts and hidden split membership remain deterministic Python artifacts.
 
 Day 2 training schedules, limited-data selection, safety gate, checkpoint selection, replay,
-comparison, and deterministic release packaging are likewise new project implementation. No Day 3
-distillation method or external benchmark logic is introduced.
+comparison, and deterministic release packaging are likewise new project implementation.
+
+Day 3 candidate templates, value-sensitive leakage signatures, teacher filtering, scheduling,
+status decisions, and replay logic are newly implemented for InheritBench. Public model and adapter
+artifacts are consumed only through pinned identifiers and verified hashes; no upstream benchmark
+logic or private dataset content is copied.
