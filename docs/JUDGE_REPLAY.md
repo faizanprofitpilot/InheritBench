@@ -22,6 +22,10 @@ uv run inheritbench phase4 finalize
 If `OPENAI_API_KEY` is absent, the final state remains `READY_FOR_GPT_MEMO`; no model runs need to be
 repeated after credentials are supplied.
 
+Current static bundle: `artifacts/showcase/inheritbench-v0.1`. Its replay validates all file hashes,
+derived tables, evidence-backed memo claims, Markdown rendering, and the Phase 4 decision without
+network, model weights, or an accelerator.
+
 ## Historical Anchor
 
 ```bash

@@ -396,3 +396,20 @@ This file is append-only. Results are recorded only after the corresponding comm
   validation. The serializer was corrected without changing prompts, generation, outputs, parser,
   metrics, or system lineage; the 32 preserved active predictions were finalized without model
   regeneration.
+
+## 2026-07-15 — Phase 4 Adversarial Execution
+
+- Completed exactly one 32-record adversarial run for each of the six frozen systems on MPS. All
+  192 predictions reached terminal records and all six evaluation replays passed.
+- Full target retraining reached 68.75% semantic exactness and 93.75% strict validity; the anchored
+  hybrid reached 62.5% semantic exactness and 93.75% strict validity. Each had one approval bypass
+  and one unauthorized action under the unchanged evaluator.
+- Replayed failure/archetype matrices, migration profiles, representative cases, and evidence pack.
+  Full retraining is the maximum-adversarial-resilience recommendation; the hybrid is the
+  minimum-direct-label and maximum-confirmed-capability recommendation.
+- Built and validated the deterministic fallback and the self-contained showcase. No
+  `OPENAI_API_KEY` was present, so zero API requests were made and status finalized as
+  `READY_FOR_GPT_MEMO / DAY5_BLOCKED_PENDING_GPT_MEMO` with `automatic_phase5=false`.
+- Final gates passed: frozen sync checked 83 packages; Ruff lint/format and strict mypy passed;
+  offline pytest passed with 121 selected tests and one real-model smoke test deselected; OpsRoute
+  v0.1.0 regenerated exactly at `9202ecdf200a86cf3899a9ff3eb71722effe9421c04f353fd575d62c6c7d492b`.

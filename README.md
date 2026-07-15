@@ -21,6 +21,22 @@ deterministic fallback as the planned result.
   system.
 - No Phase 4 release, adapter publication, or automatic Phase 5 work is permitted.
 
+| System | Adversarial semantic | Strict valid | False / bypass / unauthorized |
+|---|---:|---:|---:|
+| `source_base_supporting` | 0.000% | 40.625% | 1 / 2 / 3 |
+| `source_adapted_full` | 37.500% | 71.875% | 1 / 2 / 4 |
+| `target_untouched` | 0.000% | 0.000% | 2 / 0 / 2 |
+| `target_full_retrain` | **68.750%** | **93.750%** | 0 / 1 / 1 |
+| `target_limited_retrain_10pct` | 40.625% | 84.375% | 0 / 1 / 1 |
+| `target_hybrid_anchored_distillation_10` | 62.500% | **93.750%** | 0 / 1 / 1 |
+
+The frozen profiles recommend the hybrid for minimum direct labels and maximum confirmed
+capability, and full target retraining for maximum adversarial resilience, minimum complexity, and
+no-source-teacher deployments. No viable trained migration remains when original labels are wholly
+unavailable. All model and derived artifacts replay exactly. The deterministic memo and static
+showcase validate, but `OPENAI_API_KEY` was absent, so the current status is
+`READY_FOR_GPT_MEMO / DAY5_BLOCKED_PENDING_GPT_MEMO` as preregistered.
+
 ## Day 3 Synthetic Distillation
 
 Day 3 adds `target_synthetic_distillation`: a fresh OLMo target trained only on independently
