@@ -453,7 +453,7 @@ def _finalize_run(
         "terminal_predictions": len(predictions),
         "split_sha256": split_sha256,
         "oracle_sha256": oracle_sha256,
-        "adapter": adapter.model_dump(mode="json") if adapter else None,
+        "adapter": adapter,
         "exactly_once_guard_sha256": content_sha256(
             {"system_id": system_id, "split": "adversarial", "split_sha256": split_sha256}
         ),

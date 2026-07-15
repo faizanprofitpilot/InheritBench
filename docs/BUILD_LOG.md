@@ -389,3 +389,10 @@ This file is append-only. Results are recorded only after the corresponding comm
   split, all six model/adapter lineages, and Phase 3B comparison/science/publication hashes.
 - Focused Phase 4 protocol, taxonomy, profile, CLI, and parser-golden tests passed before the
   protocol commit. No model inference or API request occurred during protocol freezing.
+- Protocol commit `26acce08bb5cf74e842306b09bfee12d074a8b8b` was bound through Git-tree
+  attestation `phase4-attestation-6063ecc2f3563c40` before inference.
+- The adapted-source model completed all 32 outputs, then artifact finalization rejected the
+  adapter verification timestamp because the nested model had been JSON-dumped before strict
+  validation. The serializer was corrected without changing prompts, generation, outputs, parser,
+  metrics, or system lineage; the 32 preserved active predictions were finalized without model
+  regeneration.
