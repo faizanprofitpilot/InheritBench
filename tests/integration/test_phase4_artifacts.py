@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from inheritbench.artifacts.hashing import sha256_file
 from inheritbench.phase4.config import load_experiment_config
+from inheritbench.phase4.memo import generate_gpt_memo
 from inheritbench.phase4.schemas import (
     Phase4AnalysisV0_1,
     Phase4CaseSelectionV0_1,
@@ -17,6 +20,7 @@ from inheritbench.phase4.schemas import (
     Phase4ReplayVerificationV0_1,
     Phase4ShowcaseReplayV0_1,
 )
+from inheritbench.phase4.showcase import build_showcase, finalize
 
 EXPERIMENT = Path("configs/experiments/phase4.yaml")
 ROOT = Path("artifacts/phase4")
@@ -88,24 +92,52 @@ def test_phase4_derived_evidence_and_readiness_status() -> None:
     assert evidence.status == "VALIDATED"
     assert len({item.evidence_id for item in evidence.references}) == len(evidence.references)
 
-    validation = Phase4MemoValidationV0_1.model_validate_json(
-        _single(ROOT, "memo-validations/*/validation.json").read_bytes(), strict=True
+    validations = [
+        Phase4MemoValidationV0_1.model_validate_json(path.read_bytes(), strict=True)
+        for path in sorted(ROOT.glob("memo-validations/*/validation.json"))
+    ]
+    attempts = [
+        Phase4MemoAttemptV0_1.model_validate_json(path.read_bytes(), strict=True)
+        for path in sorted(ROOT.glob("memo-attempts/*/attempt.json"))
+    ]
+    decisions = [
+        Phase4DecisionV0_1.model_validate_json(path.read_bytes(), strict=True)
+        for path in sorted(ROOT.glob("decisions/*/decision.json"))
+    ]
+    showcase_replays = [
+        Phase4ShowcaseReplayV0_1.model_validate_json(path.read_bytes(), strict=True)
+        for path in sorted(ROOT.glob("showcase-replays/*/verification.json"))
+    ]
+    assert len(validations) == 2
+    assert {item.status for item in validations} == {"PASSED"}
+    assert [(item.attempt_number, item.request_kind, item.status) for item in attempts] == [
+        (2, "REPAIR", "INVALID_RESPONSE"),
+        (1, "INITIAL", "INVALID_RESPONSE"),
+        (1, "INITIAL", "CREDENTIALS_MISSING"),
+    ]
+    assert {item.phase4_status for item in decisions} == {
+        "READY_FOR_GPT_MEMO",
+        "PHASE4_COMPLETED_WITH_VALIDATED_GPT_MEMO",
+    }
+    final = next(
+        item
+        for item in decisions
+        if item.phase4_status == "PHASE4_COMPLETED_WITH_VALIDATED_GPT_MEMO"
     )
-    attempt = Phase4MemoAttemptV0_1.model_validate_json(
-        _single(ROOT, "memo-attempts/*/attempt.json").read_bytes(), strict=True
-    )
-    decision = Phase4DecisionV0_1.model_validate_json(
-        _single(ROOT, "decisions/*/decision.json").read_bytes(), strict=True
-    )
-    showcase_replay = Phase4ShowcaseReplayV0_1.model_validate_json(
-        _single(ROOT, "showcase-replays/*/verification.json").read_bytes(), strict=True
-    )
-    assert validation.status == "PASSED"
-    assert attempt.status == "CREDENTIALS_MISSING"
-    assert decision.phase4_status == "READY_FOR_GPT_MEMO"
-    assert decision.day5_gate == "DAY5_BLOCKED_PENDING_GPT_MEMO"
-    assert decision.automatic_phase5 is False
-    assert showcase_replay.status == "PASSED"
+    assert final.day5_gate == "DAY5_UNBLOCKED"
+    assert final.automatic_phase5 is False
+    assert len(showcase_replays) == 2
+    assert {item.status for item in showcase_replays} == {"PASSED"}
+    assert Path("artifacts/showcase/inheritbench-v0.1-gpt/manifest.json").is_file()
+
+
+def test_phase4_completed_state_is_permanently_frozen() -> None:
+    with pytest.raises(ValueError, match=r"validated GPT-5\.6 Sol memo already exists"):
+        generate_gpt_memo(EXPERIMENT)
+    with pytest.raises(FileExistsError, match="showcase already exists"):
+        build_showcase(EXPERIMENT)
+    with pytest.raises(ValueError, match="completed decision already exists"):
+        finalize(EXPERIMENT)
 
 
 def _single(root: Path, pattern: str) -> Path:

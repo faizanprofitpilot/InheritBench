@@ -242,3 +242,8 @@ surface with this adversarial surface; no weighted composite score is introduced
 The GPT memo may cite only typed evidence references carrying artifact hashes, JSON paths, values,
 numerators, denominators, and evaluation surfaces. Unsupported numbers, comparisons, causal claims,
 or incomplete teacher/label accounting fail validation.
+
+The final GPT-5.6 Sol memo used the single permitted repair and then passed deterministic validation.
+For grouped directional comparisons, either the first system must dominate every following system,
+or every preceding subject system must dominate the final reference on the same evidence metric.
+The final memo, validation, showcase, replay, and decision are immutable no-overwrite artifacts.

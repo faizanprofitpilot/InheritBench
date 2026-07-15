@@ -14,17 +14,19 @@ uv run inheritbench phase4 select-cases
 uv run inheritbench phase4 build-evidence-pack
 uv run inheritbench phase4 build-fallback-memo
 uv run inheritbench phase4 generate-gpt-memo
+uv run inheritbench phase4 validate-memo --memo artifacts/phase4/memo-attempts/<repair-id>
 uv run inheritbench phase4 build-showcase
 uv run inheritbench phase4 replay-showcase
 uv run inheritbench phase4 finalize
 ```
 
-If `OPENAI_API_KEY` is absent, the final state remains `READY_FOR_GPT_MEMO`; no model runs need to be
-repeated after credentials are supplied.
+The bounded GPT workflow used one initial response and one repair. The exact repaired bytes passed
+the deterministic evidence validator without a third request. No model runs were repeated.
 
-Current static bundle: `artifacts/showcase/inheritbench-v0.1`. Its replay validates all file hashes,
-derived tables, evidence-backed memo claims, Markdown rendering, and the Phase 4 decision without
-network, model weights, or an accelerator.
+Authoritative static bundle: `artifacts/showcase/inheritbench-v0.1-gpt`. Its replay validates all
+file hashes, derived tables, evidence-backed memo claims, Markdown rendering, and the completed
+Phase 4 decision without network, model weights, or an accelerator. The original
+`artifacts/showcase/inheritbench-v0.1` readiness snapshot remains immutable for lineage review.
 
 ## Historical Anchor
 

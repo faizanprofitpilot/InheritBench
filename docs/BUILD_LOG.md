@@ -413,3 +413,21 @@ This file is append-only. Results are recorded only after the corresponding comm
 - Final gates passed: frozen sync checked 83 packages; Ruff lint/format and strict mypy passed;
   offline pytest passed with 121 selected tests and one real-model smoke test deselected; OpsRoute
   v0.1.0 regenerated exactly at `9202ecdf200a86cf3899a9ff3eb71722effe9421c04f353fd575d62c6c7d492b`.
+
+## 2026-07-15 — Phase 4 Validated GPT Memo and Freeze
+
+- Supplied credentials were loaded only from ignored `.env.local`; the key was never printed or
+  committed. The bounded GPT-5.6 Sol workflow made one initial request and the single permitted
+  repair request. No third request was made.
+- The repaired memo initially exposed a deterministic validator limitation: grouped comparisons
+  supported two systems but not three targets against one source reference. The validator was
+  generalized and unit-tested; the exact repaired memo bytes were revalidated without another API
+  request.
+- Authoritative memo `6e5697c5c0b12b9245a4fd192517c187a46d4148672693aac294fa11ef4461d0`
+  passed validation `2a14ba3b4241edd84a2c6dbfc5cb90425a95265363c395672bb52d1d4e01bc60`
+  with complete accounting and no unsupported claims.
+- Built immutable final showcase `artifacts/showcase/inheritbench-v0.1-gpt`; manifest
+  `85f6c02dcc430992a277d0cb500373a1b491893915f450b4523699b7b7d3e5cc` replayed exactly.
+- Final decision `2db9baa4cf266cbccaf8ff4ce8948973a6c8175e5212e3b7336f29d616d434af`
+  is `PHASE4_COMPLETED_WITH_VALIDATED_GPT_MEMO / DAY5_UNBLOCKED` with
+  `automatic_phase5=false`. Existing no-overwrite guards make the final evidence terminal.

@@ -607,7 +607,7 @@ class ShowcaseFileV0_1(Phase4Model):
 
 class Phase4ShowcaseManifestV0_1(Phase4Model):
     schema_version: Literal["phase4-showcase-manifest-v0.1"]
-    showcase_id: Literal["inheritbench-v0.1"]
+    showcase_id: Literal["inheritbench-v0.1", "inheritbench-v0.1-gpt"]
     status: Literal["BUILT"]
     files: list[ShowcaseFileV0_1] = Field(min_length=1)
     decision_content_sha256: Sha256

@@ -12,9 +12,8 @@ routing and subscription cancellation/retention.
 Phase 4 freezes the untouched 32-record adversarial split and evaluates the six existing systems
 exactly once without new training, prompts, methods, data, or repeated seeds. Deterministic replay
 produces failure/archetype matrices, migration profiles, representative cases, and a content-addressed
-evidence pack. The intended submission memo uses official `gpt-5.6-sol` structured output; absent
-credentials leave the validated static bundle at `READY_FOR_GPT_MEMO` rather than substituting the
-deterministic fallback as the planned result.
+evidence pack. The authoritative submission memo uses official `gpt-5.6-sol` structured output and
+passes the deterministic evidence validator after the single permitted repair.
 
 - Frozen protocol: `artifacts/phase4/protocols/phase4-protocol-95094c5782a1d987`.
 - Phase 4 uses parser `0.1.0`, evaluator `v0`, prompt `0.1.0`, seed `20260714`, and one MPS pass per
@@ -33,9 +32,11 @@ deterministic fallback as the planned result.
 The frozen profiles recommend the hybrid for minimum direct labels and maximum confirmed
 capability, and full target retraining for maximum adversarial resilience, minimum complexity, and
 no-source-teacher deployments. No viable trained migration remains when original labels are wholly
-unavailable. All model and derived artifacts replay exactly. The deterministic memo and static
-showcase validate, but `OPENAI_API_KEY` was absent, so the current status is
-`READY_FOR_GPT_MEMO / DAY5_BLOCKED_PENDING_GPT_MEMO` as preregistered.
+unavailable. All model and derived artifacts replay exactly. The validated GPT memo and final static
+showcase also replay without network, weights, or an accelerator. Phase 4 is permanently frozen at
+`PHASE4_COMPLETED_WITH_VALIDATED_GPT_MEMO / DAY5_UNBLOCKED` with `automatic_phase5=false`.
+The earlier readiness bundle remains immutable beside the authoritative final bundle at
+`artifacts/showcase/inheritbench-v0.1-gpt`.
 
 ## Day 3 Synthetic Distillation
 
@@ -223,7 +224,7 @@ uv run inheritbench phase4 evaluate-adversarial --system source_base_supporting
 ```
 
 The remaining `phase4` commands replay all six evaluations, build the analyses/evidence pack,
-validate the deterministic fallback, attempt the bounded GPT memo, and replay the static showcase.
+validate the deterministic fallback and bounded GPT memo, and replay the static showcase.
 
 Verify Day 2 configuration and frozen schedules:
 

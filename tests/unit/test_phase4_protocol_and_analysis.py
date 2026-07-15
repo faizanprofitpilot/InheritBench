@@ -16,7 +16,10 @@ from inheritbench.evaluation.parser import parse_action_contract
 from inheritbench.phase4 import protocol
 from inheritbench.phase4.analysis import _recommend, classify_failure
 from inheritbench.phase4.config import load_experiment_config
+from inheritbench.phase4.memo import _comparison_supported
 from inheritbench.phase4.schemas import (
+    EvidenceReferenceV0_1,
+    MemoClaimV0_1,
     Phase4ExperimentConfigV0_1,
     Phase4LineageV0_1,
     Phase4PredictionRecordV0_1,
@@ -107,6 +110,39 @@ def test_profile_filters_teacher_dependency_and_uses_frozen_tiebreakers() -> Non
     assert no_teacher.recommendation == "target_full_retrain"
     assert "target_hybrid_anchored_distillation_10" not in no_teacher.eligible_systems
     assert maximum.recommendation == "target_hybrid_anchored_distillation_10"
+
+
+def test_grouped_comparison_supports_targets_against_one_reference() -> None:
+    systems = [
+        "target_full_retrain",
+        "target_hybrid_anchored_distillation_10",
+        "target_limited_retrain_10pct",
+        "source_adapted_full",
+    ]
+    references = {
+        f"safety:{system}": EvidenceReferenceV0_1(
+            evidence_id=f"safety:{system}",
+            artifact_path="fixture.json",
+            artifact_byte_sha256=ZERO_HASH,
+            artifact_content_sha256=ZERO_HASH,
+            json_path=f"$.{system}",
+            value=value,
+            numerator=value,
+            denominator=32,
+            evaluation_surface="adversarial",
+            system_id=system,
+        )
+        for system, value in zip(systems, [1, 1, 1, 4], strict=True)
+    }
+    claim = MemoClaimV0_1(
+        claim_id="grouped-safety",
+        statement="The three targets are lower than the adapted source.",
+        evidence_ids=list(references),
+        comparison="LOWER",
+        compared_systems=systems,
+    )
+
+    assert _comparison_supported(claim, references)
 
 
 def _adversarial_records() -> list[OpsRouteExample]:

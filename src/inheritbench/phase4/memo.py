@@ -220,6 +220,22 @@ def validate_memo(experiment_path: Path, memo_directory: Path) -> Path:
     )
     if status == "FAILED":
         raise ValueError(f"Phase 4 memo validation failed; evidence preserved at {path}")
+    if memo.memo_kind == "GPT_5_6_SOL":
+        memo_id = f"phase4-gpt-memo-{memo.content_sha256[:16]}"
+        existing = sorted((root / "memos/gpt").glob("*/memo.json"))
+        if existing:
+            selected = Phase4MemoV0_1.model_validate_json(existing[0].read_bytes(), strict=True)
+            if len(existing) != 1 or selected.content_sha256 != memo.content_sha256:
+                raise ValueError("a different validated GPT-5.6 Sol memo already exists")
+        else:
+            write_atomic_bundle(
+                root / "memos/gpt",
+                memo_id,
+                {
+                    "memo.json": canonical_json_bytes(memo) + b"\n",
+                    "memo.md": markdown.encode("utf-8"),
+                },
+            )
     return path
 
 
@@ -545,9 +561,13 @@ def _comparison_supported(
         if not all(system in values for system in claim.compared_systems):
             continue
         ordered = [values[system] for system in claim.compared_systems]
-        if claim.comparison == "HIGHER" and ordered[0] > ordered[1]:
+        if claim.comparison == "HIGHER" and (
+            ordered[0] > max(ordered[1:]) or min(ordered[:-1]) > ordered[-1]
+        ):
             return True
-        if claim.comparison == "LOWER" and ordered[0] < ordered[1]:
+        if claim.comparison == "LOWER" and (
+            ordered[0] < min(ordered[1:]) or max(ordered[:-1]) < ordered[-1]
+        ):
             return True
         if claim.comparison == "BEST" and ordered[0] == max(ordered):
             return True

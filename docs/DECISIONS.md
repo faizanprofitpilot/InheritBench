@@ -244,3 +244,14 @@
   produce `READY_FOR_GPT_MEMO`; deterministic fallback completion is reserved for a genuine bounded
   API failure.
 - Omit repeated seeds, new methods, new data, releases, UI implementation, and automatic Phase 5.
+
+## 2026-07-15 — Phase 4 GPT Memo Finalization
+
+- Accept the single repaired GPT-5.6 Sol response as authoritative only after deterministic
+  revalidation against the immutable evidence graph; make no additional API request.
+- Treat a many-to-one comparison as supported when every listed subject system is strictly higher
+  or lower than the final reference system on the same typed evidence metric. Preserve the original
+  invalid-attempt records as audit evidence.
+- Preserve `artifacts/showcase/inheritbench-v0.1` as the readiness snapshot and store the validated
+  GPT state separately at `artifacts/showcase/inheritbench-v0.1-gpt`.
+- Freeze Phase 4 after the completed decision. Phase 5 is unblocked but never starts automatically.

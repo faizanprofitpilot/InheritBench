@@ -37,9 +37,6 @@ _SchemaT = TypeVar("_SchemaT", bound=BaseModel)
 def build_showcase(experiment_path: Path) -> Path:
     experiment = load_experiment_config(experiment_path)
     artifact_root = resolve(experiment_path, experiment.artifact_root)
-    showcase_root = resolve(experiment_path, experiment.showcase_root)
-    if showcase_root.exists():
-        raise FileExistsError(f"showcase already exists: {showcase_root}")
     protocol_path, protocol = find_protocol(experiment_path)
     analysis_path, analysis = _single(
         artifact_root / "analysis", "analysis.json", Phase4AnalysisV0_1
@@ -54,6 +51,9 @@ def build_showcase(experiment_path: Path) -> Path:
         artifact_root / "evidence-packs", "evidence.json", Phase4EvidencePackV0_1
     )
     memo_path, memo, validation_path, validation = _selected_validated_memo(artifact_root)
+    showcase_root = _showcase_destination(experiment_path, memo)
+    if showcase_root.exists():
+        raise FileExistsError(f"showcase already exists: {showcase_root}")
     decision = _decision_candidate(experiment_path, memo, validation, evidence)
     provenance = {
         "schema_version": "phase4-showcase-provenance-v0.1",
@@ -92,7 +92,7 @@ def build_showcase(experiment_path: Path) -> Path:
     ]
     manifest_payload = {
         "schema_version": "phase4-showcase-manifest-v0.1",
-        "showcase_id": "inheritbench-v0.1",
+        "showcase_id": showcase_root.name,
         "status": "BUILT",
         "files": [item.model_dump(mode="json") for item in entries],
         "decision_content_sha256": decision.content_sha256,
@@ -112,7 +112,7 @@ def build_showcase(experiment_path: Path) -> Path:
 def replay_showcase(experiment_path: Path) -> Path:
     experiment = load_experiment_config(experiment_path)
     artifact_root = resolve(experiment_path, experiment.artifact_root)
-    showcase_root = resolve(experiment_path, experiment.showcase_root)
+    showcase_root = _selected_showcase_root(experiment_path)
     manifest = Phase4ShowcaseManifestV0_1.model_validate_json(
         (showcase_root / "manifest.json").read_bytes(), strict=True
     )
@@ -174,13 +174,27 @@ def replay_showcase(experiment_path: Path) -> Path:
 def finalize(experiment_path: Path) -> Path:
     experiment = load_experiment_config(experiment_path)
     artifact_root = resolve(experiment_path, experiment.artifact_root)
-    showcase_root = resolve(experiment_path, experiment.showcase_root)
-    if list((artifact_root / "decisions").glob("*/decision.json")):
-        raise ValueError("Phase 4 final decision already exists")
+    showcase_root = _selected_showcase_root(experiment_path)
+    existing_decisions = [
+        Phase4DecisionV0_1.model_validate_json(path.read_bytes(), strict=True)
+        for path in sorted((artifact_root / "decisions").glob("*/decision.json"))
+    ]
+    if any(item.phase4_status != "READY_FOR_GPT_MEMO" for item in existing_decisions):
+        raise ValueError("Phase 4 completed decision already exists")
+    manifest = Phase4ShowcaseManifestV0_1.model_validate_json(
+        (showcase_root / "manifest.json").read_bytes(), strict=True
+    )
     replays = sorted((artifact_root / "showcase-replays").glob("*/verification.json"))
-    if len(replays) != 1:
-        raise ValueError("Phase 4 finalization requires one showcase replay")
-    replay = Phase4ShowcaseReplayV0_1.model_validate_json(replays[0].read_bytes(), strict=True)
+    matching_replays = []
+    for replay_path in replays:
+        candidate = Phase4ShowcaseReplayV0_1.model_validate_json(
+            replay_path.read_bytes(), strict=True
+        )
+        if candidate.manifest_sha256 == manifest.content_sha256:
+            matching_replays.append(candidate)
+    if len(matching_replays) != 1:
+        raise ValueError("Phase 4 finalization requires one replay for the selected showcase")
+    replay = matching_replays[0]
     if replay.status != "PASSED":
         raise ValueError("Phase 4 showcase replay did not pass")
     decision = Phase4DecisionV0_1.model_validate_json(
@@ -197,6 +211,21 @@ def finalize(experiment_path: Path) -> Path:
         decision.decision_id,
         {"decision.json": canonical_json_bytes(decision) + b"\n"},
     )
+
+
+def _showcase_destination(experiment_path: Path, memo: Phase4MemoV0_1) -> Path:
+    experiment = load_experiment_config(experiment_path)
+    base = resolve(experiment_path, experiment.showcase_root)
+    if memo.memo_kind == "GPT_5_6_SOL":
+        return base.parent / f"{base.name}-gpt"
+    return base
+
+
+def _selected_showcase_root(experiment_path: Path) -> Path:
+    experiment = load_experiment_config(experiment_path)
+    base = resolve(experiment_path, experiment.showcase_root)
+    gpt = base.parent / f"{base.name}-gpt"
+    return gpt if gpt.is_dir() else base
 
 
 def _decision_candidate(
