@@ -190,3 +190,18 @@ This file is append-only. Results are recorded only after the corresponding comm
 - All five final runs replayed exactly under `artifacts/day2/replays`.
 - Final comparison `day2-comparison-8d0e9e5ac1494449` reports semantic retention of 103.226% for
   full target and 87.097% for limited target relative to adapted source.
+
+## 2026-07-15 — Day 2 Gates and Release Packaging
+
+- Ruff lint and format checks passed; strict mypy passed for 41 source files.
+- Offline pytest passed: 48 selected tests passed and one real-model smoke test was deselected.
+- Dataset regeneration retained SHA-256
+  `9202ecdf200a86cf3899a9ff3eb71722effe9421c04f353fd575d62c6c7d492b`.
+- Frozen `uv` sync checked all 76 locked packages.
+- Pushed Day 2 code and scientific evidence at commit
+  `78e616bdd852b95766936e7dba8966938c2fe760`.
+- Packaged three deterministic adapter archives under publication
+  `day2-publication-78674991ed2241c1`; ZIP files remain ignored by Git.
+- Archive hashes: source `8ee07058b71056bf7119582eb15f9fee4febf20b60f8942efa470be44b84a007`,
+  full target `cf92573ba50db6cda9788ce5d43840609bed007092c70562581d60cb227b0894`, and
+  limited target `0e23bffa48f11206da39ee988f9f4943eef415c2629d93a1637ec68b2f950118`.
