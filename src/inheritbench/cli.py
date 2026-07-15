@@ -263,6 +263,48 @@ def phase3b_finalize_science_command(
     console.print(f"[green]Phase 3B scientific decision frozen[/green] {path}")
 
 
+@phase3b_app.command("package-adapter")
+def phase3b_package_adapter_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.publication import package_adapter
+
+    path = package_adapter(experiment)
+    console.print(f"[green]Phase 3B adapter packaged[/green] {path}")
+
+
+@phase3b_app.command("verify-release")
+def phase3b_verify_release_command(
+    publication: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.config import load_experiment_config, resolve
+    from inheritbench.phase3b.publication import verify_release
+
+    config = load_experiment_config(experiment)
+    path = verify_release(
+        publication,
+        resolve(experiment, config.artifact_root) / "publication-verifications",
+    )
+    console.print(f"[green]Phase 3B public release verified[/green] {path}")
+
+
+@phase3b_app.command("finalize-distribution")
+def phase3b_finalize_distribution_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.publication import finalize_distribution
+
+    path = finalize_distribution(experiment)
+    console.print(f"[green]Phase 3B distribution decision frozen[/green] {path}")
+
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(__version__)

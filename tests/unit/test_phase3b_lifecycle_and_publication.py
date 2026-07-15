@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import subprocess
 from pathlib import Path
 from types import SimpleNamespace
@@ -7,6 +8,7 @@ from types import SimpleNamespace
 import pytest
 
 from inheritbench.phase3b import baseline
+from inheritbench.phase3b.publication import _zip_hashes, deterministic_zip
 from inheritbench.phase3b.schemas import (
     Phase3BPreregistrationAttestationV0_1,
     Phase3BPublicationManifestV0_1,
@@ -107,3 +109,14 @@ def test_publication_status_cannot_change_scientific_gate() -> None:
     assert publication.publication_status == "PUBLICATION_BLOCKED"
     assert decision.scientific_status == "PHASE3B_SCIENTIFICALLY_COMPLETED"
     assert decision.day4_gate == "DAY4_UNBLOCKED"
+
+
+def test_phase3b_adapter_archive_is_deterministic() -> None:
+    adapter = Path("adapters/phase3b/target_hybrid_anchored_distillation_10-7461072c83b4dcde")
+    names = ["README.md", "adapter_config.json", "adapter_model.safetensors", "lineage.json"]
+    first = deterministic_zip(adapter, names)
+    second = deterministic_zip(adapter, list(reversed(names)))
+    assert first == second
+    assert _zip_hashes(first) == {
+        name: hashlib.sha256((adapter / name).read_bytes()).hexdigest() for name in names
+    }
