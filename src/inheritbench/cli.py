@@ -34,6 +34,10 @@ phase4_app = typer.Typer(
     no_args_is_help=True,
     help="Phase 4 adversarial evidence and GPT-5.6 analysis workflow.",
 )
+phase5_app = typer.Typer(
+    no_args_is_help=True,
+    help="Phase 5 static model-succession product workflow.",
+)
 app.add_typer(data_app, name="data")
 app.add_typer(compute_app, name="compute")
 app.add_typer(day2_app, name="day2")
@@ -41,7 +45,56 @@ app.add_typer(day3_app, name="day3")
 app.add_typer(day3_matched_app, name="day3-matched")
 app.add_typer(phase3b_app, name="phase3b")
 app.add_typer(phase4_app, name="phase4")
+app.add_typer(phase5_app, name="phase5")
 console = Console(stderr=True)
+
+
+@phase5_app.command("build-web-projection")
+def phase5_build_web_projection_command() -> None:
+    from inheritbench.phase5.projection import build_web_projection
+
+    path = build_web_projection()
+    console.print(f"[green]Phase 5 web projection frozen[/green] {path}")
+
+
+@phase5_app.command("verify-web-projection")
+def phase5_verify_web_projection_command() -> None:
+    from inheritbench.phase5.projection import verify_web_projection
+
+    manifest = verify_web_projection()
+    console.print(f"[green]Phase 5 web projection replay passed[/green] {manifest.content_sha256}")
+
+
+@phase5_app.command("finalize-local-product")
+def phase5_finalize_local_product_command(
+    build_manifest: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "artifacts/phase5/web-build/inheritbench-web-build-v0.1/manifest.json"
+    ),
+) -> None:
+    from inheritbench.phase5.lifecycle import finalize_local_product
+
+    path = finalize_local_product(build_manifest)
+    console.print(f"[green]Phase 5 local product finalized[/green] {path}")
+
+
+@phase5_app.command("verify-deployment")
+def phase5_verify_deployment_command(
+    url: Annotated[str, typer.Option()],
+) -> None:
+    from inheritbench.phase5.lifecycle import verify_deployment
+
+    path = verify_deployment(url)
+    console.print(f"[green]Phase 5 deployment verified[/green] {path}")
+
+
+@phase5_app.command("finalize-deployment")
+def phase5_finalize_deployment_command(
+    verification: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+) -> None:
+    from inheritbench.phase5.lifecycle import finalize_deployment
+
+    path = finalize_deployment(verification)
+    console.print(f"[green]Phase 5 deployment finalized[/green] {path}")
 
 
 @phase4_app.command("validate-configs")

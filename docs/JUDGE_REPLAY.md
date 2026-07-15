@@ -108,3 +108,28 @@ Public release verification is machine-readable under
 `artifacts/phase3b/publication-verifications/phase3b-publication-verified-4137871051bd4cfa`, and the
 independent distribution decision is under
 `artifacts/phase3b/distribution-decisions/phase3b-publication-verified-4137871051bd4cfa`.
+
+## Phase 5 Product Replay
+
+The web product is a display projection over frozen Phase 1–4 evidence. It introduces no metric,
+scientific method, representative case, or status. Verify the projection and complete local gates:
+
+```bash
+uv run inheritbench phase5 verify-web-projection
+pnpm verify
+```
+
+The deployed build path is deliberately Node-only. It validates and ingests the committed
+`artifacts/showcase/inheritbench-v0.1-gpt` and
+`artifacts/phase5/web-projection/inheritbench-web-v0.1` bundles before producing the static export.
+It does not invoke Python, uv, Hugging Face, OpenAI, model weights, or historical inference.
+
+Representative-case resolution reads the frozen selection lineage and then requires prediction
+evidence from the matching confirmatory, adversarial, or exploratory surface. The current selection
+replays to six adversarial cases and two unchanged `NO_ELIGIBLE_CASE` slots. Surface mismatches,
+missing systems, and changed raw outputs fail closed.
+
+The local decision is `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`. It is not a
+deployment claim. `PHASE5_PRODUCT_COMPLETED / DEPLOYED_VERIFIED` requires a separate immutable
+hosted-browser verification artifact covering every route, direct deep links, incognito access,
+browser hash verification, the full core flow, desktop/mobile rendering, and clean browser logs.

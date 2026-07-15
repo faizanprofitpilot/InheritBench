@@ -28,6 +28,17 @@ artifacts/day3/active/
 artifacts/phase3b/active/
 artifacts/phase3b/publications/**/*.zip
 artifacts/phase4/active/
+artifacts/phase5/active/
+artifacts/phase5/publications/**/*.zip
+
+# Static web build outputs
+node_modules/
+.next/
+out/
+apps/web/public/data/
+apps/web/test-results/
+apps/web/playwright-report/
+*.tsbuildinfo
 
 # Atomic artifact staging directories
 artifacts/**/.tmp-*/

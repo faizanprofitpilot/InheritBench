@@ -1,0 +1,20 @@
+{
+  "name": "inheritbench-workspace",
+  "private": true,
+  "packageManager": "pnpm@10.7.1",
+  "engines": {
+    "node": "22.14.0",
+    "pnpm": "10.7.1"
+  },
+  "scripts": {
+    "build": "pnpm --filter @inheritbench/web build",
+    "dev": "pnpm --filter @inheritbench/web dev",
+    "ingest": "pnpm --filter @inheritbench/web ingest",
+    "lint:web": "pnpm --filter @inheritbench/web lint",
+    "typecheck:web": "pnpm --filter @inheritbench/web typecheck",
+    "test:web": "pnpm --filter @inheritbench/web test",
+    "test:e2e": "pnpm --filter @inheritbench/web test:e2e",
+    "verify:web": "pnpm ingest && pnpm lint:web && pnpm typecheck:web && pnpm test:web && pnpm build && pnpm test:e2e && pnpm --filter @inheritbench/web build-report",
+    "verify": ".venv/bin/inheritbench phase5 verify-web-projection && pnpm verify:web"
+  }
+}

@@ -255,3 +255,16 @@
 - Preserve `artifacts/showcase/inheritbench-v0.1` as the readiness snapshot and store the validated
   GPT state separately at `artifacts/showcase/inheritbench-v0.1-gpt`.
 - Freeze Phase 4 after the completed decision. Phase 5 is unblocked but never starts automatically.
+
+## 2026-07-15 — Phase 5 Product Boundary
+
+- Build a self-directed model-succession lab rather than a guided walkthrough, judge mode, tour,
+  spotlight, or auto-advancing presentation.
+- Preserve scientific/product separation: Python deterministically projects and verifies frozen
+  evidence; the deployed web build consumes only committed hashed data through Node.
+- Resolve every representative case from its recorded evaluation surface and fail closed rather
+  than substitute, regenerate, or manually replace evidence.
+- Keep confirmatory and adversarial surfaces separate with explicit denominators and no blended
+  score. Render the validated GPT-5.6 Sol structured memo without regeneration or rewriting.
+- Stop at `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`. Public completion requires a
+  stable unauthenticated URL and all immutable hosted-browser checks; no deployment occurs here.

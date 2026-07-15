@@ -431,3 +431,23 @@ This file is append-only. Results are recorded only after the corresponding comm
 - Final decision `2db9baa4cf266cbccaf8ff4ce8948973a6c8175e5212e3b7336f29d616d434af`
   is `PHASE4_COMPLETED_WITH_VALIDATED_GPT_MEMO / DAY5_UNBLOCKED` with
   `automatic_phase5=false`. Existing no-overwrite guards make the final evidence terminal.
+
+## 2026-07-15 — Phase 5 Static Product
+
+- Added a pnpm workspace and statically exported Next.js App Router application with six directly
+  linkable routes, a self-directed information architecture, accessible charts/tables, frozen case
+  inspection, validated memo citations, and in-browser showcase hash verification.
+- Added deterministic Python projection `inheritbench-web-v0.1`. Its surface-aware resolver derives
+  six adversarial selected cases and preserves two `NO_ELIGIBLE_CASE` slots without substitution.
+- Added a Node-only ingestion and build path that verifies committed showcase/projection hashes and
+  requires no Python, uv, API credential, model, accelerator, or runtime data service.
+- Added local projection, frontend unit, static-build, Chromium desktop/mobile, accessibility,
+  reduced-motion, deep-link, and no-external-request gates. Deployment remains intentionally out of
+  scope.
+- Projection `08d272c95d243a7d89736afe9e7eb448a3b94d23b2c3687d2dccd191663ecd05`
+  and web-build manifest `4a0c6cc92fe008906717aa45f104d95ec03a9e989a68d13ca49ce30c3fc01735`
+  reproduced exactly; 130 offline Python tests, four frontend unit tests, and 20 desktop/mobile
+  browser tests passed.
+- Final product status is `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`; hosted
+  completion remains guarded by a separate deployment-verification artifact. Local decision hash:
+  `0b86720841e28d1a3da476fb1e491debe0ed9bf88466e6bf739b6ce635004d2d`.

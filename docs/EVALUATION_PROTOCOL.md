@@ -247,3 +247,15 @@ The final GPT-5.6 Sol memo used the single permitted repair and then passed dete
 For grouped directional comparisons, either the first system must dominate every following system,
 or every preceding subject system must dominate the final reference on the same evidence metric.
 The final memo, validation, showcase, replay, and decision are immutable no-overwrite artifacts.
+
+## Phase 5 Display Projection
+
+Phase 5 does not evaluate models or define metrics. It projects frozen confirmatory, adversarial,
+exploratory, migration-profile, representative-case, and GPT-memo evidence into a deterministic
+display bundle. Every displayed fact retains its source path, byte/content hashes, JSON path, value,
+numerator, denominator, and evaluation surface.
+
+Case resolution follows the surface recorded by the immutable selection lineage. Confirmatory cases
+must resolve from Phase 3B confirmatory predictions, adversarial cases from Phase 4 predictions, and
+exploratory cases only from explicitly labeled exploratory artifacts. Missing or conflicting
+lineage is an integrity failure; there is no regeneration or substitution path.

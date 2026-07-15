@@ -7,6 +7,31 @@ operational capability when an organization replaces one open-weight model famil
 Day 1 establishes OpsRoute, a policy-aware enterprise action-routing capability spanning refund
 routing and subscription cancellation/retention.
 
+## Phase 5 Model Succession Lab
+
+Phase 5 packages the frozen science as a self-directed static product under `apps/web`. The lab
+connects the capability break, recovery methods, confirmatory/adversarial tradeoffs, migration
+profiles, validated GPT-5.6 Sol memo, and integrity evidence without live model execution.
+
+- Routes: `/`, `/lab/opsroute`, `/lab/opsroute/methods`, `/lab/opsroute/failures`,
+  `/lab/opsroute/memo`, and `/lab/opsroute/evidence`.
+- Python builds and byte-verifies the committed display projection; Node verifies and ingests only
+  the committed showcase and projection for the static web build.
+- Representative cases are resolved from their recorded evaluation surface and never substituted,
+  regenerated, or manually replaced.
+- The deployed application has no backend, authentication, API key, Python, model, GPU, or runtime
+  data-service dependency.
+- Current status: `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`. Public completion is
+  prohibited until the hosted deep-link, incognito, integrity, accessibility, mobile, and desktop
+  checks pass.
+
+Local verification:
+
+```bash
+uv run inheritbench phase5 verify-web-projection
+pnpm verify
+```
+
 ## Phase 4 Adversarial Evidence
 
 Phase 4 freezes the untouched 32-record adversarial split and evaluates the six existing systems
@@ -322,6 +347,8 @@ uv run inheritbench evaluate \
   and one-adapter publication.
 - `src/inheritbench/day3_matched/` owns the isolated final distribution-matched recovery, exact
   train-fingerprint audits, terminal-negative status, replay, and independent publication lineage.
+- `src/inheritbench/phase5/` owns the deterministic product projection and local/deployment status
+  gates; `apps/web/` owns the Node-only static product.
 - `src/inheritbench/artifacts/` owns canonical hashes and no-overwrite finalization.
 - `artifacts/` contains run evidence; no UI or prose document is scoring truth.
 
