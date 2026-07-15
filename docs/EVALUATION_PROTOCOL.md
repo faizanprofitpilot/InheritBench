@@ -215,3 +215,15 @@ distillation result.
 The executed matched filter accepted 719/768 outputs and rejected 49 policy-contract mismatches.
 Duplicate auto-refund accepted 4/48, so the frozen 14-per-archetype balance failed despite a
 `93.6198%` aggregate acceptance rate. This is preserved as a terminal negative, not a zero score.
+
+## Phase 3B Confirmatory Protocol
+
+Phase 3B freezes separate 32-record confirmatory validation and 64-record confirmatory test bundles
+before training. Inputs and oracles are separate. Generation uses train-supported facts, generic
+two-sided policy-boundary coverage, no adversarial text, and the unchanged value-sensitive semantic
+signature. All five collision classes have zero overlap.
+
+Checkpoint selection sees only confirmatory validation and retains the existing safety eligibility
+and lexicographic ordering. The selected checkpoint receives exactly one primary confirmatory test
+run. Five historical systems then run on the identical split hash. The original test is inspected
+only afterward and labeled exploratory. Parser `0.1.0` and metrics `v0` are unchanged.

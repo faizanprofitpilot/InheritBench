@@ -24,3 +24,8 @@ The distribution-matched recovery is also newly implemented. It derives a statis
 from this repository's committed train inputs, uses deterministic Hamilton apportionment, and reuses
 the project's own frozen rendering and leakage contracts. It does not copy an external dataset,
 benchmark method, or private label source.
+
+Phase 3B anchored transfer, confirmatory generation, Git-tree preregistration, mixed-origin schedule,
+evaluation matrix, replay, and publication contracts are original InheritBench implementation. The
+ten anchors come only from this repository's frozen deterministic train split; no external benchmark
+data, hidden labels, or copied transfer method is introduced.

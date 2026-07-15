@@ -206,7 +206,7 @@ def phase3b_evaluate_matrix_command(
 
 @phase3b_app.command("replay")
 def phase3b_replay_command(
-    kind: Annotated[Literal["evaluation"], typer.Option()],
+    kind: Annotated[Literal["evaluation", "analysis", "comparison"], typer.Option()],
     artifact: Annotated[Path, typer.Option(exists=True, file_okay=False)],
     experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
         "configs/experiments/phase3b.yaml"
@@ -214,11 +214,53 @@ def phase3b_replay_command(
 ) -> None:
     from inheritbench.phase3b.config import load_experiment_config, resolve
     from inheritbench.phase3b.evaluation import replay_evaluation
+    from inheritbench.phase3b.lifecycle import replay_derived
 
-    del kind
     config = load_experiment_config(experiment)
-    path = replay_evaluation(artifact, resolve(experiment, config.artifact_root) / "replays")
+    output_root = resolve(experiment, config.artifact_root) / "replays"
+    path = (
+        replay_evaluation(artifact, output_root)
+        if kind == "evaluation"
+        else replay_derived(kind, artifact, output_root)
+    )
     console.print(f"[green]Phase 3B replay passed[/green] {path}")
+
+
+@phase3b_app.command("analyze-failures")
+def phase3b_analyze_failures_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.lifecycle import analyze_failures
+
+    path = analyze_failures(experiment)
+    console.print(f"[green]Phase 3B failure analysis frozen[/green] {path}")
+
+
+@phase3b_app.command("compare")
+def phase3b_compare_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.lifecycle import build_comparisons
+
+    paths = build_comparisons(experiment)
+    console.print(f"[green]Phase 3B comparisons frozen[/green] {len(paths)} bundle(s)")
+
+
+@phase3b_app.command("finalize-science")
+def phase3b_finalize_science_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+    blocked_reason: Annotated[str | None, typer.Option()] = None,
+) -> None:
+    from inheritbench.phase3b.lifecycle import finalize_science
+
+    path = finalize_science(experiment, blocked_reason)
+    console.print(f"[green]Phase 3B scientific decision frozen[/green] {path}")
 
 
 def _version_callback(value: bool) -> None:

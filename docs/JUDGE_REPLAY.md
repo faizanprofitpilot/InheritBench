@@ -50,3 +50,20 @@ the observed outcome exist.
 
 `PUBLISHED_VERIFIED`, `PUBLICATION_BLOCKED`, and `NOT_ATTEMPTED` are distribution-only statuses and
 cannot change the recovery or Day 4 decision.
+
+## Phase 3B Replay
+
+The scientific inputs are frozen at preregistration commit
+`cd873c5d87817f64ac2ecd04824ef1cfdb19b1ea`. Verify its Git-tree attestation and exact results:
+
+```bash
+uv run inheritbench phase3b validate-configs
+uv run inheritbench phase3b replay --kind evaluation --artifact artifacts/phase3b/test/<run-id>
+uv run inheritbench phase3b replay --kind analysis --artifact artifacts/phase3b/failure-analysis/<id>
+uv run inheritbench phase3b replay --kind comparison --artifact artifacts/phase3b/comparisons/<id>
+```
+
+The primary comparison requires six completed rows with one confirmatory split hash. The original
+test is separately exploratory. Commit lineage is historical reference `7283bfe`, preregistration
+`cd873c5`, a later result commit, packaging/tag commit `phase3b-anchored-v0.1.0`, and optional
+post-release verification commit. The tag may intentionally precede later documentation on `main`.

@@ -135,3 +135,14 @@ validation, and test durations are recorded only in immutable run artifacts. Mod
 Both matched runs used float16 MPS, batch size 1, greedy decoding, and no scientific quality retry.
 The terminal-negative data gate prevented target training, validation, test, and publication
 compute.
+
+## Phase 3B Measured Compute
+
+- Upstream cost remains 224 teacher-training labels, 379,768 source-training tokens, 437.86 source
+  training seconds, and 323,601 matched teacher-generation tokens over 1,122.69 seconds.
+- Incremental Phase 3B training used float32 MPS, 272,568 whole-sequence tokens, 168 optimizer steps,
+  2,097,152 trainable parameters, and 504.76 active seconds. No numerical correction ran.
+- Validation loaded three checkpoints sequentially in float16 MPS; primary and legacy evaluations
+  also used float16 MPS, greedy decoding, batch size one, and seed `20260714`.
+- The sandbox-only MPS-unavailable attempt processed zero tokens and remains a failed infrastructure
+  artifact. MPS allocation values are snapshots, never represented as peak memory.

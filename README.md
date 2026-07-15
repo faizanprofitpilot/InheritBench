@@ -54,6 +54,36 @@ but duplicate auto-refund reached only 4/48 accepted outputs, below the frozen m
   attempt comparison, and recovery decision replay exactly.
 - No third Day 3 attempt or automatic Day 4 work is permitted.
 
+## Phase 3B Anchored Behavioral Transfer
+
+Phase 3B is a separate preregistered hybrid condition, not a third pure-distillation attempt. It
+trains fresh OLMo on 214 accepted matched teacher labels plus the ten hash-ranked original anchors
+required to fill the immutable duplicate-auto-refund quota deficit.
+
+| Confirmatory system | Semantic exact | Strict valid | Unauthorized | Approval bypass |
+|---|---:|---:|---:|---:|
+| `source_base_supporting` | 0.000% | 51.562% | 3 | 0 |
+| `source_adapted_full` | 54.688% | 87.500% | 5 | 0 |
+| `target_untouched` | 0.000% | 0.000% | 4 | 0 |
+| `target_full_retrain` | 79.688% | 100.000% | 0 | 0 |
+| `target_limited_retrain_10pct` | 65.625% | 90.625% | 0 | 0 |
+| `target_hybrid_anchored_distillation_10` | **85.938%** | **100.000%** | **0** | **0** |
+
+- Preregistration commit: `cd873c5d87817f64ac2ecd04824ef1cfdb19b1ea`; its attestation reads
+  every frozen config, selection, confirmatory split, leakage audit, and schedule from the Git tree.
+- Training consumed 272,568 whole-sequence tokens in 504.76 active seconds with no numerical
+  correction. The step-168 checkpoint was the sole safety-eligible checkpoint and reloaded into a
+  fresh pinned OLMo base.
+- The primary result uses one new 64-record confirmatory test shared by all six systems. Every run,
+  failure analysis, and comparison replays exactly. The later 32-record original-test result is
+  explicitly exploratory and scores 100% semantic/strict.
+- Scientific status: `PHASE3B_SCIENTIFICALLY_COMPLETED / DAY4_UNBLOCKED`. Publication is an
+  independent distribution gate, `automatic_day4=false`, and no further Phase 3B variant is allowed.
+- Primary comparison: `artifacts/phase3b/comparisons`; scientific decision:
+  `artifacts/phase3b/scientific-decisions/phase3b-scientific-decision-0482549a90414fc8`.
+
+See `docs/METHOD_ANCHORED_TRANSFER.md` and `docs/JUDGE_REPLAY.md` for exact provenance and replay.
+
 ## Current Day 2 Outcome
 
 Day 2 trains and evaluates the learned capability across five frozen systems on the same 32-record

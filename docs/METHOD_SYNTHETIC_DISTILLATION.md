@@ -73,3 +73,7 @@ The replayed final result is
 `RECOVERY_TERMINAL_NEGATIVE / DAY4_UNBLOCKED_WITH_NEGATIVE_DISTILLATION_RESULT`. No target schedule,
 training, validation, test, adapter, six-row comparison, release, third attempt, or automatic Day 4
 work exists.
+
+Phase 3B does not change either pure-distillation result. It is a separately named hybrid condition
+that explicitly consumes ten original labels to cover the immutable teacher blind spot. Its claims,
+accounting, confirmatory surface, preregistration commit, and status live under `artifacts/phase3b`.

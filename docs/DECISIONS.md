@@ -202,3 +202,19 @@
   `DAY4_UNBLOCKED_WITH_NEGATIVE_DISTILLATION_RESULT` after all required replays and the immutable
   independent-versus-matched comparison pass.
 - Record publication as `NOT_ATTEMPTED`; no adapter exists. Do not start Day 4 automatically.
+
+## 2026-07-15 — Phase 3B Anchored Behavioral Transfer
+
+- Add `target_hybrid_anchored_distillation_10` as a separate hybrid method; preserve both terminal
+  pure-distillation attempts unchanged.
+- Select 14 hash-ranked synthetic records in fifteen unaffected groups, all four accepted blind-spot
+  records, and the lowest hash-ranked ten of fourteen original blind-spot train records.
+- Define `preregistration_commit` as the clean commit containing configs, selections, hybrid data,
+  confirmatory inputs/oracles, leakage audit, and schedule before real OLMo training.
+- Bind preregistration through Git-tree attestation, avoiding a circular future-commit field.
+- Preserve Day 2 full-target settings, whole-dataset exposure parity, parser `0.1.0`, evaluator `v0`,
+  and safety-first checkpoint ordering.
+- Use one 64-record confirmatory test for the primary six-system matrix. Run the original test only
+  afterward as `EXPLORATORY_LEGACY_TEST`; it cannot revise the primary result.
+- Keep scientific completion score-independent after integrity/replay gates and independent from
+  publication. Do not start Day 4 automatically or permit another Phase 3B variant.

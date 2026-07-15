@@ -7,7 +7,11 @@ from types import SimpleNamespace
 import pytest
 
 from inheritbench.phase3b import baseline
-from inheritbench.phase3b.schemas import Phase3BPreregistrationAttestationV0_1
+from inheritbench.phase3b.schemas import (
+    Phase3BPreregistrationAttestationV0_1,
+    Phase3BPublicationManifestV0_1,
+    Phase3BScientificDecisionV0_1,
+)
 
 EXPERIMENT = Path("configs/experiments/phase3b.yaml")
 COMMIT = "1" * 40
@@ -41,6 +45,7 @@ def test_preregistration_reads_required_bytes_from_git_tree(
         return output
 
     monkeypatch.setattr(baseline, "_git", fake_git)
+    monkeypatch.setattr(baseline, "_real_training_exists", lambda root: False)
     monkeypatch.setattr(subprocess, "run", fake_run)
     monkeypatch.setattr(baseline, "write_atomic_bundle", fake_write)
 
@@ -66,6 +71,7 @@ def test_preregistration_rejects_missing_git_object(
         "_git",
         lambda arguments: "" if arguments[0] == "status" else COMMIT,
     )
+    monkeypatch.setattr(baseline, "_real_training_exists", lambda root: False)
     monkeypatch.setattr(
         subprocess,
         "run",
@@ -73,3 +79,31 @@ def test_preregistration_rejects_missing_git_object(
     )
     with pytest.raises(ValueError, match="not committed"):
         baseline.attest_preregistration(EXPERIMENT)
+
+
+def test_publication_status_cannot_change_scientific_gate() -> None:
+    decision_path = next(Path("artifacts/phase3b/scientific-decisions").glob("*/decision.json"))
+    decision = Phase3BScientificDecisionV0_1.model_validate_json(
+        decision_path.read_bytes(), strict=True
+    )
+    payload = {
+        "schema_version": "phase3b-publication-v0.1",
+        "publication_id": "fixture-publication",
+        "publication_status": "PUBLICATION_BLOCKED",
+        "scientific_decision_sha256": decision.content_sha256,
+        "lineage": decision.lineage,
+        "release_tag": "phase3b-anchored-v0.1.0",
+        "release_commit": None,
+        "archive_name": None,
+        "archive_sha256": None,
+        "adapter_file_sha256s": {},
+        "urls": [],
+        "attempts": 2,
+        "anonymous_download_verified": False,
+        "verification_timestamp": None,
+        "content_sha256": "0" * 64,
+    }
+    publication = Phase3BPublicationManifestV0_1.model_validate(payload, strict=True)
+    assert publication.publication_status == "PUBLICATION_BLOCKED"
+    assert decision.scientific_status == "PHASE3B_SCIENTIFICALLY_COMPLETED"
+    assert decision.day4_gate == "DAY4_UNBLOCKED"

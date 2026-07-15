@@ -318,7 +318,7 @@ def replay_evaluation(run_directory: Path, output_root: Path) -> Path:
         "byte_hashes_verified": True,
         "atomic_values_equal": True,
         "status": "PASSED",
-        "lineage": manifest.lineage.model_dump(mode="json"),
+        "lineage": manifest.lineage,
         "created_at": created_at,
     }
     verification = Phase3BReplayVerificationV0_1.model_validate(

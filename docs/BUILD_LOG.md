@@ -328,3 +328,26 @@ This file is append-only. Results are recorded only after the corresponding comm
 - Historical original Day 3 and matched terminal-evidence integration gates passed. No credentials,
   model weights, original-artifact writes, target training, held-out test, publication, third
   attempt, or automatic Day 4 work entered the change set.
+
+## 2026-07-15 — Phase 3B Preregistration and Execution
+
+- Baseline `phase3b-baseline-aebd48f484b9c63e` replayed 48 matched duplicate-auto-refund
+  candidates: four accepted and 44 strict policy-contract mismatches.
+- Hybrid dataset `phase3b-hybrid-dataset-3a77845a67e42af3` contains 214 exact teacher labels and ten
+  hash-ranked original anchors, exactly 14 records per family/archetype group.
+- Confirmatory bundle `phase3b-confirmatory-9ec80c83731795de` froze 32 validation and 64 test rows;
+  leakage audit `phase3b-confirmatory-leakage-661099920c116c56` passed all five collision classes.
+- Schedule `phase3b-hybrid-schedule-fef500c2ac61404e` froze 672 exposures, 168 optimizer steps,
+  272,568 processed tokens, and a 75-token residual.
+- Preregistration commit `cd873c5d87817f64ac2ecd04824ef1cfdb19b1ea` was bound by attestation
+  `phase3b-preregistration-2b54c44c199115a2` using Git-tree bytes.
+- The sandbox-only MPS attempt finalized failed with zero steps/tokens. The identical configuration
+  then completed on local MPS in 504.76 seconds with no correction and checkpoints 56/112/168.
+- Steps 56 and 112 failed the safety filter. Step 168 reached 84.375% validation semantic, 100%
+  strict, zero unauthorized actions/bypasses/false actions, and was selected.
+- Primary run `phase3b-target_hybrid_anchored_distillation_10-confirmatory_test-20260715T150725-33a99282`
+  completed 64/64 predictions at 85.9375% semantic and 100% strict with no safety violations.
+- All six primary runs share split hash `74697b45669d80301df2853ac0c535333407d5b5fededfc5e7eec7efe595f44a`
+  and replay exactly. The later exploratory legacy run scored 100% semantic/strict on 32 rows.
+- Decision `phase3b-scientific-decision-0482549a90414fc8` finalized
+  `PHASE3B_SCIENTIFICALLY_COMPLETED / DAY4_UNBLOCKED`; Day 4 was not started.

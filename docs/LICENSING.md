@@ -60,3 +60,11 @@ failure does not invalidate scientific evidence.
 
 The executed matched recovery produced no OLMo adapter because the balanced synthetic-data gate was
 not met. Therefore no `day3-matched-v0.1.0` release was created and distribution is `NOT_ATTEMPTED`.
+
+## Phase 3B Adapter
+
+Phase 3B trains a LoRA adapter for the pinned Apache-2.0 OLMo base from 214 verified teacher labels
+and ten explicitly accounted original OpsRoute labels. Adapter weights remain ignored under
+`adapters/phase3b` and are eligible only for deterministic release tag
+`phase3b-anchored-v0.1.0`. The base model is not redistributed. Publication status cannot alter the
+completed scientific decision or Day 4 gate.
