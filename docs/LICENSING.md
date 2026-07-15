@@ -68,3 +68,11 @@ and ten explicitly accounted original OpsRoute labels. Adapter weights remain ig
 `adapters/phase3b` and are eligible only for deterministic release tag
 `phase3b-anchored-v0.1.0`. The base model is not redistributed. Publication status cannot alter the
 completed scientific decision or Day 4 gate.
+
+The selected adapter is published in the
+[Phase 3B anchored release](https://github.com/faizanprofitpilot/InheritBench/releases/tag/phase3b-anchored-v0.1.0).
+Its deterministic archive SHA-256 is
+`f30fa5c814596a6c383be0390174275c893e1aba83d27df1dc8eec46c929f87f`; an anonymous public download
+verified the archive plus `adapter_model.safetensors`, `adapter_config.json`, `README.md`, and
+`lineage.json`. Users must obtain the pinned OLMo base separately and remain subject to its
+Apache-2.0 license and model card.

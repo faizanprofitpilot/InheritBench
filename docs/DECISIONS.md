@@ -218,3 +218,15 @@
   afterward as `EXPLORATORY_LEGACY_TEST`; it cannot revise the primary result.
 - Keep scientific completion score-independent after integrity/replay gates and independent from
   publication. Do not start Day 4 automatically or permit another Phase 3B variant.
+
+## 2026-07-15 — Phase 3B Distribution Lineage
+
+- Publish the selected adapter under immutable tag `phase3b-anchored-v0.1.0`, resolving to packaging
+  commit `2d7052f103ba29d56a0ecd4ce442c5dd1c4b44b2`.
+- Preserve preregistration commit `cd873c5d87817f64ac2ecd04824ef1cfdb19b1ea` and scientific-result
+  commit `9ced5d1704972b6c1d818fd0c79a6006d2820b1c` as separate lineage events.
+- Record anonymous public-download verification in later commit
+  `8718ef670e2a5f79a068da554b40603a6d4979e2`; later documentation on `main` cannot move the tag or
+  alter released bytes, scientific artifacts, metrics, or the Day 4 gate.
+- Finalize distribution as `PUBLISHED_VERIFIED` after one successful byte-identical verification.
+  Scientific status remains `PHASE3B_SCIENTIFICALLY_COMPLETED / DAY4_UNBLOCKED` independently.

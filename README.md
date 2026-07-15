@@ -79,6 +79,12 @@ required to fill the immutable duplicate-auto-refund quota deficit.
   explicitly exploratory and scores 100% semantic/strict.
 - Scientific status: `PHASE3B_SCIENTIFICALLY_COMPLETED / DAY4_UNBLOCKED`. Publication is an
   independent distribution gate, `automatic_day4=false`, and no further Phase 3B variant is allowed.
+- Distribution status: `PUBLISHED_VERIFIED`. The deterministic adapter is available from the
+  [Phase 3B anchored release](https://github.com/faizanprofitpilot/InheritBench/releases/tag/phase3b-anchored-v0.1.0)
+  with archive SHA-256 `f30fa5c814596a6c383be0390174275c893e1aba83d27df1dc8eec46c929f87f`.
+- Commit lineage is intentionally split: preregistration `cd873c5`, scientific result `9ced5d1`,
+  packaging/tag `2d7052f`, and public-download verification `8718ef6`. The tag remains fixed at the
+  packaging commit; later `main` commits contain verification and documentation only.
 - Primary comparison: `artifacts/phase3b/comparisons`; scientific decision:
   `artifacts/phase3b/scientific-decisions/phase3b-scientific-decision-0482549a90414fc8`.
 

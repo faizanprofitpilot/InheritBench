@@ -351,3 +351,29 @@ This file is append-only. Results are recorded only after the corresponding comm
   and replay exactly. The later exploratory legacy run scored 100% semantic/strict on 32 rows.
 - Decision `phase3b-scientific-decision-0482549a90414fc8` finalized
   `PHASE3B_SCIENTIFICALLY_COMPLETED / DAY4_UNBLOCKED`; Day 4 was not started.
+
+## 2026-07-15 — Phase 3B Publication and Verification
+
+- Scientific-result commit `9ced5d1704972b6c1d818fd0c79a6006d2820b1c` preserves training,
+  evaluation, exact replays, comparisons, failure analysis, and the scientific decision.
+- Packaging/tag commit `2d7052f103ba29d56a0ecd4ce442c5dd1c4b44b2` is the immutable target of
+  `phase3b-anchored-v0.1.0`; it adds deterministic packaging metadata without changing science.
+- Published `target_hybrid_anchored_distillation_10-7461072c83b4dcde.zip` with SHA-256
+  `f30fa5c814596a6c383be0390174275c893e1aba83d27df1dc8eec46c929f87f` and `SHA256SUMS`.
+- A fresh public download verified the archive and all four internal files in one attempt. Evidence
+  commit `8718ef670e2a5f79a068da554b40603a6d4979e2` records `PUBLISHED_VERIFIED` and the
+  independent distribution decision.
+- Later `main` history contains only post-tag public verification and documentation updates. The
+  release tag intentionally remains on the earlier packaging commit, so scientific and distribution
+  lineage is not obscured by judge-facing documentation changes.
+
+## 2026-07-15 — Phase 3B Final Gates
+
+- Frozen sync verified all 76 locked packages.
+- Ruff lint and format checks passed across 112 files; strict mypy passed across 72 source files.
+- Offline pytest passed with 113 selected tests and one opt-in real-model smoke test deselected.
+- OpsRoute v0.1.0 regenerated exactly at
+  `9202ecdf200a86cf3899a9ff3eb71722effe9421c04f353fd575d62c6c7d492b`.
+- Phase 3B integration gates validate historical immutability, preregistration, real training,
+  checkpoint selection, all six confirmatory runs, exact replays, scientific completion, public
+  release verification, and the publication-independent distribution decision.

@@ -58,3 +58,14 @@ revise the confirmatory result.
 Day 4 automatically. Results apply only to Qwen→OLMo, OpsRoute v0.1.0, parser/prompt `0.1.0`,
 evaluator `v0`, and one deterministic seed. No repeated seed, adversarial evaluation, additional
 anchor count, prompt revision, fallback model, or further Phase 3B variant is permitted.
+
+## Publication
+
+Distribution is `PUBLISHED_VERIFIED` at
+<https://github.com/faizanprofitpilot/InheritBench/releases/tag/phase3b-anchored-v0.1.0>. The
+deterministic archive hash is
+`f30fa5c814596a6c383be0390174275c893e1aba83d27df1dc8eec46c929f87f`; one fresh public download
+verified the archive and every internal file. The tag points to packaging commit
+`2d7052f103ba29d56a0ecd4ce442c5dd1c4b44b2`, while later `main` history contains verification and
+documentation only. Publication does not alter the preregistration, selected checkpoint, science,
+or `DAY4_UNBLOCKED` decision.

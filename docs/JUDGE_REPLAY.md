@@ -64,6 +64,19 @@ uv run inheritbench phase3b replay --kind comparison --artifact artifacts/phase3
 ```
 
 The primary comparison requires six completed rows with one confirmatory split hash. The original
-test is separately exploratory. Commit lineage is historical reference `7283bfe`, preregistration
-`cd873c5`, a later result commit, packaging/tag commit `phase3b-anchored-v0.1.0`, and optional
-post-release verification commit. The tag may intentionally precede later documentation on `main`.
+test is separately exploratory. Exact commit lineage is:
+
+1. Historical reference: `7283bfe22903ffc554c1f5ab210dea105df68b2b`.
+2. Preregistration: `cd873c5d87817f64ac2ecd04824ef1cfdb19b1ea`.
+3. Scientific result: `9ced5d1704972b6c1d818fd0c79a6006d2820b1c`.
+4. Packaging/tag: `2d7052f103ba29d56a0ecd4ce442c5dd1c4b44b2`.
+5. Public-download verification: `8718ef670e2a5f79a068da554b40603a6d4979e2`.
+
+The immutable tag `phase3b-anchored-v0.1.0` resolves to the packaging commit. Later `main` commits
+contain post-release verification or documentation only; they do not alter the preregistered inputs,
+scientific evidence, selected adapter, release archive, or hashes.
+
+Public release verification is machine-readable under
+`artifacts/phase3b/publication-verifications/phase3b-publication-verified-4137871051bd4cfa`, and the
+independent distribution decision is under
+`artifacts/phase3b/distribution-decisions/phase3b-publication-verified-4137871051bd4cfa`.
