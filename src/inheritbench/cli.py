@@ -125,6 +125,102 @@ def phase3b_freeze_schedule_command(
     console.print(f"[green]Phase 3B training schedule frozen[/green] {path}")
 
 
+@phase3b_app.command("train")
+def phase3b_train_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()] = "mps",
+    resume: Annotated[Path | None, typer.Option(exists=True, file_okay=False)] = None,
+) -> None:
+    from inheritbench.phase3b.training import train_method
+
+    path = train_method(experiment, device=device, resume_checkpoint=resume)
+    console.print(f"[green]Phase 3B training completed[/green] {path}")
+
+
+@phase3b_app.command("recover")
+def phase3b_recover_command(
+    active_run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    mark_failed: Annotated[bool, typer.Option("--mark-failed")] = False,
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.config import load_experiment_config, resolve
+    from inheritbench.phase3b.training import recover_active
+
+    if not mark_failed:
+        raise typer.BadParameter("Phase 3B recovery requires --mark-failed")
+    config = load_experiment_config(experiment)
+    path = recover_active(active_run, resolve(experiment, config.artifact_root) / "failed")
+    console.print(f"[yellow]Phase 3B active run finalized failed[/yellow] {path}")
+
+
+@phase3b_app.command("evaluate")
+def phase3b_evaluate_command(
+    split: Annotated[
+        Literal["confirmatory-validation", "confirmatory-test", "legacy-test"],
+        typer.Option(),
+    ],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+    device: Annotated[Literal["auto", "mps", "cpu", "cuda"], typer.Option()] = "mps",
+) -> None:
+    from inheritbench.phase3b.evaluation import evaluate_checkpoints, evaluate_hybrid
+
+    if split == "confirmatory-validation":
+        paths = evaluate_checkpoints(experiment, device=device if device != "auto" else "mps")
+    elif split == "confirmatory-test":
+        paths = [evaluate_hybrid(experiment, "confirmatory_test", device=device)]
+    else:
+        paths = [evaluate_hybrid(experiment, "exploratory_legacy_test", device=device)]
+    console.print(f"[green]Phase 3B evaluation completed[/green] {len(paths)} run(s)")
+
+
+@phase3b_app.command("select-checkpoint")
+def phase3b_select_checkpoint_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.evaluation import select_checkpoint
+
+    path = select_checkpoint(experiment)
+    console.print(f"[green]Phase 3B checkpoint decision frozen[/green] {path}")
+
+
+@phase3b_app.command("evaluate-confirmatory-matrix")
+def phase3b_evaluate_matrix_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+    device: Annotated[Literal["auto", "mps", "cpu", "cuda"], typer.Option()] = "mps",
+) -> None:
+    from inheritbench.phase3b.evaluation import evaluate_confirmatory_matrix
+
+    paths = evaluate_confirmatory_matrix(experiment, device=device)
+    console.print(f"[green]Phase 3B matrix evaluation completed[/green] {len(paths)} run(s)")
+
+
+@phase3b_app.command("replay")
+def phase3b_replay_command(
+    kind: Annotated[Literal["evaluation"], typer.Option()],
+    artifact: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.config import load_experiment_config, resolve
+    from inheritbench.phase3b.evaluation import replay_evaluation
+
+    del kind
+    config = load_experiment_config(experiment)
+    path = replay_evaluation(artifact, resolve(experiment, config.artifact_root) / "replays")
+    console.print(f"[green]Phase 3B replay passed[/green] {path}")
+
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(__version__)

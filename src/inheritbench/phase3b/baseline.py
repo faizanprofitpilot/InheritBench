@@ -14,6 +14,7 @@ from inheritbench.artifacts.hashing import (
     sha256_file,
 )
 from inheritbench.artifacts.store import write_atomic_bundle
+from inheritbench.config import load_model_config, load_task_config
 from inheritbench.day3_matched.schemas import (
     MatchedCandidateInputV0_1,
     MatchedFilterDecisionV0_1,
@@ -29,6 +30,7 @@ from inheritbench.phase3b.config import (
 )
 from inheritbench.phase3b.schemas import (
     Phase3BHistoricalBaselineV0_1,
+    Phase3BLineageV0_1,
     Phase3BPreregistrationAttestationV0_1,
 )
 
@@ -145,6 +147,92 @@ def attest_preregistration(experiment_path: Path) -> Path:
         root / "preregistrations",
         attestation_id,
         {"attestation.json": canonical_json_bytes(attestation) + b"\n"},
+    )
+
+
+def load_preregistration(
+    experiment_path: Path,
+) -> tuple[Path, Phase3BPreregistrationAttestationV0_1]:
+    experiment = load_experiment_config(experiment_path)
+    root = resolve(experiment_path, experiment.artifact_root) / "preregistrations"
+    path = _single_file(root, "attestation.json")
+    attestation = Phase3BPreregistrationAttestationV0_1.model_validate_json(
+        path.read_bytes(), strict=True
+    )
+    actual = content_sha256(
+        attestation.model_dump(mode="json"), excluded_keys=_ATTESTATION_EXCLUSIONS
+    )
+    if actual != attestation.content_sha256:
+        raise ValueError("Phase 3B preregistration attestation content hash mismatch")
+    artifacts = _preregistration_artifacts(resolve(experiment_path, experiment.artifact_root))
+    expected = {
+        "baseline": attestation.baseline_sha256,
+        "synthetic": attestation.synthetic_selection_sha256,
+        "anchors": attestation.anchor_selection_sha256,
+        "hybrid": attestation.hybrid_dataset_sha256,
+        "validation": attestation.confirmatory_validation_sha256,
+        "test": attestation.confirmatory_test_sha256,
+        "leakage": attestation.confirmatory_leakage_audit_sha256,
+        "schedule": attestation.training_schedule_sha256,
+    }
+    for key, digest in expected.items():
+        if artifacts[key]["content_sha256"] != digest:
+            raise ValueError(f"preregistration artifact changed after attestation: {key}")
+    return path.parent, attestation
+
+
+def runtime_lineage(
+    experiment_path: Path, checkpoint_decision_sha256: str | None = None
+) -> Phase3BLineageV0_1:
+    experiment = load_experiment_config(experiment_path)
+    _, attestation = load_preregistration(experiment_path)
+    dataset_root = resolve(experiment_path, experiment.dataset_directory)
+    dataset_manifest = json.loads((dataset_root / "manifest.json").read_text(encoding="utf-8"))
+    task = load_task_config(resolve(experiment_path, experiment.task_config_path))
+    target = load_model_config(resolve(experiment_path, experiment.target_model_config_path))
+    publication_path = (
+        Path.cwd()
+        / "artifacts/day2/publications"
+        / "day2-release-verification-5acbafb44fc44722/publication.json"
+    )
+    publication = json.loads(publication_path.read_text(encoding="utf-8"))
+    teacher_runs = []
+    for path in [
+        Path.cwd()
+        / "artifacts/day3-matched/teacher-runs"
+        / "day3-matched-teacher-initial-20260715T123651-195bede8/manifest.json",
+        Path.cwd()
+        / "artifacts/day3-matched/teacher-runs"
+        / "day3-matched-teacher-expansion-20260715T125036-8f3c1dc8/manifest.json",
+    ]:
+        teacher_runs.append(json.loads(path.read_text(encoding="utf-8"))["content_sha256"])
+    return Phase3BLineageV0_1(
+        historical_reference_commit=experiment.historical_reference_commit,
+        preregistration_commit=attestation.preregistration_commit,
+        preregistration_attestation_sha256=attestation.content_sha256,
+        original_dataset_sha256=dataset_manifest["dataset_sha256"],
+        train_byte_sha256=sha256_file(dataset_root / "train.jsonl"),
+        task_config_sha256=content_sha256(task),
+        source_teacher_adapter_sha256=(
+            "8ee07058b71056bf7119582eb15f9fee4febf20b60f8942efa470be44b84a007"
+        ),
+        source_teacher_release_verification_sha256=publication["content_sha256"],
+        matched_teacher_run_sha256s=(teacher_runs[0], teacher_runs[1]),
+        matched_accepted_dataset_sha256=(
+            "cdcb330e7e9fcb0189e0bf0a841ab452cfdceffd5f2b971a53419812d4fe8ce5"
+        ),
+        synthetic_selection_sha256=attestation.synthetic_selection_sha256,
+        anchor_selection_sha256=attestation.anchor_selection_sha256,
+        hybrid_dataset_sha256=attestation.hybrid_dataset_sha256,
+        confirmatory_validation_sha256=attestation.confirmatory_validation_sha256,
+        confirmatory_test_sha256=attestation.confirmatory_test_sha256,
+        confirmatory_leakage_audit_sha256=attestation.confirmatory_leakage_audit_sha256,
+        training_schedule_sha256=attestation.training_schedule_sha256,
+        target_model_revision=target.revision,
+        checkpoint_decision_sha256=checkpoint_decision_sha256,
+        prompt_version="0.1.0",
+        parser_version="0.1.0",
+        evaluator_version="v0",
     )
 
 
