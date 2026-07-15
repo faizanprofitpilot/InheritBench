@@ -28,8 +28,10 @@ test split. The source capability gate passed every criterion before any test ev
   `artifacts/day2/comparisons/day2-comparison-8d0e9e5ac1494449`.
 - Adversarial evaluation, distillation, repeated seeds, UI work, and Day 3 remain untouched.
 
-The three selected LoRA adapters remain outside Git and are packaged as deterministic release
-assets. Release verification metadata lives under `artifacts/day2/publications`.
+The three selected LoRA adapters remain outside Git and are published as deterministic assets in
+the [Day 2 v0.1.0 release](https://github.com/faizanprofitpilot/InheritBench/releases/tag/day2-v0.1.0).
+All public downloads match their recorded SHA-256 hashes; immutable verification metadata lives
+under `artifacts/day2/publications`.
 
 ## Day 1 Scope
 
@@ -77,8 +79,8 @@ The strongest completed fallback run is
   schema-valid and 2/8 semantic-exact contracts with finite decreasing loss and exact replay.
 - Final decision: `OLMO_TRAINABILITY_CONFIRMED`. SmolLM2 fallback training was not triggered.
 - Machine-readable decision: `artifacts/blocker-resolution/decision/decision-77a945960ddfdb7e`.
-- Day 2 experimentation is scientifically unblocked for Qwen→OLMo, but this sprint stops before
-  full Day 2 work. Modal remains unavailable until external workspace-export approval is granted.
+- This blocker-resolution sprint scientifically unblocked the later Qwen→OLMo Day 2 execution.
+  Modal remained unavailable because external workspace-export approval was not granted.
 
 Blocker evidence lives under `artifacts/blocker-resolution`; adapters are separate under
 `adapters/blocker-resolution`. Existing Day 1 artifacts remain unchanged.

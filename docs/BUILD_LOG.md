@@ -205,3 +205,14 @@ This file is append-only. Results are recorded only after the corresponding comm
 - Archive hashes: source `8ee07058b71056bf7119582eb15f9fee4febf20b60f8942efa470be44b84a007`,
   full target `cf92573ba50db6cda9788ce5d43840609bed007092c70562581d60cb227b0894`, and
   limited target `0e23bffa48f11206da39ee988f9f4943eef415c2629d93a1637ec68b2f950118`.
+
+## 2026-07-15 — Public Release Verification
+
+- Published tag `day2-v0.1.0` at
+  `https://github.com/faizanprofitpilot/InheritBench/releases/tag/day2-v0.1.0`.
+- Changed repository visibility to public after explicit owner confirmation so deterministic release
+  URLs are anonymously downloadable.
+- Downloaded all three adapter archives through their public release URLs and matched every byte to
+  its packaged SHA-256 hash.
+- Immutable verification `day2-release-verification-5acbafb44fc44722` has status `VERIFIED` and
+  content SHA-256 `860a912f2cc253260138a656cb9891ac16fb3e56aed65d8f4ed3d1b24e5675cc`.

@@ -3,6 +3,7 @@ from pathlib import Path
 
 from inheritbench.day2.evaluation import _read_predictions
 from inheritbench.day2.schemas import (
+    AdapterPublicationManifestV0_1,
     CheckpointDecisionV0_1,
     Day2ComparisonV0_1,
     EvaluationRunManifestV0_2,
@@ -55,6 +56,20 @@ def test_day2_final_artifact_matrix_is_complete() -> None:
         "target_full_retrain",
         "target_limited_retrain_10pct",
     }
+
+    publications = [
+        AdapterPublicationManifestV0_1.model_validate_json(path.read_bytes(), strict=True)
+        for path in sorted(
+            (root / "publications").glob("day2-release-verification-*/publication.json")
+        )
+    ]
+    assert len(publications) == 1
+    assert publications[0].status == "VERIFIED"
+    assert len(publications[0].assets) == 3
+    assert all(
+        asset.verified and asset.downloaded_sha256 == asset.archive_sha256
+        for asset in publications[0].assets
+    )
 
 
 def test_serialized_prediction_timestamps_parse_strictly() -> None:
