@@ -725,7 +725,7 @@ def _save_checkpoint(
             "hybrid_dataset_sha256": dataset_sha256,
             "adapter_file_sha256s": hashes,
             "trainer_state_sha256": sha256_file(staging / "trainer_state.pt"),
-            "lineage": lineage.model_dump(mode="json"),
+            "lineage": lineage,
             "created_at": created_at,
         }
         manifest = Phase3BCheckpointManifestV0_1.model_validate(
@@ -835,7 +835,7 @@ def _run_manifest(
         "duration_seconds": max(0.0, duration),
         "resolved_device": device,
         "resolved_dtype": dtype,
-        "lineage": lineage.model_dump(mode="json"),
+        "lineage": lineage,
         "created_at": created_at,
         "finished_at": datetime.now(UTC),
     }

@@ -200,7 +200,7 @@ def select_checkpoint(experiment_path: Path) -> Path:
         ),
         "fresh_base_reload_verified": selected_adapter is not None,
         "selection_rule": ("semantic,strict,abstention,approval,argument_f1,loss,earliest"),
-        "lineage": lineage.model_dump(mode="json"),
+        "lineage": lineage,
         "created_at": created_at,
     }
     decision = Phase3BCheckpointDecisionV0_1.model_validate(
@@ -503,7 +503,7 @@ def _evaluate(
         "generation": generation.model_dump(mode="json"),
         "prediction_artifact": prediction_ref.model_dump(mode="json"),
         "summary_artifact": summary_ref.model_dump(mode="json"),
-        "lineage": lineage.model_dump(mode="json"),
+        "lineage": lineage,
         "created_at": created_at,
         "finished_at": finished_at,
     }
@@ -606,7 +606,7 @@ def _infer_one(
         "finished_at": datetime.now(UTC),
         "latency_ms": round((time.perf_counter() - started) * 1000),
         "errors": [message] if message else [],
-        "lineage": lineage.model_dump(mode="json"),
+        "lineage": lineage,
     }
     return Phase3BPredictionRecordV0_1.model_validate(
         {

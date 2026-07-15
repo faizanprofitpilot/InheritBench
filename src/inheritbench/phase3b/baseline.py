@@ -87,7 +87,9 @@ def attest_preregistration(experiment_path: Path) -> Path:
     if commit == experiment.historical_reference_commit:
         raise ValueError("preregistration commit must follow the historical reference commit")
     root = resolve(experiment_path, experiment.artifact_root)
-    if (root / "training").exists() or (root / "active").exists():
+    training_exists = any((root / "training").glob("*/manifest.json"))
+    active_exists = any((root / "active").glob("*/active.json"))
+    if training_exists or active_exists:
         raise ValueError("preregistration must be attested before real training begins")
     paths = _required_preregistration_paths(experiment_path)
     for path in paths:
