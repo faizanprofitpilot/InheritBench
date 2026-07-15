@@ -27,3 +27,16 @@ silently changing the manual review fields.
 Model weights, tokenizer caches, Hugging Face tokens, Modal credentials, `.env` files, and local
 cache directories are not committed. Public model use remains subject to each upstream license and
 model card.
+
+## Day 2 Adapters
+
+Day 2 creates LoRA adapter weights derived from the pinned Apache-2.0 Qwen and OLMo bases. Adapter
+weights and checkpoints remain ignored locally under `adapters/day2`; they are not committed to Git.
+Only the three selected final adapters are eligible for deterministic GitHub Release packaging:
+
+- `source_adapted_full-8242bcea6f327545`
+- `target_full_retrain-fd1966615c845dab`
+- `target_limited_retrain_10pct-c2e5ec18f58ba342`
+
+Each release archive includes its adapter config, safetensors, README, and machine-readable lineage.
+Users must obtain the corresponding pinned base model separately and remain subject to its license.

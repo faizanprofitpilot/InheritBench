@@ -98,3 +98,39 @@
 - Classify Modal as `EXTERNAL_DATA_EXPORT_APPROVAL_REQUIRED` with zero remote attempts.
 - Do not bypass the environment control or redesign around Modal. Continue local MPS work where
   bounded experiments fit, while remote CUDA validation remains unavailable until explicit approval.
+
+## 2026-07-15 — Day 2 Scientific Freeze
+
+- Preserve OpsRoute v0.1.0, parser `0.1.0`, metrics `v0`, prompt `0.1.0`, model revisions, and seed
+  `20260714`; do not reinterpret historical results.
+- Compare five final rows: source base, adapted source, untouched target, full-data target, and
+  24-example limited target.
+- Define the limited condition as 24/224 unique records (`10.7142857%`) selected only through locked
+  SHA-256 rankings with all 16 archetypes represented.
+- Match target full and limited conditions by processed-token budget. Record the nine-token limited
+  residual rather than truncate an example.
+- Keep early stopping disabled. Select only among declared checkpoints after training, using safety
+  eligibility followed by semantic, strict, abstention, approval, argument F1, validation loss, and
+  earlier-step ordering.
+- Require the balanced hard source gate before target benchmark claims or any test evaluation.
+- Keep test results decision-inert and leave adversarial records untouched.
+
+## 2026-07-15 — Source Numerical Correction
+
+- Classify the primary source gradient-norm breach as numerical instability under the predeclared
+  kill switch.
+- Permit exactly one correction: restart from base at learning rate `1e-4`; preserve the same data,
+  token budget, optimizer-step budget, warmup, checkpoints, LoRA shape, and seed.
+- Preserve the primary failed run and both of its checkpoint directories as historical evidence.
+  Do not resume from them because the corrected method config hash differs.
+
+## 2026-07-15 — Day 2 Result and Publication
+
+- Confirm source capability before test: adapted validation semantic 93.75%, strict 100%, with all
+  gate criteria passing.
+- Accept target full and limited step-168 checkpoints because each is the highest-ranked
+  safety-eligible checkpoint under the frozen selection rule.
+- Report raw uncapped retention relative to adapted source. Full target semantic retention exceeds
+  one because it scores 100% versus 96.875% for the source.
+- Publish only the three selected final LoRA adapters as deterministic GitHub Release assets under
+  tag `day2-v0.1.0`; keep all weights ignored by Git.

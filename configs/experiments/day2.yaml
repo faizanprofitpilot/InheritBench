@@ -1,0 +1,17 @@
+schema_version: day2-experiment-v0.1
+experiment_id: inheritbench-day2-v0.1
+dataset_directory: data/opsroute/v0.1.0
+task_config_path: configs/tasks/opsroute.yaml
+method_config_paths:
+  - configs/methods/source_base_supporting.yaml
+  - configs/methods/source_adapted_full.yaml
+  - configs/methods/target_untouched.yaml
+  - configs/methods/target_full_retrain.yaml
+  - configs/methods/target_limited_retrain_10pct.yaml
+data_output_root: artifacts/day2/data
+artifact_root: artifacts/day2
+adapter_root: adapters/day2
+seed: 20260714
+limited_selection_version: day2-limited-v0.1
+final_test_requires_source_confirmation: true
+adversarial_evaluation: false

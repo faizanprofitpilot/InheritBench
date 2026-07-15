@@ -1,0 +1,43 @@
+schema_version: method-config-v0.2
+method_id: source_adapted_full
+model_config_path: configs/models/source.yaml
+training_kind: lora
+prompt_template_version: 0.1.0
+parser_version: 0.1.0
+evaluator_version: v0
+dataset_version: 0.1.0
+seed: 20260714
+training:
+  train_manifest_name: full_train
+  schedule_name: source_primary
+  train_dtype: float32
+  batch_size: 1
+  gradient_accumulation_steps: 4
+  gradient_clip_norm: 1.0
+  maximum_sequence_length: 1024
+  seed: 20260714
+  optimizer:
+    name: AdamW
+    learning_rate: 0.0001
+    betas: [0.9, 0.999]
+    epsilon: 0.00000001
+    weight_decay: 0.01
+  scheduler:
+    name: linear
+    warmup_ratio: 0.05
+    warmup_steps: 12
+  lora:
+    rank: 8
+    alpha: 16
+    dropout: 0.05
+    bias: none
+    target_modules: [q_proj, k_proj, v_proj, o_proj]
+  optimizer_steps: 224
+  checkpoint_steps: [56, 112, 168, 224]
+  target_processed_tokens: 379768
+correction:
+  kind: NUMERICAL_INSTABILITY
+  parent_failure_run_id: day2-train-source_adapted_full-20260714T205718-88ddf6a1
+  parent_method_config_sha256: abbd3110e81bc037a50d798fe6c57ecf718cebf6b89e0408e6ed46fa9ff3faff
+  changed_fields: [training.optimizer.learning_rate]
+  attempt: 1

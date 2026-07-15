@@ -140,3 +140,53 @@ This file is append-only. Results are recorded only after the corresponding comm
 - Frozen `uv` sync passed with 76 installed packages checked.
 - All 24 pre-sprint artifact files captured by the diagnosis baseline retained their exact byte
   hashes. Parser behavior and every Day 1 artifact remain unchanged.
+
+## 2026-07-15 — Day 2 Foundation and Data Freeze
+
+- Added strict Day 2 method, schedule, training, checkpoint, evaluation, gate, comparison, replay,
+  and publication schemas without changing historical v0.1 artifacts.
+- Froze all 224 train IDs, all 32 validation IDs, all 32 final-test IDs, and 24 deterministic
+  limited-train IDs under `artifacts/day2/data/day2-data-01c2e470b9ccf379`.
+- Measured source schedule: 896 exposures, 224 optimizer steps, 379,768 tokens.
+- Measured full-target schedule: 672 exposures, 168 optimizer steps, 272,643 tokens.
+- Measured limited-target schedule: 672 exposures, 168 optimizer steps, 272,634 tokens, nine-token
+  residual, and 27–29 exposures per selected ID.
+- Baseline validation: source base 0/32 semantic exact and 15/32 strict valid; untouched target 0/32
+  semantic exact and 0/32 strict valid.
+
+## 2026-07-15 — Source Training and Capability Gate
+
+- Primary source run `day2-train-source_adapted_full-20260714T205718-88ddf6a1` hit the declared
+  numerical-instability kill switch at step 150 after a gradient norm of 4,344,363.5. It finalized
+  `FAILED`; no result was represented as zero or silently discarded.
+- Applied the one allowed correction: restart from base at learning rate `1e-4`, with all other
+  scientific settings and the 224-step schedule unchanged.
+- Corrected source run `day2-train-source_adapted_full-20260714T210427-d8bcfeac` completed 224
+  steps and 379,768 tokens in 437.86 seconds.
+- Selected step 224 through decision `checkpoint-decision-source_adapted_full-80d431c7fdec` after
+  fresh-base validation of all four checkpoints.
+- Source gate `source-gate-e5260bac406148a8` is `SOURCE_CAPABILITY_CONFIRMED`: adapted validation
+  reached 30/32 semantic exact, 32/32 strict valid, and passed every family, correctness, and safety
+  criterion.
+
+## 2026-07-15 — Target Training
+
+- Full-target run `day2-train-target_full_retrain-20260715T054943-e8956f73` completed 168 steps and
+  272,643 tokens in 617.31 seconds. Step 168 reached 32/32 semantic exact and strict valid on
+  validation with zero safety violations.
+- Limited-target run `day2-train-target_limited_retrain_10pct-20260715T060429-97a41daf` completed
+  the frozen 272,634-token schedule in 635.43 seconds. Step 168 reached 27/32 semantic exact and
+  30/32 strict valid on validation with zero safety violations.
+- Selected decisions are `checkpoint-decision-target_full_retrain-537ccf64dfc3` and
+  `checkpoint-decision-target_limited_retrain_10pct-3d89c02acba8`.
+
+## 2026-07-15 — Final Test and Replay
+
+- Ran the five frozen methods exactly once on all 32 test records after source confirmation and
+  checkpoint freeze.
+- Test semantic/strict results: source base 0.000%/40.625%; adapted source 96.875%/100.000%;
+  untouched target 0.000%/0.000%; full target 100.000%/100.000%; limited target
+  84.375%/93.750%.
+- All five final runs replayed exactly under `artifacts/day2/replays`.
+- Final comparison `day2-comparison-8d0e9e5ac1494449` reports semantic retention of 103.226% for
+  full target and 87.097% for limited target relative to adapted source.

@@ -1,0 +1,10 @@
+schema_version: method-config-v0.2
+method_id: source_base_supporting
+model_config_path: configs/models/source.yaml
+training_kind: none
+prompt_template_version: 0.1.0
+parser_version: 0.1.0
+evaluator_version: v0
+dataset_version: 0.1.0
+seed: 20260714
+training: null

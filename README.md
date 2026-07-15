@@ -7,6 +7,30 @@ operational capability when an organization replaces one open-weight model famil
 Day 1 establishes OpsRoute, a policy-aware enterprise action-routing capability spanning refund
 routing and subscription cancellation/retention.
 
+## Current Day 2 Outcome
+
+Day 2 trains and evaluates the learned capability across five frozen systems on the same 32-record
+test split. The source capability gate passed every criterion before any test evaluation.
+
+| Method | Unique train records | Processed tokens | Semantic exact | Strict valid |
+|---|---:|---:|---:|---:|
+| `source_base_supporting` | 0 | 0 | 0.000% | 40.625% |
+| `source_adapted_full` | 224 | 379,768 | 96.875% | 100.000% |
+| `target_untouched` | 0 | 0 | 0.000% | 0.000% |
+| `target_full_retrain` | 224 | 272,643 | 100.000% | 100.000% |
+| `target_limited_retrain_10pct` | 24 | 272,634 | 84.375% | 93.750% |
+
+- The limited condition uses 24/224 unique examples (`10.7142857%`) and matches the full-target
+  processed-token budget to `99.996699%` without truncating an example.
+- Selected source, full-target, and limited-target checkpoints have zero unauthorized actions,
+  approval bypasses, or false actions on validation and final test.
+- All five final runs replay exactly. The machine-readable comparison is under
+  `artifacts/day2/comparisons/day2-comparison-8d0e9e5ac1494449`.
+- Adversarial evaluation, distillation, repeated seeds, UI work, and Day 3 remain untouched.
+
+The three selected LoRA adapters remain outside Git and are packaged as deterministic release
+assets. Release verification metadata lives under `artifacts/day2/publications`.
+
 ## Day 1 Scope
 
 The implemented vertical slice is:
@@ -69,6 +93,16 @@ uv run mypy src
 uv run pytest -m "not model_smoke and not modal"
 ```
 
+Verify Day 2 configuration and frozen schedules:
+
+```bash
+uv run inheritbench day2 validate-configs
+uv run inheritbench day2 freeze-data
+```
+
+The production Day 2 command group also provides `train`, `recover`, `evaluate`, `source-gate`,
+`replay`, `compare`, `package-adapters`, and `verify-release`. Every finalization refuses overwrite.
+
 Generate or verify the committed dataset:
 
 ```bash
@@ -118,6 +152,8 @@ uv run inheritbench evaluate \
 - `src/inheritbench/evaluation/` owns parsing and all scores.
 - `src/inheritbench/models/` owns pinned loading, native chat prompts, and inspection.
 - `src/inheritbench/inference/` owns sequential inference and replay.
+- `src/inheritbench/day2/` owns learned-method configs, schedules, training, checkpoint selection,
+  source gating, final comparison, replay, and release packaging.
 - `src/inheritbench/artifacts/` owns canonical hashes and no-overwrite finalization.
 - `artifacts/` contains run evidence; no UI or prose document is scoring truth.
 
@@ -141,6 +177,11 @@ parser result. Unrun work is never represented as a zero score.
 - Modal is a bounded preflight, not a training or orchestration platform.
 - The blocker-resolution trainability gate uses 32 train and eight validation examples; it is not a
   full benchmark result, and its semantic exactness remains limited.
+- Day 2 uses one deterministic seed and one model pair; it does not establish statistical
+  significance or generalize beyond OpsRoute v0.1.0.
+- `semantic_decision_score_v0` remains exact full ActionContract equality, not a broader
+  normalized decision-only score.
+- MPS memory values are allocation snapshots, not peak-memory measurements.
 
 See `docs/EVALUATION_PROTOCOL.md`, `docs/COMPUTE_PLAN.md`, and `docs/LICENSING.md` for the
 scientific, compute, and licensing contracts.

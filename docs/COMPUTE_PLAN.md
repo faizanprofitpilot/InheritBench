@@ -70,3 +70,24 @@ uv run inheritbench compute modal-smoke --gpu L4 --output-root artifacts/modal
 
 Return the new immutable Modal JSON artifact or complete terminal output to Codex. The existing
 blocked record remains preserved and does not count as a GPU attempt.
+
+## Day 2 Measured Local Compute
+
+All Day 2 training used float32 MPS, batch size 1, accumulation 4, linear warmup/decay, rank-8
+Q/K/V/O LoRA, and sequential model residency. Validation and test used float16 MPS.
+
+| Method | Steps | Tokens | Training seconds | Trainable parameters |
+|---|---:|---:|---:|---:|
+| Adapted source | 224 | 379,768 | 437.86 | 1,081,344 |
+| Full target | 168 | 272,643 | 617.31 | 2,097,152 |
+| Limited target | 168 | 272,634 | 635.43 | 2,097,152 |
+
+The primary source attempt stopped at step 150 after 339.83 seconds under the gradient-norm kill
+switch. Its corrected restart completed from base at learning rate `1e-4`.
+
+Largest observed allocation snapshots were 2,077,498,880 current / 11,469,422,592 driver bytes for
+source, 5,977,088,768 / 17,393,532,928 for full target, and 5,976,194,304 / 9,569,845,248 for limited
+target. These are explicitly allocation snapshots, not peak-memory measurements.
+
+Modal remained unused. Completed local experiments were not migrated or repeated for provider
+symmetry.

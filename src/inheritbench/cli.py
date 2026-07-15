@@ -20,8 +20,10 @@ from inheritbench.logging import configure_logging
 app = typer.Typer(no_args_is_help=True, help="Reproducible model-succession benchmark core.")
 data_app = typer.Typer(no_args_is_help=True, help="Deterministic dataset commands.")
 compute_app = typer.Typer(no_args_is_help=True, help="Bounded compute checks.")
+day2_app = typer.Typer(no_args_is_help=True, help="Day 2 learned-capability workflow.")
 app.add_typer(data_app, name="data")
 app.add_typer(compute_app, name="compute")
+app.add_typer(day2_app, name="day2")
 console = Console(stderr=True)
 
 
@@ -186,6 +188,150 @@ def modal_smoke_command(
     result = ModalSmokeResult.model_validate_json(path.read_bytes(), strict=True)
     style = "green" if result.status == "COMPLETED" else "yellow"
     console.print(f"[{style}]{result.status}[/{style}] {path}")
+
+
+@day2_app.command("freeze-data")
+def day2_freeze_data_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day2.yaml"
+    ),
+) -> None:
+    from inheritbench.day2.data import freeze_data
+
+    path = freeze_data(experiment)
+    console.print(f"[green]frozen[/green] {path}")
+
+
+@day2_app.command("validate-configs")
+def day2_validate_configs_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day2.yaml"
+    ),
+) -> None:
+    from inheritbench.day2.config import load_experiment_config, load_method_config
+
+    config = load_experiment_config(experiment)
+    for path in config.method_config_paths:
+        load_method_config(Path(path))
+    console.print("[green]validated[/green] five Day 2 method configs")
+
+
+@day2_app.command("train")
+def day2_train_command(
+    method: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day2.yaml"
+    ),
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()] = "mps",
+    resume: Annotated[
+        Path | None,
+        typer.Option(exists=True, file_okay=False, help="Resume from an immutable checkpoint."),
+    ] = None,
+) -> None:
+    from inheritbench.day2.training import train_method
+
+    training, decision = train_method(
+        experiment_path=experiment,
+        method_path=method,
+        device=device,
+        resume_checkpoint=resume,
+    )
+    console.print(f"[green]trained[/green] {training}")
+    console.print(f"[green]selected[/green] {decision}")
+
+
+@day2_app.command("recover")
+def day2_recover_command(
+    active_run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    mark_failed: Annotated[bool, typer.Option(help="Finalize the active run as failed.")] = False,
+    output_root: Annotated[Path, typer.Option()] = Path("artifacts/day2/failed"),
+) -> None:
+    from inheritbench.day2.training import recover_active
+
+    if not mark_failed:
+        raise typer.BadParameter("--mark-failed is required; active runs are never reused")
+    path = recover_active(active_run, output_root)
+    console.print(f"[yellow]recovered as failed[/yellow] {path}")
+
+
+@day2_app.command("evaluate")
+def day2_evaluate_command(
+    method: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    split: Annotated[Literal["validation", "test"], typer.Option()],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day2.yaml"
+    ),
+    device: Annotated[Literal["auto", "mps", "cpu", "cuda"], typer.Option()] = "mps",
+) -> None:
+    from inheritbench.day2.evaluation import evaluate_method
+
+    path = evaluate_method(
+        experiment_path=experiment,
+        method_path=method,
+        split=split,
+        device=device,
+        command=sys.argv,
+    )
+    console.print(f"[green]evaluated[/green] {path}")
+
+
+@day2_app.command("source-gate")
+def day2_source_gate_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day2.yaml"
+    ),
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()] = "mps",
+) -> None:
+    from inheritbench.day2.gates import run_source_gate
+
+    path = run_source_gate(experiment, device=device)
+    console.print(f"[green]source gate finalized[/green] {path}")
+
+
+@day2_app.command("compare")
+def day2_compare_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day2.yaml"
+    ),
+) -> None:
+    from inheritbench.day2.comparison import build_comparison
+
+    path = build_comparison(experiment)
+    console.print(f"[green]comparison finalized[/green] {path}")
+
+
+@day2_app.command("replay")
+def day2_replay_command(
+    run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    output_root: Annotated[Path, typer.Option()] = Path("artifacts/day2/replays"),
+) -> None:
+    from inheritbench.day2.evaluation import replay_evaluation
+
+    path = replay_evaluation(run, output_root)
+    console.print(f"[green]replay passed[/green] {path}")
+
+
+@day2_app.command("package-adapters")
+def day2_package_adapters_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day2.yaml"
+    ),
+) -> None:
+    from inheritbench.day2.publication import package_adapters
+
+    path = package_adapters(experiment)
+    console.print(f"[green]packaged[/green] {path}")
+
+
+@day2_app.command("verify-release")
+def day2_verify_release_command(
+    publication: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    output_root: Annotated[Path, typer.Option()] = Path("artifacts/day2/publications"),
+) -> None:
+    from inheritbench.day2.publication import verify_release
+
+    path = verify_release(publication, output_root)
+    console.print(f"[green]release verified[/green] {path}")
 
 
 def _doctor_table(result: object) -> None:
