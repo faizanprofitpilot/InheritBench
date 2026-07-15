@@ -17,7 +17,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test e2e/local.spec.ts",
-    "build-report": "node --experimental-strip-types scripts/write-build-report.ts"
+    "build-report": "node --experimental-strip-types scripts/write-build-report.ts",
+    "verify-build-report": "node --experimental-strip-types scripts/write-build-report.ts --verify-portable"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.19",

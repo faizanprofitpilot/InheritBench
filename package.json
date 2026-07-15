@@ -14,7 +14,7 @@
     "typecheck:web": "pnpm --filter @inheritbench/web typecheck",
     "test:web": "pnpm --filter @inheritbench/web test",
     "test:e2e": "pnpm --filter @inheritbench/web test:e2e",
-    "verify:web": "pnpm ingest && pnpm lint:web && pnpm typecheck:web && pnpm test:web && pnpm build && pnpm test:e2e && pnpm --filter @inheritbench/web build-report",
+    "verify:web": "pnpm ingest && pnpm lint:web && pnpm typecheck:web && pnpm test:web && pnpm build && pnpm test:e2e && pnpm --filter @inheritbench/web verify-build-report",
     "verify": ".venv/bin/inheritbench phase5 verify-web-projection && pnpm verify:web"
   }
 }

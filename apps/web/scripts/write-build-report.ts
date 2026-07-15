@@ -6,6 +6,8 @@ import { execFileSync } from "node:child_process";
 const appRoot = process.cwd();
 const repositoryRoot = path.resolve(appRoot, "../..");
 const outRoot = path.join(appRoot, "out");
+const publicDataRoot = path.join(appRoot, "public/data");
+const verifyPortable = process.argv.includes("--verify-portable");
 const destination = path.join(
   repositoryRoot,
   "artifacts/phase5/web-build/inheritbench-web-build-v0.1/manifest.json",
@@ -53,8 +55,19 @@ const projection = JSON.parse(
   ),
 ) as Record<string, unknown>;
 const outputFiles = await files(outRoot);
-if (!outputFiles.some((item) => item.relative_path === "index.html")) {
-  throw new Error("static export is incomplete");
+const outputByPath = new Map(
+  outputFiles.map((item) => [item.relative_path as string, item]),
+);
+const requiredRoutes = [
+  "index.html",
+  "lab/opsroute/index.html",
+  "lab/opsroute/methods/index.html",
+  "lab/opsroute/failures/index.html",
+  "lab/opsroute/memo/index.html",
+  "lab/opsroute/evidence/index.html",
+];
+for (const route of requiredRoutes) {
+  if (!outputByPath.has(route)) throw new Error(`static export is missing ${route}`);
 }
 const payload: Record<string, unknown> = {
   schema_version: "phase5-web-build-manifest-v0.1",
@@ -75,6 +88,43 @@ const payload: Record<string, unknown> = {
 payload.content_sha256 = sha256(canonical(payload));
 const finalBytes = `${canonical(payload)}\n`;
 await mkdir(path.dirname(destination), { recursive: true });
+
+if (verifyPortable) {
+  const existing = JSON.parse(await readFile(destination, "utf8")) as Record<string, unknown>;
+  const storedContentHash = existing.content_sha256;
+  const existingPayload = { ...existing };
+  delete existingPayload.content_sha256;
+  if (sha256(canonical(existingPayload)) !== storedContentHash) {
+    throw new Error("immutable web build manifest content hash mismatch");
+  }
+  for (const key of [
+    "schema_version",
+    "build_id",
+    "projection_content_sha256",
+    "showcase_content_sha256",
+    "node_version",
+    "pnpm_version",
+    "node_only_ingestion_passed",
+    "lint_passed",
+    "typecheck_passed",
+    "unit_tests_passed",
+    "static_export_passed",
+    "browser_tests_passed",
+  ]) {
+    if (existing[key] !== payload[key]) throw new Error(`web build manifest field differs: ${key}`);
+  }
+  const publicDataFiles = await files(publicDataRoot);
+  for (const item of publicDataFiles) {
+    const relativePath = `data/${item.relative_path as string}`;
+    const exported = outputByPath.get(relativePath);
+    if (!exported || exported.byte_sha256 !== item.byte_sha256 || exported.bytes !== item.bytes) {
+      throw new Error(`exported committed data differs: ${relativePath}`);
+    }
+  }
+  console.log("Portable static export contract passed; immutable local build evidence is valid.");
+  process.exit(0);
+}
+
 try {
   const existing = await readFile(destination, "utf8");
   if (existing !== finalBytes) throw new Error("existing web build manifest differs");
