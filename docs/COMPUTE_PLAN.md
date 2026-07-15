@@ -116,3 +116,22 @@ symmetry.
 Both runs used float16 MPS, batch size 1, greedy decoding, and zero infrastructure retries. The
 terminal synthetic-data gate failed before target training, so target training, validation, test,
 adapter packaging, and publication consumed no Day 3 compute.
+
+## Day 3 Matched Recovery Compute Contract
+
+The final recovery uses the same float16 MPS Qwen teacher and, only if 224 balanced labels are
+selected, the same fresh float32 OLMo LoRA training settings and 272,643-token cap. The initial pool
+contains 512 candidates; at most one 256-candidate expansion is permitted. Actual teacher, training,
+validation, and test durations are recorded only in immutable run artifacts. Modal remains unused.
+
+### Matched Recovery Measured Teacher Compute
+
+| Phase | Candidates | Prompt tokens | Completion tokens | Processed tokens | Active seconds |
+|---|---:|---:|---:|---:|---:|
+| Initial | 512 | 190,179 | 25,534 | 215,713 | 766.10 |
+| Expansion | 256 | 95,107 | 12,781 | 107,888 | 356.59 |
+| Total | 768 | 285,286 | 38,315 | 323,601 | 1,122.69 |
+
+Both matched runs used float16 MPS, batch size 1, greedy decoding, and no scientific quality retry.
+The terminal-negative data gate prevented target training, validation, test, and publication
+compute.

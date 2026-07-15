@@ -177,3 +177,28 @@
   analysis, and the six-row comparison were correctly not run.
 - Record distribution as `NOT_ATTEMPTED`. The publication/science independence rule remains intact,
   but no publishable adapter exists in this failed branch.
+
+## 2026-07-15 — Final Distribution-Matched Recovery
+
+- Preserve the independent attempt as immutable control evidence and add one isolated final method,
+  `target_synthetic_distillation_matched`, under `artifacts/day3-matched`.
+- Change only the candidate-input distribution. Scale the frozen 224-row train distribution with
+  Hamilton largest-remainder quotas across joint facts, numeric support, templates, and exact Qwen
+  prompt-length buckets.
+- Reuse the value-sensitive Day 3 semantic leakage signature unchanged; family or archetype alone
+  never defines semantic identity.
+- Permit one 512-candidate initial pool and one fixed 256-candidate expansion. A replayed insufficiency
+  or lack of a safety-eligible checkpoint is a terminal negative that unblocks Day 4 with a negative
+  distillation result.
+- Keep publication independent. Release failure may set `PUBLICATION_BLOCKED` but cannot change the
+  recovery status or Day 4 gate.
+- Forbid a third Day 3 attempt and automatic Day 4 execution.
+
+## 2026-07-15 — Matched Recovery Terminal Decision
+
+- Preserve the final 719/768 acceptance result without relaxing the duplicate auto-refund quota,
+  rewriting labels, changing prompts, or adding another pool. That archetype reached 4/48 accepted.
+- Finalize `RECOVERY_TERMINAL_NEGATIVE` with
+  `DAY4_UNBLOCKED_WITH_NEGATIVE_DISTILLATION_RESULT` after all required replays and the immutable
+  independent-versus-matched comparison pass.
+- Record publication as `NOT_ATTEMPTED`; no adapter exists. Do not start Day 4 automatically.

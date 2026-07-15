@@ -1,0 +1,34 @@
+schema_version: day3-matched-experiment-v0.1
+experiment_id: inheritbench-day3-matched-v0.1
+method_id: target_synthetic_distillation_matched
+attempt_id: distribution_matched_attempt
+historical_attempt_id: independent_pool_attempt
+historical_reference_commit: e004e415b6e6a3648e8ff4f411b0bb5d5aff1037
+dataset_directory: data/opsroute/v0.1.0
+task_config_path: configs/tasks/opsroute.yaml
+source_model_config_path: configs/models/source.yaml
+target_model_config_path: configs/models/target.yaml
+method_config_path: configs/methods/target_synthetic_distillation_matched.yaml
+pool_config_path: configs/synthetic/day3_matched_pool.yaml
+day2_artifact_root: artifacts/day2
+original_day3_artifact_root: artifacts/day3
+artifact_root: artifacts/day3-matched
+adapter_root: adapters/day3-matched
+release_tag: day3-matched-v0.1.0
+historical_artifacts:
+  - relative_path: teacher-verifications/day3-teacher-verification-51f66637be7badc8/verification.json
+    byte_sha256: 9b4cc1e240821dd9b940aaafd362639d0a27598bea86b0e6205ef7e34466f2fd
+    content_sha256: 8ac32c0c6e4d811419faa3896a9955a9ad9582ef3f293f5129595ca3bdef4d56
+  - relative_path: synthetic-data/day3-synthetic-dataset-9d186a0dde24549f/manifest.json
+    byte_sha256: 60beef70986657a3a3d7bb312783e8c41e9b4599cb0caea8474d2f84765a8549
+    content_sha256: c9e6c149b03ebf08d17a6c7bf11bca9cda1b10dcc184a8ab3414399ea0029148
+  - relative_path: scientific-decisions/day3-scientific-decision-41735df24888461c/decision.json
+    byte_sha256: b305c01fcd331f0c5e01dcb664ee343f38044c04ca37f76edfcf130545c60caf
+    content_sha256: 9deaa4afb02eed89196dafca0b1a1211f9c5bf6a41fb2b97dbe4de8ec6223da9
+  - relative_path: distribution-decisions/day3-distribution-decision-a20ce4a5e30545e8/decision.json
+    byte_sha256: 45177483ea4e7b744bf6d42acf6639e9fd1a655207935e0c98678a2e3bd4a98b
+    content_sha256: 2ae14d31c944b7636cf7cec0563fc47d3d6f88b25a13a41a047327f6e6d8f3c1
+seed: 20260714
+adversarial_evaluation: false
+automatic_day4: false
+further_day3_attempts_allowed: false

@@ -52,3 +52,11 @@ No Day 3 OLMo adapter was produced because the synthetic-data acceptance gate fa
 training. Consequently no `day3-v0.1.0` release was created. Any future selected Day 3 adapter would
 remain ignored under `adapters/day3`; Qwen and OLMo remain subject to their reviewed Apache-2.0
 licenses.
+
+The final matched recovery reuses the same verified Qwen teacher bytes and pinned Apache-2.0 OLMo
+base. Any selected matched OLMo adapter remains ignored under `adapters/day3-matched` and is eligible
+only for deterministic release tag `day3-matched-v0.1.0` after scientific completion. A publication
+failure does not invalidate scientific evidence.
+
+The executed matched recovery produced no OLMo adapter because the balanced synthetic-data gate was
+not met. Therefore no `day3-matched-v0.1.0` release was created and distribution is `NOT_ATTEMPTED`.

@@ -24,7 +24,7 @@ frozen OpsRoute splits, prompt/parser `0.1.0`, evaluator `v0`, model revisions, 
   comparison sets `DAY4_UNBLOCKED`; release failure can only set `PUBLICATION_BLOCKED`.
 - Day 4 is never started automatically.
 
-### Current Day 3 Outcome
+### Independent Day 3 Outcome
 
 Day 3 stopped at its predeclared synthetic-data gate. The verified teacher completed all 768
 candidates across the initial and single allowed expansion pools, but only 59 outputs were strict,
@@ -38,6 +38,21 @@ policy-exact, and safety-valid. Accepted outputs covered five of sixteen archety
   or Day 4 work was run.
 - Both teacher runs and the 768-record filter replay exactly. Low teacher agreement remains visible;
   no parser repair, quality retry, prompt change, or label rewriting was used.
+
+### Distribution-Matched Recovery Outcome
+
+The final bounded recovery matched the frozen train distribution exactly and improved strict
+teacher acceptance from 59/768 (`7.68%`) to 719/768 (`93.62%`). Fifteen archetypes met the quota,
+but duplicate auto-refund reached only 4/48 accepted outputs, below the frozen minimum of 14.
+
+- Terminal dataset: `artifacts/day3-matched/synthetic-data/day3-matched-synthetic-dataset-36eea02e066b021a`
+- Result: `RECOVERY_TERMINAL_NEGATIVE / DAY4_UNBLOCKED_WITH_NEGATIVE_DISTILLATION_RESULT`
+- Reason: `INSUFFICIENT_ACCEPTED_SYNTHETIC_EXAMPLES`
+- Distribution: `NOT_ATTEMPTED`; no target training, held-out test, adapter, six-row comparison, or
+  release exists.
+- Fingerprint, both distribution/leakage audits, both teacher runs, filtering, failure analysis,
+  attempt comparison, and recovery decision replay exactly.
+- No third Day 3 attempt or automatic Day 4 work is permitted.
 
 ## Current Day 2 Outcome
 
@@ -164,6 +179,14 @@ The remaining Day 3 commands provide replay, failure analysis, six-row compariso
 scientific/distribution finalization, deterministic adapter packaging, and public release
 verification. Every command fails closed on missing or mismatched lineage.
 
+Replay the final matched recovery:
+
+```bash
+uv run inheritbench day3-matched validate-configs
+uv run inheritbench day3-matched freeze-baseline
+uv run pytest -q tests/integration/test_day3_matched_artifacts.py
+```
+
 Generate or verify the committed dataset:
 
 ```bash
@@ -218,6 +241,8 @@ uv run inheritbench evaluate \
 - `src/inheritbench/day3/` owns independent candidate generation, value-sensitive leakage audits,
   verified teacher inference, strict synthetic filtering, target training, replay, status decisions,
   and one-adapter publication.
+- `src/inheritbench/day3_matched/` owns the isolated final distribution-matched recovery, exact
+  train-fingerprint audits, terminal-negative status, replay, and independent publication lineage.
 - `src/inheritbench/artifacts/` owns canonical hashes and no-overwrite finalization.
 - `artifacts/` contains run evidence; no UI or prose document is scoring truth.
 
@@ -253,6 +278,10 @@ parser result. Unrun work is never represented as a zero score.
 - The frozen Day 3 teacher produced only 59 accepted outputs across five archetypes, so no synthetic
   target was trained and no six-row comparison exists. This is a failed scientific gate, not a zero
   benchmark score.
+- The matched recovery is a distinct final attempt. It preserves the independent failure and permits
+  either a replayed completed result or a replayed terminal negative to unblock Day 4; it never starts
+  Day 4 automatically.
 
-See `docs/EVALUATION_PROTOCOL.md`, `docs/COMPUTE_PLAN.md`, and `docs/LICENSING.md` for the
-scientific, compute, and licensing contracts.
+See `docs/METHOD_SYNTHETIC_DISTILLATION.md`, `docs/JUDGE_REPLAY.md`,
+`docs/EVALUATION_PROTOCOL.md`, `docs/COMPUTE_PLAN.md`, and `docs/LICENSING.md` for the scientific,
+compute, replay, and licensing contracts.

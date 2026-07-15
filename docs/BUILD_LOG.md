@@ -283,3 +283,48 @@ This file is append-only. Results are recorded only after the corresponding comm
 - The real-evidence integration test validates both pools, teacher verification, 768 terminal
   predictions, the failed synthetic dataset, all three replays, scientific/distribution decisions,
   and the absence of training, test, comparison, publication, or target-adapter evidence.
+
+## 2026-07-15 — Distribution-Matched Recovery Foundation
+
+- Added isolated strict schemas, configs, CLI, and artifact roots for
+  `target_synthetic_distillation_matched`; no original Day 3 artifact was rewritten.
+- Frozen historical baseline `day3-matched-baseline-5a63f9c161e964fd` and train fingerprint
+  `day3-matched-fingerprint-5aa5befc9ae1da92`.
+- Frozen initial pool `day3-matched-pool-initial-e272e8a7b827bb01` with 512 candidates, exactly 32
+  per archetype. Exact distribution audit `3b11ff...` and leakage audit `dda75b...` passed.
+- Added fresh OLMo training, safety-first checkpoint selection, held-out evaluation, replay,
+  comparison, terminal-negative recovery, deterministic packaging, and publication-independent
+  distribution status paths.
+- Targeted original/matched regression suite passed 45 tests before scientific execution.
+
+## 2026-07-15 — Distribution-Matched Recovery Execution
+
+- Initial teacher run `day3-matched-teacher-initial-20260715T123651-195bede8` completed all 512
+  candidates with 215,713 processed generation tokens in 766.10 active seconds. The strict filter
+  accepted 479; duplicate auto-refund accepted 3/32, triggering the single fixed expansion.
+- Expansion pool `day3-matched-pool-expansion-dc0b0c265b3c3ed1` passed exact distribution and
+  leakage audits. Teacher run `day3-matched-teacher-expansion-20260715T125036-8f3c1dc8` completed
+  all 256 outputs with 107,888 processed generation tokens in 356.59 active seconds.
+- Terminal matched dataset `day3-matched-synthetic-dataset-36eea02e066b021a` accepted 719/768 and
+  rejected 49 policy-contract mismatches. Duplicate auto-refund reached only 4/48; every other
+  archetype reached at least 44.
+- All required fingerprint, audit, teacher, filter, analysis, attempt-comparison, and recovery
+  replays passed. Attempt comparison `day3-matched-attempt-comparison-83288d60a73ff1c8` preserves
+  both the independent 59/768 result and matched 719/768 result.
+- Recovery decision `day3-recovery-decision-bcb9f968af3abfc1` finalized
+  `RECOVERY_TERMINAL_NEGATIVE / DAY4_UNBLOCKED_WITH_NEGATIVE_DISTILLATION_RESULT`.
+- Distribution decision `day3-matched-distribution-decision-80a3eb687b86a952` finalized
+  `NOT_ATTEMPTED`. No target training, validation, test, adapter, release, third attempt, or Day 4
+  execution occurred.
+
+## 2026-07-15 — Matched Recovery Final Gates
+
+- Frozen offline sync checked all 76 locked packages.
+- Ruff lint and format checks passed across 97 files.
+- Strict mypy passed across 62 source files.
+- Offline pytest passed with 100 selected tests and one opt-in real-model smoke test deselected.
+- OpsRoute v0.1.0 regenerated exactly at
+  `9202ecdf200a86cf3899a9ff3eb71722effe9421c04f353fd575d62c6c7d492b`.
+- Historical original Day 3 and matched terminal-evidence integration gates passed. No credentials,
+  model weights, original-artifact writes, target training, held-out test, publication, third
+  attempt, or automatic Day 4 work entered the change set.

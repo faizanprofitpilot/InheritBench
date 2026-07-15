@@ -22,10 +22,15 @@ data_app = typer.Typer(no_args_is_help=True, help="Deterministic dataset command
 compute_app = typer.Typer(no_args_is_help=True, help="Bounded compute checks.")
 day2_app = typer.Typer(no_args_is_help=True, help="Day 2 learned-capability workflow.")
 day3_app = typer.Typer(no_args_is_help=True, help="Day 3 synthetic-distillation workflow.")
+day3_matched_app = typer.Typer(
+    no_args_is_help=True,
+    help="Final distribution-matched Day 3 recovery workflow.",
+)
 app.add_typer(data_app, name="data")
 app.add_typer(compute_app, name="compute")
 app.add_typer(day2_app, name="day2")
 app.add_typer(day3_app, name="day3")
+app.add_typer(day3_matched_app, name="day3-matched")
 console = Console(stderr=True)
 
 
@@ -346,6 +351,338 @@ def day3_validate_configs_command(
 
     load_experiment_config(experiment)
     console.print("[green]validated[/green] Day 3 experiment, pool, method, and model configs")
+
+
+@day3_matched_app.command("validate-configs")
+def day3_matched_validate_configs_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.config import load_experiment_config
+
+    load_experiment_config(experiment)
+    console.print("[green]validated[/green] isolated Day 3 matched-recovery configs")
+
+
+@day3_matched_app.command("freeze-baseline")
+def day3_matched_freeze_baseline_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.baseline import freeze_baseline
+
+    path = freeze_baseline(experiment)
+    console.print(f"[green]historical baseline frozen[/green] {path}")
+
+
+@day3_matched_app.command("freeze-fingerprint")
+def day3_matched_freeze_fingerprint_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.distribution import freeze_fingerprint
+
+    path = freeze_fingerprint(experiment)
+    console.print(f"[green]train distribution frozen[/green] {path}")
+
+
+@day3_matched_app.command("freeze-pool")
+def day3_matched_freeze_pool_command(
+    pool: Annotated[Literal["initial", "expansion"], typer.Option()] = "initial",
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.distribution import freeze_pool
+
+    path = freeze_pool(experiment, pool)
+    console.print(f"[green]{pool} matched pool frozen[/green] {path}")
+
+
+@day3_matched_app.command("audit-distribution")
+def day3_matched_audit_distribution_command(
+    pool: Annotated[Literal["initial", "expansion"], typer.Option()],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.distribution import audit_distribution
+
+    path = audit_distribution(experiment, pool)
+    console.print(f"[green]distribution audit passed[/green] {path}")
+
+
+@day3_matched_app.command("audit-leakage")
+def day3_matched_audit_leakage_command(
+    pool: Annotated[Literal["initial", "expansion"], typer.Option()],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.distribution import audit_leakage
+
+    path = audit_leakage(experiment, pool)
+    console.print(f"[green]leakage audit passed[/green] {path}")
+
+
+@day3_matched_app.command("verify-teacher")
+def day3_matched_verify_teacher_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.teacher import verify_teacher
+
+    path = verify_teacher(experiment)
+    console.print(f"[green]matched teacher reference verified[/green] {path}")
+
+
+@day3_matched_app.command("run-teacher")
+def day3_matched_run_teacher_command(
+    pool: Annotated[Literal["initial", "expansion"], typer.Option()],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()] = "mps",
+    resume: Annotated[
+        Path | None,
+        typer.Option(exists=True, file_okay=False, help="Resume one failed matched run."),
+    ] = None,
+) -> None:
+    from inheritbench.day3_matched.teacher import run_teacher
+
+    path = run_teacher(experiment, pool, device=device, resume_run=resume)
+    console.print(f"[green]matched teacher run finalized[/green] {path}")
+
+
+@day3_matched_app.command("filter")
+def day3_matched_filter_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.filtering import filter_teacher_outputs
+
+    dataset, evidence = filter_teacher_outputs(experiment)
+    console.print(f"[green]matched filter finalized[/green] {dataset} · {evidence}")
+
+
+@day3_matched_app.command("expand-pool")
+def day3_matched_expand_pool_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.distribution import freeze_pool
+    from inheritbench.day3_matched.filtering import find_synthetic_dataset
+
+    _, dataset = find_synthetic_dataset(experiment, require_completed=False)
+    if dataset.status != "NEEDS_EXPANSION":
+        raise typer.BadParameter("expansion requires an insufficient initial matched filter")
+    path = freeze_pool(experiment, "expansion")
+    console.print(f"[yellow]matched expansion pool frozen[/yellow] {path}")
+
+
+@day3_matched_app.command("freeze-schedule")
+def day3_matched_freeze_schedule_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.filtering import freeze_schedule
+
+    path = freeze_schedule(experiment)
+    console.print(f"[green]matched schedule frozen[/green] {path}")
+
+
+@day3_matched_app.command("train")
+def day3_matched_train_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()] = "mps",
+    resume: Annotated[
+        Path | None,
+        typer.Option(exists=True, file_okay=False, help="Resume from a matched checkpoint."),
+    ] = None,
+) -> None:
+    from inheritbench.day3_matched.training import train_method
+
+    training, decision = train_method(experiment, device=device, resume_checkpoint=resume)
+    console.print(f"[green]matched training finalized[/green] {training} · {decision}")
+
+
+@day3_matched_app.command("recover")
+def day3_matched_recover_command(
+    active_run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    mark_failed: Annotated[bool, typer.Option("--mark-failed")] = False,
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    if not mark_failed:
+        raise typer.BadParameter("matched recovery requires --mark-failed")
+    from inheritbench.day3_matched.config import load_experiment_config, resolve
+
+    config = load_experiment_config(experiment)
+    failed_root = resolve(experiment, config.artifact_root) / "failed"
+    if (active_run / "active.json").is_file():
+        from inheritbench.day3_matched.training import recover_active as recover_training
+
+        path = recover_training(active_run, failed_root)
+    else:
+        from inheritbench.day3_matched.teacher import recover_active as recover_teacher
+
+        path = recover_teacher(active_run, failed_root)
+    console.print(f"[yellow]matched run recovered as failed[/yellow] {path}")
+
+
+@day3_matched_app.command("evaluate")
+def day3_matched_evaluate_command(
+    split: Annotated[Literal["validation", "test"], typer.Option()],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+    device: Annotated[Literal["auto", "mps", "cpu", "cuda"], typer.Option()] = "mps",
+) -> None:
+    from inheritbench.day3_matched.evaluation import evaluate_method
+
+    path = evaluate_method(experiment, split, device=device)
+    console.print(f"[green]matched {split} evaluation finalized[/green] {path}")
+
+
+@day3_matched_app.command("select-checkpoint")
+def day3_matched_select_checkpoint_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()] = "mps",
+) -> None:
+    from inheritbench.day3_matched.training import select_checkpoints
+
+    path = select_checkpoints(experiment, device=device)
+    console.print(f"[green]matched checkpoint decision frozen[/green] {path}")
+
+
+@day3_matched_app.command("replay")
+def day3_matched_replay_command(
+    kind: Annotated[
+        Literal[
+            "fingerprint",
+            "distribution",
+            "leakage",
+            "teacher",
+            "filter",
+            "schedule",
+            "training",
+            "evaluation",
+            "failure_analysis",
+            "attempt_comparison",
+            "method_comparison",
+            "recovery_decision",
+        ],
+        typer.Option(),
+    ],
+    artifact: Annotated[Path, typer.Option(exists=True)],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.lifecycle import replay_artifact
+
+    path = replay_artifact(experiment, kind, artifact)
+    console.print(f"[green]matched {kind} replay passed[/green] {path}")
+
+
+@day3_matched_app.command("analyze-failures")
+def day3_matched_analyze_failures_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.lifecycle import analyze_failures
+
+    path = analyze_failures(experiment)
+    console.print(f"[green]matched failure analysis finalized[/green] {path}")
+
+
+@day3_matched_app.command("compare-attempts")
+def day3_matched_compare_attempts_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.lifecycle import build_attempt_comparison
+
+    path = build_attempt_comparison(experiment)
+    console.print(f"[green]synthetic attempts compared[/green] {path}")
+
+
+@day3_matched_app.command("compare-methods")
+def day3_matched_compare_methods_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.lifecycle import build_method_comparison
+
+    path = build_method_comparison(experiment)
+    console.print(f"[green]six method rows compared[/green] {path}")
+
+
+@day3_matched_app.command("finalize-recovery")
+def day3_matched_finalize_recovery_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+    blocked_reason: Annotated[str | None, typer.Option()] = None,
+) -> None:
+    from inheritbench.day3_matched.lifecycle import finalize_recovery
+
+    path = finalize_recovery(experiment, blocked_reason=blocked_reason)
+    console.print(f"[green]matched recovery decision finalized[/green] {path}")
+
+
+@day3_matched_app.command("package-adapter")
+def day3_matched_package_adapter_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.publication import package_adapter
+
+    path = package_adapter(experiment)
+    console.print(f"[green]matched adapter packaged[/green] {path}")
+
+
+@day3_matched_app.command("verify-release")
+def day3_matched_verify_release_command(
+    publication: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.config import load_experiment_config, resolve
+    from inheritbench.day3_matched.publication import verify_release
+
+    config = load_experiment_config(experiment)
+    path = verify_release(publication, resolve(experiment, config.artifact_root) / "publications")
+    console.print(f"[green]matched release verification finalized[/green] {path}")
+
+
+@day3_matched_app.command("finalize-distribution")
+def day3_matched_finalize_distribution_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/day3_matched.yaml"
+    ),
+) -> None:
+    from inheritbench.day3_matched.lifecycle import finalize_distribution
+
+    path = finalize_distribution(experiment)
+    console.print(f"[green]matched distribution decision finalized[/green] {path}")
 
 
 @day3_app.command("freeze-pool")

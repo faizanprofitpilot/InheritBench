@@ -1,0 +1,27 @@
+schema_version: day3-matched-method-config-v0.1
+method_id: target_synthetic_distillation_matched
+attempt_id: distribution_matched_attempt
+model_config_path: configs/models/target.yaml
+prompt_template_version: 0.1.0
+parser_version: 0.1.0
+evaluator_version: v0
+dataset_version: 0.1.0
+seed: 20260714
+training:
+  train_dtype: float32
+  batch_size: 1
+  gradient_accumulation_steps: 4
+  gradient_clip_norm: 1.0
+  maximum_sequence_length: 1024
+  learning_rate: 0.0002
+  betas: [0.9, 0.999]
+  epsilon: 0.00000001
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  lora_rank: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  lora_bias: none
+  lora_target_modules: [q_proj, k_proj, v_proj, o_proj]
+correction_attempt: 0
+correction_parent_run_id: null

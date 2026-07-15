@@ -199,3 +199,19 @@ identifier presence, requested action, authorization, numeric thresholds and val
 eligibility flags, tool availability, and policy constants. Therefore paraphrases do not create
 false novelty, while values such as 4,999 versus 5,001 cannot collapse into one archetype-level
 signature.
+
+## Day 3 Distribution-Matched Recovery
+
+The matched recovery does not change parser `0.1.0`, metrics `v0`, strict filtering, checkpoint
+eligibility, or held-out evaluation. It mechanically scales train-observed joint strata and exact
+Qwen prompt-length buckets, then requires a zero-tolerance distribution audit and zero leakage
+collisions before teacher inference.
+
+The independent and matched attempts remain separate comparison rows. A terminal negative is never
+encoded as a numeric zero. It requires replayed teacher/filter or checkpoint evidence, deterministic
+failure analysis, and a replayed attempt comparison before it can unblock Day 4 with a negative
+distillation result.
+
+The executed matched filter accepted 719/768 outputs and rejected 49 policy-contract mismatches.
+Duplicate auto-refund accepted 4/48, so the frozen 14-per-archetype balance failed despite a
+`93.6198%` aggregate acceptance rate. This is preserved as a terminal negative, not a zero score.

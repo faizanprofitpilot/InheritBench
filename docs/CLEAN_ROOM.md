@@ -19,3 +19,8 @@ Day 3 candidate templates, value-sensitive leakage signatures, teacher filtering
 status decisions, and replay logic are newly implemented for InheritBench. Public model and adapter
 artifacts are consumed only through pinned identifiers and verified hashes; no upstream benchmark
 logic or private dataset content is copied.
+
+The distribution-matched recovery is also newly implemented. It derives a statistical fingerprint
+from this repository's committed train inputs, uses deterministic Hamilton apportionment, and reuses
+the project's own frozen rendering and leakage contracts. It does not copy an external dataset,
+benchmark method, or private label source.

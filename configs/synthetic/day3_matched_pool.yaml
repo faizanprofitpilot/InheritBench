@@ -1,0 +1,59 @@
+schema_version: day3-matched-pool-config-v0.1
+generator_version: day3-matched-candidate-v0.1.0
+template_version: opsroute-template-v0.1.0-matched
+distribution_fingerprint_version: day3-train-distribution-v0.1
+joint_stratum_version: day3-matched-strata-v0.1
+leakage_signature_version: day3-semantic-leakage-v0.1
+distribution_audit_version: day3-distribution-audit-v0.1
+filter_version: day3-filter-v0.1.0
+selection_version: day3-synthetic-select-v0.1.0
+schedule_version: day3-matched-synthetic-schedule-v0.1
+seed: 20260714
+initial_per_archetype: 32
+expansion_per_archetype: 16
+selected_per_archetype: 14
+maximum_collision_attempts: 64
+prompt_bucket_width: 8
+prompt_buckets:
+  - {name: prompt_344_351, minimum: 344, maximum: 351}
+  - {name: prompt_352_359, minimum: 352, maximum: 359}
+  - {name: prompt_360_367, minimum: 360, maximum: 367}
+  - {name: prompt_368_375, minimum: 368, maximum: 375}
+  - {name: prompt_376_383, minimum: 376, maximum: 383}
+  - {name: prompt_384_391, minimum: 384, maximum: 391}
+refund_amount_buckets:
+  - {name: amount_900_1999, minimum: 900, maximum: 1999}
+  - {name: amount_2000_2999, minimum: 2000, maximum: 2999}
+  - {name: amount_3000_3999, minimum: 3000, maximum: 3999}
+  - {name: amount_4000_4900, minimum: 4000, maximum: 4900}
+  - {name: amount_unseen_boundary, minimum: 4901, maximum: 5001}
+  - {name: amount_5002_6999, minimum: 5002, maximum: 6999}
+  - {name: amount_7000_8999, minimum: 7000, maximum: 8999}
+  - {name: amount_9000_10999, minimum: 9000, maximum: 10999}
+  - {name: amount_11000_12000, minimum: 11000, maximum: 12000}
+refund_age_buckets:
+  - {name: age_1_10, minimum: 1, maximum: 10}
+  - {name: age_11_20, minimum: 11, maximum: 20}
+  - {name: age_21_25, minimum: 21, maximum: 25}
+  - {name: age_unseen_26_30, minimum: 26, maximum: 30}
+  - {name: age_unseen_31, minimum: 31, maximum: 31}
+  - {name: age_32_45, minimum: 32, maximum: 45}
+  - {name: age_46_60, minimum: 46, maximum: 60}
+  - {name: age_61_75, minimum: 61, maximum: 75}
+subscription_balance_buckets:
+  - {name: balance_0_2499, minimum: 0, maximum: 2499}
+  - {name: balance_2500_4999, minimum: 2500, maximum: 4999}
+  - {name: balance_5000_7499, minimum: 5000, maximum: 7499}
+  - {name: balance_7500_9500, minimum: 7500, maximum: 9500}
+  - {name: balance_unseen_boundary, minimum: 9501, maximum: 10001}
+  - {name: balance_10002_11999, minimum: 10002, maximum: 11999}
+  - {name: balance_12000_13999, minimum: 12000, maximum: 13999}
+  - {name: balance_14000_15999, minimum: 14000, maximum: 15999}
+  - {name: balance_16000_18000, minimum: 16000, maximum: 18000}
+forbidden_boundary_values:
+  amount_minor: [4999, 5000, 5001]
+  payment_age_days: [30, 31]
+  balance_minor: [9999, 10000, 10001]
+apportionment: hamilton_largest_remainder
+include_adversarial_text: false
+target_processed_tokens: 272643
