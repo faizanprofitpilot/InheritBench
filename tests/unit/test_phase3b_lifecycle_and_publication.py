@@ -111,9 +111,12 @@ def test_publication_status_cannot_change_scientific_gate() -> None:
     assert decision.day4_gate == "DAY4_UNBLOCKED"
 
 
-def test_phase3b_adapter_archive_is_deterministic() -> None:
-    adapter = Path("adapters/phase3b/target_hybrid_anchored_distillation_10-7461072c83b4dcde")
+def test_phase3b_adapter_archive_is_deterministic(tmp_path: Path) -> None:
+    adapter = tmp_path / "adapter"
+    adapter.mkdir()
     names = ["README.md", "adapter_config.json", "adapter_model.safetensors", "lineage.json"]
+    for index, name in enumerate(names):
+        (adapter / name).write_bytes(f"fixture-{index}-{name}".encode())
     first = deterministic_zip(adapter, names)
     second = deterministic_zip(adapter, list(reversed(names)))
     assert first == second

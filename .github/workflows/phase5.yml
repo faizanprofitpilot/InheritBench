@@ -28,6 +28,9 @@ jobs:
       - run: uv run ruff format --check .
       - run: uv run mypy src
       - run: uv run pytest -m "not model_smoke and not modal"
+        env:
+          HF_HUB_OFFLINE: "1"
+          TRANSFORMERS_OFFLINE: "1"
       - run: uv run inheritbench data generate --config configs/tasks/opsroute.yaml --output data/opsroute/v0.1.0 --check
       - run: uv run inheritbench phase5 verify-web-projection
       - run: pnpm verify:web
