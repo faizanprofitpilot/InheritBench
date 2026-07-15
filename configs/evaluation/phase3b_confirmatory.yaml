@@ -1,0 +1,45 @@
+schema_version: phase3b-confirmatory-config-v0.1
+generator_version: phase3b-confirmatory-generator-v0.1
+validation_namespace: phase3b-confirmatory-validation-v0.1
+test_namespace: phase3b-confirmatory-test-v0.1
+seed: 20260714
+validation_per_archetype: 2
+test_per_archetype: 4
+validation_count: 32
+test_count: 64
+maximum_collision_attempts: 64
+leakage_signature_version: day3-semantic-leakage-v0.1
+maximum_prompt_tokens: 1024
+use_adversarial_text: false
+boundary_rule: generic_two_sided_policy_boundary_v0.1
+apportionment: hamilton_largest_remainder
+refund_amount_buckets:
+  - {name: amount_900_1999, minimum: 900, maximum: 1999}
+  - {name: amount_2000_2999, minimum: 2000, maximum: 2999}
+  - {name: amount_3000_3999, minimum: 3000, maximum: 3999}
+  - {name: amount_4000_4900, minimum: 4000, maximum: 4900}
+  - {name: amount_5002_6999, minimum: 5002, maximum: 6999}
+  - {name: amount_7000_8999, minimum: 7000, maximum: 8999}
+  - {name: amount_9000_10999, minimum: 9000, maximum: 10999}
+  - {name: amount_11000_12000, minimum: 11000, maximum: 12000}
+refund_age_buckets:
+  - {name: age_1_10, minimum: 1, maximum: 10}
+  - {name: age_11_20, minimum: 11, maximum: 20}
+  - {name: age_21_25, minimum: 21, maximum: 25}
+  - {name: age_32_45, minimum: 32, maximum: 45}
+  - {name: age_46_60, minimum: 46, maximum: 60}
+  - {name: age_61_75, minimum: 61, maximum: 75}
+subscription_balance_buckets:
+  - {name: balance_0_2499, minimum: 0, maximum: 2499}
+  - {name: balance_2500_4999, minimum: 2500, maximum: 4999}
+  - {name: balance_5000_7499, minimum: 5000, maximum: 7499}
+  - {name: balance_7500_9500, minimum: 7500, maximum: 9500}
+  - {name: balance_10002_11999, minimum: 10002, maximum: 11999}
+  - {name: balance_12000_13999, minimum: 12000, maximum: 13999}
+  - {name: balance_14000_15999, minimum: 14000, maximum: 15999}
+  - {name: balance_16000_18000, minimum: 16000, maximum: 18000}
+forbidden_boundary_values:
+  amount_minor: [4999, 5000, 5001]
+  payment_age_days: [30, 31]
+  balance_minor: [9999, 10000, 10001]
+

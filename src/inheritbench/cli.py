@@ -26,12 +26,103 @@ day3_matched_app = typer.Typer(
     no_args_is_help=True,
     help="Final distribution-matched Day 3 recovery workflow.",
 )
+phase3b_app = typer.Typer(
+    no_args_is_help=True,
+    help="Phase 3B anchored behavioral transfer workflow.",
+)
 app.add_typer(data_app, name="data")
 app.add_typer(compute_app, name="compute")
 app.add_typer(day2_app, name="day2")
 app.add_typer(day3_app, name="day3")
 app.add_typer(day3_matched_app, name="day3-matched")
+app.add_typer(phase3b_app, name="phase3b")
 console = Console(stderr=True)
+
+
+@phase3b_app.command("validate-configs")
+def phase3b_validate_configs_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.config import load_experiment_config
+
+    load_experiment_config(experiment)
+    console.print("[green]validated[/green] isolated Phase 3B configs")
+
+
+@phase3b_app.command("freeze-baseline")
+def phase3b_freeze_baseline_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.baseline import freeze_baseline
+
+    path = freeze_baseline(experiment)
+    console.print(f"[green]Phase 3B historical baseline frozen[/green] {path}")
+
+
+@phase3b_app.command("attest-preregistration")
+def phase3b_attest_preregistration_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.baseline import attest_preregistration
+
+    path = attest_preregistration(experiment)
+    console.print(f"[green]Phase 3B preregistration attested[/green] {path}")
+
+
+@phase3b_app.command("freeze-hybrid-selection")
+def phase3b_freeze_hybrid_selection_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.selection import freeze_hybrid_selection
+
+    synthetic, anchors, hybrid = freeze_hybrid_selection(experiment)
+    console.print(
+        f"[green]Phase 3B hybrid selection frozen[/green] {synthetic} · {anchors} · {hybrid}"
+    )
+
+
+@phase3b_app.command("freeze-confirmatory-data")
+def phase3b_freeze_confirmatory_data_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.confirmatory import freeze_confirmatory_data
+
+    path = freeze_confirmatory_data(experiment)
+    console.print(f"[green]Phase 3B confirmatory data frozen[/green] {path}")
+
+
+@phase3b_app.command("audit-confirmatory-leakage")
+def phase3b_audit_confirmatory_leakage_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.confirmatory import audit_confirmatory_leakage
+
+    path = audit_confirmatory_leakage(experiment)
+    console.print(f"[green]Phase 3B confirmatory leakage audit passed[/green] {path}")
+
+
+@phase3b_app.command("freeze-schedule")
+def phase3b_freeze_schedule_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase3b.yaml"
+    ),
+) -> None:
+    from inheritbench.phase3b.training import freeze_schedule
+
+    path = freeze_schedule(experiment)
+    console.print(f"[green]Phase 3B training schedule frozen[/green] {path}")
 
 
 def _version_callback(value: bool) -> None:
