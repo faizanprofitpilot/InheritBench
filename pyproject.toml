@@ -30,6 +30,7 @@ model = [
   "safetensors>=0.4,<1",
 ]
 modal = ["modal>=1,<2"]
+analyst = ["openai>=2,<3"]
 
 [dependency-groups]
 dev = [
@@ -65,7 +66,7 @@ mypy_path = "src"
 warn_unreachable = true
 
 [[tool.mypy.overrides]]
-module = ["yaml", "transformers.*", "torch.*", "peft.*", "modal.*", "psutil"]
+module = ["yaml", "transformers.*", "torch.*", "peft.*", "modal.*", "openai.*", "psutil"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

@@ -1,5 +1,27 @@
 # Judge Replay
 
+## Phase 4
+
+The Phase 4 protocol is committed before inference and then bound to that commit through Git-tree
+attestation. After the six one-time adversarial runs complete, every remaining command is offline
+except the bounded GPT memo request:
+
+```bash
+uv run inheritbench phase4 replay --artifact artifacts/phase4/evaluations/<run-id>
+uv run inheritbench phase4 analyze
+uv run inheritbench phase4 compute-profiles
+uv run inheritbench phase4 select-cases
+uv run inheritbench phase4 build-evidence-pack
+uv run inheritbench phase4 build-fallback-memo
+uv run inheritbench phase4 generate-gpt-memo
+uv run inheritbench phase4 build-showcase
+uv run inheritbench phase4 replay-showcase
+uv run inheritbench phase4 finalize
+```
+
+If `OPENAI_API_KEY` is absent, the final state remains `READY_FOR_GPT_MEMO`; no model runs need to be
+repeated after credentials are supplied.
+
 ## Historical Anchor
 
 ```bash

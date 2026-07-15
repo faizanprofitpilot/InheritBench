@@ -1,0 +1,18 @@
+schema_version: phase4-memo-config-v0.1
+model: gpt-5.6-sol
+api: responses
+structured_outputs: true
+reasoning_effort: high
+maximum_output_tokens: 16000
+maximum_api_requests: 2
+web_search: false
+tools: false
+json_authoritative: true
+maximum_repairs: 1
+deterministic_fallback_required: true
+missing_key_status: READY_FOR_GPT_MEMO
+successful_status: PHASE4_COMPLETED_WITH_VALIDATED_GPT_MEMO
+api_failure_status: PHASE4_COMPLETED_WITH_DETERMINISTIC_FALLBACK
+official_model_url: https://developers.openai.com/api/docs/models/gpt-5.6-sol
+official_structured_outputs_url: https://developers.openai.com/api/docs/guides/structured-outputs
+

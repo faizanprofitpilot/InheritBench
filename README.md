@@ -7,6 +7,20 @@ operational capability when an organization replaces one open-weight model famil
 Day 1 establishes OpsRoute, a policy-aware enterprise action-routing capability spanning refund
 routing and subscription cancellation/retention.
 
+## Phase 4 Adversarial Evidence
+
+Phase 4 freezes the untouched 32-record adversarial split and evaluates the six existing systems
+exactly once without new training, prompts, methods, data, or repeated seeds. Deterministic replay
+produces failure/archetype matrices, migration profiles, representative cases, and a content-addressed
+evidence pack. The intended submission memo uses official `gpt-5.6-sol` structured output; absent
+credentials leave the validated static bundle at `READY_FOR_GPT_MEMO` rather than substituting the
+deterministic fallback as the planned result.
+
+- Frozen protocol: `artifacts/phase4/protocols/phase4-protocol-95094c5782a1d987`.
+- Phase 4 uses parser `0.1.0`, evaluator `v0`, prompt `0.1.0`, seed `20260714`, and one MPS pass per
+  system.
+- No Phase 4 release, adapter publication, or automatic Phase 5 work is permitted.
+
 ## Day 3 Synthetic Distillation
 
 Day 3 adds `target_synthetic_distillation`: a fresh OLMo target trained only on independently
@@ -176,12 +190,24 @@ Blocker evidence lives under `artifacts/blocker-resolution`; adapters are separa
 ## Quick Start
 
 ```bash
-uv sync --frozen --extra model --extra modal --group dev
+uv sync --frozen --extra model --extra modal --extra analyst --group dev
 uv run inheritbench --version
 uv run ruff check .
 uv run mypy src
 uv run pytest -m "not model_smoke and not modal"
 ```
+
+Run the preregistered Phase 4 core after committing the frozen protocol:
+
+```bash
+uv run inheritbench phase4 validate-configs
+uv run inheritbench phase4 freeze-protocol
+uv run inheritbench phase4 attest-protocol
+uv run inheritbench phase4 evaluate-adversarial --system source_base_supporting
+```
+
+The remaining `phase4` commands replay all six evaluations, build the analyses/evidence pack,
+validate the deterministic fallback, attempt the bounded GPT memo, and replay the static showcase.
 
 Verify Day 2 configuration and frozen schedules:
 

@@ -231,13 +231,19 @@ def select_limited_examples(
 def training_token_counts(
     model: ModelConfig, examples: list[OpsRouteExample], prompt_version: str
 ) -> dict[str, int]:
+    from huggingface_hub import snapshot_download
     from transformers import AutoTokenizer
 
+    snapshot = snapshot_download(
+        repo_id=model.tokenizer_id,
+        revision=model.tokenizer_revision,
+        local_files_only=True,
+    )
     auto_tokenizer: Any = AutoTokenizer
     tokenizer: Any = auto_tokenizer.from_pretrained(
-        model.tokenizer_id,
-        revision=model.tokenizer_revision,
+        snapshot,
         trust_remote_code=False,
+        local_files_only=True,
     )
     counts: dict[str, int] = {}
     for example in examples:

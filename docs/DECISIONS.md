@@ -230,3 +230,17 @@
   alter released bytes, scientific artifacts, metrics, or the Day 4 gate.
 - Finalize distribution as `PUBLISHED_VERIFIED` after one successful byte-identical verification.
   Scientific status remains `PHASE3B_SCIENTIFICALLY_COMPLETED / DAY4_UNBLOCKED` independently.
+
+## 2026-07-15 — Phase 4 Adversarial Protocol
+
+- Freeze all six existing systems on the untouched 32-record adversarial split before inference.
+- Preserve prompt/parser `0.1.0`, evaluator `v0`, seed `20260714`, greedy MPS generation, and one
+  logical run per system with one missing-record-only resume.
+- Use deterministic multi-label failure tags with specific safety and semantic failures preceding
+  generic strict-contract invalidity.
+- Restrict migration recommendations to the six declared lexicographic profiles and report an
+  explicit no-recommendation state when exclusions leave no viable target method.
+- Make the validated `gpt-5.6-sol` structured memo the intended submission path. Missing credentials
+  produce `READY_FOR_GPT_MEMO`; deterministic fallback completion is reserved for a genuine bounded
+  API failure.
+- Omit repeated seeds, new methods, new data, releases, UI implementation, and automatic Phase 5.

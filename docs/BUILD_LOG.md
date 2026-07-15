@@ -377,3 +377,15 @@ This file is append-only. Results are recorded only after the corresponding comm
 - Phase 3B integration gates validate historical immutability, preregistration, real training,
   checkpoint selection, all six confirmatory runs, exact replays, scientific completion, public
   release verification, and the publication-independent distribution decision.
+
+## 2026-07-15 — Phase 4 Protocol Foundation
+
+- Added isolated strict schemas, configs, CLI, exactly-once adversarial evaluation, deterministic
+  replay/analysis, migration profiles, representative cases, typed evidence, bounded GPT-5.6 Sol
+  memo handling, and static showcase replay.
+- Added the locked `analyst` extra with the official OpenAI Python SDK; no dependency is imported by
+  offline data/evaluation commands.
+- Frozen protocol `phase4-protocol-95094c5782a1d987` after verifying the untouched adversarial
+  split, all six model/adapter lineages, and Phase 3B comparison/science/publication hashes.
+- Focused Phase 4 protocol, taxonomy, profile, CLI, and parser-golden tests passed before the
+  protocol commit. No model inference or API request occurred during protocol freezing.

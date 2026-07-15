@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
-from typing import Annotated, Literal
+from typing import Annotated, Literal, cast
 
 import typer
 from pydantic import ValidationError
@@ -30,13 +30,242 @@ phase3b_app = typer.Typer(
     no_args_is_help=True,
     help="Phase 3B anchored behavioral transfer workflow.",
 )
+phase4_app = typer.Typer(
+    no_args_is_help=True,
+    help="Phase 4 adversarial evidence and GPT-5.6 analysis workflow.",
+)
 app.add_typer(data_app, name="data")
 app.add_typer(compute_app, name="compute")
 app.add_typer(day2_app, name="day2")
 app.add_typer(day3_app, name="day3")
 app.add_typer(day3_matched_app, name="day3-matched")
 app.add_typer(phase3b_app, name="phase3b")
+app.add_typer(phase4_app, name="phase4")
 console = Console(stderr=True)
+
+
+@phase4_app.command("validate-configs")
+def phase4_validate_configs_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.config import load_experiment_config
+
+    load_experiment_config(experiment)
+    console.print("[green]validated[/green] isolated Phase 4 configs")
+
+
+@phase4_app.command("freeze-protocol")
+def phase4_freeze_protocol_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.protocol import freeze_protocol
+
+    path = freeze_protocol(experiment)
+    console.print(f"[green]Phase 4 protocol frozen[/green] {path}")
+
+
+@phase4_app.command("attest-protocol")
+def phase4_attest_protocol_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.protocol import attest_protocol
+
+    path = attest_protocol(experiment)
+    console.print(f"[green]Phase 4 protocol attested[/green] {path}")
+
+
+@phase4_app.command("evaluate-adversarial")
+def phase4_evaluate_adversarial_command(
+    system: Annotated[
+        Literal[
+            "source_base_supporting",
+            "source_adapted_full",
+            "target_untouched",
+            "target_full_retrain",
+            "target_limited_retrain_10pct",
+            "target_hybrid_anchored_distillation_10",
+        ],
+        typer.Option(),
+    ],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+    resume: Annotated[Path | None, typer.Option(exists=True, file_okay=False)] = None,
+) -> None:
+    from inheritbench.phase4.evaluation import evaluate_adversarial
+
+    path = evaluate_adversarial(experiment, system, resume=resume)
+    console.print(f"[green]Phase 4 adversarial evaluation completed[/green] {path}")
+
+
+@phase4_app.command("replay")
+def phase4_replay_command(
+    artifact: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    kind: Annotated[
+        Literal["evaluation", "analysis", "profiles", "cases", "evidence"] | None,
+        typer.Option(),
+    ] = None,
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.analysis import replay_derived
+    from inheritbench.phase4.config import load_experiment_config, resolve
+    from inheritbench.phase4.evaluation import replay_evaluation
+
+    config = load_experiment_config(experiment)
+    output_root = resolve(experiment, config.artifact_root) / "replays"
+    resolved_kind = kind or (
+        "evaluation" if (artifact / "manifest.json").is_file() else _phase4_replay_kind(artifact)
+    )
+    path = (
+        replay_evaluation(artifact, output_root)
+        if resolved_kind == "evaluation"
+        else replay_derived(experiment, resolved_kind, artifact)
+    )
+    console.print(f"[green]Phase 4 replay passed[/green] {path}")
+
+
+@phase4_app.command("analyze")
+def phase4_analyze_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.analysis import analyze
+
+    path = analyze(experiment)
+    console.print(f"[green]Phase 4 analyses frozen[/green] {path}")
+
+
+@phase4_app.command("compute-profiles")
+def phase4_compute_profiles_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.analysis import compute_profiles
+
+    path = compute_profiles(experiment)
+    console.print(f"[green]Phase 4 migration profiles frozen[/green] {path}")
+
+
+@phase4_app.command("select-cases")
+def phase4_select_cases_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.analysis import select_cases
+
+    path = select_cases(experiment)
+    console.print(f"[green]Phase 4 representative cases frozen[/green] {path}")
+
+
+@phase4_app.command("build-evidence-pack")
+def phase4_build_evidence_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.analysis import build_evidence_pack
+
+    path = build_evidence_pack(experiment)
+    console.print(f"[green]Phase 4 evidence pack validated[/green] {path}")
+
+
+@phase4_app.command("build-fallback-memo")
+def phase4_build_fallback_memo_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.memo import build_fallback_memo
+
+    path = build_fallback_memo(experiment)
+    console.print(f"[green]Phase 4 deterministic fallback validated[/green] {path}")
+
+
+@phase4_app.command("generate-gpt-memo")
+def phase4_generate_gpt_memo_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.memo import generate_gpt_memo
+
+    path = generate_gpt_memo(experiment)
+    console.print(f"[green]Phase 4 GPT memo attempt finalized[/green] {path}")
+
+
+@phase4_app.command("validate-memo")
+def phase4_validate_memo_command(
+    memo: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.memo import validate_memo
+
+    path = validate_memo(experiment, memo)
+    console.print(f"[green]Phase 4 memo validation passed[/green] {path}")
+
+
+@phase4_app.command("build-showcase")
+def phase4_build_showcase_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.showcase import build_showcase
+
+    path = build_showcase(experiment)
+    console.print(f"[green]Phase 4 showcase built[/green] {path}")
+
+
+@phase4_app.command("replay-showcase")
+def phase4_replay_showcase_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.showcase import replay_showcase
+
+    path = replay_showcase(experiment)
+    console.print(f"[green]Phase 4 showcase replay passed[/green] {path}")
+
+
+@phase4_app.command("finalize")
+def phase4_finalize_command(
+    experiment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "configs/experiments/phase4.yaml"
+    ),
+) -> None:
+    from inheritbench.phase4.showcase import finalize
+
+    path = finalize(experiment)
+    console.print(f"[green]Phase 4 decision finalized[/green] {path}")
+
+
+def _phase4_replay_kind(
+    artifact: Path,
+) -> Literal["analysis", "profiles", "cases", "evidence"]:
+    candidates = {
+        "analysis": "analysis.json",
+        "profiles": "profiles.json",
+        "cases": "cases.json",
+        "evidence": "evidence.json",
+    }
+    matches = [name for name, filename in candidates.items() if (artifact / filename).is_file()]
+    if len(matches) != 1:
+        raise typer.BadParameter("unable to infer replay kind; pass --kind")
+    return cast(Literal["analysis", "profiles", "cases", "evidence"], matches[0])
 
 
 @phase3b_app.command("validate-configs")

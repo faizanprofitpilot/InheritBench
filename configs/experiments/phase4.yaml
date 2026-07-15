@@ -1,0 +1,83 @@
+schema_version: phase4-experiment-v0.1
+experiment_id: inheritbench-phase4-adversarial-v0.1
+attempt_id: phase4_adversarial_evidence_analysis
+historical_reference_commit: 12b1937f5bed587d2df8a94ae0bbb454b9253e55
+dataset_directory: data/opsroute/v0.1.0
+task_config_path: configs/tasks/opsroute.yaml
+adversarial_config_path: configs/evaluation/phase4_adversarial.yaml
+memo_config_path: configs/analysis/phase4_memo.yaml
+phase3b_comparison_path: artifacts/phase3b/comparisons/phase3b-comparison-primary_confirmatory_six_system-d5aecd074fdd/comparison.json
+phase3b_science_path: artifacts/phase3b/scientific-decisions/phase3b-scientific-decision-0482549a90414fc8/decision.json
+phase3b_publication_verification_path: artifacts/phase3b/publication-verifications/phase3b-publication-verified-4137871051bd4cfa/publication.json
+artifact_root: artifacts/phase4
+showcase_root: artifacts/showcase/inheritbench-v0.1
+seed: 20260714
+systems:
+  - system_id: source_base_supporting
+    comparison_role: SOURCE_REFERENCE
+    model_config_path: configs/models/source.yaml
+    adapter_path: null
+    adapter_model_sha256: null
+    direct_original_labels: 0
+    upstream_original_labels: 0
+    complexity: NO_TARGET_TRAINING
+    source_teacher_required: false
+  - system_id: source_adapted_full
+    comparison_role: SOURCE_REFERENCE
+    model_config_path: configs/models/source.yaml
+    adapter_path: adapters/day2/source_adapted_full-8242bcea6f327545
+    adapter_model_sha256: 7c42077722e4c673ddcade7a8783e8e7eb4c40347f676b3e8199c3c96727deab
+    direct_original_labels: 224
+    upstream_original_labels: 0
+    complexity: NO_TARGET_TRAINING
+    source_teacher_required: false
+  - system_id: target_untouched
+    comparison_role: TARGET_MIGRATION_CANDIDATE
+    model_config_path: configs/models/target.yaml
+    adapter_path: null
+    adapter_model_sha256: null
+    direct_original_labels: 0
+    upstream_original_labels: 0
+    complexity: NO_TARGET_TRAINING
+    source_teacher_required: false
+  - system_id: target_full_retrain
+    comparison_role: TARGET_MIGRATION_CANDIDATE
+    model_config_path: configs/models/target.yaml
+    adapter_path: adapters/day2/target_full_retrain-fd1966615c845dab
+    adapter_model_sha256: a65fe5f5af6ed4913a7cfc4eefc04b55313d6f67a1150b98a9b3393490abf0d7
+    direct_original_labels: 224
+    upstream_original_labels: 0
+    complexity: DIRECT_TARGET_LORA
+    source_teacher_required: false
+  - system_id: target_limited_retrain_10pct
+    comparison_role: TARGET_MIGRATION_CANDIDATE
+    model_config_path: configs/models/target.yaml
+    adapter_path: adapters/day2/target_limited_retrain_10pct-c2e5ec18f58ba342
+    adapter_model_sha256: 23bb2952706c3ea81543d6f9510a331c62ee87a4b33b88844fa13bdc559008a1
+    direct_original_labels: 24
+    upstream_original_labels: 0
+    complexity: DIRECT_TARGET_LORA
+    source_teacher_required: false
+  - system_id: target_hybrid_anchored_distillation_10
+    comparison_role: TARGET_MIGRATION_CANDIDATE
+    model_config_path: configs/models/target.yaml
+    adapter_path: adapters/phase3b/target_hybrid_anchored_distillation_10-7461072c83b4dcde
+    adapter_model_sha256: ebf598fcfce095f599ccec16621c5f31256ec6abdf17fc5b65b966c01f148d84
+    direct_original_labels: 10
+    upstream_original_labels: 224
+    complexity: TEACHER_HYBRID_LORA
+    source_teacher_required: true
+historical_artifacts:
+  - relative_path: artifacts/phase3b/comparisons/phase3b-comparison-primary_confirmatory_six_system-d5aecd074fdd/comparison.json
+    byte_sha256: 9001e9ccc9fe71e9a1a3b78498e75c392877e27b5aadfc1b40198438bca137a6
+    content_sha256: a442ea7d962d9ce349960c11db7890c134ab936b507e8dab46fd9e823d26f046
+  - relative_path: artifacts/phase3b/scientific-decisions/phase3b-scientific-decision-0482549a90414fc8/decision.json
+    byte_sha256: 62f3a1d78bf0eea0999dbe8cef338970688a162871e1bb8fd5c973605d3b0fc7
+    content_sha256: eb133efa0a305ffb8d3131bb3a75d22e1b98da6ca13114a9d0996b768adfd652
+  - relative_path: artifacts/phase3b/publication-verifications/phase3b-publication-verified-4137871051bd4cfa/publication.json
+    byte_sha256: d6718cc8730141c4259a3d3d779e39a3d991f89b80b5a53a47b28e548b588b03
+    content_sha256: 05c8ee823bbe5467fad4e5a8c060e71b7759668537293da4e5cc9de532979ece
+automatic_phase5: false
+repeated_seeds: false
+phase4_release: false
+

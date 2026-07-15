@@ -227,3 +227,18 @@ Checkpoint selection sees only confirmatory validation and retains the existing 
 and lexicographic ordering. The selected checkpoint receives exactly one primary confirmatory test
 run. Five historical systems then run on the identical split hash. The original test is inspected
 only afterward and labeled exploratory. Parser `0.1.0` and metrics `v0` are unchanged.
+
+## Phase 4 Adversarial Protocol
+
+Phase 4 reads the existing 32 adversarial records exactly as committed. All six systems use one
+shared split/oracle identity, float16 MPS, batch size one, greedy decoding, and 256 maximum new
+tokens. Invalid outputs are terminal quality evidence and are never regenerated.
+
+Every raw output is replayed through the unchanged parser and metrics. Analyses preserve known
+safety denominators and parse-failure unknowns, assign all applicable failure tags, and select one
+primary failure by the frozen precedence. Migration profiles combine the preregistered confirmatory
+surface with this adversarial surface; no weighted composite score is introduced.
+
+The GPT memo may cite only typed evidence references carrying artifact hashes, JSON paths, values,
+numerators, denominators, and evaluation surfaces. Unsupported numbers, comparisons, causal claims,
+or incomplete teacher/label accounting fail validation.

@@ -26,6 +26,7 @@ artifacts/day3/publications/**/*.zip
 artifacts/day3/active/
 artifacts/phase3b/active/
 artifacts/phase3b/publications/**/*.zip
+artifacts/phase4/active/
 
 # Atomic artifact staging directories
 artifacts/**/.tmp-*/
