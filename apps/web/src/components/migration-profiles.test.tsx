@@ -19,6 +19,7 @@ describe("MigrationProfiles", () => {
       />,
     );
     expect(screen.getByText("No viable trained migration")).toBeInTheDocument();
+    expect(screen.getByText(/Pure synthetic transfer never produced a balanced trainable target/)).toBeInTheDocument();
     expect(screen.getByText(/Qwen remains a reference/)).toBeInTheDocument();
   });
 });

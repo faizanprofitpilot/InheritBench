@@ -9,9 +9,27 @@ import type { CaseDetails } from "@/lib/data-schema";
 import { labelSystem, labelToken } from "@/lib/utils";
 
 export function CaseExplorer({ details }: { details: CaseDetails }) {
+  const priority = useMemo(
+    () => new Map([
+      ["cross_system_disagreement", 0],
+      ["hybrid_vs_direct_training_contrast", 1],
+      ["parser_schema_failure", 2],
+      ["prompt_injection_resilience", 3],
+      ["refund_family_contrast", 4],
+      ["subscription_family_contrast", 5],
+    ]),
+    [],
+  );
+  const ordered = useMemo(
+    () => [...details.cases].sort((left, right) => {
+      if (left.status !== right.status) return left.status === "SELECTED" ? -1 : 1;
+      return (priority.get(left.slot) ?? 99) - (priority.get(right.slot) ?? 99);
+    }),
+    [details.cases, priority],
+  );
   const available = useMemo(
-    () => details.cases.filter((item) => item.status === "SELECTED"),
-    [details.cases],
+    () => ordered.filter((item) => item.status === "SELECTED"),
+    [ordered],
   );
   const [selectedSlot, setSelectedSlot] = useState(available[0]?.slot ?? "");
   const selected = available.find((item) => item.slot === selectedSlot) ?? available[0];
@@ -19,13 +37,19 @@ export function CaseExplorer({ details }: { details: CaseDetails }) {
   return (
     <div className="grid gap-6 xl:grid-cols-[320px_1fr]">
       <div className="space-y-2" aria-label="Representative case slots">
-        {details.cases.map((item) => (
+        {ordered.map((item) => (
           <button
             key={item.slot}
             type="button"
             disabled={item.status === "NO_ELIGIBLE_CASE"}
             onClick={() => setSelectedSlot(item.slot)}
-            className="flex w-full items-start gap-3 rounded-xl border border-white/8 bg-white/[0.025] p-3 text-left transition enabled:hover:border-cyan-300/30 enabled:hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-50"
+            className={`flex min-h-14 w-full items-start gap-3 rounded-xl border p-3 text-left transition enabled:hover:border-cyan-300/30 enabled:hover:bg-white/5 ${
+              item.status === "SELECTED"
+                ? item.slot === selectedSlot
+                  ? "border-cyan-300/30 bg-cyan-300/[0.07]"
+                  : "border-white/8 bg-white/[0.025]"
+                : "cursor-not-allowed border-white/5 bg-transparent opacity-35"
+            }`}
           >
             {item.status === "SELECTED" ? (
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
@@ -34,8 +58,8 @@ export function CaseExplorer({ details }: { details: CaseDetails }) {
             )}
             <span>
               <span className="block text-sm font-medium text-slate-200">{labelToken(item.slot)}</span>
-              <span className="mt-1 block text-xs text-slate-500">
-                {item.status === "SELECTED" ? item.evaluation_surface : "No eligible case"}
+              <span className="mt-1 block text-sm text-slate-400">
+                {item.status === "SELECTED" ? labelToken(item.evaluation_surface ?? "") : "No eligible case in frozen selection"}
               </span>
             </span>
           </button>
@@ -50,7 +74,7 @@ export function CaseExplorer({ details }: { details: CaseDetails }) {
             </Badge>
           </div>
           <h2 className="mt-4 text-2xl font-semibold text-white">{labelToken(selected.slot)}</h2>
-          <p className="mt-2 font-mono text-xs text-slate-500">{selected.example_id}</p>
+          <p className="mt-2 break-all font-mono text-sm text-slate-400">{selected.example_id}</p>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
             <EvidenceBlock title="Prompt-visible input" value={selected.input} />
             <EvidenceBlock title="Expected contract" value={selected.expected_contract} />
@@ -62,7 +86,7 @@ export function CaseExplorer({ details }: { details: CaseDetails }) {
               <div className="flex items-center justify-between gap-4 border-b border-white/8 px-5 py-4">
                 <div>
                   <p className="font-medium text-white">{labelSystem(prediction.system_id)}</p>
-                  <p className="mt-1 text-xs text-slate-500">
+                  <p className="mt-1 text-sm text-slate-400">
                     {String(prediction.parser_result.classification ?? "unknown")}
                   </p>
                 </div>
@@ -74,13 +98,13 @@ export function CaseExplorer({ details }: { details: CaseDetails }) {
                 </summary>
                 <div className="space-y-4 border-t border-white/8 p-5">
                   <pre
-                    className="code-scroll max-h-72 overflow-auto whitespace-pre-wrap rounded-xl bg-black/30 p-4 font-mono text-xs leading-6 text-slate-300"
+                    className="code-scroll max-h-72 overflow-auto whitespace-pre-wrap rounded-xl bg-black/30 p-4 font-mono text-sm leading-6 text-slate-200"
                     tabIndex={0}
                     aria-label={`${labelSystem(prediction.system_id)} raw output`}
                   >
                     {prediction.raw_output || "<empty output>"}
                   </pre>
-                  <dl className="grid grid-cols-2 gap-3 text-xs">
+                  <dl className="grid grid-cols-2 gap-3 text-sm">
                     <KeyValue label="Semantic exact" value={String(prediction.metrics.semantic_decision_score_v0)} />
                     <KeyValue label="Strict contract" value={String(prediction.metrics.strict_contract_score_v0)} />
                     <KeyValue label="Run" value={prediction.run_id.slice(-12)} />
@@ -100,7 +124,7 @@ function FailureBadge({ failure }: { failure: string }) {
   const passed = failure === "NONE";
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider ${
+      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wider ${
         passed ? "bg-emerald-400/10 text-emerald-300" : "bg-amber-400/10 text-amber-200"
       }`}
     >
@@ -113,9 +137,9 @@ function FailureBadge({ failure }: { failure: string }) {
 function EvidenceBlock({ title, value }: { title: string; value: unknown }) {
   return (
     <div>
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">{title}</p>
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">{title}</p>
       <pre
-        className="code-scroll max-h-80 overflow-auto whitespace-pre-wrap rounded-xl border border-white/8 bg-black/30 p-4 font-mono text-xs leading-6 text-slate-300"
+        className="code-scroll max-h-80 overflow-auto whitespace-pre-wrap rounded-xl border border-white/8 bg-black/30 p-4 font-mono text-sm leading-6 text-slate-200"
         tabIndex={0}
         aria-label={`${title} scroll area`}
       >
@@ -128,7 +152,7 @@ function EvidenceBlock({ title, value }: { title: string; value: unknown }) {
 function KeyValue({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-slate-500">{label}</dt>
+      <dt className="text-slate-400">{label}</dt>
       <dd className="mt-1 truncate font-mono text-slate-300">{value}</dd>
     </div>
   );

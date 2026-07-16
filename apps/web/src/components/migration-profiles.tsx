@@ -23,9 +23,14 @@ export function MigrationProfiles({ profiles }: { profiles: Recommendation[] }) 
             <h3 className="mt-4 text-lg font-semibold text-white">{labelToken(profile.profile_id)}</h3>
             <div className="mt-auto pt-8">
               {empty ? (
-                <div className="flex items-start gap-3 text-amber-200">
-                  <CircleSlash2 className="mt-0.5 h-5 w-5 shrink-0" />
-                  <p className="font-medium">No viable trained migration</p>
+                <div>
+                  <div className="flex items-start gap-3 text-amber-200">
+                    <CircleSlash2 className="mt-0.5 h-5 w-5 shrink-0" />
+                    <p className="font-medium">No viable trained migration</p>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-slate-400">
+                    Pure synthetic transfer never produced a balanced trainable target, so no completed zero-direct-label migration exists in this published case.
+                  </p>
                 </div>
               ) : (
                 <div className="flex items-center gap-2 text-cyan-200">
@@ -33,7 +38,7 @@ export function MigrationProfiles({ profiles }: { profiles: Recommendation[] }) 
                   <p className="font-medium">{labelSystem(profile.recommendation)}</p>
                 </div>
               )}
-              <p className="mt-3 text-xs leading-5 text-slate-500">
+              <p className="mt-4 text-sm leading-6 text-slate-400">
                 Eligible target systems: {profile.eligible_systems.length}. Qwen remains a reference.
               </p>
             </div>

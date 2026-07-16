@@ -80,7 +80,7 @@ function DomainCard({ icon, title, description }: { icon: React.ReactNode; title
     <Card className="p-6">
       <span className="grid h-10 w-10 place-items-center rounded-xl bg-cyan-300/10 text-cyan-200">{icon}</span>
       <h2 className="mt-5 text-xl font-semibold text-white">{title}</h2>
-      <p className="mt-3 text-sm leading-6 text-slate-400">{description}</p>
+      <p className="mt-3 text-[0.9375rem] leading-7 text-slate-400">{description}</p>
     </Card>
   );
 }

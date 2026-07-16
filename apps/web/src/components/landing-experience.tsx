@@ -7,6 +7,7 @@ import {
   BrainCircuit,
   CircleGauge,
   GitBranch,
+  GitMerge,
   Radar,
   Route,
   ShieldAlert,
@@ -124,7 +125,7 @@ export function LandingExperience({ story, systems }: { story: Story; systems: S
     {
       eyebrow: "Pure transfer tested",
       metrics: [
-        `${independentAccepted.display_value} / ${independentCandidates.display_value}`,
+        `${independentAccepted.display_value} / ${independentCandidates.display_value} accepted`,
         slashRatio(independentArchetypes),
       ],
       labels: ["Accepted independent teacher outputs", "Archetypes covered"],
@@ -133,8 +134,8 @@ export function LandingExperience({ story, systems }: { story: Story; systems: S
     },
     {
       eyebrow: "Blind spot localized",
-      metrics: [slashRatio(matchedAccepted), slashRatio(blindspotAccepted)],
-      labels: ["Distribution-matched outputs accepted", "Duplicate auto-refund outputs accepted"],
+      metrics: [`${slashRatio(matchedAccepted)} accepted`, slashRatio(blindspotAccepted)],
+      labels: ["Distribution-matched teacher outputs", "Duplicate auto-refund outputs accepted"],
       copy: "Matching the training distribution repaired the broad coverage failure and exposed one concentrated teacher blind spot.",
       tone: "violet" as Tone,
     },
@@ -151,16 +152,26 @@ export function LandingExperience({ story, systems }: { story: Story; systems: S
     <>
       <section className="grid-surface relative overflow-hidden border-b border-white/8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(34,211,238,0.12),transparent_30rem),radial-gradient(circle_at_88%_60%,rgba(139,92,246,0.1),transparent_28rem)]" />
-        <div className="relative mx-auto grid max-w-7xl gap-14 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:px-8 lg:py-32">
+        <div className="relative mx-auto grid max-w-7xl gap-14 px-4 pb-20 pt-10 sm:px-6 sm:pb-24 sm:pt-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:px-8 lg:pb-28 lg:pt-16">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={{ visible: { transition: { staggerChildren: reducedMotion ? 0 : 0.09 } } }}
           >
-            <motion.div variants={heroItem} className="flex flex-wrap gap-2">
-              <Badge>MODEL SUCCESSION LAB</Badge>
-              <Badge>PUBLISHED QWEN → OLMO CASE</Badge>
-              <Badge>VALIDATED GPT-5.6 ANALYSIS</Badge>
+            <motion.div
+              variants={heroItem}
+              data-testid="hero-proof-badges"
+              className="grid grid-cols-[max-content_max-content_max-content] items-center justify-between gap-1 overflow-hidden"
+            >
+              <Badge className="whitespace-nowrap px-1 py-1 text-[clamp(0.36rem,1.1vw,0.62rem)] tracking-[0.04em] sm:px-1.5 sm:tracking-[0.08em]">
+                MODEL SUCCESSION LAB
+              </Badge>
+              <Badge className="whitespace-nowrap px-1 py-1 text-[clamp(0.36rem,1.1vw,0.62rem)] tracking-[0.04em] sm:px-1.5 sm:tracking-[0.08em]">
+                PUBLISHED QWEN → OLMO CASE
+              </Badge>
+              <Badge className="whitespace-nowrap px-1 py-1 text-[clamp(0.36rem,1.1vw,0.62rem)] tracking-[0.04em] sm:px-1.5 sm:tracking-[0.08em]">
+                VALIDATED GPT-5.6 ANALYSIS
+              </Badge>
             </motion.div>
             <motion.p variants={heroItem} className="mt-7 font-mono text-sm text-cyan-200/80">
               Move the model. Keep the capability.
@@ -283,8 +294,8 @@ export function LandingExperience({ story, systems }: { story: Story; systems: S
                   <span className="font-mono text-sm text-cyan-300">0{index + 1}</span>
                 </div>
                 <h3 className="mt-7 text-xl font-semibold text-white">{step.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-400">{step.copy}</p>
-                <p className="mt-6 border-t border-white/8 pt-4 text-xs leading-5 text-slate-500">{step.signal}</p>
+                <p className="mt-3 text-[0.9375rem] leading-7 text-slate-400">{step.copy}</p>
+                <p className="mt-6 border-t border-white/8 pt-4 text-[0.8125rem] leading-5 text-slate-400">{step.signal}</p>
               </Card>
             </Reveal>
           ))}
@@ -313,11 +324,27 @@ export function LandingExperience({ story, systems }: { story: Story; systems: S
             <div className="grid gap-5 md:grid-cols-5">
               {caseStages.map((stage, index) => (
                 <Reveal key={stage.eyebrow} reducedMotion={Boolean(reducedMotion)} delay={index * 0.08}>
-                  <CaseStage {...stage} index={index} reducedMotion={Boolean(reducedMotion)} />
+                  <CaseStage
+                    {...stage}
+                    index={index}
+                    reducedMotion={Boolean(reducedMotion)}
+                    emphasized={[0, 3, 4].includes(index)}
+                    highlightedMetricIndex={index === 3 ? 1 : undefined}
+                  />
                 </Reveal>
               ))}
             </div>
           </div>
+
+          <Reveal reducedMotion={Boolean(reducedMotion)}>
+            <div className="mt-8 grid items-center gap-3 rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.035] p-5 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:p-6">
+              <RepairStep value={slashRatio(blindspotAccepted)} label="teacher outputs covered the isolated branch" tone="violet" />
+              <ArrowRight className="mx-auto hidden h-5 w-5 text-slate-500 sm:block" aria-hidden="true" />
+              <RepairStep value={anchorLabels.display_value} label="original anchors filled the diagnosed gap" tone="amber" icon={<GitMerge className="h-4 w-4" />} />
+              <ArrowRight className="mx-auto hidden h-5 w-5 text-slate-500 sm:block" aria-hidden="true" />
+              <RepairStep value={formatPercent(anchored.confirmatory_semantic)} label="confirmatory capability after anchored repair" tone="green" />
+            </div>
+          </Reveal>
 
           <Reveal reducedMotion={Boolean(reducedMotion)}>
             <div className="mt-10 rounded-2xl border border-emerald-300/15 bg-emerald-300/[0.045] p-6 sm:p-7">
@@ -325,7 +352,7 @@ export function LandingExperience({ story, systems }: { story: Story; systems: S
                 <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-emerald-300" />
                 <div>
                   <p className="text-sm font-semibold text-emerald-100">Full label accounting</p>
-                  <p className="mt-2 max-w-5xl text-sm leading-6 text-slate-300">
+                  <p className="mt-2 max-w-5xl text-[0.9375rem] leading-7 text-slate-300">
                     Anchored transfer used {anchorLabels.display_value} original labels directly in target training, {teacherLabels.display_value} teacher-generated labels, and depended upstream on a teacher trained with {upstreamLabels.display_value} original labels. The matched distribution was designed from {distributionLabels.display_value} labeled records.
                   </p>
                 </div>
@@ -467,6 +494,8 @@ function CaseStage({
   tone,
   index,
   reducedMotion,
+  emphasized,
+  highlightedMetricIndex,
 }: {
   eyebrow: string;
   metrics: string[];
@@ -475,6 +504,8 @@ function CaseStage({
   tone: Tone;
   index: number;
   reducedMotion: boolean;
+  emphasized: boolean;
+  highlightedMetricIndex?: number;
 }) {
   const toneClasses: Record<Tone, string> = {
     cyan: "border-cyan-300/35 bg-cyan-300/10 text-cyan-200",
@@ -488,19 +519,51 @@ function CaseStage({
       <div className={`absolute left-0 top-0 grid h-10 w-10 place-items-center rounded-full border font-mono text-xs md:left-1/2 md:-translate-x-1/2 ${toneClasses[tone]}`}>
         {String(index + 1).padStart(2, "0")}
       </div>
-      <Card className="h-full p-5">
+      <Card className={`h-full p-5 ${emphasized ? "border-cyan-300/20 bg-slate-950/85 shadow-[0_20px_60px_rgba(34,211,238,.07)]" : "border-white/7 bg-slate-950/45 opacity-80"}`}>
         <p className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-slate-500">{eyebrow}</p>
         <div className="mt-5 space-y-4">
           {metrics.map((metric, metricIndex) => (
             <div key={`${metric}-${labels[metricIndex]}`}>
-              <MetricReveal value={metric} className={toneText(tone)} reducedMotion={reducedMotion} delay={metricIndex * 0.06} />
+              <MetricReveal
+                value={metric}
+                className={`${toneText(tone)} ${highlightedMetricIndex === metricIndex ? "text-2xl" : ""}`}
+                reducedMotion={reducedMotion}
+                delay={metricIndex * 0.06}
+              />
               <p className="mt-1 text-xs leading-5 text-slate-500">{labels[metricIndex]}</p>
             </div>
           ))}
         </div>
-        <p className="mt-5 border-t border-white/8 pt-4 text-sm leading-6 text-slate-400">{copy}</p>
+        <p className="mt-5 border-t border-white/8 pt-4 text-[0.9375rem] leading-7 text-slate-400">{copy}</p>
       </Card>
     </article>
+  );
+}
+
+function RepairStep({
+  value,
+  label,
+  tone,
+  icon,
+}: {
+  value: string;
+  label: string;
+  tone: "violet" | "amber" | "green";
+  icon?: React.ReactNode;
+}) {
+  const colors = {
+    violet: "text-violet-200",
+    amber: "text-amber-200",
+    green: "text-emerald-200",
+  };
+  return (
+    <div className="text-center sm:text-left">
+      <div className={`flex items-center justify-center gap-2 font-mono text-xl font-semibold sm:justify-start ${colors[tone]}`}>
+        {icon}
+        {value}
+      </div>
+      <p className="mt-1 text-sm leading-6 text-slate-400">{label}</p>
+    </div>
   );
 }
 

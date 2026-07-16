@@ -277,5 +277,6 @@ export const evidenceSchema = z
 export type Story = z.infer<typeof storySchema>;
 export type CaseDetails = z.infer<typeof caseDetailsSchema>;
 export type SystemSummary = z.infer<typeof systemSummarySchema>;
+export type MatrixRow = z.infer<typeof matrixRowSchema>;
 export type Memo = z.infer<typeof memoSchema>;
 export type Evidence = z.infer<typeof evidenceSchema>;

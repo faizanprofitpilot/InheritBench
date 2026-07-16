@@ -13,7 +13,7 @@ export function SurfaceExplorer({ systems }: { systems: SystemSummary[] }) {
           <TabsTrigger value="confirmatory">Confirmatory · n=64</TabsTrigger>
           <TabsTrigger value="adversarial">Adversarial · n=32</TabsTrigger>
         </TabsList>
-        <p className="text-sm text-slate-500">Separate frozen surfaces. No blended score.</p>
+        <p className="text-[0.9375rem] text-slate-400">Separate frozen surfaces. No blended score.</p>
       </div>
       <TabsContent value="confirmatory">
         <MetricChart systems={systems} surface="confirmatory" />

@@ -13,6 +13,7 @@ import {
   loadStory,
   loadSystems,
 } from "@/lib/data";
+import { formatMemoText, labelSurface } from "@/lib/utils";
 
 describe("committed product data", () => {
   it("validates every normalized input used by the product", () => {
@@ -63,6 +64,13 @@ describe("committed product data", () => {
     ]) {
       expect(landing).not.toContain(handwrittenMetric);
     }
+  });
+
+  it("formats memo decimals for humans without changing exact source data", () => {
+    expect(formatMemoText("Semantic exact is 0.859375 and strict validity is 1.0 with 0 failures.")).toBe(
+      "Semantic exact is 85.9% and strict validity is 100.0% with 0 failures.",
+    );
+    expect(labelSurface("not_applicable")).toBe("Not evaluation-specific");
   });
 });
 

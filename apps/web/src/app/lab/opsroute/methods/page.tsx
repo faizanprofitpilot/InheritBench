@@ -48,7 +48,7 @@ export default function MethodsPage() {
           <p className="mt-5 text-lg leading-8 text-slate-400">
             Anchored transfer consumes ten original labels directly at the target, but its teacher and distribution design rely on earlier labeled data.
           </p>
-          <div className="mt-6 rounded-xl border border-amber-300/20 bg-amber-300/5 p-4 text-sm leading-6 text-amber-100/80">
+          <div className="mt-6 rounded-xl border border-amber-300/20 bg-amber-300/5 p-4 text-[0.9375rem] leading-7 text-amber-100/90">
             Accurate description: ten original anchors plus 214 teacher outputs, with 224 upstream teacher labels and 224 labeled records used for distribution design.
           </div>
         </div>
@@ -76,8 +76,8 @@ export default function MethodsPage() {
           ].map(([label, detail]) => (
             <Card key={label} className="p-5">
               <CheckCircle2 className="h-5 w-5 text-emerald-300" />
-              <p className="mt-4 text-sm font-semibold text-white">{label}</p>
-              <p className="mt-2 text-sm leading-6 text-slate-500">{detail}</p>
+              <p className="mt-4 text-[0.9375rem] font-semibold text-white">{label}</p>
+              <p className="mt-2 text-[0.9375rem] leading-7 text-slate-400">{detail}</p>
             </Card>
           ))}
         </div>
@@ -103,7 +103,7 @@ function MethodCard({
       <span className="font-mono text-xs text-cyan-300">{step}</span>
       <h2 className="mt-6 text-xl font-semibold text-white">{title}</h2>
       <p className="mt-5 font-mono text-4xl font-semibold tracking-tight text-cyan-100">{metric}</p>
-      <p className="mt-4 text-sm leading-6 text-slate-400">{body}</p>
+      <p className="mt-4 text-[0.9375rem] leading-7 text-slate-400">{body}</p>
       <Badge className="mt-7">{status}</Badge>
     </Card>
   );
@@ -130,7 +130,7 @@ function AccountingRow({
     <div className={`flex items-center justify-between gap-5 rounded-2xl border ${colors[tone]} ${compact ? "p-4" : "p-6"}`}>
       <div className="flex items-center gap-3">
         {tone === "upstream" && <CircleAlert className="h-4 w-4 shrink-0 text-slate-500" />}
-        <p className="text-sm leading-6">{label}</p>
+        <p className="text-[0.9375rem] leading-7">{label}</p>
       </div>
       <p className="font-mono text-2xl font-semibold">{value}</p>
     </div>
