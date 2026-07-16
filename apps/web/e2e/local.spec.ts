@@ -40,6 +40,59 @@ test("surface metrics remain separate", async ({ page }) => {
   await expect(page.getByText("Separate frozen surfaces. No blended score.")).toBeVisible();
 });
 
+test("landing page presents the product workflow and frozen published case", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/");
+
+  await expect(page.getByText("MODEL SUCCESSION LAB", { exact: true })).toBeVisible();
+  await expect(page.getByText("PUBLISHED QWEN → OLMO CASE", { exact: true })).toBeVisible();
+  await expect(page.getByText("VALIDATED GPT-5.6 ANALYSIS", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Your successor model does not inherit capability by default." })).toBeVisible();
+  await expect(page.getByText(/evaluate a model-family replacement before production/)).toBeVisible();
+
+  await expect(page.getByRole("link", { name: /Open the succession lab/ })).toHaveAttribute(
+    "href",
+    "/lab/opsroute/",
+  );
+  await expect(page.getByRole("link", { name: /View the migration recommendation/ }).first()).toHaveAttribute(
+    "href",
+    "/lab/opsroute/memo/",
+  );
+
+  for (const label of ["Succession Case", "Recovery Paths", "Failure Explorer", "Recommendation", "Evidence"]) {
+    await expect(page.getByRole("link", { name: label, exact: true }).first()).toBeVisible();
+  }
+  for (const step of [
+    "Measure the capability break",
+    "Test recovery paths",
+    "Stress-test the candidates",
+    "Choose under constraints",
+  ]) {
+    await expect(page.getByRole("heading", { name: step })).toBeVisible();
+  }
+
+  for (const metric of [
+    "54.688%",
+    "0.000%",
+    "59 / 768",
+    "5 / 16",
+    "719 / 768",
+    "4 / 48",
+    "85.938%",
+  ]) {
+    await expect(page.getByText(metric, { exact: true }).first()).toBeAttached();
+  }
+  await expect(page.getByText(/10 original labels directly in target training/).first()).toBeVisible();
+  await expect(page.getByText(/214 teacher-generated labels/).first()).toBeVisible();
+  await expect(page.getByText(/teacher trained with 224 original labels/).first()).toBeVisible();
+  await expect(page.getByText(/designed from 224 labeled records/).first()).toBeVisible();
+
+  await expect(page.getByText("Clean capability retention", { exact: true })).toBeVisible();
+  await expect(page.getByText("Adversarial resilience", { exact: true })).toBeVisible();
+  await expect(page.getByText("Semantic exactness · N=64", { exact: true })).toBeVisible();
+  await expect(page.getByText("Semantic exactness · N=32", { exact: true })).toBeVisible();
+});
+
 test("raw outputs and memo evidence open without regeneration", async ({ page }) => {
   blockExternalRequests(page);
   await page.goto("/lab/opsroute/failures/");

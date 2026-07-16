@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  ["OpsRoute", "/lab/opsroute"],
-  ["Methods", "/lab/opsroute/methods"],
-  ["Failures", "/lab/opsroute/failures"],
-  ["GPT memo", "/lab/opsroute/memo"],
+  ["Succession Case", "/lab/opsroute"],
+  ["Recovery Paths", "/lab/opsroute/methods"],
+  ["Failure Explorer", "/lab/opsroute/failures"],
+  ["Recommendation", "/lab/opsroute/memo"],
   ["Evidence", "/lab/opsroute/evidence"],
 ];
 
@@ -26,7 +26,7 @@ export function SiteHeader() {
             <Link
               key={href}
               href={href}
-              className="rounded-full px-3 py-2 text-sm text-slate-400 transition hover:bg-white/5 hover:text-white"
+              className="rounded-full px-3 py-2 text-sm text-slate-400 transition hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
             >
               {label}
             </Link>
@@ -44,7 +44,7 @@ export function SiteHeader() {
           <Link
             key={href}
             href={href}
-            className="whitespace-nowrap rounded-full px-3 py-1.5 text-xs text-slate-400 hover:bg-white/5 hover:text-white"
+            className="whitespace-nowrap rounded-full px-3 py-1.5 text-xs text-slate-400 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
           >
             {label}
           </Link>

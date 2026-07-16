@@ -44,6 +44,26 @@ describe("committed product data", () => {
       expect(readFileSync(file, "utf8").toLowerCase()).not.toContain(phrase);
     }
   });
+
+  it("keeps landing-page scientific metrics sourced from frozen data", () => {
+    const landing = readFileSync(
+      path.resolve(process.cwd(), "src/components/landing-experience.tsx"),
+      "utf8",
+    );
+    for (const handwrittenMetric of [
+      "54.688%",
+      "87.500%",
+      "85.938%",
+      "79.688%",
+      "68.750%",
+      "62.500%",
+      "59 / 768",
+      "719 / 768",
+      "4 / 48",
+    ]) {
+      expect(landing).not.toContain(handwrittenMetric);
+    }
+  });
 });
 
 function collect(root: string): string[] {
