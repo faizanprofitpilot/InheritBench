@@ -451,3 +451,45 @@ This file is append-only. Results are recorded only after the corresponding comm
 - Final product status is `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`; hosted
   completion remains guarded by a separate deployment-verification artifact. Local decision hash:
   `0b86720841e28d1a3da476fb1e491debe0ed9bf88466e6bf739b6ce635004d2d`.
+
+## 2026-07-16 — Verified Succession Replay Product
+
+- Added the supported `opsroute-qwen-olmo` workflow and made **Run verified succession replay** the
+  primary product action. The browser performs real manifest, hash, record, aggregate, residual,
+  readiness, and adapter-identity verification without model execution.
+- Added a compact 160-record replay bundle and matching strict Python and TypeScript engines. Both
+  derive clean 55/64 exact, 64/64 strict, nine policy-code aliases, adversarial 20/32 exact, and
+  `CONDITIONAL_PASS`; the input manifest stores no readiness decision.
+- Added deterministic `succession replay` and honest `succession preflight` CLI commands. A clean
+  base-only uv environment completes replay without model dependencies or network access.
+- Added locked configuration, no-training preflight, ordered verification progress, generated report
+  and receipt downloads, adapter delivery, residual inspection, GPT rationale, and evidence links.
+- Added portable static-export route checks and made adapter verification work from a clean clone by
+  relying on the immutable anonymously verified publication record while optionally rechecking local
+  archive bytes.
+- Final local gates: 138 selected Python tests passed with one model smoke test deselected; ten
+  frontend tests passed; 36 Chromium desktop/mobile browser tests passed; exact dataset and Phase 5
+  projection replay passed; portable static export passed; both GitHub Actions jobs passed.
+- Product commit `c39c79b8cfe0c8f1a40e3c31f614a6c2c813b98e` remains
+  `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`. Public deployment is the remaining
+  external gate.
+
+## 2026-07-16 — Documentation and Submission Readiness
+
+- Reorganized the README around the developer-tool product, supported succession case, hosted
+  verified replay, full phased workflow, exact outputs, trust boundaries, and five-minute judge
+  path. Package metadata now describes InheritBench as a model-succession developer tool.
+- Replaced the chronology-first judge guide and added product architecture, capability-pack,
+  succession-output, deployment, demo, and Devpost submission documents. Submission-only URLs and
+  the primary Codex `/feedback` Session ID remain explicit placeholders rather than fabricated
+  claims.
+- Verified a clean base-only install with 18 runtime packages. The documented replay command
+  produced `succession-replay-2b1798dad96176ff`, derived `CONDITIONAL_PASS`, completed all nine
+  replay operations, and wrote the nine documented output files.
+- Added documentation integrity tests for internal links, required product/accounting language,
+  exact replay filenames, and prohibited stale tokens. No scientific artifact, dataset, adapter,
+  metric, readiness decision, or historical evidence file changed.
+- Final local gates passed: Ruff lint/format, strict mypy across 88 source files, 141 selected
+  offline Python tests with one model smoke test deselected, ten frontend tests, 36 Chromium
+  desktop/mobile browser tests, exact Phase 5 projection replay, exact 320-record OpsRoute
+  regeneration, and the portable Node-only static export contract.

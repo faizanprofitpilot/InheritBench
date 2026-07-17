@@ -2,49 +2,107 @@
 
 **Move the model. Keep the capability.**
 
-InheritBench is a reproducible model-succession benchmark for measuring what happens to an
-operational capability when an organization replaces one open-weight model family with another.
-Day 1 establishes OpsRoute, a policy-aware enterprise action-routing capability spanning refund
-routing and subscription cancellation/retention.
+InheritBench is a model-succession developer tool for AI teams replacing one model family with
+another. It measures what learned operational capability breaks, reconstructs the capability on the
+successor, evaluates clean and adversarial readiness, exports the recovered adapter, and produces an
+evidence-backed migration decision.
 
-## Phase 5 Model Succession Lab
+> **Product status:** `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`
+>
+> **Live demo:** deployment pending
+> **Published case:** Qwen → OLMo on OpsRoute `v0.1.0`
 
-Phase 5 packages the frozen science as a self-directed static product under `apps/web`. Its primary
-action is a verified succession replay: the browser hashes compact atomic prediction records,
-recomputes the published aggregates, classifies residuals, applies versioned readiness rules,
-confirms the released adapter identity, and generates a fresh readiness report and replay receipt.
-It never presents replay as training or inference.
+**Start here:** [five-minute judge guide](docs/JUDGE_REPLAY.md) ·
+[recovered successor adapter](https://github.com/faizanprofitpilot/InheritBench/releases/download/phase3b-anchored-v0.1.0/target_hybrid_anchored_distillation_10-7461072c83b4dcde.zip) ·
+[product architecture](docs/PRODUCT_ARCHITECTURE.md) ·
+[scientific protocol](docs/EVALUATION_PROTOCOL.md) · demo video pending
 
-- Primary workflow: `/run/opsroute-qwen-olmo/`.
-- Lab routes: `/`, `/lab/opsroute`, `/lab/opsroute/methods`, `/lab/opsroute/failures`,
-  `/lab/opsroute/memo`, and `/lab/opsroute/evidence`.
-- Python builds and byte-verifies the committed display projection; Node verifies and ingests only
-  the committed showcase, projection, and 233 KB succession replay bundle for the static web build.
-- Representative cases are resolved from their recorded evaluation surface and never substituted,
-  regenerated, or manually replaced.
-- The deployed application has no backend, authentication, API key, Python, model, GPU, or runtime
-  data-service dependency.
-- Current status: `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`. Public completion is
-  prohibited until the hosted deep-link, incognito, integrity, accessibility, mobile, and desktop
-  checks pass.
+## What InheritBench Does
 
-Local verification:
+InheritBench helps ML platform, applied AI, model infrastructure, safety, and evaluation teams answer
+one operational question:
 
-```bash
-uv run inheritbench phase5 verify-web-projection
-pnpm verify
+> Can a replacement model safely assume an existing learned capability, and if not, can that
+> capability be recovered with a deliverable successor artifact and auditable migration guidance?
+
+```text
+Configure succession
+→ Verify capability break
+→ Reconstruct successor
+→ Evaluate clean and adversarial readiness
+→ Export adapter and migration decision
 ```
 
-Run the same deterministic replay from the CLI without models or network access:
+The packaged benchmark is proof of the product, not a claim of universal transfer. InheritBench
+currently supports one completed configuration and fails closed outside that scope.
+
+## First Supported Succession
+
+| Product input | Frozen v0.1 value |
+|---|---|
+| Capability pack | OpsRoute `v0.1.0` |
+| Learned capability | Refund routing and subscription cancellation/retention |
+| Source | Adapted `Qwen/Qwen2.5-0.5B-Instruct` |
+| Successor base | Pinned `allenai/OLMo-2-0425-1B-Instruct` |
+| Transfer strategy | Anchored Behavioral Transfer |
+| Target supervision | 214 exact teacher outputs + 10 original anchors |
+| Target training | 224 records, 272,568 processed tokens, checkpoint step 168 |
+| Delivered artifact | Verified OLMo LoRA adapter |
+| Readiness decision | `CONDITIONAL_PASS` |
+
+The upstream source teacher was trained on 224 original labels, and the matched candidate
+distribution was designed from that same 224-label corpus. This is not ten-shot, label-free, or
+purely synthetic transfer. See [Anchored Behavioral Transfer](docs/METHOD_ANCHORED_TRANSFER.md) for
+the complete accounting.
+
+## Result at a Glance
+
+Clean confirmatory and adversarial evidence are separate evaluation surfaces and are never blended
+into one score.
+
+| Surface and system | Semantic exactness | Strict validity | Operational or safety result |
+|---|---:|---:|---|
+| Clean · untouched OLMo | 0 / 64 | 0 / 64 | 4 unauthorized actions |
+| Clean · recovered successor | 55 / 64 (85.9375%) | 64 / 64 (100%) | 64/64 decision, tool, arguments, approval, and reason code; zero unauthorized actions, bypasses, or false actions |
+| Adversarial · recovered successor | 20 / 32 (62.5%) | 30 / 32 | 8 prompt-injection failures, 3 conflicting-identifier failures, 1 unauthorized action, 1 approval bypass |
+
+> **The recovered successor made every measured clean operational decision and action correctly.
+> Its nine remaining clean errors were exact policy-code aliases, reducing full-contract exactness
+> to 85.9%.**
+
+Clean capability recovery succeeded, but adversarial robustness remains insufficient for an
+unconditional migration pass. Deterministic readiness rules therefore produce `CONDITIONAL_PASS`,
+not “production ready” or “fully safe.”
+
+## Try the Product
+
+### Hosted route after deployment
+
+The static product route will be:
+
+```text
+/run/opsroute-qwen-olmo/
+```
+
+It is available after public deployment. No live URL is claimed yet.
+
+### GPU-free local replay
+
+The smallest verified installation uses only base dependencies:
 
 ```bash
-uv run inheritbench succession replay \
+uv sync --frozen --no-dev
+uv run --no-dev inheritbench succession replay \
   --case opsroute-qwen-olmo \
   --profile maximum-confirmed-capability \
   --output runs
 ```
 
-Inspect prerequisites and canonical commands for the real phased local workflow:
+The replay is CPU-only, offline, deterministic, and idempotent. It verifies immutable evidence,
+derives metrics and residuals, applies `succession-readiness-v0.1`, confirms the published adapter
+identity, and writes a fresh product run bundle.
+
+### Full-workflow preflight
 
 ```bash
 uv run inheritbench succession preflight \
@@ -53,366 +111,229 @@ uv run inheritbench succession preflight \
   --json -
 ```
 
-The preflight does not train a model. Actual supervision preparation, leakage auditing,
-preregistration, OLMo training, validation, checkpoint selection, held-out testing, replay, and
-adapter export remain the existing Phase 3B command sequence.
+Preflight checks local model dependencies, pinned revisions, accelerator, disk, frozen capability
+data, and preregistration evidence. It prints the real phased command sequence; it does **not** train
+a model or present a generalized one-command executor.
 
-## Phase 4 Adversarial Evidence
+## Product Modes
 
-Phase 4 freezes the untouched 32-record adversarial split and evaluates the six existing systems
-exactly once without new training, prompts, methods, data, or repeated seeds. Deterministic replay
-produces failure/archetype matrices, migration profiles, representative cases, and a content-addressed
-evidence pack. The authoritative submission memo uses official `gpt-5.6-sol` structured output and
-passes the deterministic evidence validator after the single permitted repair.
+| Mode | What it does | Hardware | Network | Output |
+|---|---|---|---|---|
+| Hosted verified replay | Verifies frozen succession evidence and derives a fresh readiness decision | Modern Chromium browser | Static site delivery only; no runtime API, model, or external data service | Readiness report and replay receipt |
+| Local replay | Runs the equivalent deterministic product replay through Python | CPU | Offline after installation | Product run bundle |
+| Full phased workflow | Performs real supervision preparation, training, evaluation, selection, replay, and export | Apple Silicon MPS in the executed case | Model downloads required | Trained adapter and scientific evidence |
 
-- Frozen protocol: `artifacts/phase4/protocols/phase4-protocol-95094c5782a1d987`.
-- Phase 4 uses parser `0.1.0`, evaluator `v0`, prompt `0.1.0`, seed `20260714`, and one MPS pass per
-  system.
-- No Phase 4 release, adapter publication, or automatic Phase 5 work is permitted.
+The hosted product verifies and replays a completed succession from immutable evidence. Full
+source-to-successor training remains the real preregistered phased CLI workflow.
 
-| System | Adversarial semantic | Strict valid | False / bypass / unauthorized |
-|---|---:|---:|---:|
-| `source_base_supporting` | 0.000% | 40.625% | 1 / 2 / 3 |
-| `source_adapted_full` | 37.500% | 71.875% | 1 / 2 / 4 |
-| `target_untouched` | 0.000% | 0.000% | 2 / 0 / 2 |
-| `target_full_retrain` | **68.750%** | **93.750%** | 0 / 1 / 1 |
-| `target_limited_retrain_10pct` | 40.625% | 84.375% | 0 / 1 / 1 |
-| `target_hybrid_anchored_distillation_10` | 62.500% | **93.750%** | 0 / 1 / 1 |
+## Delivered Output
 
-The frozen profiles recommend the hybrid for minimum direct labels and maximum confirmed
-capability, and full target retraining for maximum adversarial resilience, minimum complexity, and
-no-source-teacher deployments. No viable trained migration remains when original labels are wholly
-unavailable. All model and derived artifacts replay exactly. The validated GPT memo and final static
-showcase also replay without network, weights, or an accelerator. Phase 4 is permanently frozen at
-`PHASE4_COMPLETED_WITH_VALIDATED_GPT_MEMO / DAY5_UNBLOCKED` with `automatic_phase5=false`.
-The earlier readiness bundle remains immutable beside the authoritative final bundle at
-`artifacts/showcase/inheritbench-v0.1-gpt`.
-
-## Day 3 Synthetic Distillation
-
-Day 3 adds `target_synthetic_distillation`: a fresh OLMo target trained only on independently
-generated inputs and exact strict outputs from the verified Day 2 Qwen teacher. It preserves the
-frozen OpsRoute splits, prompt/parser `0.1.0`, evaluator `v0`, model revisions, and seed `20260714`.
-
-- The initial pool contains 512 balanced candidates, 32 per archetype. One fixed 256-candidate
-  expansion is available only if strict filtering cannot supply 14 accepted examples per archetype.
-- Leakage protection uses separate surface, full prompt-visible input, and value-sensitive typed
-  semantic hashes. Opaque identifier values and request paraphrases do not conceal or create
-  semantic collisions.
-- The teacher never receives the evaluator-only oracle. Only strict JSON outputs exactly matching
-  the deterministic policy contract can enter the 224-record synthetic training set.
-- Scientific completion and public distribution are separate. A completed, replayed six-system
-  comparison sets `DAY4_UNBLOCKED`; release failure can only set `PUBLICATION_BLOCKED`.
-- Day 4 is never started automatically.
-
-### Independent Day 3 Outcome
-
-Day 3 stopped at its predeclared synthetic-data gate. The verified teacher completed all 768
-candidates across the initial and single allowed expansion pools, but only 59 outputs were strict,
-policy-exact, and safety-valid. Accepted outputs covered five of sixteen archetypes, so the required
-224-record set with 14 examples per archetype could not be selected.
-
-- Terminal dataset: `artifacts/day3/synthetic-data/day3-synthetic-dataset-9d186a0dde24549f`
-- Result: `SCIENTIFICALLY_FAILED / DAY4_BLOCKED`
-- Reason: `INSUFFICIENT_ACCEPTED_SYNTHETIC_EXAMPLES`
-- Distribution: `NOT_ATTEMPTED`; no target training, test evaluation, adapter, comparison, release,
-  or Day 4 work was run.
-- Both teacher runs and the 768-record filter replay exactly. Low teacher agreement remains visible;
-  no parser repair, quality retry, prompt change, or label rewriting was used.
-
-### Distribution-Matched Recovery Outcome
-
-The final bounded recovery matched the frozen train distribution exactly and improved strict
-teacher acceptance from 59/768 (`7.68%`) to 719/768 (`93.62%`). Fifteen archetypes met the quota,
-but duplicate auto-refund reached only 4/48 accepted outputs, below the frozen minimum of 14.
-
-- Terminal dataset: `artifacts/day3-matched/synthetic-data/day3-matched-synthetic-dataset-36eea02e066b021a`
-- Result: `RECOVERY_TERMINAL_NEGATIVE / DAY4_UNBLOCKED_WITH_NEGATIVE_DISTILLATION_RESULT`
-- Reason: `INSUFFICIENT_ACCEPTED_SYNTHETIC_EXAMPLES`
-- Distribution: `NOT_ATTEMPTED`; no target training, held-out test, adapter, six-row comparison, or
-  release exists.
-- Fingerprint, both distribution/leakage audits, both teacher runs, filtering, failure analysis,
-  attempt comparison, and recovery decision replay exactly.
-- No third Day 3 attempt or automatic Day 4 work is permitted.
-
-## Phase 3B Anchored Behavioral Transfer
-
-Phase 3B is a separate preregistered hybrid condition, not a third pure-distillation attempt. It
-trains fresh OLMo on 214 accepted matched teacher labels plus the ten hash-ranked original anchors
-required to fill the immutable duplicate-auto-refund quota deficit.
-
-| Confirmatory system | Semantic exact | Strict valid | Unauthorized | Approval bypass |
-|---|---:|---:|---:|---:|
-| `source_base_supporting` | 0.000% | 51.562% | 3 | 0 |
-| `source_adapted_full` | 54.688% | 87.500% | 5 | 0 |
-| `target_untouched` | 0.000% | 0.000% | 4 | 0 |
-| `target_full_retrain` | 79.688% | 100.000% | 0 | 0 |
-| `target_limited_retrain_10pct` | 65.625% | 90.625% | 0 | 0 |
-| `target_hybrid_anchored_distillation_10` | **85.938%** | **100.000%** | **0** | **0** |
-
-- Preregistration commit: `cd873c5d87817f64ac2ecd04824ef1cfdb19b1ea`; its attestation reads
-  every frozen config, selection, confirmatory split, leakage audit, and schedule from the Git tree.
-- Training consumed 272,568 whole-sequence tokens in 504.76 active seconds with no numerical
-  correction. The step-168 checkpoint was the sole safety-eligible checkpoint and reloaded into a
-  fresh pinned OLMo base.
-- The primary result uses one new 64-record confirmatory test shared by all six systems. Every run,
-  failure analysis, and comparison replays exactly. The later 32-record original-test result is
-  explicitly exploratory and scores 100% semantic/strict.
-- Scientific status: `PHASE3B_SCIENTIFICALLY_COMPLETED / DAY4_UNBLOCKED`. Publication is an
-  independent distribution gate, `automatic_day4=false`, and no further Phase 3B variant is allowed.
-- Distribution status: `PUBLISHED_VERIFIED`. The deterministic adapter is available from the
-  [Phase 3B anchored release](https://github.com/faizanprofitpilot/InheritBench/releases/tag/phase3b-anchored-v0.1.0)
-  with archive SHA-256 `f30fa5c814596a6c383be0390174275c893e1aba83d27df1dc8eec46c929f87f`.
-- Commit lineage is intentionally split: preregistration `cd873c5`, scientific result `9ced5d1`,
-  packaging/tag `2d7052f`, and public-download verification `8718ef6`. The tag remains fixed at the
-  packaging commit; later `main` commits contain verification and documentation only.
-- Primary comparison: `artifacts/phase3b/comparisons`; scientific decision:
-  `artifacts/phase3b/scientific-decisions/phase3b-scientific-decision-0482549a90414fc8`.
-
-See `docs/METHOD_ANCHORED_TRANSFER.md` and `docs/JUDGE_REPLAY.md` for exact provenance and replay.
-
-## Current Day 2 Outcome
-
-Day 2 trains and evaluates the learned capability across five frozen systems on the same 32-record
-test split. The source capability gate passed every criterion before any test evaluation.
-
-| Method | Unique train records | Processed tokens | Semantic exact | Strict valid |
-|---|---:|---:|---:|---:|
-| `source_base_supporting` | 0 | 0 | 0.000% | 40.625% |
-| `source_adapted_full` | 224 | 379,768 | 96.875% | 100.000% |
-| `target_untouched` | 0 | 0 | 0.000% | 0.000% |
-| `target_full_retrain` | 224 | 272,643 | 100.000% | 100.000% |
-| `target_limited_retrain_10pct` | 24 | 272,634 | 84.375% | 93.750% |
-
-- The limited condition uses 24/224 unique examples (`10.7142857%`) and matches the full-target
-  processed-token budget to `99.996699%` without truncating an example.
-- Selected source, full-target, and limited-target checkpoints have zero unauthorized actions,
-  approval bypasses, or false actions on validation and final test.
-- All five final runs replay exactly. The machine-readable comparison is under
-  `artifacts/day2/comparisons/day2-comparison-8d0e9e5ac1494449`.
-- Adversarial evaluation, repeated seeds, and UI work remain untouched. Day 3 is reported separately.
-
-The three selected LoRA adapters remain outside Git and are published as deterministic assets in
-the [Day 2 v0.1.0 release](https://github.com/faizanprofitpilot/InheritBench/releases/tag/day2-v0.1.0).
-All public downloads match their recorded SHA-256 hashes; immutable verification metadata lives
-under `artifacts/day2/publications`.
-
-Release lineage is intentionally immutable: scientific execution is captured at `78e616b`, the
-`day2-v0.1.0` tag resolves to `d731dba` after adding deterministic release checksums, and post-tag
-`main` history beginning at `33a9dc5` contains only public-download verification and documentation.
-No scientific run, adapter, prediction, metric, or release archive changed after `78e616b`.
-
-## Day 1 Scope
-
-The implemented vertical slice is:
+The local replay writes one deterministic, no-overwrite directory:
 
 ```text
-validated configuration
-→ deterministic OpsRoute v0.1 data
-→ pinned Qwen source-base and OLMo target-base inference
-→ strict parsing
-→ deterministic atomic scoring
-→ immutable run artifacts
-→ exact metric replay
+runs/succession-replay-<content-hash>/
+├── succession_run_manifest.json
+├── readiness_report.json
+├── replay_receipt.json
+├── evaluation_summary.json
+├── residual_failures.json
+├── label_accounting.json
+├── compute_accounting.json
+├── adapter_reference.json
+└── evidence_manifest.json
 ```
 
-Training, PEFT, distillation, synthetic data, UI work, provider abstractions, and a weighted
-composite score are deliberately excluded.
+The run manifest references rather than copies scientific artifacts. Repeating an identical replay
+returns the byte-identical run; a conflicting existing directory fails closed. The complete contract
+is documented in [Succession Outputs](docs/SUCCESSION_OUTPUTS.md).
 
-## Current Day 1 Outcome
+## Built with Codex and GPT-5.6
 
-- The 320-record dataset is frozen and byte-reproducible at
-  `9202ecdf200a86cf3899a9ff3eb71722effe9421c04f353fd575d62c6c7d492b`.
-- Qwen→OLMo and Qwen→SmolLM2 both load on MPS, confirm architecture heterogeneity, and confirm
-  incompatible configured projection shapes.
-- All real runs finalized eight terminal predictions and replayed exactly.
-- Qwen produced schema-valid outputs under prompt `0.1.0`; neither OLMo nor the fallback SmolLM2
-  produced a schema-valid output under the original or one simplified prompt contract.
-- Day 1 is therefore **blocked at the target structured-output quality gate**. Invalid outputs remain
-  visible and score zero; no parser repair or result substitution was used.
-- The Modal L4 invocation was rejected before execution by the environment's external data-export
-  approval gate. A local `BLOCKED` artifact records zero remote attempts and no GPU allocation.
+### Codex collaboration
 
-The strongest completed fallback run is
-`artifacts/runs/day1-20260714T191408-b65f0439`; its exact replay is
-`artifacts/replays/replay-20260714T192011-50b1712a`.
+Codex accelerated repository implementation across experiment scaffolding, deterministic OpsRoute
+generation, model loading and inference, LoRA training orchestration, strict schemas, atomic
+no-overwrite artifacts, leakage checks, replay systems, Phase 3B protocol implementation, Phase 4
+evidence construction, the memo validator, static projection, browser verification, the succession
+replay engines, CLI, frontend workflow, tests, CI, and documentation.
 
-## Blocker-Resolution Outcome
+The founder set the scientific and product agenda: choosing model succession as the problem,
+separating exact contract fidelity from operational correctness, preserving negative experiments,
+forbidding parser repair and result substitution, freezing bounded protocols, selecting anchored
+transfer after the teacher blind spot was diagnosed, requiring direct and upstream label accounting,
+separating clean and adversarial surfaces, retaining `CONDITIONAL_PASS`, rejecting fake browser
+training, and turning the completed case into a verified developer workflow.
 
-- Preserved target failures were schema-compliance failures; no inference/runtime defect was found.
-- Untouched OLMo remained 0/8 schema-valid on a fixed validation diagnostic, with every generation
-  ending on EOS. The correct baseline classification is
-  `UNTOUCHED_TARGET_HAS_ZERO_SCHEMA_VALIDITY; TARGET_TRAINABILITY_UNTESTED`.
-- A bounded 32-example LoRA gate improved Qwen from 3/8 to 8/8 schema-valid on the validation subset.
-- The successful OLMo run `micro-lora-target_micro_lora-20260714T195848-79e58f44` produced 7/8
-  schema-valid and 2/8 semantic-exact contracts with finite decreasing loss and exact replay.
-- Final decision: `OLMO_TRAINABILITY_CONFIRMED`. SmolLM2 fallback training was not triggered.
-- Machine-readable decision: `artifacts/blocker-resolution/decision/decision-77a945960ddfdb7e`.
-- This blocker-resolution sprint scientifically unblocked the later Qwen→OLMo Day 2 execution.
-  Modal remained unavailable because external workspace-export approval was not granted.
+**TODO BEFORE SUBMISSION: Add primary Codex `/feedback` Session ID.**
 
-Blocker evidence lives under `artifacts/blocker-resolution`; adapters are separate under
-`adapters/blocker-resolution`. Existing Day 1 artifacts remain unchanged.
+### GPT-5.6 Sol
 
-## Quick Start
+Deterministic evaluators produce metrics and safety facts. Deterministic readiness rules determine
+eligibility. GPT-5.6 Sol explains the constraint-aware migration recommendation from a validated,
+content-addressed evidence graph, and a claim validator checks the memo before publication.
 
-```bash
-uv sync --frozen --extra model --extra modal --extra analyst --group dev
-uv run inheritbench --version
-uv run ruff check .
-uv run mypy src
-uv run pytest -m "not model_smoke and not modal"
-```
-
-Run the preregistered Phase 4 core after committing the frozen protocol:
-
-```bash
-uv run inheritbench phase4 validate-configs
-uv run inheritbench phase4 freeze-protocol
-uv run inheritbench phase4 attest-protocol
-uv run inheritbench phase4 evaluate-adversarial --system source_base_supporting
-```
-
-The remaining `phase4` commands replay all six evaluations, build the analyses/evidence pack,
-validate the deterministic fallback and bounded GPT memo, and replay the static showcase.
-
-Verify Day 2 configuration and frozen schedules:
-
-```bash
-uv run inheritbench day2 validate-configs
-uv run inheritbench day2 freeze-data
-```
-
-The production Day 2 command group also provides `train`, `recover`, `evaluate`, `source-gate`,
-`replay`, `compare`, `package-adapters`, and `verify-release`. Every finalization refuses overwrite.
-
-Run the guarded Day 3 sequence:
-
-```bash
-uv run inheritbench day3 validate-configs
-uv run inheritbench day3 freeze-pool
-uv run inheritbench day3 verify-teacher
-uv run inheritbench day3 run-teacher --pool initial --device mps
-uv run inheritbench day3 filter
-# Only when the filter reports NEEDS_EXPANSION:
-uv run inheritbench day3 expand-pool
-uv run inheritbench day3 run-teacher --pool expansion --device mps
-uv run inheritbench day3 filter
-# Stop when the terminal filter reports FAILED. Continue only after COMPLETED:
-uv run inheritbench day3 freeze-schedule
-uv run inheritbench day3 train --device mps
-uv run inheritbench day3 evaluate --split test --device mps
-```
-
-The remaining Day 3 commands provide replay, failure analysis, six-row comparison, separate
-scientific/distribution finalization, deterministic adapter packaging, and public release
-verification. Every command fails closed on missing or mismatched lineage.
-
-Replay the final matched recovery:
-
-```bash
-uv run inheritbench day3-matched validate-configs
-uv run inheritbench day3-matched freeze-baseline
-uv run pytest -q tests/integration/test_day3_matched_artifacts.py
-```
-
-Generate or verify the committed dataset:
-
-```bash
-uv run inheritbench data generate \
-  --config configs/tasks/opsroute.yaml \
-  --output data/opsroute/v0.1.0
-
-uv run inheritbench data generate \
-  --config configs/tasks/opsroute.yaml \
-  --output data/opsroute/v0.1.0 \
-  --check
-```
-
-Run the real Day 1 path:
-
-```bash
-uv run inheritbench doctor \
-  --source configs/models/source.yaml \
-  --target configs/models/target.yaml \
-  --task configs/tasks/opsroute.yaml \
-  --check-hub \
-  --json artifacts/day1/doctor.json
-
-uv run inheritbench inspect-pair \
-  --source configs/models/source.yaml \
-  --target configs/models/target_fallback.yaml \
-  --mode loaded
-
-uv run inheritbench infer \
-  --source configs/models/source.yaml \
-  --target configs/models/target_fallback.yaml \
-  --task configs/tasks/opsroute.yaml \
-  --examples data/opsroute/v0.1.0/smoke_ids.json \
-  --device auto \
-  --output-root artifacts/runs
-
-uv run inheritbench evaluate \
-  --run artifacts/runs/<run-id> \
-  --verify-stored \
-  --output-root artifacts/replays
-```
+The authoritative memo used one initial structured-output request and one permitted repair. GPT-5.6
+did not calculate benchmark metrics, replace safety gates, alter evidence, or independently prove
+model safety. Read the validated memo in the static product or inspect the frozen bundle under
+`artifacts/showcase/inheritbench-v0.1-gpt`.
 
 ## Architecture
 
-- `configs/` contains validated, pinned manual identity and policy choices.
-- `src/inheritbench/data/` owns deterministic examples and evaluator-owned labels.
-- `src/inheritbench/evaluation/` owns parsing and all scores.
-- `src/inheritbench/models/` owns pinned loading, native chat prompts, and inspection.
-- `src/inheritbench/inference/` owns sequential inference and replay.
-- `src/inheritbench/day2/` owns learned-method configs, schedules, training, checkpoint selection,
-  source gating, final comparison, replay, and release packaging.
-- `src/inheritbench/day3/` owns independent candidate generation, value-sensitive leakage audits,
-  verified teacher inference, strict synthetic filtering, target training, replay, status decisions,
-  and one-adapter publication.
-- `src/inheritbench/day3_matched/` owns the isolated final distribution-matched recovery, exact
-  train-fingerprint audits, terminal-negative status, replay, and independent publication lineage.
-- `src/inheritbench/phase5/` owns the deterministic product projection and local/deployment status
-  gates; `apps/web/` owns the Node-only static product.
-- `src/inheritbench/artifacts/` owns canonical hashes and no-overwrite finalization.
-- `artifacts/` contains run evidence; no UI or prose document is scoring truth.
+```text
+Capability pack + pinned model configs
+                    ↓
+Preregistered supervision and training workflow
+                    ↓
+Raw predictions → deterministic parser and metrics
+                    ↓
+Content-addressed scientific artifacts + verified adapter
+                    ↓
+Evidence graph → GPT-5.6 memo → deterministic claim validation
+                    ↓
+Succession run manifest + compact replay records
+                    ↓
+Shared Python / TypeScript replay specification
+                    ↓
+Readiness report + replay receipt + static web cockpit
+```
 
-## Artifact Truth Hierarchy
+The product has no backend, database, authentication, runtime model service, or secret. The deployed
+build uses Node and committed web data only; Python remains the scientific projection and local
+verification layer. See [Product Architecture](docs/PRODUCT_ARCHITECTURE.md) and
+[Capability Packs](docs/CAPABILITY_PACKS.md).
 
-1. Raw prediction records and exact expected contracts.
-2. Deterministically recomputed parser results and atomic metrics.
-3. Immutable run summaries and manifests with verified byte hashes.
-4. Documentation that cites those artifacts.
+## Scientific Case
 
-Fixture IDs always begin with `fixture_` and are rejected as benchmark evidence. Failed model work
-is recorded as `FAILED`; parser invalidity remains a completed inference with an explicit invalid
-parser result. Unrun work is never represented as a zero score.
+The frozen OpsRoute case records the full succession path:
+
+1. **Capability break:** untouched OLMo produced 0/64 semantic-exact and 0/64 strict-valid outputs
+   on the clean confirmatory surface.
+2. **Independent distillation failed:** only 59/768 teacher outputs met the frozen acceptance rules.
+3. **Distribution matching exposed a blind spot:** acceptance rose to 719/768, but duplicate
+   auto-refund supplied only 4/48 accepted examples against a quota of 14.
+4. **Anchored Behavioral Transfer succeeded cleanly:** 214 teacher labels plus 10 hash-ranked
+   original anchors trained a fresh pinned OLMo base.
+5. **Adversarial audit limited readiness:** 62.5% semantic exactness and two observed safety events
+   required a conditional rather than unconditional migration recommendation.
+6. **Adapter publication:** the selected step-168 LoRA adapter was packaged, released, downloaded
+   anonymously, and byte-verified.
+
+Negative attempts remain immutable and visible. Detailed chronology lives in the
+[Build Log](docs/BUILD_LOG.md), [Decision Record](docs/DECISIONS.md),
+[Synthetic Distillation Methods](docs/METHOD_SYNTHETIC_DISTILLATION.md), and
+[Anchored Behavioral Transfer](docs/METHOD_ANCHORED_TRANSFER.md).
+
+## Reproducibility and Trust
+
+- Frozen protocols and Git-tree preregistration bind scientific choices before execution.
+- Canonical JSON, byte hashes, content hashes, atomic rename, and no-overwrite storage protect
+  evidence integrity.
+- Raw model outputs remain preserved; parser failures remain visible.
+- Metrics and readiness decisions are deterministic code outputs, not memo judgments.
+- Replay reconstructs results from saved atomic records without model weights or network access.
+- The released adapter archive and internal files have verified SHA-256 identities.
+- Browser replay verifies the compact product bundle; it is not model inference or full scientific
+  parser replay.
+- The Python scientific replay remains the canonical deeper verification path.
+
+## Supported Platforms
+
+| Use | Verified platform |
+|---|---|
+| Hosted/static product | Chromium desktop and Pixel 7 mobile emulation |
+| GPU-free replay | CPython 3.11.15 on macOS Apple Silicon; CI also verifies Linux execution |
+| Full model workflow | macOS Apple Silicon with MPS, executed on an Apple M2 Pro with 32 GB unified memory |
+| Frontend toolchain | Node 22.14.0 and pnpm 10.7.1 |
+| Python environment | uv 0.11.28 with committed `uv.lock` |
+
+Firefox, Safari, Windows, CUDA, and Linux GPU training are not claimed as verified execution
+platforms. The application is a static export and may work more broadly, but those environments
+remain unvalidated.
+
+## Installation
+
+### Product replay only
+
+```bash
+git clone https://github.com/faizanprofitpilot/InheritBench.git
+cd InheritBench
+uv sync --frozen --no-dev
+uv run --no-dev inheritbench succession replay --output runs
+```
+
+No model weights, API key, accelerator, or network connection are required after installation.
+
+### Frontend development
+
+```bash
+pnpm install --frozen-lockfile
+pnpm ingest
+pnpm dev
+```
+
+The production export is Node-only:
+
+```bash
+pnpm build
+```
+
+### Full scientific workflow
+
+```bash
+uv sync --frozen --extra model --group dev
+uv run inheritbench succession preflight --case opsroute-qwen-olmo --mode full --json -
+```
+
+The executed local workflow requires model downloads, sufficient disk, and Apple MPS. Follow the
+phased commands emitted by preflight; do not interpret preflight itself as training.
+
+## Five-Minute Judge Test
+
+Before public deployment, use the local equivalent:
+
+1. Run the base-only installation and `succession replay` command above.
+2. Open `readiness_report.json` and confirm `CONDITIONAL_PASS`.
+3. Open `replay_receipt.json` and confirm all nine verification operations passed.
+4. Inspect `residual_failures.json` for nine clean policy-code aliases and the adversarial profile
+   counts.
+5. Open the [recovered successor adapter](https://github.com/faizanprofitpilot/InheritBench/releases/download/phase3b-anchored-v0.1.0/target_hybrid_anchored_distillation_10-7461072c83b4dcde.zip).
+6. Read the GPT-5.6 recommendation and evidence references in the static showcase bundle.
+
+After deployment, judges can perform the same journey at `/run/opsroute-qwen-olmo/`: review the
+no-training preflight, run verified replay, download the fresh report and receipt, inspect the
+adapter, open the validated memo, and verify evidence. The final public URL will replace the single
+placeholder in [Judge Replay](docs/JUDGE_REPLAY.md).
 
 ## Limitations
 
-- Day 1 evaluates four held-out smoke examples per base model, not full benchmark quality.
-- A single deterministic generation seed does not establish statistical significance.
-- Exact model output identity is not claimed across hardware backends.
-- LoRA targets are structural observations only and remain provisional.
-- Modal is a bounded preflight, not a training or orchestration platform.
-- The blocker-resolution trainability gate uses 32 train and eight validation examples; it is not a
-  full benchmark result, and its semantic exactness remains limited.
-- Day 2 uses one deterministic seed and one model pair; it does not establish statistical
-  significance or generalize beyond OpsRoute v0.1.0.
-- `semantic_decision_score_v0` remains exact full ActionContract equality, not a broader
-  normalized decision-only score.
-- MPS memory values are allocation snapshots, not peak-memory measurements.
-- Day 3 synthetic examples still depend upstream on 224 original labels used to train the source
-  teacher; the method is not described as label-free.
-- Public adapter distribution is not evidence of scientific validity, and publication failure does
-  not revise a completed scientific decision.
-- The frozen Day 3 teacher produced only 59 accepted outputs across five archetypes, so no synthetic
-  target was trained and no six-row comparison exists. This is a failed scientific gate, not a zero
-  benchmark score.
-- The matched recovery is a distinct final attempt. It preserves the independent failure and permits
-  either a replayed completed result or a replayed terminal negative to unblock Day 4; it never starts
-  Day 4 automatically.
+- One pinned Qwen → OLMo model pair and one OpsRoute capability pack are supported.
+- One deterministic seed demonstrates reproducibility, not statistical significance.
+- Hosted mode does not train or run inference.
+- Arbitrary models, capability uploads, and generalized one-command training are unsupported.
+- Exact full-contract fidelity differs from operational correctness.
+- Adversarial robustness remains limited; the readiness decision is conditional.
+- The method directly consumes 10 original anchors and depends upstream on a teacher trained with
+  224 original labels and a distribution designed from that corpus.
+- Confirmatory and adversarial surfaces are small and case-specific.
+- Results do not establish universal capability transfer or production safety.
 
-See `docs/METHOD_SYNTHETIC_DISTILLATION.md`, `docs/JUDGE_REPLAY.md`,
-`docs/EVALUATION_PROTOCOL.md`, `docs/COMPUTE_PLAN.md`, and `docs/LICENSING.md` for the scientific,
-compute, replay, and licensing contracts.
+Long-term, InheritBench aims to provide a model-agnostic succession process: recover the capability
+when possible, and condition or block migration when evidence is insufficient.
+
+## Documentation
+
+- [Five-minute judge replay](docs/JUDGE_REPLAY.md)
+- [Product architecture](docs/PRODUCT_ARCHITECTURE.md)
+- [Capability packs](docs/CAPABILITY_PACKS.md)
+- [Succession output contract](docs/SUCCESSION_OUTPUTS.md)
+- [Deployment checklist](docs/DEPLOYMENT_CHECKLIST.md)
+- [Demo script](docs/DEMO_SCRIPT.md)
+- [Devpost submission draft](docs/DEVPOST_SUBMISSION_DRAFT.md)
+- [Evaluation protocol](docs/EVALUATION_PROTOCOL.md)
+- [Anchored Behavioral Transfer](docs/METHOD_ANCHORED_TRANSFER.md)
+- [Synthetic distillation attempts](docs/METHOD_SYNTHETIC_DISTILLATION.md)
+- [Compute and accounting](docs/COMPUTE_PLAN.md)
+- [Licensing](docs/LICENSING.md)
+- [Clean-room statement](docs/CLEAN_ROOM.md)
+- [Decision record](docs/DECISIONS.md)
+- [Append-only build log](docs/BUILD_LOG.md)

@@ -29,3 +29,10 @@ Phase 3B anchored transfer, confirmatory generation, Git-tree preregistration, m
 evaluation matrix, replay, and publication contracts are original InheritBench implementation. The
 ten anchors come only from this repository's frozen deterministic train split; no external benchmark
 data, hidden labels, or copied transfer method is introduced.
+
+Phase 4 adversarial analysis, evidence graph, claim validator, migration profiles, and Phase 5
+projection and succession replay are also project-specific implementations. The static product reads
+only committed InheritBench evidence and the project's verified public adapter record. Codex assisted
+implementation, testing, and documentation; the founder defined the product problem, scientific
+protocols, bounded interventions, accounting requirements, readiness interpretation, and product
+truth boundaries.

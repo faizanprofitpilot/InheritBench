@@ -259,3 +259,23 @@ Case resolution follows the surface recorded by the immutable selection lineage.
 must resolve from Phase 3B confirmatory predictions, adversarial cases from Phase 4 predictions, and
 exploratory cases only from explicitly labeled exploratory artifacts. Missing or conflicting
 lineage is an integrity failure; there is no regeneration or substitution path.
+
+## Verified Succession Product Replay
+
+The v0.1 product replay aggregates committed atomic records; it does not rerun models or change the
+scientific evaluator. Its manifest references 64 untouched-target confirmatory predictions, 64
+recovered-successor confirmatory predictions, and 32 recovered-successor adversarial predictions.
+
+Python and TypeScript implementations validate the same manifest, record, context, and adapter
+schemas. They verify byte counts and SHA-256 hashes, preserve clean and adversarial denominators,
+derive operational correctness, classify the nine policy-code-only clean residuals, count
+adversarial profiles and safety events, and apply `succession-readiness-v0.1`.
+
+The succession manifest does not contain a readiness result. `CONDITIONAL_PASS` is derived because
+all clean integrity, strict-validity, operational-correctness, and safety gates pass while observed
+adversarial semantic, parser, and safety blockers remain. GPT-5.6 has no role in this deterministic
+decision.
+
+Browser replay verifies compact product records and publication identity. It is not a fresh model
+run, scientific parser replay, or substitute for the raw-output artifacts retained by Phase 3B and
+Phase 4.

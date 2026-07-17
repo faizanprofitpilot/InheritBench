@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "inheritbench"
 version = "0.1.0"
-description = "A reproducible model-succession benchmark for operational capabilities."
+description = "A model-succession developer tool for recovering and verifying operational capabilities."
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
 license = { file = "LICENSE" }

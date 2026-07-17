@@ -268,3 +268,22 @@
   score. Render the validated GPT-5.6 Sol structured memo without regeneration or rewriting.
 - Stop at `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`. Public completion requires a
   stable unauthenticated URL and all immutable hosted-browser checks; no deployment occurs here.
+
+## 2026-07-16 — Verified Succession Replay Product
+
+- Make the replay engine the product core, the browser the primary judge-facing interface, and the
+  CLI a thin wrapper over the same deterministic specification.
+- Support only `opsroute-qwen-olmo` and `maximum-confirmed-capability` in v0.1; do not expose fake
+  arbitrary-model or capability controls.
+- Use one truth hierarchy: succession manifest, immutable scientific references, compact atomic
+  records, replay engine, then fresh report and receipt.
+- Derive `CONDITIONAL_PASS` from versioned readiness rules. Never store it as a display-only value in
+  the input manifest, and never delegate readiness to GPT-5.6.
+- Describe hosted mode as verified replay, not live training, inference, model rerun, or full
+  scientific replay.
+- Keep the actual supervision, training, checkpoint selection, held-out evaluation, replay, and
+  adapter export as the existing preregistered Phase 3B command sequence. Full-workflow preflight
+  reports prerequisites and commands but does not execute training.
+- Preserve `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED` until a stable public URL,
+  incognito deep-link access, browser integrity verification, product-flow smoke test, and desktop
+  and mobile checks produce an immutable deployment-verification artifact.

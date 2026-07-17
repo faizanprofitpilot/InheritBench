@@ -1,164 +1,187 @@
 # Judge Replay
 
-## Verified Succession Replay Product
+This guide tests the InheritBench developer product without rebuilding a dataset, downloading model
+weights, retraining OLMo, or calling an API.
 
-The fastest product path is the static route `/run/opsroute-qwen-olmo/`. Choose the only supported
-configuration, review the explicit no-training preflight, and select **Run verified succession
-replay**. The browser validates the committed manifest and compact records, derives the clean and
-adversarial aggregates, classifies the nine clean policy-code aliases, applies
-`succession-readiness-v0.1`, verifies the published adapter identity, and generates two downloadable
-files:
+## Current Status
 
-- `readiness_report.json`
-- `replay_receipt.json`
+- Product: `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY`
+- Deployment: `DEPLOYMENT_REQUIRED`
+- Public URL: **TODO BEFORE SUBMISSION: add verified deployment URL**
+- Supported case: `opsroute-qwen-olmo`
+- Expected decision: `CONDITIONAL_PASS`
+- Expected local replay time: typically under five seconds after installation
+- Expected browser replay time: under two seconds on a typical laptop
 
-Expected derived result: `CONDITIONAL_PASS`. This value is not stored in the input manifest.
-Clean operational decision, tool, argument, approval, and reason-code correctness are 64/64; exact
-full-contract fidelity is 55/64 because of nine policy-code aliases. The adversarial result remains
-20/32 semantic exact with one unauthorized action and one approval bypass.
+Do not interpret the missing public URL as a product failure. The static export, Node-only build,
+Python replay, frontend tests, and browser tests pass; hosted verification remains outstanding.
 
-The equivalent GPU-free local command is:
+## Five-Minute Hosted Journey
+
+After deployment:
+
+1. Open the public root page in an incognito Chromium window.
+2. Select **Run verified succession replay**.
+3. Review the locked OpsRoute, Qwen, OLMo, and Anchored Behavioral Transfer configuration.
+4. Confirm the preflight states that no training, inference, model download, GPU, or API key is used.
+5. Run the replay and observe the real verification operations.
+6. Confirm **Verified succession replay completed** and `CONDITIONAL_PASS`.
+7. Download `readiness_report.json` and `replay_receipt.json`.
+8. Open the recovered successor adapter, residual failures, GPT-5.6 memo, and evidence views.
+9. Run **Showcase integrity verification** in the evidence page.
+
+The browser session validates the committed manifest and compact replay records, verifies hashes,
+derives clean and adversarial aggregates, classifies residuals, applies readiness rules, confirms
+adapter identity, and generates fresh downloads. It does not rerun models.
+
+## Clean-Clone Local Replay
+
+Prerequisites:
+
+- Git
+- uv `0.11.28` or a compatible current uv release
+- CPython `3.11.x`; `.python-version` pins `3.11.15`
+- no GPU, model weights, API key, or network after installation
 
 ```bash
-uv run inheritbench succession replay \
+git clone https://github.com/faizanprofitpilot/InheritBench.git
+cd InheritBench
+uv sync --frozen --no-dev
+uv run --no-dev inheritbench succession replay \
   --case opsroute-qwen-olmo \
   --profile maximum-confirmed-capability \
   --output runs
 ```
 
-Use `inheritbench succession preflight --mode full` to inspect the real preregistered Phase 3B
-workflow and its prerequisites. Preflight does not execute training.
+Expected console status:
 
-## Phase 4
-
-The Phase 4 protocol is committed before inference and then bound to that commit through Git-tree
-attestation. After the six one-time adversarial runs complete, every remaining command is offline
-except the bounded GPT memo request:
-
-```bash
-uv run inheritbench phase4 replay --artifact artifacts/phase4/evaluations/<run-id>
-uv run inheritbench phase4 analyze
-uv run inheritbench phase4 compute-profiles
-uv run inheritbench phase4 select-cases
-uv run inheritbench phase4 build-evidence-pack
-uv run inheritbench phase4 build-fallback-memo
-uv run inheritbench phase4 generate-gpt-memo
-uv run inheritbench phase4 validate-memo --memo artifacts/phase4/memo-attempts/<repair-id>
-uv run inheritbench phase4 build-showcase
-uv run inheritbench phase4 replay-showcase
-uv run inheritbench phase4 finalize
+```text
+VERIFIED_REPLAY_COMPLETED runs/succession-replay-2b1798dad96176ff
 ```
 
-The bounded GPT workflow used one initial response and one repair. The exact repaired bytes passed
-the deterministic evidence validator without a third request. No model runs were repeated.
+The deterministic run contains:
 
-Authoritative static bundle: `artifacts/showcase/inheritbench-v0.1-gpt`. Its replay validates all
-file hashes, derived tables, evidence-backed memo claims, Markdown rendering, and the completed
-Phase 4 decision without network, model weights, or an accelerator. The original
-`artifacts/showcase/inheritbench-v0.1` readiness snapshot remains immutable for lineage review.
-
-## Historical Anchor
-
-```bash
-uv run inheritbench day3-matched validate-configs
-uv run inheritbench day3-matched freeze-baseline
-uv run pytest -q tests/integration/test_day3_artifacts.py
+```text
+succession_run_manifest.json
+readiness_report.json
+replay_receipt.json
+evaluation_summary.json
+residual_failures.json
+label_accounting.json
+compute_accounting.json
+adapter_reference.json
+evidence_manifest.json
 ```
 
-The baseline command validates the immutable original Day 3 byte hashes and writes only under
-`artifacts/day3-matched/historical-baselines`.
+An identical second command returns the existing byte-identical run. A conflicting directory fails
+instead of overwriting evidence.
 
-## Distribution Evidence
+## Expected Result
+
+`readiness_report.json` must report `CONDITIONAL_PASS` because:
+
+- clean decision, tool, argument, approval, and reason-code correctness are all 64/64;
+- clean strict validity is 64/64;
+- clean unauthorized actions, approval bypasses, and false actions are zero;
+- nine clean full-contract misses differ only in the exact `policy_code` literal;
+- adversarial semantic exactness is 20/32;
+- adversarial evidence contains one unauthorized action and one approval bypass.
+
+The correct product interpretation is:
+
+> Clean capability recovery succeeded, but adversarial robustness remains insufficient for an
+> unconditional migration pass.
+
+`label_accounting.json` must disclose 214 teacher outputs and 10 direct original anchors used by
+the target, plus 224 upstream original labels used to train the teacher and the original 224-label
+corpus used to design the matched distribution.
+
+## Adapter Access
+
+The delivered artifact is a LoRA adapter for the pinned OLMo base, not a full checkpoint.
+
+- Adapter ID: `target_hybrid_anchored_distillation_10-7461072c83b4dcde`
+- Release: `phase3b-anchored-v0.1.0`
+- Archive SHA-256: `f30fa5c814596a6c383be0390174275c893e1aba83d27df1dc8eec46c929f87f`
+- Adapter model SHA-256: `ebf598fcfce095f599ccec16621c5f31256ec6abdf17fc5b65b966c01f148d84`
+- [Download the verified adapter](https://github.com/faizanprofitpilot/InheritBench/releases/download/phase3b-anchored-v0.1.0/target_hybrid_anchored_distillation_10-7461072c83b4dcde.zip)
+
+The publication artifact records an anonymous byte verification against the release.
+
+## Full-Workflow Preflight
+
+To inspect prerequisites and the actual preregistered phased workflow:
 
 ```bash
-uv run inheritbench day3-matched replay \
-  --kind fingerprint --artifact artifacts/day3-matched/fingerprints/<fingerprint-id>
-uv run inheritbench day3-matched replay \
-  --kind distribution --artifact artifacts/day3-matched/pools/<pool-id>
-uv run inheritbench day3-matched replay \
-  --kind leakage --artifact artifacts/day3-matched/pools/<pool-id>
+uv sync --frozen --extra model --group dev
+uv run inheritbench succession preflight \
+  --case opsroute-qwen-olmo \
+  --mode full \
+  --json -
 ```
 
-These commands reconstruct the train fingerprint and verify exact Hamilton strata, prompt buckets,
-numeric support, and zero cross-corpus collision evidence without modifying original artifacts.
+Preflight may honestly return `FAILED` on a machine without sufficient disk, model dependencies, or
+an accelerator. It does not train. When ready, it prints the existing Phase 3B commands for data
+freeze, leakage audit, preregistration, training, validation, checkpoint selection, held-out test,
+replay, analysis, packaging, and release verification.
 
-## Scientific Evidence
+## Evidence Verification
 
-Replay every materialized teacher run and the terminal filter dataset:
+Product-level replay:
 
 ```bash
-uv run inheritbench day3-matched replay --kind teacher --artifact <teacher-run>
-uv run inheritbench day3-matched replay --kind filter --artifact <synthetic-dataset>
-uv run inheritbench day3-matched replay --kind failure_analysis --artifact <analysis>
-uv run inheritbench day3-matched replay --kind attempt_comparison --artifact <comparison>
+uv run --no-dev inheritbench succession replay --output runs
 ```
 
-When training and test evidence exist, also replay the schedule, training lineage, held-out
-evaluation, and six-row method comparison. Finalization fails closed unless the replays required by
-the observed outcome exist.
-
-## Status Interpretation
-
-- `RECOVERY_SCIENTIFICALLY_COMPLETED / DAY4_UNBLOCKED` means training, a safety-eligible checkpoint,
-  one held-out test, analysis, comparisons, and exact replays passed.
-- `RECOVERY_TERMINAL_NEGATIVE / DAY4_UNBLOCKED_WITH_NEGATIVE_DISTILLATION_RESULT` means the bounded
-  method produced valid negative evidence after filtering or checkpoint selection.
-- `RECOVERY_BLOCKED / DAY4_BLOCKED` means an integrity or infrastructure prerequisite failed.
-
-`PUBLISHED_VERIFIED`, `PUBLICATION_BLOCKED`, and `NOT_ATTEMPTED` are distribution-only statuses and
-cannot change the recovery or Day 4 decision.
-
-## Phase 3B Replay
-
-The scientific inputs are frozen at preregistration commit
-`cd873c5d87817f64ac2ecd04824ef1cfdb19b1ea`. Verify its Git-tree attestation and exact results:
+Phase 5 projection verification:
 
 ```bash
-uv run inheritbench phase3b validate-configs
-uv run inheritbench phase3b replay --kind evaluation --artifact artifacts/phase3b/test/<run-id>
-uv run inheritbench phase3b replay --kind analysis --artifact artifacts/phase3b/failure-analysis/<id>
-uv run inheritbench phase3b replay --kind comparison --artifact artifacts/phase3b/comparisons/<id>
-```
-
-The primary comparison requires six completed rows with one confirmatory split hash. The original
-test is separately exploratory. Exact commit lineage is:
-
-1. Historical reference: `7283bfe22903ffc554c1f5ab210dea105df68b2b`.
-2. Preregistration: `cd873c5d87817f64ac2ecd04824ef1cfdb19b1ea`.
-3. Scientific result: `9ced5d1704972b6c1d818fd0c79a6006d2820b1c`.
-4. Packaging/tag: `2d7052f103ba29d56a0ecd4ce442c5dd1c4b44b2`.
-5. Public-download verification: `8718ef670e2a5f79a068da554b40603a6d4979e2`.
-
-The immutable tag `phase3b-anchored-v0.1.0` resolves to the packaging commit. Later `main` commits
-contain post-release verification or documentation only; they do not alter the preregistered inputs,
-scientific evidence, selected adapter, release archive, or hashes.
-
-Public release verification is machine-readable under
-`artifacts/phase3b/publication-verifications/phase3b-publication-verified-4137871051bd4cfa`, and the
-independent distribution decision is under
-`artifacts/phase3b/distribution-decisions/phase3b-publication-verified-4137871051bd4cfa`.
-
-## Phase 5 Product Replay
-
-The web product is a display projection over frozen Phase 1–4 evidence. It introduces no metric,
-scientific method, representative case, or status. Verify the projection and complete local gates:
-
-```bash
+uv sync --frozen --group dev
 uv run inheritbench phase5 verify-web-projection
+```
+
+Complete local product gates:
+
+```bash
+pnpm install --frozen-lockfile
 pnpm verify
 ```
 
-The deployed build path is deliberately Node-only. It validates and ingests the committed
-`artifacts/showcase/inheritbench-v0.1-gpt` and
-`artifacts/phase5/web-projection/inheritbench-web-v0.1` bundles before producing the static export.
-It does not invoke Python, uv, Hugging Face, OpenAI, model weights, or historical inference.
+The browser calls its check **Showcase integrity verification**. It verifies served committed files;
+it is not a live scientific replay.
 
-Representative-case resolution reads the frozen selection lineage and then requires prediction
-evidence from the matching confirmatory, adversarial, or exploratory surface. The current selection
-replays to six adversarial cases and two unchanged `NO_ELIGIBLE_CASE` slots. Surface mismatches,
-missing systems, and changed raw outputs fail closed.
+## Supported Platforms
 
-The local decision is `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`. It is not a
-deployment claim. `PHASE5_PRODUCT_COMPLETED / DEPLOYED_VERIFIED` requires a separate immutable
-hosted-browser verification artifact covering every route, direct deep links, incognito access,
-browser hash verification, the full core flow, desktop/mobile rendering, and clean browser logs.
+- Hosted product: Chromium desktop and mobile emulation are verified.
+- Local GPU-free replay: macOS Apple Silicon is verified locally; Linux is verified in CI.
+- Full model workflow: Apple Silicon MPS is the executed and verified backend.
+- Firefox, Safari, Windows, CUDA, and Linux GPU training are not claimed as verified.
+
+## Troubleshooting
+
+| Symptom | Meaning | Action |
+|---|---|---|
+| Replay reports a hash mismatch | Committed input or bundle bytes differ | Restore a clean checkout; do not repair the artifact manually |
+| Existing output conflict | The deterministic run directory contains different bytes | Choose an empty output root or preserve the directory for investigation |
+| Full preflight reports low disk | Real model workflow needs at least 20 GiB free | Free disk or use replay-only mode |
+| Full preflight reports CPU-only | The executed training path expects MPS | Use replay-only mode or an explicitly supported future backend |
+| Browser integrity check fails | A served static file is missing or changed | Stop judging that deployment and rebuild from committed data |
+| Adapter link fails | Public distribution is unavailable | Preserve the replay result but treat adapter delivery as blocked |
+
+## Truth Boundary
+
+```text
+succession_run_manifest.json
+        ↓
+immutable referenced scientific artifacts
+        ↓
+compact deterministic replay records
+        ↓
+browser or CLI replay engine
+        ↓
+fresh readiness report + replay receipt
+```
+
+For deeper scientific chronology, use [Evaluation Protocol](EVALUATION_PROTOCOL.md),
+[Anchored Behavioral Transfer](METHOD_ANCHORED_TRANSFER.md), and the append-only
+[Build Log](BUILD_LOG.md).
