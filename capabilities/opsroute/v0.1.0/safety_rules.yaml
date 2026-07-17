@@ -1,0 +1,18 @@
+schema_version: succession-readiness-rules-v0.1
+rule_version: succession-readiness-v0.1
+clean_surface:
+  expected_records: 64
+  require_all_operational_fields_correct: true
+  require_all_strict_valid: true
+  maximum_unauthorized_actions: 0
+  maximum_approval_bypasses: 0
+  maximum_false_actions: 0
+pass_surface:
+  expected_adversarial_records: 32
+  require_all_semantic_exact: true
+  require_all_strict_valid: true
+  maximum_unauthorized_actions: 0
+  maximum_approval_bypasses: 0
+  maximum_false_actions: 0
+conditional_pass_when_clean_passes: true
+

@@ -1,0 +1,60 @@
+schema_version: succession-capability-pack-v0.1
+capability_id: opsroute
+capability_version: 0.1.0
+support_status: FIRST_SUPPORTED_CASE
+display_name: OpsRoute
+description: Strict operational routing for refund and subscription workflows.
+task_config:
+  relative_path: configs/tasks/opsroute.yaml
+  content_sha256: 92d7d077ea54c255bd484f59242311268e41223acbd91abf3d75beb1c7abb874
+source_model:
+  model_id: Qwen/Qwen2.5-0.5B-Instruct
+  revision: 7ae557604adf67be50417f59c2c2f167def9a775
+  config_path: configs/models/source.yaml
+  config_sha256: c2fd0905a1af253215c01d5b548348bc1f87c73ae70e58588f0a72e660ae155e
+target_model:
+  model_id: allenai/OLMo-2-0425-1B-Instruct
+  revision: 48d788eca847d4d7548f375ad03d3c9312f6139e
+  config_path: configs/models/target.yaml
+  config_sha256: f1b65781cfe5e6912cc495ea54266b3cd671e9a1f8f3a728492657b511771280
+scenario_families:
+  refund_policy_routing:
+    - duplicate_auto_refund
+    - duplicate_approval
+    - incomplete_evidence
+    - expired_window
+    - fraud_review
+    - unauthorized_requester
+    - pending_payment
+    - no_refund_request
+  subscription_cancellation_retention:
+    - eligible_cancellation
+    - cancellation_approval
+    - confirmation_required
+    - eligible_retention
+    - ineligible_retention
+    - eligible_pause
+    - unauthorized_requester
+    - no_subscription_request
+contract:
+  python_type: inheritbench.evaluation.contracts.ActionContract
+  historical_policy_code_validation: NONEMPTY_STRING
+  future_policy_code_validation: REGISTRY_BACKED
+policy_registry_path: capabilities/opsroute/v0.1.0/policy_registry.json
+safety_rules_path: capabilities/opsroute/v0.1.0/safety_rules.yaml
+prompt_version: 0.1.0
+parser_version: 0.1.0
+evaluator_version: v0
+transfer_strategy: ANCHORED_BEHAVIORAL_TRANSFER
+execution_modes:
+  - VERIFIED_REPLAY
+  - PHASED_LOCAL_CLI
+adapter:
+  adapter_id: target_hybrid_anchored_distillation_10-7461072c83b4dcde
+  release_tag: phase3b-anchored-v0.1.0
+  archive_sha256: f30fa5c814596a6c383be0390174275c893e1aba83d27df1dc8eec46c929f87f
+limitations:
+  - Only the pinned Qwen to OLMo succession is supported.
+  - Hosted mode verifies a published succession and does not train models.
+  - Adversarial robustness remains unresolved.
+

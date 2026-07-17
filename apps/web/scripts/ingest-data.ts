@@ -12,6 +12,10 @@ const projectionRoot = path.join(
   repositoryRoot,
   "artifacts/phase5/web-projection/inheritbench-web-v0.1",
 );
+const successionRoot = path.join(
+  repositoryRoot,
+  "artifacts/phase5/succession-replay/inheritbench-succession-v0.1",
+);
 const destinationRoot = path.join(appRoot, "public/data");
 const expectedShowcase =
   "85f6c02dcc430992a277d0cb500373a1b491893915f450b4523699b7b7d3e5cc";
@@ -20,7 +24,13 @@ const expectedProjectionId = "inheritbench-web-v0.1";
 type ManifestEntry = {
   relative_path: string;
   byte_sha256: string;
+  content_sha256?: string | null;
   bytes: number;
+};
+
+type SuccessionManifest = Record<string, unknown> & {
+  replay_records: ManifestEntry;
+  replay_context: ManifestEntry;
 };
 
 function sha256(payload: Buffer | string): string {
@@ -99,9 +109,46 @@ async function verifyAndCopy(
   return copied;
 }
 
+async function verifyAndCopySuccession(
+  manifest: SuccessionManifest,
+): Promise<Array<ManifestEntry & { served_path: string }>> {
+  const outputRoot = path.join(destinationRoot, "succession");
+  await mkdir(outputRoot, { recursive: true });
+  const copied: Array<ManifestEntry & { served_path: string }> = [];
+  for (const item of [manifest.replay_records, manifest.replay_context]) {
+    if (item.relative_path.includes("..") || path.isAbsolute(item.relative_path)) {
+      throw new Error(`unsafe succession path: ${item.relative_path}`);
+    }
+    const payload = await readFile(path.join(successionRoot, item.relative_path));
+    if (payload.length !== item.bytes || sha256(payload) !== item.byte_sha256) {
+      throw new Error(`succession artifact hash mismatch: ${item.relative_path}`);
+    }
+    await writeFile(path.join(outputRoot, item.relative_path), payload);
+    copied.push({
+      ...item,
+      served_path: `/data/succession/${item.relative_path}`,
+    });
+  }
+  const manifestPayload = await readFile(
+    path.join(successionRoot, "succession_run_manifest.json"),
+  );
+  await writeFile(path.join(outputRoot, "succession_run_manifest.json"), manifestPayload);
+  copied.push({
+    relative_path: "succession_run_manifest.json",
+    byte_sha256: sha256(manifestPayload),
+    content_sha256: String(manifest.content_sha256),
+    bytes: manifestPayload.length,
+    served_path: "/data/succession/succession_run_manifest.json",
+  });
+  return copied;
+}
+
 async function main(): Promise<void> {
   const showcase = await loadManifest(showcaseRoot);
   const projection = await loadManifest(projectionRoot);
+  const succession = JSON.parse(
+    await readFile(path.join(successionRoot, "succession_run_manifest.json"), "utf8"),
+  ) as SuccessionManifest;
   const showcaseContent = sha256(canonical(stripContentFields(showcase)));
   const projectionContent = sha256(canonical(stripContentFields(projection)));
   if (
@@ -116,15 +163,24 @@ async function main(): Promise<void> {
   ) {
     throw new Error("frozen Phase 5 projection verification failed");
   }
+  const successionContent = sha256(canonical(stripContentFields(succession)));
+  if (
+    succession.schema_version !== "succession-run-manifest-v0.1" ||
+    succession.content_sha256 !== successionContent
+  ) {
+    throw new Error("frozen succession replay verification failed");
+  }
   await rm(destinationRoot, { recursive: true, force: true });
   const files = [
     ...(await verifyAndCopy(showcaseRoot, "showcase", showcase)),
     ...(await verifyAndCopy(projectionRoot, "projection", projection)),
+    ...(await verifyAndCopySuccession(succession)),
   ].sort((left, right) => left.served_path.localeCompare(right.served_path));
   const webManifest = {
     schema_version: "phase5-web-data-manifest-v0.1",
     showcase_content_sha256: expectedShowcase,
     projection_content_sha256: projection.content_sha256,
+    succession_content_sha256: succession.content_sha256,
     files,
   };
   await writeFile(
