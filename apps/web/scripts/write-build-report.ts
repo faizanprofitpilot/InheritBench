@@ -65,6 +65,7 @@ const requiredRoutes = [
   "lab/opsroute/failures/index.html",
   "lab/opsroute/memo/index.html",
   "lab/opsroute/evidence/index.html",
+  "run/opsroute-qwen-olmo/index.html",
 ];
 for (const route of requiredRoutes) {
   if (!outputByPath.has(route)) throw new Error(`static export is missing ${route}`);
