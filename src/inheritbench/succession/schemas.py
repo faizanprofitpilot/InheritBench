@@ -225,3 +225,21 @@ class SuccessionReplayResult(SuccessionModel):
     label_accounting: dict[str, int]
     compute_accounting: dict[str, int | float]
     adapter_reference: dict[str, Any]
+
+
+class SuccessionPreflightCheckV0_1(SuccessionModel):
+    check_id: str
+    status: Literal["PASS", "WARN", "FAIL"]
+    blocking: bool
+    message: str
+    details: dict[str, Any]
+
+
+class SuccessionPreflightReportV0_1(SuccessionModel):
+    schema_version: Literal["succession-preflight-v0.1"]
+    case_id: Literal["opsroute-qwen-olmo"]
+    mode: Literal["full"]
+    status: Literal["FULL_WORKFLOW_PREFLIGHT_READY", "FAILED"]
+    checks: list[SuccessionPreflightCheckV0_1]
+    phased_commands: list[str]
+    content_sha256: Sha256

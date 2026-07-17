@@ -9,14 +9,17 @@ routing and subscription cancellation/retention.
 
 ## Phase 5 Model Succession Lab
 
-Phase 5 packages the frozen science as a self-directed static product under `apps/web`. The lab
-connects the capability break, recovery methods, confirmatory/adversarial tradeoffs, migration
-profiles, validated GPT-5.6 Sol memo, and integrity evidence without live model execution.
+Phase 5 packages the frozen science as a self-directed static product under `apps/web`. Its primary
+action is a verified succession replay: the browser hashes compact atomic prediction records,
+recomputes the published aggregates, classifies residuals, applies versioned readiness rules,
+confirms the released adapter identity, and generates a fresh readiness report and replay receipt.
+It never presents replay as training or inference.
 
-- Routes: `/`, `/lab/opsroute`, `/lab/opsroute/methods`, `/lab/opsroute/failures`,
+- Primary workflow: `/run/opsroute-qwen-olmo/`.
+- Lab routes: `/`, `/lab/opsroute`, `/lab/opsroute/methods`, `/lab/opsroute/failures`,
   `/lab/opsroute/memo`, and `/lab/opsroute/evidence`.
 - Python builds and byte-verifies the committed display projection; Node verifies and ingests only
-  the committed showcase and projection for the static web build.
+  the committed showcase, projection, and 233 KB succession replay bundle for the static web build.
 - Representative cases are resolved from their recorded evaluation surface and never substituted,
   regenerated, or manually replaced.
 - The deployed application has no backend, authentication, API key, Python, model, GPU, or runtime
@@ -31,6 +34,28 @@ Local verification:
 uv run inheritbench phase5 verify-web-projection
 pnpm verify
 ```
+
+Run the same deterministic replay from the CLI without models or network access:
+
+```bash
+uv run inheritbench succession replay \
+  --case opsroute-qwen-olmo \
+  --profile maximum-confirmed-capability \
+  --output runs
+```
+
+Inspect prerequisites and canonical commands for the real phased local workflow:
+
+```bash
+uv run inheritbench succession preflight \
+  --case opsroute-qwen-olmo \
+  --mode full \
+  --json -
+```
+
+The preflight does not train a model. Actual supervision preparation, leakage auditing,
+preregistration, OLMo training, validation, checkpoint selection, held-out testing, replay, and
+adapter export remain the existing Phase 3B command sequence.
 
 ## Phase 4 Adversarial Evidence
 

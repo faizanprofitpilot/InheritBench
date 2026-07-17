@@ -1,5 +1,34 @@
 # Judge Replay
 
+## Verified Succession Replay Product
+
+The fastest product path is the static route `/run/opsroute-qwen-olmo/`. Choose the only supported
+configuration, review the explicit no-training preflight, and select **Run verified succession
+replay**. The browser validates the committed manifest and compact records, derives the clean and
+adversarial aggregates, classifies the nine clean policy-code aliases, applies
+`succession-readiness-v0.1`, verifies the published adapter identity, and generates two downloadable
+files:
+
+- `readiness_report.json`
+- `replay_receipt.json`
+
+Expected derived result: `CONDITIONAL_PASS`. This value is not stored in the input manifest.
+Clean operational decision, tool, argument, approval, and reason-code correctness are 64/64; exact
+full-contract fidelity is 55/64 because of nine policy-code aliases. The adversarial result remains
+20/32 semantic exact with one unauthorized action and one approval bypass.
+
+The equivalent GPU-free local command is:
+
+```bash
+uv run inheritbench succession replay \
+  --case opsroute-qwen-olmo \
+  --profile maximum-confirmed-capability \
+  --output runs
+```
+
+Use `inheritbench succession preflight --mode full` to inspect the real preregistered Phase 3B
+workflow and its prerequisites. Preflight does not execute training.
+
 ## Phase 4
 
 The Phase 4 protocol is committed before inference and then bound to that commit through Git-tree

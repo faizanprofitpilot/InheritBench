@@ -38,6 +38,10 @@ phase5_app = typer.Typer(
     no_args_is_help=True,
     help="Phase 5 static model-succession product workflow.",
 )
+succession_app = typer.Typer(
+    no_args_is_help=True,
+    help="Verified replay and honest full-workflow preflight commands.",
+)
 app.add_typer(data_app, name="data")
 app.add_typer(compute_app, name="compute")
 app.add_typer(day2_app, name="day2")
@@ -46,7 +50,64 @@ app.add_typer(day3_matched_app, name="day3-matched")
 app.add_typer(phase3b_app, name="phase3b")
 app.add_typer(phase4_app, name="phase4")
 app.add_typer(phase5_app, name="phase5")
+app.add_typer(succession_app, name="succession")
 console = Console(stderr=True)
+
+
+@succession_app.command("replay")
+def succession_replay_command(
+    case_id: Annotated[
+        Literal["opsroute-qwen-olmo"], typer.Option("--case")
+    ] = "opsroute-qwen-olmo",
+    profile: Annotated[
+        Literal["maximum-confirmed-capability"], typer.Option()
+    ] = "maximum-confirmed-capability",
+    output: Annotated[Path, typer.Option()] = Path("runs"),
+) -> None:
+    del case_id, profile
+    from inheritbench.succession.replay import write_replay_output
+
+    try:
+        path = write_replay_output(output)
+        console.print(f"[green]VERIFIED_REPLAY_COMPLETED[/green] {path}")
+    except (ValueError, FileNotFoundError, FileExistsError) as exc:
+        console.print(f"[red]Succession replay failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+
+
+@succession_app.command("preflight")
+def succession_preflight_command(
+    case_id: Annotated[
+        Literal["opsroute-qwen-olmo"], typer.Option("--case")
+    ] = "opsroute-qwen-olmo",
+    mode: Annotated[Literal["full"], typer.Option()] = "full",
+    json_output: Annotated[
+        Path | None,
+        typer.Option("--json", help="Write JSON to PATH, or use '-' for stdout."),
+    ] = None,
+) -> None:
+    del case_id, mode
+    from inheritbench.succession.preflight import run_full_preflight
+
+    try:
+        report = run_full_preflight()
+        if json_output is not None:
+            if str(json_output) == "-":
+                typer.echo(canonical_json(report))
+            else:
+                write_atomic_file(json_output, canonical_json_bytes(report) + b"\n")
+        else:
+            console.print(f"[green]{report.status}[/green]")
+            for check in report.checks:
+                console.print(f"{check.status:4} · {check.message}")
+            console.print("\nCanonical phased commands:")
+            for command in report.phased_commands:
+                console.print(f"  {command}")
+        if report.status == "FAILED":
+            raise typer.Exit(code=1)
+    except (ValidationError, ValueError, FileNotFoundError) as exc:
+        console.print(f"[red]Full-workflow preflight failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
 
 
 @phase5_app.command("build-web-projection")
