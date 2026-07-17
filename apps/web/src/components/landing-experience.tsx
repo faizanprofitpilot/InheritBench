@@ -190,13 +190,13 @@ export function LandingExperience({ story, systems }: { story: Story; systems: S
             </motion.p>
             <motion.div variants={heroItem} className="mt-9 flex flex-wrap gap-3">
               <Button asChild size="lg" className="landing-cta">
-                <Link href="/lab/opsroute">
-                  Open the succession lab <ArrowRight className="h-4 w-4" />
+                <Link href="/run/opsroute-qwen-olmo/">
+                  Run verified succession replay <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="landing-cta">
-                <Link href="/lab/opsroute/memo">
-                  View the migration recommendation <ArrowRight className="h-4 w-4" />
+                <Link href="/lab/opsroute">
+                  Explore the published case <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
             </motion.div>

@@ -1,9 +1,11 @@
-import { GitCommitHorizontal, LockKeyhole, Network } from "lucide-react";
+import { ArrowRight, GitCommitHorizontal, LockKeyhole, Network } from "lucide-react";
+import Link from "next/link";
 
 import { IntegrityVerifier } from "@/components/integrity-verifier";
 import { PageHeading } from "@/components/page-heading";
 import { SourceLineage } from "@/components/source-lineage";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   loadPhase4Decision,
   loadProtocol,
@@ -25,6 +27,17 @@ export default function EvidencePage() {
       />
 
       <IntegrityVerifier />
+
+      <Card className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="eyebrow">Product replay receipt</p>
+          <h2 className="mt-3 text-2xl font-semibold text-white">Generate a fresh readiness decision from compact atomic records.</h2>
+          <p className="mt-3 max-w-3xl text-[0.9375rem] leading-7 text-slate-400">The hosted workflow verifies the succession manifest, replay data, readiness rules, and recovered adapter identity without model execution.</p>
+        </div>
+        <Button asChild className="shrink-0">
+          <Link href="/run/opsroute-qwen-olmo/?stage=preflight">Run verified replay <ArrowRight className="h-4 w-4" /></Link>
+        </Button>
+      </Card>
 
       <section className="grid gap-5 lg:grid-cols-3">
         <LineageCard

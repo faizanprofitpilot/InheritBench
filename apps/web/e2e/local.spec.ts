@@ -8,6 +8,7 @@ const routes = [
   "/lab/opsroute/failures/",
   "/lab/opsroute/memo/",
   "/lab/opsroute/evidence/",
+  "/run/opsroute-qwen-olmo/",
 ];
 
 function blockExternalRequests(page: Page): void {
@@ -58,6 +59,7 @@ test("header highlights only the current lab section", async ({ page }) => {
     ["/lab/opsroute/failures/", "Failure Explorer"],
     ["/lab/opsroute/memo/", "Recommendation"],
     ["/lab/opsroute/evidence/", "Evidence"],
+    ["/run/opsroute-qwen-olmo/", "Run Replay"],
   ] as const;
 
   for (const [route, label] of sections) {
@@ -92,16 +94,16 @@ test("landing page presents the product workflow and frozen published case", asy
   await expect(page.getByRole("heading", { name: "Your successor model does not inherit capability by default." })).toBeVisible();
   await expect(page.getByText(/evaluate a model-family replacement before production/)).toBeVisible();
 
-  await expect(page.getByRole("link", { name: /Open the succession lab/ })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: /Run verified succession replay/ })).toHaveAttribute(
+    "href",
+    "/run/opsroute-qwen-olmo/",
+  );
+  await expect(page.getByRole("link", { name: /Explore the published case/ })).toHaveAttribute(
     "href",
     "/lab/opsroute/",
   );
-  await expect(page.getByRole("link", { name: /View the migration recommendation/ }).first()).toHaveAttribute(
-    "href",
-    "/lab/opsroute/memo/",
-  );
 
-  for (const label of ["Succession Case", "Recovery Paths", "Failure Explorer", "Recommendation", "Evidence"]) {
+  for (const label of ["Run Replay", "Succession Case", "Recovery Paths", "Failure Explorer", "Recommendation", "Evidence"]) {
     await expect(page.getByRole("link", { name: label, exact: true }).first()).toBeVisible();
   }
   for (const step of [
@@ -159,11 +161,47 @@ test("browser integrity verification passes", async ({ page }) => {
   await page.goto("/lab/opsroute/evidence/");
   await page.getByRole("button", { name: "Verify served bytes" }).click();
   await expect(page.getByText("Showcase bundle verified")).toBeVisible();
-  await expect(page.getByText("18 files checked · 18 hashes matched")).toBeVisible();
+  await expect(page.getByText("21 files checked · 21 hashes matched")).toBeVisible();
   await expect(page.getByText(/This verifies the deployed display bundle/)).toBeVisible();
   await page.getByText("Inspect source lineage").click();
   await expect(page.getByText("Independent distillation")).toBeVisible();
   await expect(page.getByText("GPT memo and validation")).toBeVisible();
+});
+
+test("verified succession replay derives and downloads a conditional outcome", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/run/opsroute-qwen-olmo/");
+  await expect(page.getByTestId("succession-configuration")).toBeVisible();
+  await expect(page.getByText("214 teacher outputs + 10 direct anchors")).toBeVisible();
+  await page.getByRole("button", { name: "Review replay preflight" }).click();
+  await expect(page.getByTestId("succession-preflight")).toBeVisible();
+  await expect(page.getByText("No training, inference, GPU, model download, or API key is required.")).toBeVisible();
+  await page.getByRole("button", { name: "Run verified succession replay" }).click();
+  await expect(page.getByRole("heading", { name: "Verified succession replay completed" })).toBeVisible();
+  await expect(page.getByText("55 / 64 — 85.9375%")).toBeVisible();
+  await expect(page.getByText("20 / 32 — 62.5%")).toBeVisible();
+  await expect(page.getByText("Recovered successor adapter verified")).toBeVisible();
+  await expect(page.getByText("Conditional pass", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Download JSON" })).toHaveCount(2);
+  expect(await page.evaluate(() => document.body.innerText.toLowerCase().includes("succession completed\n"))).toBe(false);
+});
+
+test("direct result links rerun verification before rendering", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/run/opsroute-qwen-olmo/?stage=result");
+  await expect(page.getByRole("heading", { name: "Verified succession replay completed" })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "Verified succession replay completed" })).toBeVisible();
+});
+
+test("succession replay fails closed on tampered compact records", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.route("**/data/succession/replay_records.jsonl", async (route) => {
+    await route.fulfill({ status: 200, contentType: "application/json", body: "{\"tampered\":true}\n" });
+  });
+  await page.goto("/run/opsroute-qwen-olmo/?stage=result");
+  await expect(page.getByRole("heading", { name: "Frozen evidence could not be verified." })).toBeVisible();
+  await expect(page.getByText(/Compact replay-record verification failed|Served succession artifact verification failed/)).toBeVisible();
 });
 
 test("browser integrity verification fails closed on tampered bytes", async ({ page }) => {

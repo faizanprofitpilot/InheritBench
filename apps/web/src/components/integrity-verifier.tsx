@@ -13,6 +13,7 @@ type WebManifest = {
   files: ManifestFile[];
   projection_content_sha256: string;
   showcase_content_sha256: string;
+  succession_content_sha256: string;
 };
 type Success = {
   filesChecked: number;
@@ -20,6 +21,7 @@ type Success = {
   manifestSha256: string;
   projectionSha256: string;
   showcaseSha256: string;
+  successionSha256: string;
   verifiedAt: string;
 };
 type Failure = { file: string; expected: string; observed: string; reason: string };
@@ -64,6 +66,7 @@ export function IntegrityVerifier() {
         manifestSha256,
         projectionSha256: manifest.projection_content_sha256,
         showcaseSha256: manifest.showcase_content_sha256,
+        successionSha256: manifest.succession_content_sha256,
         verifiedAt: new Date().toISOString(),
       });
       setState("passed");
@@ -84,7 +87,7 @@ export function IntegrityVerifier() {
           <div>
             <h2 className="text-xl font-semibold text-white">Showcase integrity verification</h2>
             <p className="mt-2 text-[0.9375rem] leading-7 text-slate-400">
-              Hash the committed showcase and projection files served to this browser.
+              Hash the committed showcase, projection, and verified-replay files served to this browser.
             </p>
           </div>
         </div>
@@ -119,6 +122,7 @@ export function IntegrityVerifier() {
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <VerificationStatus label="Showcase files" value="Verified" />
             <VerificationStatus label="Projection files" value="Verified" />
+            <VerificationStatus label="Succession replay" value="Verified" />
             <VerificationStatus label="Manifest" value="Read and hashed" />
             <VerificationStatus label="Evidence references" value="Verified in served bundle" />
           </div>
@@ -126,6 +130,7 @@ export function IntegrityVerifier() {
             <HashValue label="Manifest hash" value={success.manifestSha256} />
             <HashValue label="Web-projection hash" value={success.projectionSha256} />
             <HashValue label="Showcase hash" value={success.showcaseSha256} />
+            <HashValue label="Succession manifest hash" value={success.successionSha256} />
             <HashValue label="Verified at" value={success.verifiedAt} />
           </dl>
           <p className="mt-6 border-t border-emerald-300/15 pt-5 text-sm leading-6 text-slate-300">

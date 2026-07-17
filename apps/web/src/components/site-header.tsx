@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 const links = [
+  ["Run Replay", "/run/opsroute-qwen-olmo"],
   ["Succession Case", "/lab/opsroute"],
   ["Recovery Paths", "/lab/opsroute/methods"],
   ["Failure Explorer", "/lab/opsroute/failures"],

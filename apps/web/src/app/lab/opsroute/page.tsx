@@ -21,10 +21,10 @@ export default function OpsRoutePage() {
       >
         <div className="flex flex-wrap gap-3">
           <Button asChild>
-            <Link href="/lab/opsroute/methods">Study the recovery methods</Link>
+            <Link href="/run/opsroute-qwen-olmo/">Run verified succession replay</Link>
           </Button>
           <Button asChild variant="secondary">
-            <Link href="/lab/opsroute/failures">Inspect representative failures</Link>
+            <Link href="/lab/opsroute/methods">Study the recovery methods</Link>
           </Button>
         </div>
       </PageHeading>
