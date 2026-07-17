@@ -5,14 +5,13 @@ from pathlib import Path
 
 import pytest
 
-from inheritbench.artifacts.hashing import sha256_file
 from inheritbench.config import load_task_config
 from inheritbench.data.opsroute.generate import generate_examples
 from inheritbench.data.opsroute.policies import resolve_refund, resolve_subscription
 from inheritbench.data.opsroute.schemas import RefundFacts, SubscriptionFacts
+from inheritbench.succession import replay as replay_module
 from inheritbench.succession.replay import (
     CAPABILITY_PATH,
-    PUBLICATION_ARCHIVE,
     build_replay_bundle,
     execute_replay,
     load_capability_pack,
@@ -53,6 +52,18 @@ def test_replay_bundle_is_deterministic_and_contains_no_decision() -> None:
     assert len(first["replay_records.jsonl"].splitlines()) == 160
 
 
+def test_replay_uses_verified_publication_when_local_archive_is_absent(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.setattr(replay_module, "PUBLICATION_ARCHIVE", tmp_path / "missing.zip")
+    files = replay_bundle_files()
+    manifest = SuccessionRunManifestV0_1.model_validate_json(
+        files["succession_run_manifest.json"], strict=True
+    )
+    assert manifest.adapter.anonymous_download_verified is True
+    assert manifest.adapter.archive_sha256 == load_capability_pack().adapter.archive_sha256
+
+
 def test_replay_derives_frozen_metrics_and_conditional_pass(tmp_path: Path) -> None:
     bundle = build_replay_bundle(tmp_path / "bundles")
     verify_replay_bundle(bundle)
@@ -89,7 +100,9 @@ def test_replay_derives_frozen_metrics_and_conditional_pass(tmp_path: Path) -> N
         "original_labeled_records_used_to_design_distribution": 224,
     }
     assert result.compute_accounting["target_training_processed_tokens"] == 272568
-    assert result.adapter_reference["archive_sha256"] == sha256_file(PUBLICATION_ARCHIVE)
+    assert (
+        result.adapter_reference["archive_sha256"] == load_capability_pack().adapter.archive_sha256
+    )
 
 
 def test_replay_output_is_idempotent_and_tampering_fails(tmp_path: Path) -> None:

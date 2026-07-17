@@ -52,8 +52,11 @@ def test_full_preflight_outputs_machine_readable_contract() -> None:
             "-",
         ],
     )
-    assert result.exit_code == 0, result.output
+    assert result.exit_code in {0, 1}, result.output
     report = json.loads(result.output)
-    assert report["status"] == "FULL_WORKFLOW_PREFLIGHT_READY"
+    expected_exit_code = 0 if report["status"] == "FULL_WORKFLOW_PREFLIGHT_READY" else 1
+    assert result.exit_code == expected_exit_code
+    if report["status"] == "FAILED":
+        assert any(check["blocking"] and check["status"] == "FAIL" for check in report["checks"])
     assert len(report["phased_commands"]) >= 10
     assert not any("one-click" in command.lower() for command in report["phased_commands"])

@@ -71,10 +71,10 @@ describe("shared succession replay", () => {
       "78373963a813ef0020642bf110aa28fda6188497e269f96120f99334cf6778af",
     );
     expect(result.readiness.content_sha256).toBe(
-      "aae8d06b08b42f7b3576eb558b13f94b0eb0dba5047f11697753869ec9df1960",
+      "80b44046532234525c1941b037e0346840e9770db9230b3d91e6be0ef324f550",
     );
     expect(result.receipt.content_sha256).toBe(
-      "46468fa7c2ef7662f51ca1e51c3deff05338ec652f2205662b78521de65f8b55",
+      "33e4f4beb1da6033175226338cab4f4c90b50406b78257d1de251e9fe302c418",
     );
   });
 

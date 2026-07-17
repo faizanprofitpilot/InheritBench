@@ -52,9 +52,11 @@ execution_modes:
 adapter:
   adapter_id: target_hybrid_anchored_distillation_10-7461072c83b4dcde
   release_tag: phase3b-anchored-v0.1.0
+  archive_name: target_hybrid_anchored_distillation_10-7461072c83b4dcde.zip
   archive_sha256: f30fa5c814596a6c383be0390174275c893e1aba83d27df1dc8eec46c929f87f
+  archive_bytes: 7759579
+  release_url: https://github.com/faizanprofitpilot/InheritBench/releases/download/phase3b-anchored-v0.1.0/target_hybrid_anchored_distillation_10-7461072c83b4dcde.zip
 limitations:
   - Only the pinned Qwen to OLMo succession is supported.
   - Hosted mode verifies a published succession and does not train models.
   - Adversarial robustness remains unresolved.
-

@@ -36,6 +36,15 @@ class CapabilityContractV0_1(SuccessionModel):
     future_policy_code_validation: Literal["REGISTRY_BACKED"]
 
 
+class CapabilityAdapterV0_1(SuccessionModel):
+    adapter_id: Literal["target_hybrid_anchored_distillation_10-7461072c83b4dcde"]
+    release_tag: Literal["phase3b-anchored-v0.1.0"]
+    archive_name: Literal["target_hybrid_anchored_distillation_10-7461072c83b4dcde.zip"]
+    archive_sha256: Sha256
+    archive_bytes: int = Field(ge=1)
+    release_url: str
+
+
 class AdapterIdentityV0_1(SuccessionModel):
     adapter_id: Literal["target_hybrid_anchored_distillation_10-7461072c83b4dcde"]
     base_model_id: Literal["allenai/OLMo-2-0425-1B-Instruct"]
@@ -71,7 +80,7 @@ class SuccessionCapabilityPackV0_1(SuccessionModel):
     evaluator_version: Literal["v0"]
     transfer_strategy: Literal["ANCHORED_BEHAVIORAL_TRANSFER"]
     execution_modes: list[Literal["VERIFIED_REPLAY", "PHASED_LOCAL_CLI"]]
-    adapter: dict[str, str]
+    adapter: CapabilityAdapterV0_1
     limitations: list[str] = Field(min_length=3)
 
 

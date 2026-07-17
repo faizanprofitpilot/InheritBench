@@ -81,6 +81,11 @@ MIGRATION_PROFILES = REPO_ROOT / (
 MEMO_VALIDATION = REPO_ROOT / ("artifacts/showcase/inheritbench-v0.1-gpt/memo-validation.json")
 
 _CONTENT_EXCLUSIONS = {"content_sha256"}
+_PUBLICATION_CONTENT_EXCLUSIONS = {
+    "publication_id",
+    "verification_timestamp",
+    "content_sha256",
+}
 _OPERATION_ORDER = [
     "configuration_validated",
     "frozen_evidence_located",
@@ -210,22 +215,47 @@ def replay_source_records() -> tuple[list[ReplayRecordV0_1], list[HashedPathV0_1
     return records, [untouched_source, hybrid_source, adversarial_source]
 
 
-def _adapter_identity(publication: dict[str, Any]) -> AdapterIdentityV0_1:
+def _adapter_identity(
+    publication: dict[str, Any], pack: SuccessionCapabilityPackV0_1
+) -> AdapterIdentityV0_1:
     if publication.get("publication_status") != "PUBLISHED_VERIFIED":
         raise ValueError("successor adapter publication is not verified")
-    if sha256_file(PUBLICATION_ARCHIVE) != publication["archive_sha256"]:
-        raise ValueError("local published adapter archive hash mismatch")
+    if publication.get("anonymous_download_verified") is not True:
+        raise ValueError("successor adapter publication lacks anonymous verification")
+    if content_sha256(
+        publication, excluded_keys=_PUBLICATION_CONTENT_EXCLUSIONS
+    ) != publication.get("content_sha256"):
+        raise ValueError("successor adapter publication content hash mismatch")
+    expected_publication = {
+        "archive_name": pack.adapter.archive_name,
+        "archive_sha256": pack.adapter.archive_sha256,
+        "release_tag": pack.adapter.release_tag,
+        "release_url": pack.adapter.release_url,
+    }
+    observed_publication = {
+        "archive_name": publication.get("archive_name"),
+        "archive_sha256": publication.get("archive_sha256"),
+        "release_tag": publication.get("release_tag"),
+        "release_url": publication.get("urls", [None])[0],
+    }
+    if observed_publication != expected_publication:
+        raise ValueError("successor adapter publication does not match the capability pack")
+    if PUBLICATION_ARCHIVE.exists():
+        if sha256_file(PUBLICATION_ARCHIVE) != pack.adapter.archive_sha256:
+            raise ValueError("local published adapter archive hash mismatch")
+        if PUBLICATION_ARCHIVE.stat().st_size != pack.adapter.archive_bytes:
+            raise ValueError("local published adapter archive byte count mismatch")
     return AdapterIdentityV0_1(
-        adapter_id="target_hybrid_anchored_distillation_10-7461072c83b4dcde",
+        adapter_id=pack.adapter.adapter_id,
         base_model_id="allenai/OLMo-2-0425-1B-Instruct",
         base_model_revision="48d788eca847d4d7548f375ad03d3c9312f6139e",
-        release_tag="phase3b-anchored-v0.1.0",
+        release_tag=pack.adapter.release_tag,
         release_commit=publication["release_commit"],
-        archive_name=publication["archive_name"],
-        archive_sha256=publication["archive_sha256"],
-        archive_bytes=PUBLICATION_ARCHIVE.stat().st_size,
+        archive_name=pack.adapter.archive_name,
+        archive_sha256=pack.adapter.archive_sha256,
+        archive_bytes=pack.adapter.archive_bytes,
         adapter_file_sha256s=publication["adapter_file_sha256s"],
-        release_url=publication["urls"][0],
+        release_url=pack.adapter.release_url,
         publication_status="PUBLISHED_VERIFIED",
         anonymous_download_verified=True,
         publication_content_sha256=publication["content_sha256"],
@@ -294,7 +324,7 @@ def replay_bundle_files() -> dict[str, bytes]:
     records, prediction_sources = replay_source_records()
     context = _context()
     publication = _json(PUBLICATION)
-    adapter = _adapter_identity(publication)
+    adapter = _adapter_identity(publication, pack)
     records_bytes = canonical_jsonl_bytes(records)
     context_bytes = canonical_json_bytes(context) + b"\n"
     records_ref = artifact_reference(
