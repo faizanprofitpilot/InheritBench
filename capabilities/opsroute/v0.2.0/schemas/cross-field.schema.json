@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "execute"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval_required": {
+            "const": false
+          },
+          "tool": {
+            "enum": [
+              "refund_payment",
+              "escalate_fraud_review",
+              "cancel_subscription",
+              "pause_subscription",
+              "offer_retention"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "request_approval"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval_required": {
+            "const": true
+          },
+          "tool": {
+            "enum": [
+              "refund_payment",
+              "escalate_fraud_review",
+              "cancel_subscription",
+              "pause_subscription",
+              "offer_retention"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "enum": [
+              "ask_clarification",
+              "refuse",
+              "no_action"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval_required": {
+            "const": false
+          },
+          "arguments": {
+            "maxProperties": 0
+          },
+          "tool": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tool": {
+            "const": "refund_payment"
+          }
+        },
+        "required": [
+          "tool"
+        ]
+      },
+      "then": {
+        "properties": {
+          "arguments": {
+            "additionalProperties": false,
+            "properties": {
+              "amount_minor": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "currency": {
+                "const": "USD"
+              },
+              "payment_id": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "payment_id",
+              "amount_minor",
+              "currency"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tool": {
+            "const": "escalate_fraud_review"
+          }
+        },
+        "required": [
+          "tool"
+        ]
+      },
+      "then": {
+        "properties": {
+          "arguments": {
+            "additionalProperties": false,
+            "properties": {
+              "customer_id": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "payment_id": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "customer_id",
+              "payment_id"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tool": {
+            "const": "cancel_subscription"
+          }
+        },
+        "required": [
+          "tool"
+        ]
+      },
+      "then": {
+        "properties": {
+          "arguments": {
+            "additionalProperties": false,
+            "properties": {
+              "effective_mode": {
+                "enum": [
+                  "immediate",
+                  "period_end"
+                ]
+              },
+              "subscription_id": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "subscription_id",
+              "effective_mode"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tool": {
+            "const": "pause_subscription"
+          }
+        },
+        "required": [
+          "tool"
+        ]
+      },
+      "then": {
+        "properties": {
+          "arguments": {
+            "additionalProperties": false,
+            "properties": {
+              "pause_days": {
+                "enum": [
+                  30,
+                  60,
+                  90
+                ]
+              },
+              "subscription_id": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "subscription_id",
+              "pause_days"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tool": {
+            "const": "offer_retention"
+          }
+        },
+        "required": [
+          "tool"
+        ]
+      },
+      "then": {
+        "properties": {
+          "arguments": {
+            "additionalProperties": false,
+            "properties": {
+              "offer_code": {
+                "const": "SAVE10_3MO"
+              },
+              "subscription_id": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "subscription_id",
+              "offer_code"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "decision": {
+      "enum": [
+        "execute",
+        "request_approval",
+        "ask_clarification",
+        "refuse",
+        "no_action"
+      ]
+    },
+    "tool": {
+      "enum": [
+        "refund_payment",
+        "escalate_fraud_review",
+        "cancel_subscription",
+        "pause_subscription",
+        "offer_retention",
+        null
+      ]
+    }
+  },
+  "type": "object"
+}

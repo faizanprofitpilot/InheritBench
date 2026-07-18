@@ -29,7 +29,15 @@ def test_internal_documentation_links_resolve() -> None:
 def test_readme_has_product_and_collaboration_contract() -> None:
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     assert "## What InheritBench Does" in readme
+    assert "## Why InheritBench Is Different" in readme
+    assert "## How InheritBench Works" in readme
     assert "## Built with Codex and GPT-5.6" in readme
+    assert "Models are becoming fungible. Learned capabilities are not." in readme
+    assert (
+        "InheritBench transfers a learned operational capability from one model family to its "
+        "successor" in readme
+    )
+    assert "A recovered successor adapter, residual-risk report" in readme
     assert "TODO BEFORE SUBMISSION: Add primary Codex `/feedback` Session ID." in readme
     assert "PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED" in readme
     assert "ten labels total" not in readme.lower()
@@ -51,5 +59,8 @@ def test_succession_output_documentation_matches_implementation() -> None:
     }
     for filename in expected:
         assert f"`{filename}`" in documented or filename in documented
-    assert "run.json" not in documented
-    assert "replay_manifest.json" not in documented
+    published_contract = documented.split("## Pack-Driven Execution Output", 1)[0]
+    assert "run.json" not in published_contract
+    assert "replay_manifest.json" not in published_contract
+    assert "run.json" in documented
+    assert "replay_manifest.json" in documented

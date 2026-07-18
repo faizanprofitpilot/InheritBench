@@ -1,0 +1,8 @@
+[
+  "refund_payment",
+  "escalate_fraud_review",
+  "cancel_subscription",
+  "pause_subscription",
+  "offer_retention",
+  null
+]

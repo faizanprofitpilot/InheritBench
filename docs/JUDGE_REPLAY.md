@@ -1,7 +1,9 @@
 # Judge Replay
 
-This guide tests the InheritBench developer product without rebuilding a dataset, downloading model
-weights, retraining OLMo, or calling an API.
+InheritBench transfers learned capabilities to replacement models and delivers a recovered adapter
+plus a migration decision. This guide tests the assurance interface for the completed Qwen → OLMo
+succession without rebuilding a dataset, downloading model weights, retraining OLMo, or calling an
+API.
 
 ## Current Status
 
@@ -124,6 +126,62 @@ Preflight may honestly return `FAILED` on a machine without sufficient disk, mod
 an accelerator. It does not train. When ready, it prints the existing Phase 3B commands for data
 freeze, leakage audit, preregistration, training, validation, checkpoint selection, held-out test,
 replay, analysis, packaging, and release verification.
+
+## Pack-Driven v0.2 Local Test
+
+The generic local engine is separate from the immutable published-case replay:
+
+```bash
+uv sync --frozen --extra model --group dev
+uv run inheritbench capability validate capabilities/opsroute/v0.2.0
+uv run inheritbench capability inspect capabilities/opsroute/v0.2.0 --json -
+```
+
+The committed Purchase Approval pack is fixture-only. It proves task-neutral schema, vocabulary,
+safety, strategy, anchor-intervention, resume, replay, and browser behavior without making a real
+transfer claim.
+
+To inspect a finalized local run:
+
+```bash
+uv run inheritbench succession inspect --run runs/<run-id> --json -
+uv run inheritbench succession replay --run runs/<run-id> --output runs/replays
+uv run inheritbench succession export-web \
+  --run runs/<run-id> \
+  --output /tmp/inheritbench-web-bundle.json
+```
+
+Open `/run/local/` in the static application and select the exported file. The browser must verify
+its embedded SHA-256 without upload or external requests.
+
+The required real v0.2 integration run ended `MIGRATION_BLOCKED`, which is the correct product
+behavior for its observed clean thresholds and adversarial safety findings. It is local integration
+evidence on known surfaces, not a replacement for the published Phase 3B result. Exact values and
+limitations are recorded in [Pack-Driven Succession v0.2](PACK_DRIVEN_SUCCESSION.md).
+
+The historical direct adapter remains unreconstructible because its original LoRA initialization
+was not recorded. A prospectively seeded direct execution independently reproduced all 168
+telemetry steps, raw predictions, checkpoint selection, readiness, and adapter bytes exactly,
+which permitted the generic anchored reference execution.
+
+The anchored execution loaded 768 frozen teacher outputs, accepted 719, selected 214, derived the
+ten-record deficit, entered `ANCHORS_REQUIRED`, selected ten anchors from the bound 14-record pool,
+resumed without repeating teacher filtering, trained fresh OLMo, evaluated once per final surface,
+exported and fresh-reloaded the adapter, and passed model-free replay. It returned 53/64 clean
+semantic exactness and `MIGRATION_BLOCKED`, so its terminal classification is
+`GENERIC_ANCHORED_RECOVERY_FAILED`. This is a valid negative product result. The reference proof
+uses frozen teacher outputs and does not claim live generic teacher generation.
+
+The later bounded four-seed recovery is a separate terminal experiment. Load:
+
+```text
+runs/reference/anchored-multistart-b0b3b78e5354a40b/web_bundle.json
+```
+
+in `/run/local/`. The inspector should report four numerical-instability failures, no selected
+candidate, zero final-evaluation calls, `NOT_RUN` readiness, and
+`BLOCKED_BEFORE_FINAL_EVALUATION`. Candidates 2 and 3 expose step-56 partial-checkpoint lower
+bounds. The fresh v0.3 final surfaces remained sealed, so the absence of scores is intentional.
 
 ## Evidence Verification
 

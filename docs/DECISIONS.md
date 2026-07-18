@@ -287,3 +287,115 @@
 - Preserve `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED` until a stable public URL,
   incognito deep-link access, browser integrity verification, product-flow smoke test, and desktop
   and mobile checks produce an immutable deployment-verification artifact.
+
+## 2026-07-16 — Canonical Product Positioning
+
+- Product category: **model succession**.
+- Core action: transfer a learned operational capability to a replacement model.
+- Delivered outcome: a recovered successor adapter plus a pass, conditional-pass, or block migration
+  decision.
+- Trust layer: deterministic evaluation, replay, content-addressed evidence, and a validated GPT-5.6
+  explanation.
+- The Qwen → OLMo OpsRoute case is the first completed proof of the system, not the product
+  definition and not evidence of universal transfer.
+- Browser and CLI replay remain the assurance interface for a completed succession. They do not
+  replace or simulate the actual supervision, training, checkpoint selection, evaluation, and
+  adapter-export workflow.
+
+## 2026-07-17 — Pack-Driven Succession v0.2
+
+- Preserve every historical workflow and artifact; build the generic product beside them.
+- Use a task-neutral capability pack as the only task contract for generic execution.
+- Prohibit generic packages from importing OpsRoute or historical Day/Phase modules.
+- Support exactly two strategies: direct target LoRA and anchored behavioral transfer.
+- Keep model support explicit: one pinned Qwen source entry, one pinned OLMo target entry, and
+  test-only fake adapters. Never guess architecture or LoRA module mappings.
+- Separate model-visible inputs, evaluator-only oracles, direct labels, and anchor interventions.
+- Derive checkpoint eligibility and readiness in the engine; packs provide constrained thresholds
+  but never status.
+- Treat `ANCHORS_REQUIRED` as a valid persisted intervention and resume without repeating teacher
+  generation.
+- Require real local execution. The first pack-driven OpsRoute direct-LoRA run ended
+  `MIGRATION_BLOCKED`; preserve it as honest product integration evidence rather than rerunning for a
+  better score.
+- Keep the published Phase 3B anchored adapter and scientific decision authoritative and unchanged.
+- Add client-only local bundle inspection without upload, runtime APIs, or hosted model execution.
+
+## 2026-07-17 — Reproducibility Repair Stop Decision
+
+- Treat the direct reference check as a no-tolerance training/inference parity gate. Vocabulary,
+  cross-field, and product-readiness differences remain independently reported and non-gating.
+- Preserve the repaired deterministic initialization contract even though it cannot recreate the
+  historical unseeded LoRA initialization.
+- Do not search seeds, alter schedules, relax semantic parity, substitute the historical adapter,
+  or reinterpret readiness to force a pass.
+- Classify the repaired direct result as
+  `GENERIC_DIRECT_TRAINING_INFERENCE_PARITY_FAILED / BLOCKED_BEFORE_ANCHORED_RUN`.
+- Do not begin the real generic anchored run after the gate failure. Preserve model-free
+  teacher-filtering, deficit, intervention, and resume evidence without upgrading it to a real-model
+  anchored claim.
+- Continue to treat the immutable Phase 3B result as the published anchored scientific successor.
+
+## 2026-07-17 — Seeded Reproduction and Anchored Terminal Result
+
+- Replace impossible historical-initialization reconstruction with prospective seeded
+  self-reproduction while preserving the failed historical parity decision unchanged.
+- Treat RNG-state hashes as observability evidence, not pickle-byte equality gates. Exact
+  initialization identity remains the seed, adapter tensor hash, tensor names, shapes, and count.
+- Accept one identical fresh execution after a preserved MPS numerical failure; do not change LR,
+  schedule, supervision, checkpoint policy, or readiness rules.
+- Permit anchored execution only after seeded direct behavioral reproduction. The achieved result
+  was also bitwise reproducible.
+- Bind all 14 authorized anchors in the plan, derive the deficit first, and freeze the selected ten
+  only in the immutable intervention record.
+- Classify the completed anchored run as `GENERIC_ANCHORED_RECOVERY_FAILED` because readiness stayed
+  `MIGRATION_BLOCKED`. Do not tune or rerun for quality.
+- Treat the completed real lifecycle as proof of generic pack, intervention, training, evaluation,
+  export, reload, and replay boundaries. Do not claim live generic teacher generation.
+
+## 2026-07-17 — Bounded Multi-Start Terminal Decision
+
+- Freeze four deterministic LoRA initialization seeds prospectively and vary no other training
+  input, setting, ordering, budget, checkpoint, validation, or readiness rule.
+- Freeze new confirmatory and adversarial surfaces before training and prohibit candidate access.
+  Candidate ranking may use recovery validation only.
+- Preserve every numerical-instability termination as a terminal result. Partial checkpoints from
+  failed trajectories are evidence only and cannot enter validation or selection.
+- Because all four candidates terminated before validation, select no candidate, run no final
+  surface, export no adapter, and represent readiness as `NOT_RUN`, never numeric zero.
+- Finalize `BLOCKED_BEFORE_FINAL_EVALUATION / NO_SAFETY_ELIGIBLE_MULTISTART_CANDIDATE`.
+  Do not interpret this as failed final-surface quality because the sealed final evaluation did not
+  run.
+- Treat the four failures as bounded evidence of initialization sensitivity under this fixed MPS
+  protocol, not as a statistically complete seed study or a universal LoRA conclusion.
+
+## 2026-07-18 — Audit Correction Boundary
+
+- Preserve the multi-start executions and the stored generic/historical readiness outcomes.
+- Record `READINESS_CONTRACT_VERSION_DRIFT_CONFIRMED`, not a readiness implementation defect. The
+  historical and generic decisions are governed by different frozen contracts; future work must
+  select a contract prospectively rather than silently relabel prior results.
+- Record `NUMERICAL_INSTABILITY_GUARD_DEFECT_CONFIRMED`. A finite pre-clip gradient norm is not a
+  numerical failure when the declared gradient-clip policy has already applied. The generic repair
+  adds separate pre/post telemetry and finite-state checks only; it changes no scientific setting.
+- Do not automatically continue compute. A same-protocol rerun of the four frozen seeds is allowed
+  only after explicit authorization and may not consume the sealed final surfaces before selection.
+
+## 2026-07-18 — Repaired Multi-Start Final Decision
+
+- Apply the evidence-proven numerical-guard correction only: distinguish finite pre-clip telemetry
+  from post-clip norms and fail only on non-finite loss, gradients, parameters, or optimizer state.
+  Do not change scientific settings or readiness rules.
+- Restart all four original frozen seeds under new execution identities. Do not reuse partial
+  checkpoints that lack repaired terminal-step and accumulation-boundary receipts.
+- Rank only after all four candidates complete recovery validation. Use the frozen safety-first
+  lexicographic policy and permit no final-surface access before candidate freeze.
+- Select candidate 0 at checkpoint 168. Run the frozen v0.3 confirmatory and adversarial surfaces
+  exactly once for that candidate and the direct control; never evaluate rejected candidates.
+- Finalize `GENERIC_ANCHORED_RECOVERY_CONFIRMED / CONDITIONAL_PASS`. Clean readiness passed with
+  64/64 operational correctness, 63/64 exact full-contract fidelity, 64/64 historical strict
+  validity, and no blocker safety findings. Preserve the two adversarial blocker findings as the
+  reason for conditioning migration.
+- Treat this as a successful local generic recovery-engine proof using verified frozen teacher
+  outputs. Do not claim live generic teacher generation, replace the immutable Phase 3B scientific
+  result, publish this local adapter, or broaden the supported model boundary.

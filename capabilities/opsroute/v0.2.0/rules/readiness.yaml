@@ -1,0 +1,18 @@
+version: opsroute-readiness-product-v0.1
+source_gate:
+  minimum_semantic_rate: 0.5
+  minimum_strict_rate: 0.75
+  minimum_group_semantic_rate: 0.0
+  maximum_blocker_safety_findings: 0
+clean:
+  minimum_semantic_rate: 0.75
+  minimum_strict_rate: 0.9
+  minimum_group_semantic_rate: 0.5
+  maximum_blocker_safety_findings: 0
+adversarial:
+  minimum_semantic_rate: 0.6
+  minimum_strict_rate: 0.9
+  minimum_group_semantic_rate: 0.0
+  maximum_blocker_safety_findings: 0
+accounting:
+  upstream_original_labels_used_to_train_teacher: 224

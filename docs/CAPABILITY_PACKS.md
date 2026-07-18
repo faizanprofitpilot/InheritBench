@@ -1,78 +1,154 @@
 # Capability Packs
 
-A capability pack is the versioned contract for one model-succession job. It identifies the learned
-behavior, source and target models, evaluator versions, safety vocabulary, supported transfer method,
-publication, and product limitations.
+A capability pack defines the learned behavior that must survive a model replacement. Pack v0.2 is
+the task-neutral product contract for schemas, model-visible data, evaluator-only oracles,
+authorized labels, prompts, vocabularies, safety rules, readiness thresholds, coverage groups,
+strategies, and exact model-registry permissions.
 
-## OpsRoute v0.1.0
+## Pack v0.2
 
 ```text
-capabilities/opsroute/v0.1.0/
-├── capability.yaml
-├── policy_registry.json
-├── safety_rules.yaml
-└── README.md
+capability.yaml
+schemas/input.schema.json
+schemas/output.schema.json
+evaluator.yaml
+prompts/system.txt
+vocabularies/decisions.json
+vocabularies/tools.json
+vocabularies/reason_codes.json
+vocabularies/policy_codes.json
+rules/safety.yaml
+rules/readiness.yaml
+data/source_gate.inputs.jsonl
+data/direct_train.jsonl
+data/transfer_pool.inputs.jsonl
+data/validation.inputs.jsonl
+data/confirmatory.inputs.jsonl
+data/adversarial.inputs.jsonl
+oracles/source_gate.jsonl
+oracles/transfer_pool.jsonl
+oracles/validation.jsonl
+oracles/confirmatory.jsonl
+oracles/adversarial.jsonl
+anchors/anchors.jsonl
+README.md
 ```
 
-The first pack covers refund policy routing and subscription cancellation/retention for the pinned
-Qwen → OLMo case.
+`capability init` creates this complete layout with `status: DRAFT`. Planning accepts only `READY`
+or `REFERENCE`; `FIXTURE_ONLY` execution is available only to hidden tests.
 
-## Declarative Fields
+## Authoring Commands
 
-`capability.yaml` declares:
+```bash
+inheritbench capability init NAME \
+  --template structured-json-v0.1 \
+  --output PATH
 
-- capability identity and support status;
-- task config and hash;
-- source and target IDs, revisions, config paths, and hashes;
-- scenario families and archetypes;
-- prompt, parser, and evaluator versions;
-- supported execution modes;
-- Anchored Behavioral Transfer as the supported strategy;
-- recovered adapter ID, release tag, archive name, bytes, SHA-256, and URL;
-- explicit product limitations.
+inheritbench capability validate PACK --json -
+inheritbench capability inspect PACK --json -
+```
 
-`policy_registry.json` closes the allowed policy/reason vocabulary for future pack validation.
-`safety_rules.yaml` versions clean and adversarial readiness requirements.
+Validation rejects unknown fields, unsafe or missing paths, malformed JSON Schemas, invalid record
+hashes, duplicate IDs, broken input/oracle joins, invalid controlled-vocabulary values, malformed
+safety AST nodes, unconstrained readiness thresholds, duplicate strategy or comparison identities,
+bad coverage-group metadata, invalid direct labels, and tampered anchors.
 
-## Code-Defined Behavior
+Every finding has a stable code, severity, file, JSON Pointer, optional record ID, message, and
+remediation. Executable packs must validate completely before a plan can be frozen.
 
-The pack does not replace implementation. In v0.1, these remain code-defined:
+## Data Separation
 
-- OpsRoute input and contract schemas;
-- deterministic policy resolution;
-- surface generation and leakage signatures;
-- model-specific supervised formatting and LoRA training;
-- parser `0.1.0` and evaluator `v0`;
-- replay aggregation and readiness-rule implementation;
-- static web presentation.
+Pack records have four distinct roles:
 
-Historical `ActionContract` validation accepted any nonempty policy code. Exact scoring still detected
-incorrect aliases. Future capability packs should enforce registry-backed vocabularies at validation
-time; historical evidence remains unchanged.
+- **Model-visible inputs** contain messages and task facts.
+- **Evaluator-only oracles** contain expected contracts and safety context.
+- **Direct labels** explicitly authorize original supervision.
+- **Anchors** explicitly authorize an intervention after a teacher coverage deficit.
+
+The stage data broker exposes only the minimum authorized handle:
+
+| Stage | Inputs | Oracles or labels |
+|---|---|---|
+| Source gate | Source-gate inputs | Source-gate oracles |
+| Target baseline | Source-gate inputs | Source-gate oracles |
+| Teacher generation | Transfer-pool inputs | No oracle handle |
+| Teacher filtering | Saved teacher output | Transfer-pool oracles |
+| Target training | Frozen labeled records | No evaluation inputs or oracles |
+| Checkpoint selection | Validation inputs | Validation oracles |
+| Confirmatory | Confirmatory inputs | Confirmatory oracles |
+| Adversarial | Adversarial inputs | Adversarial oracles |
+
+Confirmatory and adversarial evaluations are immutable, exactly once, and cannot enter training or
+checkpoint selection.
+
+## Declarative Evaluator
+
+`evaluator.yaml` uses RFC 6901 JSON Pointers and supports:
+
+- strict JSON and optional one whole-output JSON fence;
+- input/output JSON Schema validation;
+- required and ignored pointers;
+- exact scalar, object, and list comparisons;
+- explicit set comparison;
+- exact numeric comparison or declared tolerance;
+- per-field correctness;
+- structural full-contract exactness;
+- semantic contract match;
+- closed controlled vocabularies.
+
+Safety rules are data, not executable templates. The typed AST permits only `eq`, `ne`, `in`,
+`not_in`, `exists`, `missing`, `contains`, `and`, `or`, and `not`. Pointer-to-pointer operands are
+explicit JSON Pointer references. No `eval`, arbitrary expression, or filesystem access exists.
+
+An optional trusted evaluator must be an installed local `inheritbench.evaluators` entry point whose
+distribution, version, plugin identity, and module SHA-256 exactly match the pack. Plugins receive
+only in-memory input, output, and oracle values and return normalized results. They do not write
+artifacts, access final-test paths, select checkpoints, or set readiness.
+
+## Readiness and Strategies
+
+Packs declare constrained numeric thresholds, not final outcomes. The engine derives `PASS`,
+`CONDITIONAL_PASS`, or `MIGRATION_BLOCKED`.
+
+Supported strategy IDs:
+
+- `direct-target-lora-v0.1`;
+- `anchored-behavioral-transfer-v0.1`.
+
+Training profiles declare the token budget, accumulation, clipping, AdamW parameters, warmup,
+sequence limit, LoRA settings, and checkpoint fractions. The model registry—not the pack—owns
+architecture classes, exact revisions, tokenizer behavior, dtype policy, and explicit LoRA module
+mappings.
+
+## Reference and Fixture
+
+### OpsRoute
+
+`capabilities/opsroute/v0.2.0` is the product-owned reference projection. It preserves capability
+identity `opsroute@0.1.0` while converting frozen historical inputs and oracles into task-neutral
+pack records. A deterministic projector regenerates it into temporary storage for byte comparison.
+Historical OpsRoute files are read-only.
+
+### Purchase Approval
+
+`examples/capability-packs/purchase-approval` is a materially different `FIXTURE_ONLY` pack with
+different input/output fields, decisions, tools, policy and reason vocabularies, safety predicates,
+thresholds, coverage groups, and record counts. It proves that the generic loader, evaluator,
+strategies, intervention flow, replay, and browser schema do not depend on OpsRoute literals.
+
+It is test evidence only and is not a model-transfer result.
 
 ## Current Support Boundary
 
-The pack is not a public plug-in API. v0.1 does not accept arbitrary uploads or user-defined model
-pairs. A future pack would need:
+The pack interface is generic; the real model registry remains intentionally narrow:
 
-1. strict schemas and deterministic policy labels;
-2. frozen train, validation, test, and adversarial surfaces;
-3. value-sensitive leakage signatures;
-4. pinned source and target model support;
-5. explicit supervision and training method contracts;
-6. versioned readiness and safety rules;
-7. immutable evaluation and replay artifacts;
-8. a verified deliverable successor artifact;
-9. a static, content-addressed product projection.
+- Qwen2.5 0.5B Instruct at one exact revision;
+- OLMo-2 1B Instruct at one exact revision;
+- explicit Q/K/V/O LoRA mappings;
+- Apple MPS as the executed real backend.
 
-Adding a directory alone does not provide those guarantees.
+Arbitrary Transformers identities, guessed target modules, remote code, hosted training, arbitrary
+uploads, and automatic prompt/model search are unsupported.
 
-## Long-Term Direction
-
-The intended abstraction is model-agnostic but evidence-bound:
-
-> Recover the capability when possible, and condition or block migration when the evidence is
-> insufficient.
-
-Generalized capability authoring, arbitrary model loading, hosted training, and one-command
-cross-family execution remain future work.
+See [Pack-Driven Succession v0.2](PACK_DRIVEN_SUCCESSION.md) for planning, execution, anchor
+intervention, replay, browser import, and real integration evidence.

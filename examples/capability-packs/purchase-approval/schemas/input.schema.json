@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "amount_minor": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "approval_limit_minor": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "base_output": {
+      "type": "object"
+    },
+    "currency": {
+      "const": "USD"
+    },
+    "purchase_id": {
+      "type": "string"
+    },
+    "requester_role": {
+      "enum": [
+        "employee",
+        "manager"
+      ]
+    },
+    "teacher_output": {
+      "type": "object"
+    },
+    "trained_output": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "purchase_id",
+    "requester_role",
+    "amount_minor",
+    "currency",
+    "approval_limit_minor",
+    "base_output",
+    "teacher_output",
+    "trained_output"
+  ],
+  "type": "object"
+}

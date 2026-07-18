@@ -1,0 +1,5396 @@
+{
+  "checkpoint_steps": [
+    56,
+    112,
+    168
+  ],
+  "content_sha256": "2acab22a46863a925abcf887b746e90714be328b233cbd925474e23faf443559",
+  "items": [
+    {
+      "accumulation_group": 0,
+      "cursor": 0,
+      "cycle": 0,
+      "optimizer_step": 1,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_13_f4de8cef16",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 0,
+      "cursor": 1,
+      "cycle": 0,
+      "optimizer_step": 1,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_17_3371b8a704",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 0,
+      "cursor": 2,
+      "cycle": 0,
+      "optimizer_step": 1,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_27_5238dc0370",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 0,
+      "cursor": 3,
+      "cycle": 0,
+      "optimizer_step": 1,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_22_11a61aef01",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 1,
+      "cursor": 4,
+      "cycle": 0,
+      "optimizer_step": 2,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_29_53b6e550b8",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 1,
+      "cursor": 5,
+      "cycle": 0,
+      "optimizer_step": 2,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_07_37a7122349",
+      "sequence_tokens": 428
+    },
+    {
+      "accumulation_group": 1,
+      "cursor": 6,
+      "cycle": 0,
+      "optimizer_step": 2,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_31_a809ec7067",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 1,
+      "cursor": 7,
+      "cycle": 0,
+      "optimizer_step": 2,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_12_aee9b490ed",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 2,
+      "cursor": 8,
+      "cycle": 0,
+      "optimizer_step": 3,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_25_6049820df8",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 2,
+      "cursor": 9,
+      "cycle": 0,
+      "optimizer_step": 3,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_11_4c924a209e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 2,
+      "cursor": 10,
+      "cycle": 0,
+      "optimizer_step": 3,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_22_5f04fd0998",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 2,
+      "cursor": 11,
+      "cycle": 0,
+      "optimizer_step": 3,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_12_a6e1055f1c",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 3,
+      "cursor": 12,
+      "cycle": 0,
+      "optimizer_step": 4,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_12_9df955acb9",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 3,
+      "cursor": 13,
+      "cycle": 0,
+      "optimizer_step": 4,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_01_67ba808f2f",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 3,
+      "cursor": 14,
+      "cycle": 0,
+      "optimizer_step": 4,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_06_fda68be302",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 3,
+      "cursor": 15,
+      "cycle": 0,
+      "optimizer_step": 4,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_12_bd08e738fe",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 4,
+      "cursor": 16,
+      "cycle": 0,
+      "optimizer_step": 5,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_07_cbd18d1db7",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 4,
+      "cursor": 17,
+      "cycle": 0,
+      "optimizer_step": 5,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_15_9ee7ac6314",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 4,
+      "cursor": 18,
+      "cycle": 0,
+      "optimizer_step": 5,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_26_ad1befb483",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 4,
+      "cursor": 19,
+      "cycle": 0,
+      "optimizer_step": 5,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_31_42c53db05c",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 5,
+      "cursor": 20,
+      "cycle": 0,
+      "optimizer_step": 6,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_15_fb8daa1ff5",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 5,
+      "cursor": 21,
+      "cycle": 0,
+      "optimizer_step": 6,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_00_a3b0a8cba3",
+      "sequence_tokens": 417
+    },
+    {
+      "accumulation_group": 5,
+      "cursor": 22,
+      "cycle": 0,
+      "optimizer_step": 6,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_09_70b6a594e8",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 5,
+      "cursor": 23,
+      "cycle": 0,
+      "optimizer_step": 6,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_15_3c110ddb9a",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 6,
+      "cursor": 24,
+      "cycle": 0,
+      "optimizer_step": 7,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_05_a10cb3cd0b",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 6,
+      "cursor": 25,
+      "cycle": 0,
+      "optimizer_step": 7,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_16_d7a7a7fd89",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 6,
+      "cursor": 26,
+      "cycle": 0,
+      "optimizer_step": 7,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_25_237a5a051c",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 6,
+      "cursor": 27,
+      "cycle": 0,
+      "optimizer_step": 7,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_14_1c949a60f1",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 7,
+      "cursor": 28,
+      "cycle": 0,
+      "optimizer_step": 8,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_09_2a710a1dda",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 7,
+      "cursor": 29,
+      "cycle": 0,
+      "optimizer_step": 8,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_27_c1b7a0f3d3",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 7,
+      "cursor": 30,
+      "cycle": 0,
+      "optimizer_step": 8,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_04_b4b97247c3",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 7,
+      "cursor": 31,
+      "cycle": 0,
+      "optimizer_step": 8,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_07_74971263",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 8,
+      "cursor": 32,
+      "cycle": 0,
+      "optimizer_step": 9,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_12_4c86367f5d",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 8,
+      "cursor": 33,
+      "cycle": 0,
+      "optimizer_step": 9,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_18_27d9852161",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 8,
+      "cursor": 34,
+      "cycle": 0,
+      "optimizer_step": 9,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_10_dbf28cd0bf",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 8,
+      "cursor": 35,
+      "cycle": 0,
+      "optimizer_step": 9,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_10_5dc1febb9c",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 9,
+      "cursor": 36,
+      "cycle": 0,
+      "optimizer_step": 10,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_00_73ae59e95a",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 9,
+      "cursor": 37,
+      "cycle": 0,
+      "optimizer_step": 10,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_01_0a6190a057",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 9,
+      "cursor": 38,
+      "cycle": 0,
+      "optimizer_step": 10,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_09_d8e4b41247",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 9,
+      "cursor": 39,
+      "cycle": 0,
+      "optimizer_step": 10,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_05_9d995fbe79",
+      "sequence_tokens": 396
+    },
+    {
+      "accumulation_group": 10,
+      "cursor": 40,
+      "cycle": 0,
+      "optimizer_step": 11,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_12_2aa39d0750",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 10,
+      "cursor": 41,
+      "cycle": 0,
+      "optimizer_step": 11,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_11_6f9d73e142",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 10,
+      "cursor": 42,
+      "cycle": 0,
+      "optimizer_step": 11,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_15_a0cc858657",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 10,
+      "cursor": 43,
+      "cycle": 0,
+      "optimizer_step": 11,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_21_411cb19353",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 11,
+      "cursor": 44,
+      "cycle": 0,
+      "optimizer_step": 12,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_11_62fe37dc97",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 11,
+      "cursor": 45,
+      "cycle": 0,
+      "optimizer_step": 12,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_07_372e5eca98",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 11,
+      "cursor": 46,
+      "cycle": 0,
+      "optimizer_step": 12,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_30_ae554e00ea",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 11,
+      "cursor": 47,
+      "cycle": 0,
+      "optimizer_step": 12,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_30_b76b2acdb5",
+      "sequence_tokens": 394
+    },
+    {
+      "accumulation_group": 12,
+      "cursor": 48,
+      "cycle": 0,
+      "optimizer_step": 13,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_29_204cdee069",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 12,
+      "cursor": 49,
+      "cycle": 0,
+      "optimizer_step": 13,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_08_db78d6ea99",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 12,
+      "cursor": 50,
+      "cycle": 0,
+      "optimizer_step": 13,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_14_bd6fd1f979",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 12,
+      "cursor": 51,
+      "cycle": 0,
+      "optimizer_step": 13,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_11_9acc15ed7c",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 13,
+      "cursor": 52,
+      "cycle": 0,
+      "optimizer_step": 14,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_18_e22b07ffe2",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 13,
+      "cursor": 53,
+      "cycle": 0,
+      "optimizer_step": 14,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_22_94cbff1c1b",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 13,
+      "cursor": 54,
+      "cycle": 0,
+      "optimizer_step": 14,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_06_1348860f89",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 13,
+      "cursor": 55,
+      "cycle": 0,
+      "optimizer_step": 14,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_19_fb3bfdbfce",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 14,
+      "cursor": 56,
+      "cycle": 0,
+      "optimizer_step": 15,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_07_a349ac9879",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 14,
+      "cursor": 57,
+      "cycle": 0,
+      "optimizer_step": 15,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_26_bd322e4073",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 14,
+      "cursor": 58,
+      "cycle": 0,
+      "optimizer_step": 15,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_07_872c9e8da2",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 14,
+      "cursor": 59,
+      "cycle": 0,
+      "optimizer_step": 15,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_04_6b00770097",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 15,
+      "cursor": 60,
+      "cycle": 0,
+      "optimizer_step": 16,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_13_72c027ba",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 15,
+      "cursor": 61,
+      "cycle": 0,
+      "optimizer_step": 16,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_06_5c0cf7ae",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 15,
+      "cursor": 62,
+      "cycle": 0,
+      "optimizer_step": 16,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_09_93d48d2b8d",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 15,
+      "cursor": 63,
+      "cycle": 0,
+      "optimizer_step": 16,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_17_19d019f624",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 16,
+      "cursor": 64,
+      "cycle": 0,
+      "optimizer_step": 17,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_20_316959e157",
+      "sequence_tokens": 384
+    },
+    {
+      "accumulation_group": 16,
+      "cursor": 65,
+      "cycle": 0,
+      "optimizer_step": 17,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_06_d0038128c6",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 16,
+      "cursor": 66,
+      "cycle": 0,
+      "optimizer_step": 17,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_00_ebec7b6fb5",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 16,
+      "cursor": 67,
+      "cycle": 0,
+      "optimizer_step": 17,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_06_af150a83a6",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 17,
+      "cursor": 68,
+      "cycle": 0,
+      "optimizer_step": 18,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_19_b72f980341",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 17,
+      "cursor": 69,
+      "cycle": 0,
+      "optimizer_step": 18,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_27_0f5d0d2769",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 17,
+      "cursor": 70,
+      "cycle": 0,
+      "optimizer_step": 18,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_12_63b2ab7b10",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 17,
+      "cursor": 71,
+      "cycle": 0,
+      "optimizer_step": 18,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_12_82ca969a0d",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 18,
+      "cursor": 72,
+      "cycle": 0,
+      "optimizer_step": 19,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_12_bd8c52579e",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 18,
+      "cursor": 73,
+      "cycle": 0,
+      "optimizer_step": 19,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_14_267426afad",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 18,
+      "cursor": 74,
+      "cycle": 0,
+      "optimizer_step": 19,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_06_bd34b2ac40",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 18,
+      "cursor": 75,
+      "cycle": 0,
+      "optimizer_step": 19,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_31_78713cb44a",
+      "sequence_tokens": 408
+    },
+    {
+      "accumulation_group": 19,
+      "cursor": 76,
+      "cycle": 0,
+      "optimizer_step": 20,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_07_76476950d0",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 19,
+      "cursor": 77,
+      "cycle": 0,
+      "optimizer_step": 20,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_30_7d4493701f",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 19,
+      "cursor": 78,
+      "cycle": 0,
+      "optimizer_step": 20,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_03_43fefb45",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 19,
+      "cursor": 79,
+      "cycle": 0,
+      "optimizer_step": 20,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_28_85c7d0fda1",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 20,
+      "cursor": 80,
+      "cycle": 0,
+      "optimizer_step": 21,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_00_a3fc39fe",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 20,
+      "cursor": 81,
+      "cycle": 0,
+      "optimizer_step": 21,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_14_ae9fc598fc",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 20,
+      "cursor": 82,
+      "cycle": 0,
+      "optimizer_step": 21,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_00_2430896543",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 20,
+      "cursor": 83,
+      "cycle": 0,
+      "optimizer_step": 21,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_21_2133735256",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 21,
+      "cursor": 84,
+      "cycle": 0,
+      "optimizer_step": 22,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_01_1bbef901",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 21,
+      "cursor": 85,
+      "cycle": 0,
+      "optimizer_step": 22,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_27_dec61ccac5",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 21,
+      "cursor": 86,
+      "cycle": 0,
+      "optimizer_step": 22,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_09_0eee0b95",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 21,
+      "cursor": 87,
+      "cycle": 0,
+      "optimizer_step": 22,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_01_9ee32aca42",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 22,
+      "cursor": 88,
+      "cycle": 0,
+      "optimizer_step": 23,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_12_29af0ec1",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 22,
+      "cursor": 89,
+      "cycle": 0,
+      "optimizer_step": 23,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_21_fd799d0674",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 22,
+      "cursor": 90,
+      "cycle": 0,
+      "optimizer_step": 23,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_13_0fdb93c746",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 22,
+      "cursor": 91,
+      "cycle": 0,
+      "optimizer_step": 23,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_10_7653d7f6a6",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 23,
+      "cursor": 92,
+      "cycle": 0,
+      "optimizer_step": 24,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_12_764b5d4b85",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 23,
+      "cursor": 93,
+      "cycle": 0,
+      "optimizer_step": 24,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_13_6b4b8934e6",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 23,
+      "cursor": 94,
+      "cycle": 0,
+      "optimizer_step": 24,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_01_49ab20faac",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 23,
+      "cursor": 95,
+      "cycle": 0,
+      "optimizer_step": 24,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_22_e83324e911",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 24,
+      "cursor": 96,
+      "cycle": 0,
+      "optimizer_step": 25,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_12_9ec15e0911",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 24,
+      "cursor": 97,
+      "cycle": 0,
+      "optimizer_step": 25,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_18_65d1cd63ef",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 24,
+      "cursor": 98,
+      "cycle": 0,
+      "optimizer_step": 25,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_26_950d7a63af",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 24,
+      "cursor": 99,
+      "cycle": 0,
+      "optimizer_step": 25,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_01_eeab968019",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 25,
+      "cursor": 100,
+      "cycle": 0,
+      "optimizer_step": 26,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_expansion_15_651dbeabd5",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 25,
+      "cursor": 101,
+      "cycle": 0,
+      "optimizer_step": 26,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_12_2580af31c3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 25,
+      "cursor": 102,
+      "cycle": 0,
+      "optimizer_step": 26,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_03_f1839039cb",
+      "sequence_tokens": 421
+    },
+    {
+      "accumulation_group": 25,
+      "cursor": 103,
+      "cycle": 0,
+      "optimizer_step": 26,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_18_4689f6decd",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 26,
+      "cursor": 104,
+      "cycle": 0,
+      "optimizer_step": 27,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_04_f4b8364463",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 26,
+      "cursor": 105,
+      "cycle": 0,
+      "optimizer_step": 27,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_24_6866b2c434",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 26,
+      "cursor": 106,
+      "cycle": 0,
+      "optimizer_step": 27,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_07_212f6cd2b2",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 26,
+      "cursor": 107,
+      "cycle": 0,
+      "optimizer_step": 27,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_12_1ccc2b22e1",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 27,
+      "cursor": 108,
+      "cycle": 0,
+      "optimizer_step": 28,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_02_486b822961",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 27,
+      "cursor": 109,
+      "cycle": 0,
+      "optimizer_step": 28,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_13_0bc376ae25",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 27,
+      "cursor": 110,
+      "cycle": 0,
+      "optimizer_step": 28,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_28_e8ff8935d8",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 27,
+      "cursor": 111,
+      "cycle": 0,
+      "optimizer_step": 28,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_07_d3c2cb18cc",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 28,
+      "cursor": 112,
+      "cycle": 0,
+      "optimizer_step": 29,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_26_a9382c4dc0",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 28,
+      "cursor": 113,
+      "cycle": 0,
+      "optimizer_step": 29,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_10_f3d4eac8f8",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 28,
+      "cursor": 114,
+      "cycle": 0,
+      "optimizer_step": 29,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_01_4bdd530f00",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 28,
+      "cursor": 115,
+      "cycle": 0,
+      "optimizer_step": 29,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_14_49e1d994c7",
+      "sequence_tokens": 394
+    },
+    {
+      "accumulation_group": 29,
+      "cursor": 116,
+      "cycle": 0,
+      "optimizer_step": 30,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_14_bbd74590b6",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 29,
+      "cursor": 117,
+      "cycle": 0,
+      "optimizer_step": 30,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_03_ac0ac370fd",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 29,
+      "cursor": 118,
+      "cycle": 0,
+      "optimizer_step": 30,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_14_2424ecbed6",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 29,
+      "cursor": 119,
+      "cycle": 0,
+      "optimizer_step": 30,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_08_94e9beabec",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 30,
+      "cursor": 120,
+      "cycle": 0,
+      "optimizer_step": 31,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_07_d92be7fc7f",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 30,
+      "cursor": 121,
+      "cycle": 0,
+      "optimizer_step": 31,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_18_833915cfa3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 30,
+      "cursor": 122,
+      "cycle": 0,
+      "optimizer_step": 31,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_16_ce828f059d",
+      "sequence_tokens": 396
+    },
+    {
+      "accumulation_group": 30,
+      "cursor": 123,
+      "cycle": 0,
+      "optimizer_step": 31,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_28_2854f11380",
+      "sequence_tokens": 386
+    },
+    {
+      "accumulation_group": 31,
+      "cursor": 124,
+      "cycle": 0,
+      "optimizer_step": 32,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_01_451616eb2a",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 31,
+      "cursor": 125,
+      "cycle": 0,
+      "optimizer_step": 32,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_07_710f584e6c",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 31,
+      "cursor": 126,
+      "cycle": 0,
+      "optimizer_step": 32,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_26_62e160a8f4",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 31,
+      "cursor": 127,
+      "cycle": 0,
+      "optimizer_step": 32,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_03_54df2f9b7c",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 32,
+      "cursor": 128,
+      "cycle": 0,
+      "optimizer_step": 33,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_03_7fd282d59f",
+      "sequence_tokens": 430
+    },
+    {
+      "accumulation_group": 32,
+      "cursor": 129,
+      "cycle": 0,
+      "optimizer_step": 33,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_09_420deac061",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 32,
+      "cursor": 130,
+      "cycle": 0,
+      "optimizer_step": 33,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_11_349a80c9ef",
+      "sequence_tokens": 429
+    },
+    {
+      "accumulation_group": 32,
+      "cursor": 131,
+      "cycle": 0,
+      "optimizer_step": 33,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_09_525a52e75e",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 33,
+      "cursor": 132,
+      "cycle": 0,
+      "optimizer_step": 34,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_13_6551924cdf",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 33,
+      "cursor": 133,
+      "cycle": 0,
+      "optimizer_step": 34,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_07_40a8dace07",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 33,
+      "cursor": 134,
+      "cycle": 0,
+      "optimizer_step": 34,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_09_1976eac141",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 33,
+      "cursor": 135,
+      "cycle": 0,
+      "optimizer_step": 34,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_22_208292ec19",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 34,
+      "cursor": 136,
+      "cycle": 0,
+      "optimizer_step": 35,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_10_980f5d138b",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 34,
+      "cursor": 137,
+      "cycle": 0,
+      "optimizer_step": 35,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_09_f93f01db07",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 34,
+      "cursor": 138,
+      "cycle": 0,
+      "optimizer_step": 35,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_02_41b6c88da7",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 34,
+      "cursor": 139,
+      "cycle": 0,
+      "optimizer_step": 35,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_11_753cd60730",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 35,
+      "cursor": 140,
+      "cycle": 0,
+      "optimizer_step": 36,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_03_63d82c7066",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 35,
+      "cursor": 141,
+      "cycle": 0,
+      "optimizer_step": 36,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_28_f60756b0ec",
+      "sequence_tokens": 397
+    },
+    {
+      "accumulation_group": 35,
+      "cursor": 142,
+      "cycle": 0,
+      "optimizer_step": 36,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_28_ecc7a96b5e",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 35,
+      "cursor": 143,
+      "cycle": 0,
+      "optimizer_step": 36,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_12_5c7a21fcb6",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 36,
+      "cursor": 144,
+      "cycle": 0,
+      "optimizer_step": 37,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_11_e1c7f3adc5",
+      "sequence_tokens": 397
+    },
+    {
+      "accumulation_group": 36,
+      "cursor": 145,
+      "cycle": 0,
+      "optimizer_step": 37,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_25_5d62ee78c9",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 36,
+      "cursor": 146,
+      "cycle": 0,
+      "optimizer_step": 37,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_14_982595736c",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 36,
+      "cursor": 147,
+      "cycle": 0,
+      "optimizer_step": 37,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_05_7a63cb504b",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 37,
+      "cursor": 148,
+      "cycle": 0,
+      "optimizer_step": 38,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_02_2dc1c3e0c5",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 37,
+      "cursor": 149,
+      "cycle": 0,
+      "optimizer_step": 38,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_22_3574ea372f",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 37,
+      "cursor": 150,
+      "cycle": 0,
+      "optimizer_step": 38,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_29_09ec1f7e3a",
+      "sequence_tokens": 392
+    },
+    {
+      "accumulation_group": 37,
+      "cursor": 151,
+      "cycle": 0,
+      "optimizer_step": 38,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_10_2f2e42053f",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 38,
+      "cursor": 152,
+      "cycle": 0,
+      "optimizer_step": 39,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_24_ec06ba64b3",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 38,
+      "cursor": 153,
+      "cycle": 0,
+      "optimizer_step": 39,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_02_a52d3b6d12",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 38,
+      "cursor": 154,
+      "cycle": 0,
+      "optimizer_step": 39,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_25_b4561bf522",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 38,
+      "cursor": 155,
+      "cycle": 0,
+      "optimizer_step": 39,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_05_6b3e1e3631",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 39,
+      "cursor": 156,
+      "cycle": 0,
+      "optimizer_step": 40,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_13_8f1747968d",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 39,
+      "cursor": 157,
+      "cycle": 0,
+      "optimizer_step": 40,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_23_f91abdfe03",
+      "sequence_tokens": 387
+    },
+    {
+      "accumulation_group": 39,
+      "cursor": 158,
+      "cycle": 0,
+      "optimizer_step": 40,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_20_6497a0092e",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 39,
+      "cursor": 159,
+      "cycle": 0,
+      "optimizer_step": 40,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_03_8742806278",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 40,
+      "cursor": 160,
+      "cycle": 0,
+      "optimizer_step": 41,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_12_29adab9df3",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 40,
+      "cursor": 161,
+      "cycle": 0,
+      "optimizer_step": 41,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_23_33b31284a4",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 40,
+      "cursor": 162,
+      "cycle": 0,
+      "optimizer_step": 41,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_01_964f1df268",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 40,
+      "cursor": 163,
+      "cycle": 0,
+      "optimizer_step": 41,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_21_ff85136843",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 41,
+      "cursor": 164,
+      "cycle": 0,
+      "optimizer_step": 42,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_12_90985e2bf8",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 41,
+      "cursor": 165,
+      "cycle": 0,
+      "optimizer_step": 42,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_13_98da739078",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 41,
+      "cursor": 166,
+      "cycle": 0,
+      "optimizer_step": 42,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_02_fdd1122f3f",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 41,
+      "cursor": 167,
+      "cycle": 0,
+      "optimizer_step": 42,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_15_54c5ad7c30",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 42,
+      "cursor": 168,
+      "cycle": 0,
+      "optimizer_step": 43,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_02_f6c5d5668a",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 42,
+      "cursor": 169,
+      "cycle": 0,
+      "optimizer_step": 43,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_11_78a63d8af0",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 42,
+      "cursor": 170,
+      "cycle": 0,
+      "optimizer_step": 43,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_03_41f5fc9e74",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 42,
+      "cursor": 171,
+      "cycle": 0,
+      "optimizer_step": 43,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_15_bfae73d130",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 43,
+      "cursor": 172,
+      "cycle": 0,
+      "optimizer_step": 44,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_00_3d18095adb",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 43,
+      "cursor": 173,
+      "cycle": 0,
+      "optimizer_step": 44,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_18_eaef486753",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 43,
+      "cursor": 174,
+      "cycle": 0,
+      "optimizer_step": 44,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_20_9b4c2fa76e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 43,
+      "cursor": 175,
+      "cycle": 0,
+      "optimizer_step": 44,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_06_f804b451fd",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 44,
+      "cursor": 176,
+      "cycle": 0,
+      "optimizer_step": 45,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_04_c242cc0e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 44,
+      "cursor": 177,
+      "cycle": 0,
+      "optimizer_step": 45,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_04_018a5eead6",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 44,
+      "cursor": 178,
+      "cycle": 0,
+      "optimizer_step": 45,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_12_40480ba865",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 44,
+      "cursor": 179,
+      "cycle": 0,
+      "optimizer_step": 45,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_19_776284d603",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 45,
+      "cursor": 180,
+      "cycle": 0,
+      "optimizer_step": 46,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_29_9f794cb0c5",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 45,
+      "cursor": 181,
+      "cycle": 0,
+      "optimizer_step": 46,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_05_36d1ed25d3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 45,
+      "cursor": 182,
+      "cycle": 0,
+      "optimizer_step": 46,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_15_924d337ba1",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 45,
+      "cursor": 183,
+      "cycle": 0,
+      "optimizer_step": 46,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_27_a9e3de1cd5",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 46,
+      "cursor": 184,
+      "cycle": 0,
+      "optimizer_step": 47,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_00_6500cb12a5",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 46,
+      "cursor": 185,
+      "cycle": 0,
+      "optimizer_step": 47,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_08_5ebe27b133",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 46,
+      "cursor": 186,
+      "cycle": 0,
+      "optimizer_step": 47,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_23_8d9b4bc275",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 46,
+      "cursor": 187,
+      "cycle": 0,
+      "optimizer_step": 47,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_05_0847e52de1",
+      "sequence_tokens": 384
+    },
+    {
+      "accumulation_group": 47,
+      "cursor": 188,
+      "cycle": 0,
+      "optimizer_step": 48,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_08_37aacfc9",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 47,
+      "cursor": 189,
+      "cycle": 0,
+      "optimizer_step": 48,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_14_92e4ec7968",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 47,
+      "cursor": 190,
+      "cycle": 0,
+      "optimizer_step": 48,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_28_74e4cf016b",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 47,
+      "cursor": 191,
+      "cycle": 0,
+      "optimizer_step": 48,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_11_12b358778e",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 48,
+      "cursor": 192,
+      "cycle": 0,
+      "optimizer_step": 49,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_19_3a0a74b9e7",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 48,
+      "cursor": 193,
+      "cycle": 0,
+      "optimizer_step": 49,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_06_a045c7ae13",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 48,
+      "cursor": 194,
+      "cycle": 0,
+      "optimizer_step": 49,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_06_366825db97",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 48,
+      "cursor": 195,
+      "cycle": 0,
+      "optimizer_step": 49,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_29_b657c37555",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 49,
+      "cursor": 196,
+      "cycle": 0,
+      "optimizer_step": 50,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_07_ef455f8998",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 49,
+      "cursor": 197,
+      "cycle": 0,
+      "optimizer_step": 50,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_02_7e04ce0d62",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 49,
+      "cursor": 198,
+      "cycle": 0,
+      "optimizer_step": 50,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_12_e1483e7fba",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 49,
+      "cursor": 199,
+      "cycle": 0,
+      "optimizer_step": 50,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_08_4c6b1205d9",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 50,
+      "cursor": 200,
+      "cycle": 0,
+      "optimizer_step": 51,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_00_c7ffbca3fb",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 50,
+      "cursor": 201,
+      "cycle": 0,
+      "optimizer_step": 51,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_03_cf2a5b46e6",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 50,
+      "cursor": 202,
+      "cycle": 0,
+      "optimizer_step": 51,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_10_15ee17d3ef",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 50,
+      "cursor": 203,
+      "cycle": 0,
+      "optimizer_step": 51,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_12_9dd6106519",
+      "sequence_tokens": 427
+    },
+    {
+      "accumulation_group": 51,
+      "cursor": 204,
+      "cycle": 0,
+      "optimizer_step": 52,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_05_9510a81c35",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 51,
+      "cursor": 205,
+      "cycle": 0,
+      "optimizer_step": 52,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_00_599638a4ac",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 51,
+      "cursor": 206,
+      "cycle": 0,
+      "optimizer_step": 52,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_27_38c7a2fcd3",
+      "sequence_tokens": 417
+    },
+    {
+      "accumulation_group": 51,
+      "cursor": 207,
+      "cycle": 0,
+      "optimizer_step": 52,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_01_46346fd5c3",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 52,
+      "cursor": 208,
+      "cycle": 0,
+      "optimizer_step": 53,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_16_04fe8bd510",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 52,
+      "cursor": 209,
+      "cycle": 0,
+      "optimizer_step": 53,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_26_2e6b4c63c6",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 52,
+      "cursor": 210,
+      "cycle": 0,
+      "optimizer_step": 53,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_30_73a50259ca",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 52,
+      "cursor": 211,
+      "cycle": 0,
+      "optimizer_step": 53,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_17_aa38dff205",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 53,
+      "cursor": 212,
+      "cycle": 0,
+      "optimizer_step": 54,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_08_2e369c7778",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 53,
+      "cursor": 213,
+      "cycle": 0,
+      "optimizer_step": 54,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_20_39f43ffbb1",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 53,
+      "cursor": 214,
+      "cycle": 0,
+      "optimizer_step": 54,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_05_76034fbfac",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 53,
+      "cursor": 215,
+      "cycle": 0,
+      "optimizer_step": 54,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_14_ad758c0801",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 54,
+      "cursor": 216,
+      "cycle": 0,
+      "optimizer_step": 55,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_02_dff8426bdc",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 54,
+      "cursor": 217,
+      "cycle": 0,
+      "optimizer_step": 55,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_03_735783ca14",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 54,
+      "cursor": 218,
+      "cycle": 0,
+      "optimizer_step": 55,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_15_c47f312cbb",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 54,
+      "cursor": 219,
+      "cycle": 0,
+      "optimizer_step": 55,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_29_e6c29ffa55",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 55,
+      "cursor": 220,
+      "cycle": 0,
+      "optimizer_step": 56,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_04_95cc20bab8",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 55,
+      "cursor": 221,
+      "cycle": 0,
+      "optimizer_step": 56,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_04_c8e278c279",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 55,
+      "cursor": 222,
+      "cycle": 0,
+      "optimizer_step": 56,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_25_032ca764b8",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 55,
+      "cursor": 223,
+      "cycle": 0,
+      "optimizer_step": 56,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_04_758e3fc758",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 56,
+      "cursor": 224,
+      "cycle": 1,
+      "optimizer_step": 57,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_19_3a0a74b9e7",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 56,
+      "cursor": 225,
+      "cycle": 1,
+      "optimizer_step": 57,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_02_2dc1c3e0c5",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 56,
+      "cursor": 226,
+      "cycle": 1,
+      "optimizer_step": 57,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_12_90985e2bf8",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 56,
+      "cursor": 227,
+      "cycle": 1,
+      "optimizer_step": 57,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_05_76034fbfac",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 57,
+      "cursor": 228,
+      "cycle": 1,
+      "optimizer_step": 58,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_03_54df2f9b7c",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 57,
+      "cursor": 229,
+      "cycle": 1,
+      "optimizer_step": 58,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_01_0a6190a057",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 57,
+      "cursor": 230,
+      "cycle": 1,
+      "optimizer_step": 58,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_19_776284d603",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 57,
+      "cursor": 231,
+      "cycle": 1,
+      "optimizer_step": 58,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_15_fb8daa1ff5",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 58,
+      "cursor": 232,
+      "cycle": 1,
+      "optimizer_step": 59,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_01_eeab968019",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 58,
+      "cursor": 233,
+      "cycle": 1,
+      "optimizer_step": 59,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_21_411cb19353",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 58,
+      "cursor": 234,
+      "cycle": 1,
+      "optimizer_step": 59,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_14_49e1d994c7",
+      "sequence_tokens": 394
+    },
+    {
+      "accumulation_group": 58,
+      "cursor": 235,
+      "cycle": 1,
+      "optimizer_step": 59,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_12_40480ba865",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 59,
+      "cursor": 236,
+      "cycle": 1,
+      "optimizer_step": 60,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_30_73a50259ca",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 59,
+      "cursor": 237,
+      "cycle": 1,
+      "optimizer_step": 60,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_04_6b00770097",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 59,
+      "cursor": 238,
+      "cycle": 1,
+      "optimizer_step": 60,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_14_ae9fc598fc",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 59,
+      "cursor": 239,
+      "cycle": 1,
+      "optimizer_step": 60,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_06_af150a83a6",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 60,
+      "cursor": 240,
+      "cycle": 1,
+      "optimizer_step": 61,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_07_a349ac9879",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 60,
+      "cursor": 241,
+      "cycle": 1,
+      "optimizer_step": 61,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_15_3c110ddb9a",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 60,
+      "cursor": 242,
+      "cycle": 1,
+      "optimizer_step": 61,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_02_7e04ce0d62",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 60,
+      "cursor": 243,
+      "cycle": 1,
+      "optimizer_step": 61,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_22_11a61aef01",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 61,
+      "cursor": 244,
+      "cycle": 1,
+      "optimizer_step": 62,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_12_2aa39d0750",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 61,
+      "cursor": 245,
+      "cycle": 1,
+      "optimizer_step": 62,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_05_0847e52de1",
+      "sequence_tokens": 384
+    },
+    {
+      "accumulation_group": 61,
+      "cursor": 246,
+      "cycle": 1,
+      "optimizer_step": 62,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_12_9dd6106519",
+      "sequence_tokens": 427
+    },
+    {
+      "accumulation_group": 61,
+      "cursor": 247,
+      "cycle": 1,
+      "optimizer_step": 62,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_04_018a5eead6",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 62,
+      "cursor": 248,
+      "cycle": 1,
+      "optimizer_step": 63,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_13_f4de8cef16",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 62,
+      "cursor": 249,
+      "cycle": 1,
+      "optimizer_step": 63,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_06_1348860f89",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 62,
+      "cursor": 250,
+      "cycle": 1,
+      "optimizer_step": 63,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_19_b72f980341",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 62,
+      "cursor": 251,
+      "cycle": 1,
+      "optimizer_step": 63,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_15_bfae73d130",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 63,
+      "cursor": 252,
+      "cycle": 1,
+      "optimizer_step": 64,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_10_7653d7f6a6",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 63,
+      "cursor": 253,
+      "cycle": 1,
+      "optimizer_step": 64,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_09_93d48d2b8d",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 63,
+      "cursor": 254,
+      "cycle": 1,
+      "optimizer_step": 64,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_02_dff8426bdc",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 63,
+      "cursor": 255,
+      "cycle": 1,
+      "optimizer_step": 64,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_09_f93f01db07",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 64,
+      "cursor": 256,
+      "cycle": 1,
+      "optimizer_step": 65,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_29_204cdee069",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 64,
+      "cursor": 257,
+      "cycle": 1,
+      "optimizer_step": 65,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_13_0fdb93c746",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 64,
+      "cursor": 258,
+      "cycle": 1,
+      "optimizer_step": 65,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_15_9ee7ac6314",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 64,
+      "cursor": 259,
+      "cycle": 1,
+      "optimizer_step": 65,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_10_980f5d138b",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 65,
+      "cursor": 260,
+      "cycle": 1,
+      "optimizer_step": 66,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_26_ad1befb483",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 65,
+      "cursor": 261,
+      "cycle": 1,
+      "optimizer_step": 66,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_01_4bdd530f00",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 65,
+      "cursor": 262,
+      "cycle": 1,
+      "optimizer_step": 66,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_30_7d4493701f",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 65,
+      "cursor": 263,
+      "cycle": 1,
+      "optimizer_step": 66,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_01_451616eb2a",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 66,
+      "cursor": 264,
+      "cycle": 1,
+      "optimizer_step": 67,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_23_8d9b4bc275",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 66,
+      "cursor": 265,
+      "cycle": 1,
+      "optimizer_step": 67,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_05_9d995fbe79",
+      "sequence_tokens": 396
+    },
+    {
+      "accumulation_group": 66,
+      "cursor": 266,
+      "cycle": 1,
+      "optimizer_step": 67,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_27_dec61ccac5",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 66,
+      "cursor": 267,
+      "cycle": 1,
+      "optimizer_step": 67,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_07_40a8dace07",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 67,
+      "cursor": 268,
+      "cycle": 1,
+      "optimizer_step": 68,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_02_486b822961",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 67,
+      "cursor": 269,
+      "cycle": 1,
+      "optimizer_step": 68,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_11_12b358778e",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 67,
+      "cursor": 270,
+      "cycle": 1,
+      "optimizer_step": 68,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_00_3d18095adb",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 67,
+      "cursor": 271,
+      "cycle": 1,
+      "optimizer_step": 68,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_09_525a52e75e",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 68,
+      "cursor": 272,
+      "cycle": 1,
+      "optimizer_step": 69,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_12_63b2ab7b10",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 68,
+      "cursor": 273,
+      "cycle": 1,
+      "optimizer_step": 69,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_08_2e369c7778",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 68,
+      "cursor": 274,
+      "cycle": 1,
+      "optimizer_step": 69,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_00_2430896543",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 68,
+      "cursor": 275,
+      "cycle": 1,
+      "optimizer_step": 69,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_24_6866b2c434",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 69,
+      "cursor": 276,
+      "cycle": 1,
+      "optimizer_step": 70,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_28_2854f11380",
+      "sequence_tokens": 386
+    },
+    {
+      "accumulation_group": 69,
+      "cursor": 277,
+      "cycle": 1,
+      "optimizer_step": 70,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_00_73ae59e95a",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 69,
+      "cursor": 278,
+      "cycle": 1,
+      "optimizer_step": 70,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_05_a10cb3cd0b",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 69,
+      "cursor": 279,
+      "cycle": 1,
+      "optimizer_step": 70,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_11_4c924a209e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 70,
+      "cursor": 280,
+      "cycle": 1,
+      "optimizer_step": 71,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_06_fda68be302",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 70,
+      "cursor": 281,
+      "cycle": 1,
+      "optimizer_step": 71,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_13_6551924cdf",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 70,
+      "cursor": 282,
+      "cycle": 1,
+      "optimizer_step": 71,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_00_6500cb12a5",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 70,
+      "cursor": 283,
+      "cycle": 1,
+      "optimizer_step": 71,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_23_f91abdfe03",
+      "sequence_tokens": 387
+    },
+    {
+      "accumulation_group": 71,
+      "cursor": 284,
+      "cycle": 1,
+      "optimizer_step": 72,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_31_a809ec7067",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 71,
+      "cursor": 285,
+      "cycle": 1,
+      "optimizer_step": 72,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_00_c7ffbca3fb",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 71,
+      "cursor": 286,
+      "cycle": 1,
+      "optimizer_step": 72,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_12_2580af31c3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 71,
+      "cursor": 287,
+      "cycle": 1,
+      "optimizer_step": 72,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_04_b4b97247c3",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 72,
+      "cursor": 288,
+      "cycle": 1,
+      "optimizer_step": 73,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_07_ef455f8998",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 72,
+      "cursor": 289,
+      "cycle": 1,
+      "optimizer_step": 73,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_01_46346fd5c3",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 72,
+      "cursor": 290,
+      "cycle": 1,
+      "optimizer_step": 73,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_12_4c86367f5d",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 72,
+      "cursor": 291,
+      "cycle": 1,
+      "optimizer_step": 73,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_02_fdd1122f3f",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 73,
+      "cursor": 292,
+      "cycle": 1,
+      "optimizer_step": 74,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_12_764b5d4b85",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 73,
+      "cursor": 293,
+      "cycle": 1,
+      "optimizer_step": 74,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_28_e8ff8935d8",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 73,
+      "cursor": 294,
+      "cycle": 1,
+      "optimizer_step": 74,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_06_f804b451fd",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 73,
+      "cursor": 295,
+      "cycle": 1,
+      "optimizer_step": 74,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_13_6b4b8934e6",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 74,
+      "cursor": 296,
+      "cycle": 1,
+      "optimizer_step": 75,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_12_9ec15e0911",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 74,
+      "cursor": 297,
+      "cycle": 1,
+      "optimizer_step": 75,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_30_ae554e00ea",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 74,
+      "cursor": 298,
+      "cycle": 1,
+      "optimizer_step": 75,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_07_37a7122349",
+      "sequence_tokens": 428
+    },
+    {
+      "accumulation_group": 74,
+      "cursor": 299,
+      "cycle": 1,
+      "optimizer_step": 75,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_25_b4561bf522",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 75,
+      "cursor": 300,
+      "cycle": 1,
+      "optimizer_step": 76,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_09_2a710a1dda",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 75,
+      "cursor": 301,
+      "cycle": 1,
+      "optimizer_step": 76,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_11_9acc15ed7c",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 75,
+      "cursor": 302,
+      "cycle": 1,
+      "optimizer_step": 76,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_18_eaef486753",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 75,
+      "cursor": 303,
+      "cycle": 1,
+      "optimizer_step": 76,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_22_5f04fd0998",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 76,
+      "cursor": 304,
+      "cycle": 1,
+      "optimizer_step": 77,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_03_ac0ac370fd",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 76,
+      "cursor": 305,
+      "cycle": 1,
+      "optimizer_step": 77,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_30_b76b2acdb5",
+      "sequence_tokens": 394
+    },
+    {
+      "accumulation_group": 76,
+      "cursor": 306,
+      "cycle": 1,
+      "optimizer_step": 77,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_25_6049820df8",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 76,
+      "cursor": 307,
+      "cycle": 1,
+      "optimizer_step": 77,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_06_5c0cf7ae",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 77,
+      "cursor": 308,
+      "cycle": 1,
+      "optimizer_step": 78,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_20_6497a0092e",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 77,
+      "cursor": 309,
+      "cycle": 1,
+      "optimizer_step": 78,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_04_f4b8364463",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 77,
+      "cursor": 310,
+      "cycle": 1,
+      "optimizer_step": 78,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_24_ec06ba64b3",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 77,
+      "cursor": 311,
+      "cycle": 1,
+      "optimizer_step": 78,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_13_72c027ba",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 78,
+      "cursor": 312,
+      "cycle": 1,
+      "optimizer_step": 79,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_29_9f794cb0c5",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 78,
+      "cursor": 313,
+      "cycle": 1,
+      "optimizer_step": 79,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_17_19d019f624",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 78,
+      "cursor": 314,
+      "cycle": 1,
+      "optimizer_step": 79,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_27_a9e3de1cd5",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 78,
+      "cursor": 315,
+      "cycle": 1,
+      "optimizer_step": 79,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_10_5dc1febb9c",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 79,
+      "cursor": 316,
+      "cycle": 1,
+      "optimizer_step": 80,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_03_41f5fc9e74",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 79,
+      "cursor": 317,
+      "cycle": 1,
+      "optimizer_step": 80,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_10_dbf28cd0bf",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 79,
+      "cursor": 318,
+      "cycle": 1,
+      "optimizer_step": 80,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_01_67ba808f2f",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 79,
+      "cursor": 319,
+      "cycle": 1,
+      "optimizer_step": 80,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_28_ecc7a96b5e",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 80,
+      "cursor": 320,
+      "cycle": 1,
+      "optimizer_step": 81,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_00_ebec7b6fb5",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 80,
+      "cursor": 321,
+      "cycle": 1,
+      "optimizer_step": 81,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_26_bd322e4073",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 80,
+      "cursor": 322,
+      "cycle": 1,
+      "optimizer_step": 81,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_15_a0cc858657",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 80,
+      "cursor": 323,
+      "cycle": 1,
+      "optimizer_step": 81,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_08_37aacfc9",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 81,
+      "cursor": 324,
+      "cycle": 1,
+      "optimizer_step": 82,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_14_ad758c0801",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 81,
+      "cursor": 325,
+      "cycle": 1,
+      "optimizer_step": 82,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_12_9df955acb9",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 81,
+      "cursor": 326,
+      "cycle": 1,
+      "optimizer_step": 82,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_13_0bc376ae25",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 81,
+      "cursor": 327,
+      "cycle": 1,
+      "optimizer_step": 82,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_10_2f2e42053f",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 82,
+      "cursor": 328,
+      "cycle": 1,
+      "optimizer_step": 83,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_03_63d82c7066",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 82,
+      "cursor": 329,
+      "cycle": 1,
+      "optimizer_step": 83,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_21_ff85136843",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 82,
+      "cursor": 330,
+      "cycle": 1,
+      "optimizer_step": 83,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_06_bd34b2ac40",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 82,
+      "cursor": 331,
+      "cycle": 1,
+      "optimizer_step": 83,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_09_1976eac141",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 83,
+      "cursor": 332,
+      "cycle": 1,
+      "optimizer_step": 84,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_08_db78d6ea99",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 83,
+      "cursor": 333,
+      "cycle": 1,
+      "optimizer_step": 84,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_17_3371b8a704",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 83,
+      "cursor": 334,
+      "cycle": 1,
+      "optimizer_step": 84,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_20_39f43ffbb1",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 83,
+      "cursor": 335,
+      "cycle": 1,
+      "optimizer_step": 84,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_07_372e5eca98",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 84,
+      "cursor": 336,
+      "cycle": 1,
+      "optimizer_step": 85,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_13_8f1747968d",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 84,
+      "cursor": 337,
+      "cycle": 1,
+      "optimizer_step": 85,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_22_e83324e911",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 84,
+      "cursor": 338,
+      "cycle": 1,
+      "optimizer_step": 85,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_04_95cc20bab8",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 84,
+      "cursor": 339,
+      "cycle": 1,
+      "optimizer_step": 85,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_10_f3d4eac8f8",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 85,
+      "cursor": 340,
+      "cycle": 1,
+      "optimizer_step": 86,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_01_9ee32aca42",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 85,
+      "cursor": 341,
+      "cycle": 1,
+      "optimizer_step": 86,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_12_29adab9df3",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 85,
+      "cursor": 342,
+      "cycle": 1,
+      "optimizer_step": 86,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_09_d8e4b41247",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 85,
+      "cursor": 343,
+      "cycle": 1,
+      "optimizer_step": 86,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_08_5ebe27b133",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 86,
+      "cursor": 344,
+      "cycle": 1,
+      "optimizer_step": 87,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_18_833915cfa3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 86,
+      "cursor": 345,
+      "cycle": 1,
+      "optimizer_step": 87,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_13_98da739078",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 86,
+      "cursor": 346,
+      "cycle": 1,
+      "optimizer_step": 87,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_02_a52d3b6d12",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 86,
+      "cursor": 347,
+      "cycle": 1,
+      "optimizer_step": 87,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_01_49ab20faac",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 87,
+      "cursor": 348,
+      "cycle": 1,
+      "optimizer_step": 88,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_26_2e6b4c63c6",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 87,
+      "cursor": 349,
+      "cycle": 1,
+      "optimizer_step": 88,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_19_fb3bfdbfce",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 87,
+      "cursor": 350,
+      "cycle": 1,
+      "optimizer_step": 88,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_08_4c6b1205d9",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 87,
+      "cursor": 351,
+      "cycle": 1,
+      "optimizer_step": 88,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_03_43fefb45",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 88,
+      "cursor": 352,
+      "cycle": 1,
+      "optimizer_step": 89,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_21_2133735256",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 88,
+      "cursor": 353,
+      "cycle": 1,
+      "optimizer_step": 89,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_23_33b31284a4",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 88,
+      "cursor": 354,
+      "cycle": 1,
+      "optimizer_step": 89,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_12_29af0ec1",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 88,
+      "cursor": 355,
+      "cycle": 1,
+      "optimizer_step": 89,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_04_758e3fc758",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 89,
+      "cursor": 356,
+      "cycle": 1,
+      "optimizer_step": 90,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_14_bd6fd1f979",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 89,
+      "cursor": 357,
+      "cycle": 1,
+      "optimizer_step": 90,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_05_6b3e1e3631",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 89,
+      "cursor": 358,
+      "cycle": 1,
+      "optimizer_step": 90,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_20_9b4c2fa76e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 89,
+      "cursor": 359,
+      "cycle": 1,
+      "optimizer_step": 90,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_28_85c7d0fda1",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 90,
+      "cursor": 360,
+      "cycle": 1,
+      "optimizer_step": 91,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_14_267426afad",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 90,
+      "cursor": 361,
+      "cycle": 1,
+      "optimizer_step": 91,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_05_9510a81c35",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 90,
+      "cursor": 362,
+      "cycle": 1,
+      "optimizer_step": 91,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_11_e1c7f3adc5",
+      "sequence_tokens": 397
+    },
+    {
+      "accumulation_group": 90,
+      "cursor": 363,
+      "cycle": 1,
+      "optimizer_step": 91,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_12_82ca969a0d",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 91,
+      "cursor": 364,
+      "cycle": 1,
+      "optimizer_step": 92,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_18_e22b07ffe2",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 91,
+      "cursor": 365,
+      "cycle": 1,
+      "optimizer_step": 92,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_26_a9382c4dc0",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 91,
+      "cursor": 366,
+      "cycle": 1,
+      "optimizer_step": 92,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_04_c242cc0e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 91,
+      "cursor": 367,
+      "cycle": 1,
+      "optimizer_step": 92,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_28_f60756b0ec",
+      "sequence_tokens": 397
+    },
+    {
+      "accumulation_group": 92,
+      "cursor": 368,
+      "cycle": 1,
+      "optimizer_step": 93,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_11_753cd60730",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 92,
+      "cursor": 369,
+      "cycle": 1,
+      "optimizer_step": 93,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_21_fd799d0674",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 92,
+      "cursor": 370,
+      "cycle": 1,
+      "optimizer_step": 93,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_05_7a63cb504b",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 92,
+      "cursor": 371,
+      "cycle": 1,
+      "optimizer_step": 93,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_29_53b6e550b8",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 93,
+      "cursor": 372,
+      "cycle": 1,
+      "optimizer_step": 94,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_18_65d1cd63ef",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 93,
+      "cursor": 373,
+      "cycle": 1,
+      "optimizer_step": 94,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_25_237a5a051c",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 93,
+      "cursor": 374,
+      "cycle": 1,
+      "optimizer_step": 94,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_14_bbd74590b6",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 93,
+      "cursor": 375,
+      "cycle": 1,
+      "optimizer_step": 94,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_07_76476950d0",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 94,
+      "cursor": 376,
+      "cycle": 1,
+      "optimizer_step": 95,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_26_62e160a8f4",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 94,
+      "cursor": 377,
+      "cycle": 1,
+      "optimizer_step": 95,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_14_2424ecbed6",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 94,
+      "cursor": 378,
+      "cycle": 1,
+      "optimizer_step": 95,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_12_bd08e738fe",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 94,
+      "cursor": 379,
+      "cycle": 1,
+      "optimizer_step": 95,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_11_349a80c9ef",
+      "sequence_tokens": 429
+    },
+    {
+      "accumulation_group": 95,
+      "cursor": 380,
+      "cycle": 1,
+      "optimizer_step": 96,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_11_6f9d73e142",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 95,
+      "cursor": 381,
+      "cycle": 1,
+      "optimizer_step": 96,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_07_d3c2cb18cc",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 95,
+      "cursor": 382,
+      "cycle": 1,
+      "optimizer_step": 96,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_03_cf2a5b46e6",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 95,
+      "cursor": 383,
+      "cycle": 1,
+      "optimizer_step": 96,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_26_950d7a63af",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 96,
+      "cursor": 384,
+      "cycle": 1,
+      "optimizer_step": 97,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_07_cbd18d1db7",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 96,
+      "cursor": 385,
+      "cycle": 1,
+      "optimizer_step": 97,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_25_032ca764b8",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 96,
+      "cursor": 386,
+      "cycle": 1,
+      "optimizer_step": 97,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_15_c47f312cbb",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 96,
+      "cursor": 387,
+      "cycle": 1,
+      "optimizer_step": 97,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_03_f1839039cb",
+      "sequence_tokens": 421
+    },
+    {
+      "accumulation_group": 97,
+      "cursor": 388,
+      "cycle": 1,
+      "optimizer_step": 98,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_27_0f5d0d2769",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 97,
+      "cursor": 389,
+      "cycle": 1,
+      "optimizer_step": 98,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_12_e1483e7fba",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 97,
+      "cursor": 390,
+      "cycle": 1,
+      "optimizer_step": 98,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_31_42c53db05c",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 97,
+      "cursor": 391,
+      "cycle": 1,
+      "optimizer_step": 98,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_10_15ee17d3ef",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 98,
+      "cursor": 392,
+      "cycle": 1,
+      "optimizer_step": 99,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_04_c8e278c279",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 98,
+      "cursor": 393,
+      "cycle": 1,
+      "optimizer_step": 99,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_22_208292ec19",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 98,
+      "cursor": 394,
+      "cycle": 1,
+      "optimizer_step": 99,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_07_872c9e8da2",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 98,
+      "cursor": 395,
+      "cycle": 1,
+      "optimizer_step": 99,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_14_92e4ec7968",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 99,
+      "cursor": 396,
+      "cycle": 1,
+      "optimizer_step": 100,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_16_04fe8bd510",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 99,
+      "cursor": 397,
+      "cycle": 1,
+      "optimizer_step": 100,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_29_b657c37555",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 99,
+      "cursor": 398,
+      "cycle": 1,
+      "optimizer_step": 100,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_06_366825db97",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 99,
+      "cursor": 399,
+      "cycle": 1,
+      "optimizer_step": 100,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_28_74e4cf016b",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 100,
+      "cursor": 400,
+      "cycle": 1,
+      "optimizer_step": 101,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_11_78a63d8af0",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 100,
+      "cursor": 401,
+      "cycle": 1,
+      "optimizer_step": 101,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_12_aee9b490ed",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 100,
+      "cursor": 402,
+      "cycle": 1,
+      "optimizer_step": 101,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_27_c1b7a0f3d3",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 100,
+      "cursor": 403,
+      "cycle": 1,
+      "optimizer_step": 101,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_09_420deac061",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 101,
+      "cursor": 404,
+      "cycle": 1,
+      "optimizer_step": 102,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_12_5c7a21fcb6",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 101,
+      "cursor": 405,
+      "cycle": 1,
+      "optimizer_step": 102,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_11_62fe37dc97",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 101,
+      "cursor": 406,
+      "cycle": 1,
+      "optimizer_step": 102,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_08_94e9beabec",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 101,
+      "cursor": 407,
+      "cycle": 1,
+      "optimizer_step": 102,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_18_4689f6decd",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 102,
+      "cursor": 408,
+      "cycle": 1,
+      "optimizer_step": 103,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_09_0eee0b95",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 102,
+      "cursor": 409,
+      "cycle": 1,
+      "optimizer_step": 103,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_29_09ec1f7e3a",
+      "sequence_tokens": 392
+    },
+    {
+      "accumulation_group": 102,
+      "cursor": 410,
+      "cycle": 1,
+      "optimizer_step": 103,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_01_964f1df268",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 102,
+      "cursor": 411,
+      "cycle": 1,
+      "optimizer_step": 103,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_07_d92be7fc7f",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 103,
+      "cursor": 412,
+      "cycle": 1,
+      "optimizer_step": 104,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_03_8742806278",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 103,
+      "cursor": 413,
+      "cycle": 1,
+      "optimizer_step": 104,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_00_a3fc39fe",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 103,
+      "cursor": 414,
+      "cycle": 1,
+      "optimizer_step": 104,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_14_1c949a60f1",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 103,
+      "cursor": 415,
+      "cycle": 1,
+      "optimizer_step": 104,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_07_212f6cd2b2",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 104,
+      "cursor": 416,
+      "cycle": 1,
+      "optimizer_step": 105,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_00_599638a4ac",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 104,
+      "cursor": 417,
+      "cycle": 1,
+      "optimizer_step": 105,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_09_70b6a594e8",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 104,
+      "cursor": 418,
+      "cycle": 1,
+      "optimizer_step": 105,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_18_27d9852161",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 104,
+      "cursor": 419,
+      "cycle": 1,
+      "optimizer_step": 105,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_03_7fd282d59f",
+      "sequence_tokens": 430
+    },
+    {
+      "accumulation_group": 105,
+      "cursor": 420,
+      "cycle": 1,
+      "optimizer_step": 106,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_27_5238dc0370",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 105,
+      "cursor": 421,
+      "cycle": 1,
+      "optimizer_step": 106,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_02_41b6c88da7",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 105,
+      "cursor": 422,
+      "cycle": 1,
+      "optimizer_step": 106,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_00_a3b0a8cba3",
+      "sequence_tokens": 417
+    },
+    {
+      "accumulation_group": 105,
+      "cursor": 423,
+      "cycle": 1,
+      "optimizer_step": 106,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_07_74971263",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 106,
+      "cursor": 424,
+      "cycle": 1,
+      "optimizer_step": 107,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_29_e6c29ffa55",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 106,
+      "cursor": 425,
+      "cycle": 1,
+      "optimizer_step": 107,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_16_ce828f059d",
+      "sequence_tokens": 396
+    },
+    {
+      "accumulation_group": 106,
+      "cursor": 426,
+      "cycle": 1,
+      "optimizer_step": 107,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_12_bd8c52579e",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 106,
+      "cursor": 427,
+      "cycle": 1,
+      "optimizer_step": 107,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_15_54c5ad7c30",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 107,
+      "cursor": 428,
+      "cycle": 1,
+      "optimizer_step": 108,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_22_3574ea372f",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 107,
+      "cursor": 429,
+      "cycle": 1,
+      "optimizer_step": 108,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_05_36d1ed25d3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 107,
+      "cursor": 430,
+      "cycle": 1,
+      "optimizer_step": 108,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_16_d7a7a7fd89",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 107,
+      "cursor": 431,
+      "cycle": 1,
+      "optimizer_step": 108,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_27_38c7a2fcd3",
+      "sequence_tokens": 417
+    },
+    {
+      "accumulation_group": 108,
+      "cursor": 432,
+      "cycle": 1,
+      "optimizer_step": 109,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_06_a045c7ae13",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 108,
+      "cursor": 433,
+      "cycle": 1,
+      "optimizer_step": 109,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_25_5d62ee78c9",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 108,
+      "cursor": 434,
+      "cycle": 1,
+      "optimizer_step": 109,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_14_982595736c",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 108,
+      "cursor": 435,
+      "cycle": 1,
+      "optimizer_step": 109,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_06_d0038128c6",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 109,
+      "cursor": 436,
+      "cycle": 1,
+      "optimizer_step": 110,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_02_f6c5d5668a",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 109,
+      "cursor": 437,
+      "cycle": 1,
+      "optimizer_step": 110,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_31_78713cb44a",
+      "sequence_tokens": 408
+    },
+    {
+      "accumulation_group": 109,
+      "cursor": 438,
+      "cycle": 1,
+      "optimizer_step": 110,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_17_aa38dff205",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 109,
+      "cursor": 439,
+      "cycle": 1,
+      "optimizer_step": 110,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_15_924d337ba1",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 110,
+      "cursor": 440,
+      "cycle": 1,
+      "optimizer_step": 111,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_03_735783ca14",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 110,
+      "cursor": 441,
+      "cycle": 1,
+      "optimizer_step": 111,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_expansion_15_651dbeabd5",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 110,
+      "cursor": 442,
+      "cycle": 1,
+      "optimizer_step": 111,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_12_a6e1055f1c",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 110,
+      "cursor": 443,
+      "cycle": 1,
+      "optimizer_step": 111,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_22_94cbff1c1b",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 111,
+      "cursor": 444,
+      "cycle": 1,
+      "optimizer_step": 112,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_12_1ccc2b22e1",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 111,
+      "cursor": 445,
+      "cycle": 1,
+      "optimizer_step": 112,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_07_710f584e6c",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 111,
+      "cursor": 446,
+      "cycle": 1,
+      "optimizer_step": 112,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_01_1bbef901",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 111,
+      "cursor": 447,
+      "cycle": 1,
+      "optimizer_step": 112,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_20_316959e157",
+      "sequence_tokens": 384
+    },
+    {
+      "accumulation_group": 112,
+      "cursor": 448,
+      "cycle": 2,
+      "optimizer_step": 113,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_27_5238dc0370",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 112,
+      "cursor": 449,
+      "cycle": 2,
+      "optimizer_step": 113,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_02_486b822961",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 112,
+      "cursor": 450,
+      "cycle": 2,
+      "optimizer_step": 113,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_09_525a52e75e",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 112,
+      "cursor": 451,
+      "cycle": 2,
+      "optimizer_step": 113,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_05_9510a81c35",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 113,
+      "cursor": 452,
+      "cycle": 2,
+      "optimizer_step": 114,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_13_f4de8cef16",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 113,
+      "cursor": 453,
+      "cycle": 2,
+      "optimizer_step": 114,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_05_36d1ed25d3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 113,
+      "cursor": 454,
+      "cycle": 2,
+      "optimizer_step": 114,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_30_73a50259ca",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 113,
+      "cursor": 455,
+      "cycle": 2,
+      "optimizer_step": 114,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_03_ac0ac370fd",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 114,
+      "cursor": 456,
+      "cycle": 2,
+      "optimizer_step": 115,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_01_4bdd530f00",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 114,
+      "cursor": 457,
+      "cycle": 2,
+      "optimizer_step": 115,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_07_40a8dace07",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 114,
+      "cursor": 458,
+      "cycle": 2,
+      "optimizer_step": 115,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_05_6b3e1e3631",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 114,
+      "cursor": 459,
+      "cycle": 2,
+      "optimizer_step": 115,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_30_b76b2acdb5",
+      "sequence_tokens": 394
+    },
+    {
+      "accumulation_group": 115,
+      "cursor": 460,
+      "cycle": 2,
+      "optimizer_step": 116,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_00_ebec7b6fb5",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 115,
+      "cursor": 461,
+      "cycle": 2,
+      "optimizer_step": 116,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_13_72c027ba",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 115,
+      "cursor": 462,
+      "cycle": 2,
+      "optimizer_step": 116,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_00_6500cb12a5",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 115,
+      "cursor": 463,
+      "cycle": 2,
+      "optimizer_step": 116,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_14_92e4ec7968",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 116,
+      "cursor": 464,
+      "cycle": 2,
+      "optimizer_step": 117,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_07_74971263",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 116,
+      "cursor": 465,
+      "cycle": 2,
+      "optimizer_step": 117,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_03_43fefb45",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 116,
+      "cursor": 466,
+      "cycle": 2,
+      "optimizer_step": 117,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_12_5c7a21fcb6",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 116,
+      "cursor": 467,
+      "cycle": 2,
+      "optimizer_step": 117,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_04_018a5eead6",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 117,
+      "cursor": 468,
+      "cycle": 2,
+      "optimizer_step": 118,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_00_3d18095adb",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 117,
+      "cursor": 469,
+      "cycle": 2,
+      "optimizer_step": 118,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_06_af150a83a6",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 117,
+      "cursor": 470,
+      "cycle": 2,
+      "optimizer_step": 118,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_14_1c949a60f1",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 117,
+      "cursor": 471,
+      "cycle": 2,
+      "optimizer_step": 118,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_02_a52d3b6d12",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 118,
+      "cursor": 472,
+      "cycle": 2,
+      "optimizer_step": 119,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_13_98da739078",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 118,
+      "cursor": 473,
+      "cycle": 2,
+      "optimizer_step": 119,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_22_11a61aef01",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 118,
+      "cursor": 474,
+      "cycle": 2,
+      "optimizer_step": 119,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_04_c8e278c279",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 118,
+      "cursor": 475,
+      "cycle": 2,
+      "optimizer_step": 119,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_19_776284d603",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 119,
+      "cursor": 476,
+      "cycle": 2,
+      "optimizer_step": 120,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_30_ae554e00ea",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 119,
+      "cursor": 477,
+      "cycle": 2,
+      "optimizer_step": 120,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_10_dbf28cd0bf",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 119,
+      "cursor": 478,
+      "cycle": 2,
+      "optimizer_step": 120,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_05_7a63cb504b",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 119,
+      "cursor": 479,
+      "cycle": 2,
+      "optimizer_step": 120,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_31_a809ec7067",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 120,
+      "cursor": 480,
+      "cycle": 2,
+      "optimizer_step": 121,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_05_a10cb3cd0b",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 120,
+      "cursor": 481,
+      "cycle": 2,
+      "optimizer_step": 121,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_12_bd08e738fe",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 120,
+      "cursor": 482,
+      "cycle": 2,
+      "optimizer_step": 121,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_14_2424ecbed6",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 120,
+      "cursor": 483,
+      "cycle": 2,
+      "optimizer_step": 121,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_10_7653d7f6a6",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 121,
+      "cursor": 484,
+      "cycle": 2,
+      "optimizer_step": 122,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_03_63d82c7066",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 121,
+      "cursor": 485,
+      "cycle": 2,
+      "optimizer_step": 122,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_06_5c0cf7ae",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 121,
+      "cursor": 486,
+      "cycle": 2,
+      "optimizer_step": 122,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_11_78a63d8af0",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 121,
+      "cursor": 487,
+      "cycle": 2,
+      "optimizer_step": 122,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_08_2e369c7778",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 122,
+      "cursor": 488,
+      "cycle": 2,
+      "optimizer_step": 123,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_09_70b6a594e8",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 122,
+      "cursor": 489,
+      "cycle": 2,
+      "optimizer_step": 123,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_06_fda68be302",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 122,
+      "cursor": 490,
+      "cycle": 2,
+      "optimizer_step": 123,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_09_93d48d2b8d",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 122,
+      "cursor": 491,
+      "cycle": 2,
+      "optimizer_step": 123,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_25_b4561bf522",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 123,
+      "cursor": 492,
+      "cycle": 2,
+      "optimizer_step": 124,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_00_73ae59e95a",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 123,
+      "cursor": 493,
+      "cycle": 2,
+      "optimizer_step": 124,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_12_9df955acb9",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 123,
+      "cursor": 494,
+      "cycle": 2,
+      "optimizer_step": 124,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_27_a9e3de1cd5",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 123,
+      "cursor": 495,
+      "cycle": 2,
+      "optimizer_step": 124,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_07_710f584e6c",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 124,
+      "cursor": 496,
+      "cycle": 2,
+      "optimizer_step": 125,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_10_f3d4eac8f8",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 124,
+      "cursor": 497,
+      "cycle": 2,
+      "optimizer_step": 125,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_01_1bbef901",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 124,
+      "cursor": 498,
+      "cycle": 2,
+      "optimizer_step": 125,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_26_950d7a63af",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 124,
+      "cursor": 499,
+      "cycle": 2,
+      "optimizer_step": 125,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_31_42c53db05c",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 125,
+      "cursor": 500,
+      "cycle": 2,
+      "optimizer_step": 126,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_29_204cdee069",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 125,
+      "cursor": 501,
+      "cycle": 2,
+      "optimizer_step": 126,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_09_420deac061",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 125,
+      "cursor": 502,
+      "cycle": 2,
+      "optimizer_step": 126,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_29_b657c37555",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 125,
+      "cursor": 503,
+      "cycle": 2,
+      "optimizer_step": 126,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_13_8f1747968d",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 126,
+      "cursor": 504,
+      "cycle": 2,
+      "optimizer_step": 127,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_23_8d9b4bc275",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 126,
+      "cursor": 505,
+      "cycle": 2,
+      "optimizer_step": 127,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_12_9dd6106519",
+      "sequence_tokens": 427
+    },
+    {
+      "accumulation_group": 126,
+      "cursor": 506,
+      "cycle": 2,
+      "optimizer_step": 127,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_20_39f43ffbb1",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 126,
+      "cursor": 507,
+      "cycle": 2,
+      "optimizer_step": 127,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_12_82ca969a0d",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 127,
+      "cursor": 508,
+      "cycle": 2,
+      "optimizer_step": 128,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_11_753cd60730",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 127,
+      "cursor": 509,
+      "cycle": 2,
+      "optimizer_step": 128,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_04_b4b97247c3",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 127,
+      "cursor": 510,
+      "cycle": 2,
+      "optimizer_step": 128,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_06_bd34b2ac40",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 127,
+      "cursor": 511,
+      "cycle": 2,
+      "optimizer_step": 128,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_21_ff85136843",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 128,
+      "cursor": 512,
+      "cycle": 2,
+      "optimizer_step": 129,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_12_29adab9df3",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 128,
+      "cursor": 513,
+      "cycle": 2,
+      "optimizer_step": 129,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_12_90985e2bf8",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 128,
+      "cursor": 514,
+      "cycle": 2,
+      "optimizer_step": 129,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_06_1348860f89",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 128,
+      "cursor": 515,
+      "cycle": 2,
+      "optimizer_step": 129,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_27_0f5d0d2769",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 129,
+      "cursor": 516,
+      "cycle": 2,
+      "optimizer_step": 130,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_02_7e04ce0d62",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 129,
+      "cursor": 517,
+      "cycle": 2,
+      "optimizer_step": 130,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_27_c1b7a0f3d3",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 129,
+      "cursor": 518,
+      "cycle": 2,
+      "optimizer_step": 130,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_05_9d995fbe79",
+      "sequence_tokens": 396
+    },
+    {
+      "accumulation_group": 129,
+      "cursor": 519,
+      "cycle": 2,
+      "optimizer_step": 130,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_12_e1483e7fba",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 130,
+      "cursor": 520,
+      "cycle": 2,
+      "optimizer_step": 131,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_01_46346fd5c3",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 130,
+      "cursor": 521,
+      "cycle": 2,
+      "optimizer_step": 131,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_11_4c924a209e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 130,
+      "cursor": 522,
+      "cycle": 2,
+      "optimizer_step": 131,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_01_964f1df268",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 130,
+      "cursor": 523,
+      "cycle": 2,
+      "optimizer_step": 131,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_14_bbd74590b6",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 131,
+      "cursor": 524,
+      "cycle": 2,
+      "optimizer_step": 132,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_05_76034fbfac",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 131,
+      "cursor": 525,
+      "cycle": 2,
+      "optimizer_step": 132,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_04_758e3fc758",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 131,
+      "cursor": 526,
+      "cycle": 2,
+      "optimizer_step": 132,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_03_41f5fc9e74",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 131,
+      "cursor": 527,
+      "cycle": 2,
+      "optimizer_step": 132,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_25_237a5a051c",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 132,
+      "cursor": 528,
+      "cycle": 2,
+      "optimizer_step": 133,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_23_33b31284a4",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 132,
+      "cursor": 529,
+      "cycle": 2,
+      "optimizer_step": 133,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_14_ae9fc598fc",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 132,
+      "cursor": 530,
+      "cycle": 2,
+      "optimizer_step": 133,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_09_d8e4b41247",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 132,
+      "cursor": 531,
+      "cycle": 2,
+      "optimizer_step": 133,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_27_38c7a2fcd3",
+      "sequence_tokens": 417
+    },
+    {
+      "accumulation_group": 133,
+      "cursor": 532,
+      "cycle": 2,
+      "optimizer_step": 134,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_15_c47f312cbb",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 133,
+      "cursor": 533,
+      "cycle": 2,
+      "optimizer_step": 134,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_14_ad758c0801",
+      "sequence_tokens": 389
+    },
+    {
+      "accumulation_group": 133,
+      "cursor": 534,
+      "cycle": 2,
+      "optimizer_step": 134,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_05_0847e52de1",
+      "sequence_tokens": 384
+    },
+    {
+      "accumulation_group": 133,
+      "cursor": 535,
+      "cycle": 2,
+      "optimizer_step": 134,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_29_9f794cb0c5",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 134,
+      "cursor": 536,
+      "cycle": 2,
+      "optimizer_step": 135,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_07_872c9e8da2",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 134,
+      "cursor": 537,
+      "cycle": 2,
+      "optimizer_step": 135,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_07_cbd18d1db7",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 134,
+      "cursor": 538,
+      "cycle": 2,
+      "optimizer_step": 135,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_29_e6c29ffa55",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 134,
+      "cursor": 539,
+      "cycle": 2,
+      "optimizer_step": 135,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_17_aa38dff205",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 135,
+      "cursor": 540,
+      "cycle": 2,
+      "optimizer_step": 136,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_12_9ec15e0911",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 135,
+      "cursor": 541,
+      "cycle": 2,
+      "optimizer_step": 136,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_19_fb3bfdbfce",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 135,
+      "cursor": 542,
+      "cycle": 2,
+      "optimizer_step": 136,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_02_dff8426bdc",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 135,
+      "cursor": 543,
+      "cycle": 2,
+      "optimizer_step": 136,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_20_316959e157",
+      "sequence_tokens": 384
+    },
+    {
+      "accumulation_group": 136,
+      "cursor": 544,
+      "cycle": 2,
+      "optimizer_step": 137,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_10_5dc1febb9c",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 136,
+      "cursor": 545,
+      "cycle": 2,
+      "optimizer_step": 137,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_10_980f5d138b",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 136,
+      "cursor": 546,
+      "cycle": 2,
+      "optimizer_step": 137,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_03_54df2f9b7c",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 136,
+      "cursor": 547,
+      "cycle": 2,
+      "optimizer_step": 137,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_24_ec06ba64b3",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 137,
+      "cursor": 548,
+      "cycle": 2,
+      "optimizer_step": 138,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_06_366825db97",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 137,
+      "cursor": 549,
+      "cycle": 2,
+      "optimizer_step": 138,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_15_9ee7ac6314",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 137,
+      "cursor": 550,
+      "cycle": 2,
+      "optimizer_step": 138,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_28_85c7d0fda1",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 137,
+      "cursor": 551,
+      "cycle": 2,
+      "optimizer_step": 138,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_03_7fd282d59f",
+      "sequence_tokens": 430
+    },
+    {
+      "accumulation_group": 138,
+      "cursor": 552,
+      "cycle": 2,
+      "optimizer_step": 139,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_11_6f9d73e142",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 138,
+      "cursor": 553,
+      "cycle": 2,
+      "optimizer_step": 139,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_06_f804b451fd",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 138,
+      "cursor": 554,
+      "cycle": 2,
+      "optimizer_step": 139,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_13_0fdb93c746",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 138,
+      "cursor": 555,
+      "cycle": 2,
+      "optimizer_step": 139,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_18_e22b07ffe2",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 139,
+      "cursor": 556,
+      "cycle": 2,
+      "optimizer_step": 140,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_11_349a80c9ef",
+      "sequence_tokens": 429
+    },
+    {
+      "accumulation_group": 139,
+      "cursor": 557,
+      "cycle": 2,
+      "optimizer_step": 140,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_07_37a7122349",
+      "sequence_tokens": 428
+    },
+    {
+      "accumulation_group": 139,
+      "cursor": 558,
+      "cycle": 2,
+      "optimizer_step": 140,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_03_cf2a5b46e6",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 139,
+      "cursor": 559,
+      "cycle": 2,
+      "optimizer_step": 140,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_00_2430896543",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 140,
+      "cursor": 560,
+      "cycle": 2,
+      "optimizer_step": 141,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_18_eaef486753",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 140,
+      "cursor": 561,
+      "cycle": 2,
+      "optimizer_step": 141,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_13_6551924cdf",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 140,
+      "cursor": 562,
+      "cycle": 2,
+      "optimizer_step": 141,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_15_3c110ddb9a",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 140,
+      "cursor": 563,
+      "cycle": 2,
+      "optimizer_step": 141,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_08_4c6b1205d9",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 141,
+      "cursor": 564,
+      "cycle": 2,
+      "optimizer_step": 142,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_07_372e5eca98",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 141,
+      "cursor": 565,
+      "cycle": 2,
+      "optimizer_step": 142,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_08_db78d6ea99",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 141,
+      "cursor": 566,
+      "cycle": 2,
+      "optimizer_step": 142,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_00_599638a4ac",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 141,
+      "cursor": 567,
+      "cycle": 2,
+      "optimizer_step": 142,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_00_a3b0a8cba3",
+      "sequence_tokens": 417
+    },
+    {
+      "accumulation_group": 142,
+      "cursor": 568,
+      "cycle": 2,
+      "optimizer_step": 143,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_expansion_15_651dbeabd5",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 142,
+      "cursor": 569,
+      "cycle": 2,
+      "optimizer_step": 143,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_25_032ca764b8",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 142,
+      "cursor": 570,
+      "cycle": 2,
+      "optimizer_step": 143,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_01_67ba808f2f",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 142,
+      "cursor": 571,
+      "cycle": 2,
+      "optimizer_step": 143,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_04_95cc20bab8",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 143,
+      "cursor": 572,
+      "cycle": 2,
+      "optimizer_step": 144,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_31_78713cb44a",
+      "sequence_tokens": 408
+    },
+    {
+      "accumulation_group": 143,
+      "cursor": 573,
+      "cycle": 2,
+      "optimizer_step": 144,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_12_764b5d4b85",
+      "sequence_tokens": 385
+    },
+    {
+      "accumulation_group": 143,
+      "cursor": 574,
+      "cycle": 2,
+      "optimizer_step": 144,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_17_3371b8a704",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 143,
+      "cursor": 575,
+      "cycle": 2,
+      "optimizer_step": 144,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_21_fd799d0674",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 144,
+      "cursor": 576,
+      "cycle": 2,
+      "optimizer_step": 145,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_expansion_14_bd6fd1f979",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 144,
+      "cursor": 577,
+      "cycle": 2,
+      "optimizer_step": 145,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_12_2aa39d0750",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 144,
+      "cursor": 578,
+      "cycle": 2,
+      "optimizer_step": 145,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_initial_28_e8ff8935d8",
+      "sequence_tokens": 391
+    },
+    {
+      "accumulation_group": 144,
+      "cursor": 579,
+      "cycle": 2,
+      "optimizer_step": 145,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_29_53b6e550b8",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 145,
+      "cursor": 580,
+      "cycle": 2,
+      "optimizer_step": 146,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_02_41b6c88da7",
+      "sequence_tokens": 423
+    },
+    {
+      "accumulation_group": 145,
+      "cursor": 581,
+      "cycle": 2,
+      "optimizer_step": 146,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_13_6b4b8934e6",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 145,
+      "cursor": 582,
+      "cycle": 2,
+      "optimizer_step": 146,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_initial_20_9b4c2fa76e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 145,
+      "cursor": 583,
+      "cycle": 2,
+      "optimizer_step": 146,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_08_5ebe27b133",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 146,
+      "cursor": 584,
+      "cycle": 2,
+      "optimizer_step": 147,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_24_6866b2c434",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 146,
+      "cursor": 585,
+      "cycle": 2,
+      "optimizer_step": 147,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_09_f93f01db07",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 146,
+      "cursor": 586,
+      "cycle": 2,
+      "optimizer_step": 147,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_26_ad1befb483",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 146,
+      "cursor": 587,
+      "cycle": 2,
+      "optimizer_step": 147,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_14_982595736c",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 147,
+      "cursor": 588,
+      "cycle": 2,
+      "optimizer_step": 148,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_07_ef455f8998",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 147,
+      "cursor": 589,
+      "cycle": 2,
+      "optimizer_step": 148,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_expansion_12_4c86367f5d",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 147,
+      "cursor": 590,
+      "cycle": 2,
+      "optimizer_step": 148,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_04_c242cc0e",
+      "sequence_tokens": 414
+    },
+    {
+      "accumulation_group": 147,
+      "cursor": 591,
+      "cycle": 2,
+      "optimizer_step": 148,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_10_2f2e42053f",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 148,
+      "cursor": 592,
+      "cycle": 2,
+      "optimizer_step": 149,
+      "record_id": "matched_synthetic_opsroute_v010_refund_unauthorized_requester_expansion_01_0a6190a057",
+      "sequence_tokens": 388
+    },
+    {
+      "accumulation_group": 148,
+      "cursor": 593,
+      "cycle": 2,
+      "optimizer_step": 149,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_15_fb8daa1ff5",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 148,
+      "cursor": 594,
+      "cycle": 2,
+      "optimizer_step": 149,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_10_15ee17d3ef",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 148,
+      "cursor": 595,
+      "cycle": 2,
+      "optimizer_step": 149,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_08_94e9beabec",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 149,
+      "cursor": 596,
+      "cycle": 2,
+      "optimizer_step": 150,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_12_40480ba865",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 149,
+      "cursor": 597,
+      "cycle": 2,
+      "optimizer_step": 150,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_19_3a0a74b9e7",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 149,
+      "cursor": 598,
+      "cycle": 2,
+      "optimizer_step": 150,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_15_bfae73d130",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 149,
+      "cursor": 599,
+      "cycle": 2,
+      "optimizer_step": 150,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_16_04fe8bd510",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 150,
+      "cursor": 600,
+      "cycle": 2,
+      "optimizer_step": 151,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_07_d92be7fc7f",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 150,
+      "cursor": 601,
+      "cycle": 2,
+      "optimizer_step": 151,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_12_63b2ab7b10",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 150,
+      "cursor": 602,
+      "cycle": 2,
+      "optimizer_step": 151,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_07_d3c2cb18cc",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 150,
+      "cursor": 603,
+      "cycle": 2,
+      "optimizer_step": 151,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_28_f60756b0ec",
+      "sequence_tokens": 397
+    },
+    {
+      "accumulation_group": 151,
+      "cursor": 604,
+      "cycle": 2,
+      "optimizer_step": 152,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_16_ce828f059d",
+      "sequence_tokens": 396
+    },
+    {
+      "accumulation_group": 151,
+      "cursor": 605,
+      "cycle": 2,
+      "optimizer_step": 152,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_expansion_15_a0cc858657",
+      "sequence_tokens": 403
+    },
+    {
+      "accumulation_group": 151,
+      "cursor": 606,
+      "cycle": 2,
+      "optimizer_step": 152,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_00_c7ffbca3fb",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 151,
+      "cursor": 607,
+      "cycle": 2,
+      "optimizer_step": 152,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_18_65d1cd63ef",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 152,
+      "cursor": 608,
+      "cycle": 2,
+      "optimizer_step": 153,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_expansion_07_76476950d0",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 152,
+      "cursor": 609,
+      "cycle": 2,
+      "optimizer_step": 153,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_12_aee9b490ed",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 152,
+      "cursor": 610,
+      "cycle": 2,
+      "optimizer_step": 153,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_22_208292ec19",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 152,
+      "cursor": 611,
+      "cycle": 2,
+      "optimizer_step": 153,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_26_a9382c4dc0",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 153,
+      "cursor": 612,
+      "cycle": 2,
+      "optimizer_step": 154,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_14_49e1d994c7",
+      "sequence_tokens": 394
+    },
+    {
+      "accumulation_group": 153,
+      "cursor": 613,
+      "cycle": 2,
+      "optimizer_step": 154,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_12_bd8c52579e",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 153,
+      "cursor": 614,
+      "cycle": 2,
+      "optimizer_step": 154,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_30_7d4493701f",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 153,
+      "cursor": 615,
+      "cycle": 2,
+      "optimizer_step": 154,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_expansion_15_54c5ad7c30",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 154,
+      "cursor": 616,
+      "cycle": 2,
+      "optimizer_step": 155,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_17_19d019f624",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 154,
+      "cursor": 617,
+      "cycle": 2,
+      "optimizer_step": 155,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_expansion_04_6b00770097",
+      "sequence_tokens": 420
+    },
+    {
+      "accumulation_group": 154,
+      "cursor": 618,
+      "cycle": 2,
+      "optimizer_step": 155,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_11_9acc15ed7c",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 154,
+      "cursor": 619,
+      "cycle": 2,
+      "optimizer_step": 155,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_11_e1c7f3adc5",
+      "sequence_tokens": 397
+    },
+    {
+      "accumulation_group": 155,
+      "cursor": 620,
+      "cycle": 2,
+      "optimizer_step": 156,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_18_4689f6decd",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 155,
+      "cursor": 621,
+      "cycle": 2,
+      "optimizer_step": 156,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_12_2580af31c3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 155,
+      "cursor": 622,
+      "cycle": 2,
+      "optimizer_step": 156,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_22_e83324e911",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 155,
+      "cursor": 623,
+      "cycle": 2,
+      "optimizer_step": 156,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_25_6049820df8",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 156,
+      "cursor": 624,
+      "cycle": 2,
+      "optimizer_step": 157,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_expansion_11_12b358778e",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 156,
+      "cursor": 625,
+      "cycle": 2,
+      "optimizer_step": 157,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_04_f4b8364463",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 156,
+      "cursor": 626,
+      "cycle": 2,
+      "optimizer_step": 157,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_06_d0038128c6",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 156,
+      "cursor": 627,
+      "cycle": 2,
+      "optimizer_step": 157,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_07_a349ac9879",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 157,
+      "cursor": 628,
+      "cycle": 2,
+      "optimizer_step": 158,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_auto_refund_initial_07_212f6cd2b2",
+      "sequence_tokens": 418
+    },
+    {
+      "accumulation_group": 157,
+      "cursor": 629,
+      "cycle": 2,
+      "optimizer_step": 158,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_22_5f04fd0998",
+      "sequence_tokens": 383
+    },
+    {
+      "accumulation_group": 157,
+      "cursor": 630,
+      "cycle": 2,
+      "optimizer_step": 158,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_22_94cbff1c1b",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 157,
+      "cursor": 631,
+      "cycle": 2,
+      "optimizer_step": 158,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_01_49ab20faac",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 158,
+      "cursor": 632,
+      "cycle": 2,
+      "optimizer_step": 159,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_16_d7a7a7fd89",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 158,
+      "cursor": 633,
+      "cycle": 2,
+      "optimizer_step": 159,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_02_2dc1c3e0c5",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 158,
+      "cursor": 634,
+      "cycle": 2,
+      "optimizer_step": 159,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_06_a045c7ae13",
+      "sequence_tokens": 422
+    },
+    {
+      "accumulation_group": 158,
+      "cursor": 635,
+      "cycle": 2,
+      "optimizer_step": 159,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_expansion_03_735783ca14",
+      "sequence_tokens": 406
+    },
+    {
+      "accumulation_group": 159,
+      "cursor": 636,
+      "cycle": 2,
+      "optimizer_step": 160,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_expansion_12_a6e1055f1c",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 159,
+      "cursor": 637,
+      "cycle": 2,
+      "optimizer_step": 160,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_expansion_14_267426afad",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 159,
+      "cursor": 638,
+      "cycle": 2,
+      "optimizer_step": 160,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_03_f1839039cb",
+      "sequence_tokens": 421
+    },
+    {
+      "accumulation_group": 159,
+      "cursor": 639,
+      "cycle": 2,
+      "optimizer_step": 160,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_03_8742806278",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 160,
+      "cursor": 640,
+      "cycle": 2,
+      "optimizer_step": 161,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_ineligible_retention_initial_18_833915cfa3",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 160,
+      "cursor": 641,
+      "cycle": 2,
+      "optimizer_step": 161,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_19_b72f980341",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 160,
+      "cursor": 642,
+      "cycle": 2,
+      "optimizer_step": 161,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_expansion_11_62fe37dc97",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 160,
+      "cursor": 643,
+      "cycle": 2,
+      "optimizer_step": 161,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_01_eeab968019",
+      "sequence_tokens": 380
+    },
+    {
+      "accumulation_group": 161,
+      "cursor": 644,
+      "cycle": 2,
+      "optimizer_step": 162,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_01_451616eb2a",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 161,
+      "cursor": 645,
+      "cycle": 2,
+      "optimizer_step": 162,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_26_bd322e4073",
+      "sequence_tokens": 419
+    },
+    {
+      "accumulation_group": 161,
+      "cursor": 646,
+      "cycle": 2,
+      "optimizer_step": 162,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_initial_13_0bc376ae25",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 161,
+      "cursor": 647,
+      "cycle": 2,
+      "optimizer_step": 162,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_pause_expansion_01_9ee32aca42",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 162,
+      "cursor": 648,
+      "cycle": 2,
+      "optimizer_step": 163,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_22_3574ea372f",
+      "sequence_tokens": 415
+    },
+    {
+      "accumulation_group": 162,
+      "cursor": 649,
+      "cycle": 2,
+      "optimizer_step": 163,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_expansion_09_2a710a1dda",
+      "sequence_tokens": 405
+    },
+    {
+      "accumulation_group": 162,
+      "cursor": 650,
+      "cycle": 2,
+      "optimizer_step": 163,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_retention_initial_09_1976eac141",
+      "sequence_tokens": 426
+    },
+    {
+      "accumulation_group": 162,
+      "cursor": 651,
+      "cycle": 2,
+      "optimizer_step": 163,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_29_09ec1f7e3a",
+      "sequence_tokens": 392
+    },
+    {
+      "accumulation_group": 163,
+      "cursor": 652,
+      "cycle": 2,
+      "optimizer_step": 164,
+      "record_id": "matched_synthetic_opsroute_v010_refund_duplicate_approval_expansion_02_f6c5d5668a",
+      "sequence_tokens": 411
+    },
+    {
+      "accumulation_group": 163,
+      "cursor": 653,
+      "cycle": 2,
+      "optimizer_step": 164,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_12_29af0ec1",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 163,
+      "cursor": 654,
+      "cycle": 2,
+      "optimizer_step": 164,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_26_2e6b4c63c6",
+      "sequence_tokens": 393
+    },
+    {
+      "accumulation_group": 163,
+      "cursor": 655,
+      "cycle": 2,
+      "optimizer_step": 164,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_15_924d337ba1",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 164,
+      "cursor": 656,
+      "cycle": 2,
+      "optimizer_step": 165,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_26_62e160a8f4",
+      "sequence_tokens": 407
+    },
+    {
+      "accumulation_group": 164,
+      "cursor": 657,
+      "cycle": 2,
+      "optimizer_step": 165,
+      "record_id": "matched_synthetic_opsroute_v010_refund_fraud_review_initial_28_ecc7a96b5e",
+      "sequence_tokens": 425
+    },
+    {
+      "accumulation_group": 164,
+      "cursor": 658,
+      "cycle": 2,
+      "optimizer_step": 165,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_12_1ccc2b22e1",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 164,
+      "cursor": 659,
+      "cycle": 2,
+      "optimizer_step": 165,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_18_27d9852161",
+      "sequence_tokens": 390
+    },
+    {
+      "accumulation_group": 165,
+      "cursor": 660,
+      "cycle": 2,
+      "optimizer_step": 166,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_unauthorized_requester_initial_21_411cb19353",
+      "sequence_tokens": 401
+    },
+    {
+      "accumulation_group": 165,
+      "cursor": 661,
+      "cycle": 2,
+      "optimizer_step": 166,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_no_subscription_request_initial_02_fdd1122f3f",
+      "sequence_tokens": 404
+    },
+    {
+      "accumulation_group": 165,
+      "cursor": 662,
+      "cycle": 2,
+      "optimizer_step": 166,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_confirmation_required_initial_25_5d62ee78c9",
+      "sequence_tokens": 409
+    },
+    {
+      "accumulation_group": 165,
+      "cursor": 663,
+      "cycle": 2,
+      "optimizer_step": 166,
+      "record_id": "matched_synthetic_opsroute_v010_refund_no_refund_request_initial_28_74e4cf016b",
+      "sequence_tokens": 399
+    },
+    {
+      "accumulation_group": 166,
+      "cursor": 664,
+      "cycle": 2,
+      "optimizer_step": 167,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_00_a3fc39fe",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 166,
+      "cursor": 665,
+      "cycle": 2,
+      "optimizer_step": 167,
+      "record_id": "matched_synthetic_opsroute_v010_refund_incomplete_evidence_initial_27_dec61ccac5",
+      "sequence_tokens": 395
+    },
+    {
+      "accumulation_group": 166,
+      "cursor": 666,
+      "cycle": 2,
+      "optimizer_step": 167,
+      "record_id": "matched_synthetic_opsroute_v010_refund_pending_payment_initial_23_f91abdfe03",
+      "sequence_tokens": 387
+    },
+    {
+      "accumulation_group": 166,
+      "cursor": 667,
+      "cycle": 2,
+      "optimizer_step": 167,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_eligible_cancellation_initial_20_6497a0092e",
+      "sequence_tokens": 416
+    },
+    {
+      "accumulation_group": 167,
+      "cursor": 668,
+      "cycle": 2,
+      "optimizer_step": 168,
+      "record_id": "matched_synthetic_opsroute_v010_subscription_cancellation_approval_initial_21_2133735256",
+      "sequence_tokens": 413
+    },
+    {
+      "accumulation_group": 167,
+      "cursor": 669,
+      "cycle": 2,
+      "optimizer_step": 168,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_09_0eee0b95",
+      "sequence_tokens": 410
+    },
+    {
+      "accumulation_group": 167,
+      "cursor": 670,
+      "cycle": 2,
+      "optimizer_step": 168,
+      "record_id": "opsroute_v010_refund_duplicate_auto_refund_08_37aacfc9",
+      "sequence_tokens": 402
+    },
+    {
+      "accumulation_group": 167,
+      "cursor": 671,
+      "cycle": 2,
+      "optimizer_step": 168,
+      "record_id": "matched_synthetic_opsroute_v010_refund_expired_window_initial_28_2854f11380",
+      "sequence_tokens": 386
+    }
+  ],
+  "namespace": "phase3b-hybrid-schedule-v0.1",
+  "optimizer_steps": 168,
+  "order_sha256": "d5c9290f80ce0d4cca42ba26521dd729dee85f11367aabf19c177571abe9508d",
+  "policy_type": "frozen-record-order-v0.1",
+  "processed_tokens": 272568,
+  "residual_tokens": 75,
+  "schedule_id": "schedule-d5c9290f80ce0d4c",
+  "schema_version": "inheritbench.training-schedule.v0.2",
+  "seed": 20260714,
+  "warmup_steps": 9
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "execute"
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "arguments": {
+            "additionalProperties": false,
+            "properties": {
+              "purchase_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "purchase_id"
+            ],
+            "type": "object"
+          },
+          "tool": {
+            "const": "approve_purchase"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "request_approval"
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "arguments": {
+            "additionalProperties": false,
+            "properties": {
+              "amount_minor": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "purchase_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "purchase_id",
+              "amount_minor"
+            ],
+            "type": "object"
+          },
+          "tool": {
+            "const": "request_manager_approval"
+          }
+        }
+      }
+    }
+  ],
+  "type": "object"
+}

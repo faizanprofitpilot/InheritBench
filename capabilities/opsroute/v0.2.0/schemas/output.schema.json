@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approval_required": {
+      "type": "boolean"
+    },
+    "arguments": {
+      "type": "object"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "policy_code": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "reason_code": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "tool": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "decision",
+    "tool",
+    "arguments",
+    "approval_required",
+    "policy_code",
+    "reason_code"
+  ],
+  "type": "object"
+}

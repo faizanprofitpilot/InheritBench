@@ -86,6 +86,48 @@ rule version. Timestamps and local paths do not affect it.
 The downloadable browser report and receipt follow the same deterministic specification, but browser
 downloads are session outputs rather than repository scientific artifacts.
 
+## Pack-Driven Execution Output
+
+The v0.2 local engine writes a separate task-neutral run:
+
+```text
+runs/<run-id>/
+├── plan.json
+├── plan.sha256
+├── input_manifest.json
+├── run.json
+├── execution_log.jsonl
+├── evaluation_summary.json
+├── readiness_report.json
+├── residual_failures.json
+├── label_accounting.json
+├── compute_accounting.json
+├── adapter_reference.json
+├── evidence_manifest.json
+├── web_bundle.json
+├── stages/
+├── checkpoints/
+├── successor/
+└── replays/<replay-id>/
+    ├── replay_manifest.json
+    └── replay_receipt.json
+```
+
+`plan.json` binds the exact pack validation hash, every authorized pack file, source and target
+config hashes, registry identities, optional source-adapter hash, strategy profile, device, seed,
+operation order, and deterministic run ID.
+
+Each immutable `stages/<sequence>-<stage>/stage.json` stores its parent hash and normalized payload.
+The only mutable pointer is `runs/.active/<run-id>/state.json`; it is removed after finalization.
+
+For anchored transfer, `ANCHORS_REQUIRED` is a valid persisted intervention. `export-web` can
+produce an intervention bundle before training. Added anchors are immutable under `interventions/`,
+and resume reuses completed teacher work.
+
+`succession replay --run` validates planned input and adapter hashes, rebuilds summaries, residuals,
+and readiness from saved atomic records, compares the result with stored files, and writes a fresh
+receipt without loading model weights.
+
 ## Verification Boundary
 
 The product aggregates already validated atomic records. It does not claim to rerun the historical

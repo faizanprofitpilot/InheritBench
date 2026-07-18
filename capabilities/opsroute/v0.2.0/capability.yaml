@@ -1,0 +1,122 @@
+pack_schema_version: inheritbench.capability-pack.v0.2
+capability:
+  id: opsroute
+  version: 0.1.0
+  status: REFERENCE
+  profile: structured-json-v0.1
+paths:
+  input_schema: schemas/input.schema.json
+  output_schema: schemas/output.schema.json
+  cross_field_schema: schemas/cross-field.schema.json
+  evaluator: evaluator.yaml
+  system_prompt: prompts/system.txt
+  safety_rules: rules/safety.yaml
+  readiness_rules: rules/readiness.yaml
+  decision_vocabulary: vocabularies/decisions.json
+  tool_vocabulary: vocabularies/tools.json
+  reason_code_vocabulary: vocabularies/reason_codes.json
+  policy_code_vocabulary: vocabularies/policy_codes.json
+  source_gate_inputs: data/source_gate.inputs.jsonl
+  direct_train: data/direct_train.jsonl
+  transfer_pool_inputs: data/transfer_pool.inputs.jsonl
+  validation_inputs: data/validation.inputs.jsonl
+  confirmatory_inputs: data/confirmatory.inputs.jsonl
+  adversarial_inputs: data/adversarial.inputs.jsonl
+  source_gate_oracle: oracles/source_gate.jsonl
+  transfer_pool_oracle: oracles/transfer_pool.jsonl
+  validation_oracle: oracles/validation.jsonl
+  confirmatory_oracle: oracles/confirmatory.jsonl
+  adversarial_oracle: oracles/adversarial.jsonl
+  anchors: anchors/anchors.jsonl
+prompt:
+  version: 0.1.0
+  maximum_prompt_tokens: 1024
+  maximum_new_tokens: 256
+  input_rendering: canonical-json
+models:
+  source_registry_ids:
+  - qwen2.5-0.5b-instruct-v0.1
+  target_registry_ids:
+  - olmo2-1b-instruct-v0.1
+  default_source_adapter_path: adapters/day2/source_adapted_full-8242bcea6f327545
+  default_source_adapter_sha256: 7c42077722e4c673ddcade7a8783e8e7eb4c40347f676b3e8199c3c96727deab
+strategies:
+- strategy_id: direct-target-lora-v0.1
+  minimum_examples_per_group: 14
+  selection_namespace: opsroute-direct-product-v0.1
+  checkpoint_validation_surface: source_gate
+  checkpoint_policy:
+    policy_id: opsroute-historical-day2-v0.1
+    require_complete_validation: true
+    maximum_blocker_safety_findings: 0
+    ranking:
+    - semantic_rate
+    - historical_strict_rate
+    - minimum_group_semantic_rate
+    - mean_field_correctness
+    - validation_loss_ascending
+    - optimizer_step_ascending
+  schedule_policy:
+    type: frozen-record-order-v0.1
+    artifact: schedules/direct-reference.json
+    sha256: f8dea1116659720bd4d0217ac183e0e5686140a5a8a5ecbb4418c921ce2c9094
+  training:
+    target_processed_tokens: 272643
+    batch_size: 1
+    gradient_accumulation_steps: 4
+    gradient_clip_norm: 1.0
+    learning_rate: 0.0002
+    betas: &id001
+    - 0.9
+    - 0.999
+    epsilon: 1.0e-08
+    weight_decay: 0.01
+    warmup_ratio: 0.05
+    maximum_sequence_length: 1024
+    lora_rank: 8
+    lora_alpha: 16
+    lora_dropout: 0.05
+    checkpoint_fractions: &id002
+    - 0.3333333333333333
+    - 0.6666666666666666
+    - 1.0
+- strategy_id: anchored-behavioral-transfer-v0.1
+  minimum_examples_per_group: 14
+  selection_namespace: opsroute-anchored-product-v0.1
+  teacher_selection_namespace: phase3b-synthetic-selection-v0.1
+  anchor_selection_namespace: phase3b-anchor-selection-v0.1
+  teacher_outputs_artifact: supervision/frozen_teacher_outputs.jsonl
+  teacher_outputs_sha256: 265217d9c215d5b9d9a337272e17f4013dfe212426028609f1d88cc194a921fc
+  checkpoint_validation_surface: validation
+  checkpoint_policy:
+    policy_id: opsroute-historical-phase3b-v0.1
+    require_complete_validation: true
+    maximum_blocker_safety_findings: 0
+    ranking:
+    - semantic_rate
+    - historical_strict_rate
+    - minimum_group_semantic_rate
+    - mean_field_correctness
+    - validation_loss_ascending
+    - optimizer_step_ascending
+  schedule_policy:
+    type: frozen-record-order-v0.1
+    artifact: schedules/anchored-reference.json
+    sha256: 7295b0d8af447c7f6cbf30302300c9c10665623bc10150deffee12da8c888f0b
+  training:
+    target_processed_tokens: 272568
+    batch_size: 1
+    gradient_accumulation_steps: 4
+    gradient_clip_norm: 1.0
+    learning_rate: 0.0002
+    betas: *id001
+    epsilon: 1.0e-08
+    weight_decay: 0.01
+    warmup_ratio: 0.05
+    maximum_sequence_length: 1024
+    lora_rank: 8
+    lora_alpha: 16
+    lora_dropout: 0.05
+    checkpoint_fractions: *id002
+coverage_group_key: group
+seed: 20260714

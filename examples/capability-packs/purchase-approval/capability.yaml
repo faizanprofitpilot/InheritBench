@@ -1,0 +1,101 @@
+pack_schema_version: inheritbench.capability-pack.v0.2
+capability:
+  id: purchase-approval
+  version: 0.1.0
+  status: FIXTURE_ONLY
+  profile: structured-json-v0.1
+paths:
+  input_schema: schemas/input.schema.json
+  output_schema: schemas/output.schema.json
+  cross_field_schema: schemas/cross-field.schema.json
+  evaluator: evaluator.yaml
+  system_prompt: prompts/system.txt
+  safety_rules: rules/safety.yaml
+  readiness_rules: rules/readiness.yaml
+  decision_vocabulary: vocabularies/decisions.json
+  tool_vocabulary: vocabularies/tools.json
+  reason_code_vocabulary: vocabularies/reason_codes.json
+  policy_code_vocabulary: vocabularies/policy_codes.json
+  source_gate_inputs: data/source_gate.inputs.jsonl
+  direct_train: data/direct_train.jsonl
+  transfer_pool_inputs: data/transfer_pool.inputs.jsonl
+  validation_inputs: data/validation.inputs.jsonl
+  confirmatory_inputs: data/confirmatory.inputs.jsonl
+  adversarial_inputs: data/adversarial.inputs.jsonl
+  source_gate_oracle: oracles/source_gate.jsonl
+  transfer_pool_oracle: oracles/transfer_pool.jsonl
+  validation_oracle: oracles/validation.jsonl
+  confirmatory_oracle: oracles/confirmatory.jsonl
+  adversarial_oracle: oracles/adversarial.jsonl
+  anchors: anchors/anchors.jsonl
+prompt:
+  version: 0.1.0
+  maximum_prompt_tokens: 1024
+  maximum_new_tokens: 128
+  input_rendering: canonical-json
+models:
+  source_registry_ids:
+  - fake-source-v0.1
+  target_registry_ids:
+  - fake-target-v0.1
+  default_source_adapter_path: null
+  default_source_adapter_sha256: null
+strategies:
+- strategy_id: direct-target-lora-v0.1
+  minimum_examples_per_group: 2
+  selection_namespace: purchase-direct-v0.1
+  checkpoint_policy:
+    policy_id: purchase-direct-v0.1
+    require_complete_validation: true
+    maximum_blocker_safety_findings: 0
+    ranking:
+    - semantic_rate
+    - historical_strict_rate
+    - minimum_group_semantic_rate
+    - mean_field_correctness
+    - validation_loss_ascending
+    - optimizer_step_ascending
+  schedule_policy:
+    type: deterministic-hash-v0.1
+    namespace: purchase-direct-schedule-v0.1
+  training: &id001
+    target_processed_tokens: 512
+    batch_size: 1
+    gradient_accumulation_steps: 2
+    gradient_clip_norm: 1.0
+    learning_rate: 0.0002
+    betas:
+    - 0.9
+    - 0.999
+    epsilon: 1.0e-08
+    weight_decay: 0.01
+    warmup_ratio: 0.05
+    maximum_sequence_length: 1024
+    lora_rank: 8
+    lora_alpha: 16
+    lora_dropout: 0.05
+    checkpoint_fractions:
+    - 0.5
+    - 1.0
+- strategy_id: anchored-behavioral-transfer-v0.1
+  minimum_examples_per_group: 2
+  selection_namespace: purchase-anchored-v0.1
+  teacher_selection_namespace: purchase-teacher-selection-v0.1
+  anchor_selection_namespace: purchase-anchor-selection-v0.1
+  checkpoint_policy:
+    policy_id: purchase-anchored-v0.1
+    require_complete_validation: true
+    maximum_blocker_safety_findings: 0
+    ranking:
+    - semantic_rate
+    - historical_strict_rate
+    - minimum_group_semantic_rate
+    - mean_field_correctness
+    - validation_loss_ascending
+    - optimizer_step_ascending
+  schedule_policy:
+    type: deterministic-hash-v0.1
+    namespace: purchase-anchored-schedule-v0.1
+  training: *id001
+coverage_group_key: group
+seed: 20260714

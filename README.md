@@ -1,16 +1,17 @@
 # InheritBench
 
+**Models are becoming fungible. Learned capabilities are not.**
+
 **Move the model. Keep the capability.**
 
-InheritBench is a model-succession developer tool for AI teams replacing one model family with
-another. It measures what learned operational capability breaks, reconstructs the capability on the
-successor, evaluates clean and adversarial readiness, exports the recovered adapter, and produces an
-evidence-backed migration decision.
+InheritBench transfers a learned operational capability from one model family to its successor,
+then verifies what was recovered, what still fails, and whether the migration is ready to ship.
 
 > **Product status:** `PHASE5_PRODUCT_COMPLETED_LOCAL_ONLY / DEPLOYMENT_REQUIRED`
 >
 > **Live demo:** deployment pending
 > **Published case:** Qwen → OLMo on OpsRoute `v0.1.0`
+> **Local engine:** pack-driven succession `v0.2`
 
 **Start here:** [five-minute judge guide](docs/JUDGE_REPLAY.md) ·
 [recovered successor adapter](https://github.com/faizanprofitpilot/InheritBench/releases/download/phase3b-anchored-v0.1.0/target_hybrid_anchored_distillation_10-7461072c83b4dcde.zip) ·
@@ -26,15 +27,56 @@ one operational question:
 > capability be recovered with a deliverable successor artifact and auditable migration guidance?
 
 ```text
-Configure succession
-→ Verify capability break
-→ Reconstruct successor
+Define the capability contract
+→ Measure what the untouched successor lost
+→ Generate source-derived transfer supervision
+→ Train and select the recovered successor
 → Evaluate clean and adversarial readiness
-→ Export adapter and migration decision
+→ Export the adapter, evidence, and migration decision
 ```
 
-The packaged benchmark is proof of the product, not a claim of universal transfer. InheritBench
-currently supports one completed configuration and fails closed outside that scope.
+A succession run ends with one practical outcome: pass the successor, deploy it conditionally with
+known safeguards, or block the migration. InheritBench is not a leaderboard or a generic
+distillation script. It begins with a learned operational capability and ends with a trained
+successor artifact, residual-risk evidence, complete data and compute accounting, and an explicit
+migration decision.
+
+The Qwen → OLMo case is proof that the system has performed this job once, not a claim of universal
+transfer. The published hosted case remains frozen at v0.1. The local v0.2 engine now executes
+developer-owned structured-JSON capability packs against an explicit Qwen/OLMo model registry and
+fails closed outside that supported architecture boundary.
+
+The latest v0.2 audit now separates historical reconstruction from prospective reproducibility.
+The historical Day 2 initialization remains unreconstructible, but an independently executed
+seeded direct protocol reproduced all 168 telemetry steps, checkpoints, raw predictions, evaluator
+facts, readiness, and adapter bytes exactly. That permitted one real generic anchored execution.
+The engine independently derived the ten-anchor deficit from 768 frozen teacher outputs, selected
+ten anchors from the bound 14-record pool, resumed without repeating teacher filtering, trained,
+evaluated, exported, reloaded, and replayed the successor. It honestly remained
+`MIGRATION_BLOCKED`; the published Phase 3B successor and all historical evidence remain unchanged.
+
+A later evidence-only audit proved that the four-seed recovery test had treated finite pre-clip
+gradient norms as numerical failures after clipping. The implementation guard was corrected without
+changing supervision, schedule, optimizer, checkpoints, validation rules, readiness rules, or the
+sealed final surfaces. All four frozen seeds were restarted under the repaired guard and completed.
+Validation-only ranking selected candidate 0; its fresh OLMo reload then ran the sealed final
+surfaces exactly once.
+
+That repaired local product proof reached 64/64 clean operational correctness, 63/64 exact
+full-contract fidelity, 64/64 historical strict validity, and zero clean blocker safety findings.
+It reached 20/32 adversarial operational and exact correctness with one unauthorized action and one
+approval bypass on the same record, producing
+`GENERIC_ANCHORED_RECOVERY_CONFIRMED / CONDITIONAL_PASS`. The proof consumes verified frozen teacher
+outputs and does not prove live generic teacher generation. It is local integration evidence; the
+immutable Phase 3B result and published adapter remain the authoritative public scientific result.
+
+## Why InheritBench Is Different
+
+| System | Starts with | Ends with |
+|---|---|---|
+| General benchmark | A broad model comparison | Aggregate model scores |
+| Distillation script | A teacher and student | A trained student checkpoint |
+| InheritBench | A learned operational capability that must survive replacement | A recovered successor adapter, residual-risk report, and pass/condition/block decision |
 
 ## First Supported Succession
 
@@ -55,10 +97,37 @@ distribution was designed from that same 224-label corpus. This is not ten-shot,
 purely synthetic transfer. See [Anchored Behavioral Transfer](docs/METHOD_ANCHORED_TRANSFER.md) for
 the complete accounting.
 
+## How InheritBench Works
+
+### Capability layer
+
+The capability pack defines the operational contract, policy vocabulary, scenario families,
+evaluator, safety conditions, and held-out surfaces that must survive the migration.
+
+### Succession layer
+
+InheritBench measures the untouched target, constructs transfer supervision from the adapted
+source, trains a fresh successor, selects a safety-eligible checkpoint, and exports the resulting
+LoRA adapter. The published v0.1 path remains a preregistered phased workflow. The isolated v0.2
+product engine adds deterministic planning, direct LoRA and anchored transfer strategies,
+intervention/resume, model-free replay, and local browser inspection without importing historical
+OpsRoute implementation code.
+
+### Assurance layer
+
+Deterministic evaluators preserve raw outputs, compute clean and adversarial results, classify
+residual failures, apply readiness rules, and bind conclusions to content-addressed evidence.
+GPT-5.6 explains the resulting migration tradeoffs but does not own scores or safety gates.
+
 ## Result at a Glance
 
 Clean confirmatory and adversarial evidence are separate evaluation surfaces and are never blended
 into one score.
+
+Untouched OLMo could not perform the capability. After succession, the recovered OLMo made every
+measured clean operational decision and action correctly, with 100% strict contract validity and
+zero clean safety violations. Nine policy-code aliases reduced exact full-contract fidelity to
+85.9%.
 
 | Surface and system | Semantic exactness | Strict validity | Operational or safety result |
 |---|---:|---:|---|
@@ -115,6 +184,23 @@ Preflight checks local model dependencies, pinned revisions, accelerator, disk, 
 data, and preregistration evidence. It prints the real phased command sequence; it does **not** train
 a model or present a generalized one-command executor.
 
+### Pack-driven local execution
+
+```bash
+uv run inheritbench capability validate capabilities/opsroute/v0.2.0
+uv run inheritbench succession plan \
+  --pack capabilities/opsroute/v0.2.0 \
+  --source-config configs/models/source.yaml \
+  --target-config configs/models/target.yaml \
+  --strategy direct-target-lora-v0.1 \
+  --output runs
+uv run inheritbench succession run --plan runs/<run-id> --device mps
+```
+
+The exact model registry, capability contract, stage graph, anchor intervention, output bundle, and
+real integration evidence are documented in
+[Pack-Driven Succession v0.2](docs/PACK_DRIVEN_SUCCESSION.md).
+
 ## Product Modes
 
 | Mode | What it does | Hardware | Network | Output |
@@ -151,26 +237,35 @@ is documented in [Succession Outputs](docs/SUCCESSION_OUTPUTS.md).
 
 ### Codex collaboration
 
-Codex accelerated repository implementation across experiment scaffolding, deterministic OpsRoute
-generation, model loading and inference, LoRA training orchestration, strict schemas, atomic
-no-overwrite artifacts, leakage checks, replay systems, Phase 3B protocol implementation, Phase 4
-evidence construction, the memo validator, static projection, browser verification, the succession
-replay engines, CLI, frontend workflow, tests, CI, and documentation.
+Codex served as the primary implementation partner across the scientific engine and product
+surface. The founder defined the problem, protocols, intervention boundaries, scientific claims,
+and product decisions; Codex helped translate those decisions into tested code, immutable artifacts,
+replay systems, and the final execution cockpit.
+
+That implementation work covered experiment and training infrastructure; integrity, leakage, and
+replay machinery; the evidence graph and GPT-5.6 validator; the CLI and browser succession workflow;
+and tests, CI, and documentation.
 
 The founder set the scientific and product agenda: choosing model succession as the problem,
 separating exact contract fidelity from operational correctness, preserving negative experiments,
 forbidding parser repair and result substitution, freezing bounded protocols, selecting anchored
 transfer after the teacher blind spot was diagnosed, requiring direct and upstream label accounting,
 separating clean and adversarial surfaces, retaining `CONDITIONAL_PASS`, rejecting fake browser
-training, and turning the completed case into a verified developer workflow.
+training, and turning the completed case into a testable succession workflow.
 
 **TODO BEFORE SUBMISSION: Add primary Codex `/feedback` Session ID.**
 
 ### GPT-5.6 Sol
 
+GPT-5.6 is not a decorative chatbot inside InheritBench. It is a constrained reasoning layer that
+converts validated evidence into a human-readable, constraint-aware migration recommendation.
+
 Deterministic evaluators produce metrics and safety facts. Deterministic readiness rules determine
 eligibility. GPT-5.6 Sol explains the constraint-aware migration recommendation from a validated,
 content-addressed evidence graph, and a claim validator checks the memo before publication.
+
+**Deterministic evaluators own the facts. Deterministic gates own eligibility. GPT-5.6 explains the
+decision.**
 
 The authoritative memo used one initial structured-output request and one permitted repair. GPT-5.6
 did not calculate benchmark metrics, replace safety gates, alter evidence, or independently prove
@@ -202,9 +297,9 @@ build uses Node and committed web data only; Python remains the scientific proje
 verification layer. See [Product Architecture](docs/PRODUCT_ARCHITECTURE.md) and
 [Capability Packs](docs/CAPABILITY_PACKS.md).
 
-## Scientific Case
+## Proof: Qwen → OLMo
 
-The frozen OpsRoute case records the full succession path:
+The frozen OpsRoute case proves the system has completed the full succession job:
 
 1. **Capability break:** untouched OLMo produced 0/64 semantic-exact and 0/64 strict-valid outputs
    on the clean confirmatory surface.
@@ -306,10 +401,13 @@ placeholder in [Judge Replay](docs/JUDGE_REPLAY.md).
 
 ## Limitations
 
-- One pinned Qwen → OLMo model pair and one OpsRoute capability pack are supported.
+- Real execution supports only the explicit pinned Qwen → OLMo registry; arbitrary Transformers
+  architectures remain unsupported.
+- OpsRoute is the only real reference pack. Purchase Approval is fixture-only and carries no model
+  transfer claim.
 - One deterministic seed demonstrates reproducibility, not statistical significance.
 - Hosted mode does not train or run inference.
-- Arbitrary models, capability uploads, and generalized one-command training are unsupported.
+- Hosted capability uploads and hosted training are unsupported.
 - Exact full-contract fidelity differs from operational correctness.
 - Adversarial robustness remains limited; the readiness decision is conditional.
 - The method directly consumes 10 original anchors and depends upstream on a teacher trained with
@@ -317,14 +415,26 @@ placeholder in [Judge Replay](docs/JUDGE_REPLAY.md).
 - Confirmatory and adversarial surfaces are small and case-specific.
 - Results do not establish universal capability transfer or production safety.
 
-Long-term, InheritBench aims to provide a model-agnostic succession process: recover the capability
-when possible, and condition or block migration when evidence is insufficient.
+## Where It Goes Next
+
+The next milestone is broader executed evidence, not more orchestration scaffolding:
+
+1. run the same OpsRoute succession against a second target model family with minimal pair-specific
+   changes;
+2. promote a second, materially different capability pack from fixture-only to real execution;
+3. extend the explicit model registry with another tested architecture;
+4. test repeated seeds, larger held-out surfaces, and additional accelerator backends;
+5. deploy and verify the static product publicly.
+
+The long-term goal is a model-agnostic succession process: recover the capability when possible,
+and condition or block migration when evidence is insufficient.
 
 ## Documentation
 
 - [Five-minute judge replay](docs/JUDGE_REPLAY.md)
 - [Product architecture](docs/PRODUCT_ARCHITECTURE.md)
 - [Capability packs](docs/CAPABILITY_PACKS.md)
+- [Pack-driven succession v0.2](docs/PACK_DRIVEN_SUCCESSION.md)
 - [Succession output contract](docs/SUCCESSION_OUTPUTS.md)
 - [Deployment checklist](docs/DEPLOYMENT_CHECKLIST.md)
 - [Demo script](docs/DEMO_SCRIPT.md)

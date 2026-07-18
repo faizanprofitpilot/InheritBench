@@ -30,6 +30,9 @@ artifacts/phase3b/publications/**/*.zip
 artifacts/phase4/active/
 artifacts/phase5/active/
 artifacts/phase5/publications/**/*.zip
+runs/
+artifacts/protocol-amendments/
+diagnostics/
 
 # Static web build outputs
 node_modules/

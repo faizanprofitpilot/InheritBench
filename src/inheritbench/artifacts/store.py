@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import shutil
 import tempfile
+from collections.abc import Callable
 from pathlib import Path
 
 from inheritbench.artifacts.hashing import sha256_bytes, sha256_file
@@ -39,6 +40,24 @@ def write_atomic_bundle(output_root: Path, bundle_id: str, files: dict[str, byte
         _fsync_tree(staging)
         os.replace(staging, destination)
         _fsync_directory(output_root)
+    except BaseException:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
+    return destination
+
+
+def write_atomic_directory(destination: Path, build: Callable[[Path], None]) -> Path:
+    """Build and atomically finalize an arbitrary no-overwrite directory."""
+
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.exists():
+        raise FileExistsError(f"artifact directory already exists: {destination}")
+    staging = Path(tempfile.mkdtemp(prefix=f".tmp-{destination.name}-", dir=destination.parent))
+    try:
+        build(staging)
+        _fsync_tree(staging)
+        os.replace(staging, destination)
+        _fsync_directory(destination.parent)
     except BaseException:
         shutil.rmtree(staging, ignore_errors=True)
         raise

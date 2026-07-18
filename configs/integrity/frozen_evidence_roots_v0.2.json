@@ -1,0 +1,91 @@
+{
+  "content_sha256": "e97e33202c361b52564c34ad5bc70008983eb2f55d5b6d5e38e14be2f6d4f4e1",
+  "roots": {
+    "adapters/day2/source_adapted_full-8242bcea6f327545": {
+      "bytes": 4357116,
+      "file_count": 4,
+      "root_sha256": "41981edbf576b5dfd043c4f5cf1d39710166e7e2033325631ab089cd53a173b8"
+    },
+    "adapters/day2/target_full_retrain-fd1966615c845dab": {
+      "bytes": 8412171,
+      "file_count": 4,
+      "root_sha256": "9b5130a7977b42df0dd56a3248baf9a016fec7d225435c9e79c854c9820893e0"
+    },
+    "adapters/day2/target_limited_retrain_10pct-c2e5ec18f58ba342": {
+      "bytes": 8412207,
+      "file_count": 4,
+      "root_sha256": "f4cf4d4349851d3b135a56a1c1464cd63020673f89b93da0522fa832775974f2"
+    },
+    "adapters/phase3b/target_hybrid_anchored_distillation_10-7461072c83b4dcde": {
+      "bytes": 8412839,
+      "file_count": 4,
+      "root_sha256": "fe27ccf34e3ea55f2c7be09eeef20d3666fe3caa36b785edbc29c0941d0acf08"
+    },
+    "artifacts/blocker-resolution": {
+      "bytes": 463468,
+      "file_count": 47,
+      "root_sha256": "1ad78c7251b0c858ff6f17ac342de55894381aeb418f5467ecffffcea15e5774"
+    },
+    "artifacts/day1": {
+      "bytes": 10372,
+      "file_count": 2,
+      "root_sha256": "2725cd047a27578b4d0bd4e15234c33e5a171ba3b96b083c59aefbd1552e6f54"
+    },
+    "artifacts/day2": {
+      "bytes": 24077264,
+      "file_count": 107,
+      "root_sha256": "13e44bdff279cbe71db102fcc09a6aa0595005a9c5a3395469c300e4e2920e78"
+    },
+    "artifacts/day3": {
+      "bytes": 8691183,
+      "file_count": 32,
+      "root_sha256": "d66ab27e21d63ac6ea83c488d0d79436209810fddfb5f56d1f4e18a4a2890053"
+    },
+    "artifacts/day3-matched": {
+      "bytes": 10138610,
+      "file_count": 52,
+      "root_sha256": "f021c4ccc9edd03206141f2cab351a09c80bd1ae1e5a892fc23b609a68afdee8"
+    },
+    "artifacts/inspections": {
+      "bytes": 33755,
+      "file_count": 3,
+      "root_sha256": "32f389f55dea328a7efdfa80a13795761509fa9e3746833c96d2064466c5e818"
+    },
+    "artifacts/phase3b": {
+      "bytes": 14445080,
+      "file_count": 90,
+      "root_sha256": "c2093cecf7a619f9976029cdc69305aafd529dcc08b4d83d88d8b5e392d854bf"
+    },
+    "artifacts/phase4": {
+      "bytes": 2675672,
+      "file_count": 68,
+      "root_sha256": "e3d985bba2c458e2a8ef5f6ac8aa855ba0c4f7e31a92ae340e6411460dbda499"
+    },
+    "artifacts/phase5": {
+      "bytes": 353213,
+      "file_count": 9,
+      "root_sha256": "e5e7abac54dc6754a7e768c6b87ca147f6c07deb2977db51611c1524e3eebffc"
+    },
+    "artifacts/replays": {
+      "bytes": 65974,
+      "file_count": 6,
+      "root_sha256": "a4454093c6e25c6f851284486cd04882e59d2c28be4bf99d313f3617f02cd257"
+    },
+    "artifacts/runs": {
+      "bytes": 146831,
+      "file_count": 12,
+      "root_sha256": "e42e17bd51fe08dfb5d290aa145f285a736c49b0cbddeb9ddd8cdcb126678e1e"
+    },
+    "artifacts/showcase": {
+      "bytes": 749540,
+      "file_count": 28,
+      "root_sha256": "4061cb226c4032775092884d2e2a37fec4d5bb2f158f168101b4ee6fadd16104"
+    },
+    "data/opsroute/v0.1.0": {
+      "bytes": 610716,
+      "file_count": 6,
+      "root_sha256": "9a7c47ffcafd0635b9ddc2d02cffa724b6cb0dd9dd45a64b1be53e4ec2f4726e"
+    }
+  },
+  "schema_version": "inheritbench.frozen-evidence-roots.v0.2"
+}

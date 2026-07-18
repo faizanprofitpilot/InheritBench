@@ -1,0 +1,30 @@
+schema_version: model-config-v0.1
+internal_name: fake_source_v0_1
+role: source
+selection_status: accepted
+model_id: inheritbench/fake-source
+revision: "0000000000000000000000000000000000000000"
+expected_architecture_class: FakeSourceForCausalLM
+model_family: fake-source
+tokenizer_id: inheritbench/fake-source
+tokenizer_revision: "0000000000000000000000000000000000000000"
+trust_remote_code: false
+chat_template_strategy: native
+explicit_chat_template_path: null
+requested_dtype: float32
+device_policy: cpu
+quantization: none
+attention_implementation: eager
+maximum_sequence_length: 1024
+special_tokens:
+  pad_strategy: tokenizer_default
+  use_default_bos: true
+  use_default_eos: true
+  add_new_tokens: false
+license:
+  spdx: Apache-2.0
+  review_status: reviewed
+  access: public
+  source_url: https://example.invalid/inheritbench/fake-source
+intended_lora_target_modules: [q_proj, k_proj, v_proj, o_proj]
+lora_target_status: inspected

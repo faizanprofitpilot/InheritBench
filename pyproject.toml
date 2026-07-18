@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "inheritbench"
 version = "0.1.0"
-description = "A model-succession developer tool for recovering and verifying operational capabilities."
+description = "Transfer learned capabilities to replacement models and determine migration readiness."
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
 license = { file = "LICENSE" }
@@ -18,10 +18,12 @@ dependencies = [
   "rich>=13.9,<15",
   "structlog>=24.4,<26",
   "psutil>=6,<8",
+  "jsonschema>=4.23,<5",
 ]
 
 [project.optional-dependencies]
 model = [
+  "numpy>=1.26,<3",
   "torch>=2.5,<3",
   "transformers>=4.48,<5",
   "accelerate>=1.2,<2",
@@ -66,7 +68,17 @@ mypy_path = "src"
 warn_unreachable = true
 
 [[tool.mypy.overrides]]
-module = ["yaml", "transformers.*", "torch.*", "peft.*", "modal.*", "openai.*", "psutil"]
+module = [
+  "yaml",
+  "transformers.*",
+  "torch.*",
+  "peft.*",
+  "modal.*",
+  "openai.*",
+  "psutil",
+  "jsonschema",
+  "jsonschema.*",
+]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
@@ -74,5 +86,6 @@ addopts = "-ra --strict-config --strict-markers"
 testpaths = ["tests"]
 markers = [
   "model_smoke: opt-in tests that download or load real model weights",
+  "product_smoke: opt-in real product integration tests",
   "modal: opt-in tests that invoke Modal",
 ]

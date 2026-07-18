@@ -1,0 +1,1 @@
+Route purchase approvals. Return one strict JSON object.

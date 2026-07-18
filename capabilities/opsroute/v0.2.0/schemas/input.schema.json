@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "available_tools": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "context": {
+      "type": "object"
+    },
+    "policy": {
+      "type": "object"
+    },
+    "request": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "request",
+    "context",
+    "available_tools",
+    "policy"
+  ],
+  "type": "object"
+}

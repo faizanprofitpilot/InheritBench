@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 from typing import Annotated, Literal, cast
@@ -17,7 +18,10 @@ from inheritbench.artifacts.store import write_atomic_file
 from inheritbench.config import load_model_config, load_task_config
 from inheritbench.logging import configure_logging
 
-app = typer.Typer(no_args_is_help=True, help="Reproducible model-succession benchmark core.")
+app = typer.Typer(
+    no_args_is_help=True,
+    help="Transfer learned capabilities to replacement models and verify migration readiness.",
+)
 data_app = typer.Typer(no_args_is_help=True, help="Deterministic dataset commands.")
 compute_app = typer.Typer(no_args_is_help=True, help="Bounded compute checks.")
 day2_app = typer.Typer(no_args_is_help=True, help="Day 2 learned-capability workflow.")
@@ -38,9 +42,13 @@ phase5_app = typer.Typer(
     no_args_is_help=True,
     help="Phase 5 static model-succession product workflow.",
 )
+capability_app = typer.Typer(
+    no_args_is_help=True,
+    help="Create, validate, and inspect developer-owned capability packs.",
+)
 succession_app = typer.Typer(
     no_args_is_help=True,
-    help="Verified replay and honest full-workflow preflight commands.",
+    help="Plan, execute, intervene in, inspect, and replay capability succession.",
 )
 app.add_typer(data_app, name="data")
 app.add_typer(compute_app, name="compute")
@@ -50,28 +58,400 @@ app.add_typer(day3_matched_app, name="day3-matched")
 app.add_typer(phase3b_app, name="phase3b")
 app.add_typer(phase4_app, name="phase4")
 app.add_typer(phase5_app, name="phase5")
+app.add_typer(capability_app, name="capability")
 app.add_typer(succession_app, name="succession")
 console = Console(stderr=True)
 
 
+@capability_app.command("init")
+def capability_init_command(
+    name: Annotated[str, typer.Argument()],
+    output: Annotated[Path, typer.Option()],
+    template: Annotated[Literal["structured-json-v0.1"], typer.Option()] = "structured-json-v0.1",
+) -> None:
+    del template
+    from inheritbench.capability.scaffold import scaffold_capability
+
+    try:
+        path = scaffold_capability(name, output)
+        console.print(f"[green]Capability scaffold created[/green] {path}")
+    except (ValueError, FileExistsError) as exc:
+        console.print(f"[red]Capability initialization failed:[/red] {exc}")
+        raise typer.Exit(code=2 if isinstance(exc, ValueError) else 3) from exc
+
+
+@capability_app.command("validate")
+def capability_validate_command(
+    pack: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+    json_output: Annotated[
+        Path | None, typer.Option("--json", help="Write JSON to PATH, or use '-' for stdout.")
+    ] = None,
+) -> None:
+    from inheritbench.capability.loader import load_capability_pack
+
+    try:
+        loaded = load_capability_pack(pack, allow_fixture=True)
+        report = loaded.validation
+        _emit_json_or_status(report, json_output, "Capability pack validated")
+    except (ValueError, FileNotFoundError, ValidationError) as exc:
+        console.print(f"[red]Capability validation failed:[/red] {exc}")
+        raise typer.Exit(code=2) from exc
+
+
+@capability_app.command("inspect")
+def capability_inspect_command(
+    pack: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+    json_output: Annotated[
+        Path | None, typer.Option("--json", help="Write JSON to PATH, or use '-' for stdout.")
+    ] = None,
+) -> None:
+    from inheritbench.capability.loader import load_capability_pack
+
+    try:
+        loaded = load_capability_pack(pack, allow_fixture=True)
+        payload = {
+            "capability": loaded.config.capability.model_dump(mode="json"),
+            "models": loaded.config.models.model_dump(mode="json"),
+            "strategies": [item.model_dump(mode="json") for item in loaded.config.strategies],
+            "record_counts": loaded.validation.record_counts,
+            "validation_sha256": loaded.validation.content_sha256,
+        }
+        _emit_json_or_status(payload, json_output, "Capability pack")
+    except (ValueError, FileNotFoundError, ValidationError) as exc:
+        console.print(f"[red]Capability inspection failed:[/red] {exc}")
+        raise typer.Exit(code=2) from exc
+
+
 @succession_app.command("replay")
 def succession_replay_command(
-    case_id: Annotated[
-        Literal["opsroute-qwen-olmo"], typer.Option("--case")
-    ] = "opsroute-qwen-olmo",
+    case_id: Annotated[Literal["opsroute-qwen-olmo"] | None, typer.Option("--case")] = None,
+    run: Annotated[Path | None, typer.Option(exists=True, file_okay=False)] = None,
     profile: Annotated[
         Literal["maximum-confirmed-capability"], typer.Option()
     ] = "maximum-confirmed-capability",
     output: Annotated[Path, typer.Option()] = Path("runs"),
 ) -> None:
-    del case_id, profile
-    from inheritbench.succession.replay import write_replay_output
+    if run is not None and case_id is not None:
+        console.print("[red]Generic --run and published --case modes are mutually exclusive.[/red]")
+        raise typer.Exit(code=2)
+    try:
+        if run is not None:
+            from inheritbench.orchestration.replay import replay_run
+
+            path = replay_run(run, output_root=output)
+            console.print(f"[green]SUCCESSION_REPLAY_PASSED[/green] {path}")
+            _raise_if_migration_blocked(run)
+        else:
+            del case_id, profile
+            from inheritbench.succession.replay import write_replay_output
+
+            path = write_replay_output(output)
+            console.print(f"[green]VERIFIED_REPLAY_COMPLETED[/green] {path}")
+    except FileExistsError as exc:
+        console.print(f"[red]Succession replay conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError) as exc:
+        console.print(f"[red]Succession replay failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+
+
+@succession_app.command("plan")
+def succession_plan_command(
+    pack: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    source_config: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    target_config: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    strategy: Annotated[
+        Literal["direct-target-lora-v0.1", "anchored-behavioral-transfer-v0.1"],
+        typer.Option(),
+    ],
+    output: Annotated[Path, typer.Option()],
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()] = "mps",
+    allow_fixture: Annotated[bool, typer.Option(hidden=True)] = False,
+    product_integration: Annotated[bool, typer.Option(hidden=True)] = False,
+    product_run_kind: Annotated[
+        Literal[
+            "STANDARD",
+            "PRODUCT_INTEGRATION_RUN",
+            "PRODUCT_PARITY_RUN",
+            "PRODUCT_REFERENCE_SUCCESSION",
+        ]
+        | None,
+        typer.Option(hidden=True),
+    ] = None,
+    protocol_amendment: Annotated[
+        Path | None,
+        typer.Option(exists=True, dir_okay=False, help="Bind a frozen protocol amendment."),
+    ] = None,
+    authorized_anchor_pool: Annotated[
+        Path | None,
+        typer.Option(exists=True, dir_okay=False, help="Bind the complete authorized pool."),
+    ] = None,
+    replication_group: Annotated[str | None, typer.Option(hidden=True)] = None,
+    replication_index: Annotated[int, typer.Option(min=0, hidden=True)] = 0,
+) -> None:
+    from inheritbench.orchestration.planner import create_plan
 
     try:
-        path = write_replay_output(output)
-        console.print(f"[green]VERIFIED_REPLAY_COMPLETED[/green] {path}")
-    except (ValueError, FileNotFoundError, FileExistsError) as exc:
-        console.print(f"[red]Succession replay failed:[/red] {exc}")
+        path = create_plan(
+            pack_root=pack,
+            source_config_path=source_config,
+            target_config_path=target_config,
+            strategy_id=strategy,
+            output_root=output,
+            device=device,
+            product_run_kind=(
+                product_run_kind
+                or ("PRODUCT_INTEGRATION_RUN" if product_integration else "STANDARD")
+            ),
+            allow_fixture=allow_fixture,
+            protocol_amendment_path=protocol_amendment,
+            authorized_anchor_pool_path=authorized_anchor_pool,
+            replication_group_id=replication_group,
+            replication_index=replication_index,
+        )
+        console.print(f"[green]Succession plan frozen[/green] {path}")
+    except FileExistsError as exc:
+        console.print(f"[red]Succession plan conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError, ValidationError) as exc:
+        console.print(f"[red]Succession planning failed:[/red] {exc}")
+        raise typer.Exit(code=2) from exc
+
+
+@succession_app.command("run")
+def succession_run_command(
+    plan: Annotated[Path, typer.Option(exists=True)],
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()],
+) -> None:
+    from inheritbench.orchestration.executor import execute_run
+    from inheritbench.orchestration.storage import load_plan
+
+    run_directory = _run_directory(plan)
+    frozen = load_plan(run_directory)
+    if frozen.device != device:
+        console.print("[red]Requested device differs from the immutable plan.[/red]")
+        raise typer.Exit(code=2)
+    try:
+        path = execute_run(run_directory)
+        console.print(f"[green]Succession run finalized[/green] {path}")
+        if frozen.product_run_kind != "PRODUCT_PARITY_RUN":
+            _raise_if_migration_blocked(path)
+    except FileExistsError as exc:
+        console.print(f"[red]Succession run conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError, PermissionError) as exc:
+        console.print(f"[red]Succession run failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+    except RuntimeError as exc:
+        console.print(f"[red]Succession execution failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+
+
+@succession_app.command("resume")
+def succession_resume_command(
+    run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    device: Annotated[Literal["mps", "cpu", "cuda"] | None, typer.Option()] = None,
+) -> None:
+    from inheritbench.orchestration.executor import resume_run
+    from inheritbench.orchestration.storage import load_plan
+
+    try:
+        frozen = load_plan(run)
+        if device is not None and frozen.device != device:
+            raise typer.BadParameter("requested device differs from the immutable plan")
+        path = resume_run(run)
+        console.print(f"[green]Succession run resumed[/green] {path}")
+        _raise_if_migration_blocked(path)
+    except FileExistsError as exc:
+        console.print(f"[red]Succession resume conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError, PermissionError, RuntimeError) as exc:
+        console.print(f"[red]Succession resume failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+
+
+@succession_app.command("freeze-seeded-amendment")
+def succession_freeze_seeded_amendment_command(
+    output: Annotated[Path, typer.Option()] = Path(
+        "artifacts/protocol-amendments/seeded-reference-succession-v0.1.json"
+    ),
+) -> None:
+    from inheritbench.reference_packs.protocol import freeze_seeded_reference_amendment
+
+    try:
+        path = freeze_seeded_reference_amendment(output)
+        console.print(f"[green]Seeded reference amendment frozen[/green] {path}")
+    except FileExistsError as exc:
+        console.print(f"[red]Protocol amendment conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError) as exc:
+        console.print(f"[red]Protocol amendment failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+
+
+@succession_app.command("replicate")
+def succession_replicate_command(
+    run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option()],
+    protocol_amendment: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    replication_group: Annotated[str, typer.Option()],
+    replication_index: Annotated[int, typer.Option(min=1)] = 1,
+) -> None:
+    from inheritbench.orchestration.planner import replicate_plan
+
+    try:
+        path = replicate_plan(
+            reference_run=run,
+            output_root=output,
+            protocol_amendment_path=protocol_amendment,
+            replication_group_id=replication_group,
+            replication_index=replication_index,
+        )
+        console.print(f"[green]Independent seeded execution frozen[/green] {path}")
+    except FileExistsError as exc:
+        console.print(f"[red]Replication conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError, ValidationError) as exc:
+        console.print(f"[red]Replication planning failed:[/red] {exc}")
+        raise typer.Exit(code=2) from exc
+
+
+@succession_app.command("freeze-seeded-correction")
+def succession_freeze_seeded_correction_command(
+    output: Annotated[Path, typer.Option()] = Path(
+        "artifacts/protocol-amendments/"
+        "seeded-reference-succession-v0.1-implementation-correction.json"
+    ),
+    parent_amendment: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = Path(
+        "artifacts/protocol-amendments/seeded-reference-succession-v0.1.json"
+    ),
+) -> None:
+    from inheritbench.reference_packs.protocol import (
+        freeze_seeded_reference_implementation_correction,
+    )
+
+    try:
+        path = freeze_seeded_reference_implementation_correction(
+            output,
+            parent_amendment=parent_amendment,
+        )
+        console.print(f"[green]Seeded implementation correction frozen[/green] {path}")
+    except FileExistsError as exc:
+        console.print(f"[red]Implementation correction conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError) as exc:
+        console.print(f"[red]Implementation correction failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+
+
+@succession_app.command("verify-replication")
+def succession_verify_replication_command(
+    reference: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    candidate: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+) -> None:
+    from inheritbench.orchestration.reproducibility import verify_seeded_replication
+
+    try:
+        path = verify_seeded_replication(reference, candidate)
+        report = json.loads(path.read_text(encoding="utf-8"))
+        classification = str(report["classification"])
+        color = "green" if classification.endswith("CONFIRMED") else "red"
+        console.print(f"[{color}]{classification}[/{color}] {path}")
+        if classification != "SEEDED_PROTOCOL_REPRODUCIBILITY_CONFIRMED":
+            raise typer.Exit(code=1)
+    except FileExistsError as exc:
+        console.print(f"[red]Replication report conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError) as exc:
+        console.print(f"[red]Replication verification failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+
+
+@succession_app.command("finalize-reference")
+def succession_finalize_reference_command(
+    run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    direct_baseline: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    seeded_replication: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+) -> None:
+    from inheritbench.reference_packs.recovery import finalize_anchored_recovery
+
+    classification = ""
+    try:
+        path = finalize_anchored_recovery(
+            run,
+            direct_baseline_run=direct_baseline,
+            seeded_replication_run=seeded_replication,
+        )
+        report = json.loads(path.read_text(encoding="utf-8"))
+        classification = str(report["classification"])
+        color = "green" if classification.endswith("CONFIRMED") else "red"
+        console.print(f"[{color}]{classification}[/{color}] {path}")
+    except FileExistsError as exc:
+        console.print(f"[red]Reference finalization conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError, RuntimeError) as exc:
+        console.print(f"[red]Reference finalization failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+    if classification != "GENERIC_ANCHORED_RECOVERY_CONFIRMED":
+        raise typer.Exit(code=1)
+
+
+@succession_app.command("add-anchors")
+def succession_add_anchors_command(
+    run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    records: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+) -> None:
+    from inheritbench.orchestration.executor import add_anchors
+
+    try:
+        path = add_anchors(run, records)
+        console.print(f"[green]Anchor intervention persisted[/green] {path}")
+    except FileExistsError as exc:
+        console.print(f"[red]Anchor intervention already exists:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError) as exc:
+        console.print(f"[red]Anchor validation failed:[/red] {exc}")
+        raise typer.Exit(code=2) from exc
+
+
+@succession_app.command("inspect")
+def succession_inspect_command(
+    run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    json_output: Annotated[
+        Path | None, typer.Option("--json", help="Write JSON to PATH, or use '-' for stdout.")
+    ] = None,
+) -> None:
+    from inheritbench.orchestration.inspection import inspect_run
+
+    try:
+        _emit_json_or_status(inspect_run(run), json_output, "Succession run")
+    except (ValueError, FileNotFoundError, ValidationError) as exc:
+        console.print(f"[red]Succession inspection failed:[/red] {exc}")
+        raise typer.Exit(code=2) from exc
+
+
+@succession_app.command("export-web")
+def succession_export_web_command(
+    run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option()],
+) -> None:
+    from inheritbench.artifacts.store import write_atomic_file
+
+    source = run / "web_bundle.json"
+    try:
+        if source.is_file():
+            payload = source.read_bytes()
+        else:
+            from inheritbench.orchestration.inspection import build_intervention_web_bundle
+
+            payload = canonical_json_bytes(build_intervention_web_bundle(run)) + b"\n"
+        write_atomic_file(output, payload)
+        console.print(f"[green]Web bundle exported[/green] {output}")
+    except FileExistsError as exc:
+        console.print(f"[red]Web export path exists:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except ValueError as exc:
+        console.print(f"[red]Run has no exportable web bundle:[/red] {exc}")
         raise typer.Exit(code=1) from exc
 
 
@@ -107,6 +487,47 @@ def succession_preflight_command(
             raise typer.Exit(code=1)
     except (ValidationError, ValueError, FileNotFoundError) as exc:
         console.print(f"[red]Full-workflow preflight failed:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
+
+
+@app.command("succeed")
+def succeed_command(
+    pack: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    source_config: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    target_config: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    strategy: Annotated[
+        Literal["direct-target-lora-v0.1", "anchored-behavioral-transfer-v0.1"],
+        typer.Option(),
+    ],
+    device: Annotated[Literal["mps", "cpu", "cuda"], typer.Option()],
+    output: Annotated[Path, typer.Option()],
+    accept_plan: Annotated[bool, typer.Option()] = False,
+) -> None:
+    from inheritbench.orchestration.executor import execute_run
+    from inheritbench.orchestration.planner import create_plan
+
+    try:
+        run = create_plan(
+            pack_root=pack,
+            source_config_path=source_config,
+            target_config_path=target_config,
+            strategy_id=strategy,
+            output_root=output,
+            device=device,
+        )
+        if not accept_plan:
+            console.print(
+                f"[yellow]Plan frozen; rerun with --accept-plan to execute[/yellow] {run}"
+            )
+            return
+        execute_run(run)
+        console.print(f"[green]Succession completed[/green] {run}")
+        _raise_if_migration_blocked(run)
+    except FileExistsError as exc:
+        console.print(f"[red]Succession conflict:[/red] {exc}")
+        raise typer.Exit(code=3) from exc
+    except (ValueError, FileNotFoundError, PermissionError, RuntimeError) as exc:
+        console.print(f"[red]Succession failed:[/red] {exc}")
         raise typer.Exit(code=1) from exc
 
 
@@ -1529,6 +1950,42 @@ def day3_finalize_distribution_command(
 
     path = finalize_distribution(experiment)
     console.print(f"[green]distribution decision finalized[/green] {path}")
+
+
+def _emit_json_or_status(
+    value: object,
+    json_output: Path | None,
+    label: str,
+) -> None:
+    model_dump = getattr(value, "model_dump", None)
+    payload = model_dump(mode="json") if callable(model_dump) else value
+    if json_output is not None:
+        if str(json_output) == "-":
+            typer.echo(canonical_json(payload))
+        else:
+            write_atomic_file(json_output, canonical_json_bytes(payload) + b"\n")
+        return
+    console.print(f"[green]{label}[/green]")
+    console.print_json(data=payload)
+
+
+def _run_directory(plan: Path) -> Path:
+    resolved = plan.resolve()
+    if resolved.is_dir():
+        return resolved
+    if resolved.name != "plan.json":
+        raise typer.BadParameter("--plan must be a run directory or plan.json")
+    return resolved.parent
+
+
+def _raise_if_migration_blocked(run_directory: Path) -> None:
+    from inheritbench.orchestration.inspection import inspect_run
+
+    inspection = inspect_run(run_directory)
+    if inspection.readiness is not None and inspection.readiness["status"] == "MIGRATION_BLOCKED":
+        reason_codes = ", ".join(inspection.readiness["reason_codes"])
+        console.print(f"[red]MIGRATION_BLOCKED[/red] {reason_codes}")
+        raise typer.Exit(code=1)
 
 
 def _doctor_table(result: object) -> None:

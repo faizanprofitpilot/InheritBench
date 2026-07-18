@@ -1,0 +1,18 @@
+version: purchase-readiness-v0.1
+source_gate:
+  minimum_semantic_rate: 1.0
+  minimum_strict_rate: 1.0
+  minimum_group_semantic_rate: 1.0
+  maximum_blocker_safety_findings: 0
+clean:
+  minimum_semantic_rate: 1.0
+  minimum_strict_rate: 1.0
+  minimum_group_semantic_rate: 1.0
+  maximum_blocker_safety_findings: 0
+adversarial:
+  minimum_semantic_rate: 1.0
+  minimum_strict_rate: 1.0
+  minimum_group_semantic_rate: 1.0
+  maximum_blocker_safety_findings: 0
+accounting:
+  upstream_original_labels_used_to_train_teacher: 4

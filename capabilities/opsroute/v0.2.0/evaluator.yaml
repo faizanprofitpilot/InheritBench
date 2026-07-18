@@ -1,0 +1,42 @@
+schema_version: inheritbench.declarative-evaluator.v0.2
+strict_json: true
+whole_output_json_fence: true
+strict_requires_cross_field: true
+required_pointers:
+- /decision
+- /tool
+- /arguments
+- /approval_required
+- /policy_code
+- /reason_code
+ignored_pointers: []
+comparisons:
+- name: decision
+  pointer: /decision
+  mode: exact
+  semantic: true
+- name: tool
+  pointer: /tool
+  mode: exact
+  semantic: true
+- name: arguments
+  pointer: /arguments
+  mode: exact
+  semantic: true
+- name: approval_required
+  pointer: /approval_required
+  mode: exact
+  semantic: true
+- name: policy_code
+  pointer: /policy_code
+  mode: exact
+  semantic: true
+- name: reason_code
+  pointer: /reason_code
+  mode: exact
+  semantic: true
+controlled_vocabularies:
+  /decision: vocabularies/decisions.json
+  /tool: vocabularies/tools.json
+  /policy_code: vocabularies/policy_codes.json
+  /reason_code: vocabularies/reason_codes.json

@@ -1,23 +1,32 @@
 # Product Architecture
 
-InheritBench separates scientific execution from judge-facing verified replay. The static product
-does real integrity and readiness work without pretending to train or run a model in the browser.
+InheritBench is a model-succession system with three responsibilities: define the capability that
+must survive, rebuild it on a replacement model, and determine whether the recovered successor is
+ready to migrate. The Qwen → OLMo implementation performs that full workflow through the scientific
+layer and delivers a trained adapter plus a migration decision.
+
+The static product exposes the assurance layer for judge testing. It does real integrity and
+readiness work without pretending to train or run a model in the browser.
 
 ## Component Map
 
 ```text
-OpsRoute capability pack
-  ├── capability.yaml
-  ├── policy_registry.json
-  └── safety_rules.yaml
+Capability layer
+  └── OpsRoute capability pack
+      ├── capability.yaml
+      ├── policy_registry.json
+      └── safety_rules.yaml
             ↓
-Pinned model and method configs
+Succession layer
+  └── pinned model and method configs
             ↓
 Preregistered phased scientific workflow
             ↓
 Raw predictions + deterministic parser/metrics
             ↓
 Immutable artifacts + selected adapter + publication verification
+            ↓
+Assurance layer
             ↓
 Phase 4 evidence graph + validated GPT-5.6 memo
             ↓
@@ -33,6 +42,9 @@ CLI run bundle       Static web cockpit
 Python owns dataset generation, policies, model loading, training, checkpoint selection, evaluation,
 artifact finalization, replay, and the Phase 5 display projection. Historical scientific artifacts
 are immutable inputs to the product layer.
+
+This is the execution path that transferred OpsRoute from adapted Qwen to a fresh OLMo base. It is
+implemented as a preregistered phased workflow rather than a generalized one-command orchestrator.
 
 The executed workflow uses:
 
@@ -137,9 +149,64 @@ artifact discovery. Runtime requires only static site delivery.
 | Browser replay | Verify compact records and derive a product decision | Claim fresh training, inference, or scientific parser replay |
 | GPT analyst | Explain validated evidence | Determine benchmark values or safety eligibility |
 
+## Pack-Driven Local Engine
+
+v0.2 adds a second, isolated execution path for developer-owned packs:
+
+```text
+capability pack
+      ↓
+strict generic loader + declarative evaluator
+      ↓
+exact model registry
+      ↓
+content-addressed plan
+      ↓
+stage-scoped data broker
+      ↓
+direct LoRA or anchored transfer
+      ↓
+validation-only checkpoint choice
+      ↓
+exactly-once confirmatory + adversarial evaluation
+      ↓
+derived readiness + adapter export
+      ↓
+model-free replay + local browser bundle
+```
+
+The generic implementation lives in:
+
+- `inheritbench.capability`;
+- `inheritbench.model_adapters`;
+- `inheritbench.strategies`;
+- `inheritbench.orchestration`.
+
+An AST-based import-boundary test forbids these packages from importing OpsRoute, historical
+evaluation contracts, Day 2, Day 3, matched Day 3, Phase 3B, Phase 4, or Phase 5. OpsRoute projection
+is isolated in `inheritbench.reference_packs`, where historical types may be read but never changed.
+
+The model registry permits only exact supported identities. It owns revision matching, native
+tokenizer behavior, eager attention, sequence limits, dtype, and explicit LoRA module maps. A pack
+cannot turn an unknown model into a supported architecture.
+
+Mutable state is limited to `runs/.active/<run-id>`. Plans, stages, failures, interventions,
+completed runs, checkpoints, adapters, and replays use atomic no-overwrite storage. Interrupted
+training may resume only from a matching trainer-state checkpoint and immutable schedule.
+
+## Local Browser Boundary
+
+`/run/local/` accepts only a user-selected `web_bundle.json` of at most 5 MiB. Zod validates the
+generic finalized or intervention schema, Web Crypto verifies the content hash, and React renders
+stage history, readiness or `ANCHORS_REQUIRED`, residual evidence, accounting, and adapter lineage.
+
+The file stays in browser memory. There is no upload, API route, persistence, model execution, or
+external request. Raw outputs are escaped text. The existing published OpsRoute replay route remains
+unchanged.
+
 ## Extension Seams
 
-Future work may add capability packs, method registries, backend decisions, and generalized workflow
-orchestration. Those are explicit product extensions, not features of v0.1. An additional pack must
-define its own policy registry, safety rules, evidence surfaces, readiness contract, model support,
-and reproducibility gates before it can enter hosted replay.
+Future work may add tested model-registry entries, additional real capability packs, backend
+decisions, and hosted execution. Those are explicit product extensions, not implied by the v0.2
+pack abstraction. A new pack must still define schemas, vocabularies, safety rules, evidence
+surfaces, readiness, model support, and reproducibility gates before real execution.

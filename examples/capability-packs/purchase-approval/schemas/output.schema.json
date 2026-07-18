@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "arguments": {
+      "type": "object"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "policy_code": {
+      "type": "string"
+    },
+    "reason_code": {
+      "type": "string"
+    },
+    "tool": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "decision",
+    "tool",
+    "arguments",
+    "policy_code",
+    "reason_code"
+  ],
+  "type": "object"
+}

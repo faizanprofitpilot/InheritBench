@@ -25,9 +25,9 @@ licensed or original.
 
 **Narration:**
 
-> InheritBench is a model-succession developer tool. It measures the break, reconstructs the
-> capability on the successor, evaluates clean and adversarial readiness, exports the recovered
-> adapter, and produces an evidence-backed migration decision.
+> InheritBench transfers a learned operational capability from one model family to its successor.
+> It measures what the replacement lost, generates transfer supervision, trains and selects the
+> recovered successor, stress-tests the result, and delivers an adapter plus a migration decision.
 
 **Overlay:** `Move the model. Keep the capability.`
 
@@ -120,11 +120,39 @@ Do not say “100% semantic transfer” or “production safe.”
 
 **Narration:**
 
-> InheritBench turns model replacement into an auditable succession decision: recover the
-> capability when possible, and condition or block migration when the evidence is insufficient.
-> Move the model. Keep the capability.
+> The Qwen-to-OLMo case proves InheritBench has completed the succession job once. The browser makes
+> that result testable; the product is the system that rebuilt the capability, delivered the
+> successor, and honestly conditioned the migration. Move the model. Keep the capability.
 
 **Overlay:** `InheritBench · Move the model. Keep the capability.`
+
+## Optional Technical Appendix — Pack-Driven Local Run
+
+If time permits after the published-case replay, show:
+
+1. `capability validate` on the OpsRoute v0.2 reference pack.
+2. `succession inspect` on the local product-integration run.
+3. `/run/local/` verifying its exported `web_bundle.json`.
+4. The honest `MIGRATION_BLOCKED` result.
+
+Say:
+
+> The hosted case remains the immutable published result. Separately, the v0.2 local engine now runs
+> developer-owned packs through real source gating, target training, checkpoint selection,
+> evaluation, readiness, export, and replay. Its first direct-LoRA integration run was blocked by
+> the declared readiness rules, which is exactly what a migration tool should do.
+
+Do not compare the local integration score with the published Phase 3B score as if they were one
+benchmark result. The local run used known surfaces to test product integration.
+
+If showing the bounded multi-start bundle, say:
+
+> We froze four initialization seeds and new final surfaces before training. All four candidates
+> hit the unchanged numerical-instability guard before validation. InheritBench selected nothing,
+> kept the final sets sealed, and reported readiness as not run. A migration system must preserve
+> negative evidence instead of manufacturing a winner.
+
+Do not show a final score for this run; no final evaluation occurred.
 
 ## Recording Checklist
 

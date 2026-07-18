@@ -1,0 +1,7 @@
+[
+  "execute",
+  "request_approval",
+  "ask_clarification",
+  "refuse",
+  "no_action"
+]

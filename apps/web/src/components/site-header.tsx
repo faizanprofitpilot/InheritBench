@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 
 const links = [
   ["Run Replay", "/run/opsroute-qwen-olmo"],
+  ["Local Run", "/run/local"],
   ["Succession Case", "/lab/opsroute"],
   ["Recovery Paths", "/lab/opsroute/methods"],
   ["Failure Explorer", "/lab/opsroute/failures"],
