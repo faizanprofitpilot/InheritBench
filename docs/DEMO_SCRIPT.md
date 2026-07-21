@@ -1,168 +1,129 @@
 # Demo Script
 
-Target duration: **2 minutes 58 seconds**. Record the deployed static product after the deployment
-checklist passes. Until then, rehearse with the local static export.
+Target duration: **2 minutes 58 seconds**. Record the deployed static product only after the
+deployment checklist passes. Until then, rehearse with the local static export.
 
-Do not use copyrighted music. Prefer clear narration, captions, and subtle interface audio only when
-licensed or original.
+Use original or licensed media, clear narration, and captions. Do not imply that the browser trains
+or runs Qwen or OLMo.
 
-## 0:00–0:20 — Problem
+## 0:00–0:22 — Problem
 
-**Screen:** Landing hero, then the capability-break comparison.
-
-**Narration:**
-
-> AI teams replace models to reduce cost, self-host, or diversify infrastructure. But learned
-> operational behavior does not move with the model. In our published case, an adapted Qwen system
-> could route policy-bound actions, while untouched OLMo collapsed to zero exact and zero strict
-> outputs on the clean confirmatory surface.
-
-**Overlay:** `Model replacement can silently erase learned capability.`
-
-## 0:20–0:40 — Product
-
-**Screen:** Product workflow and supported configuration.
+**Screen:** Landing hero and replacement-risk panel.
 
 **Narration:**
 
-> InheritBench transfers a learned operational capability from one model family to its successor.
-> It measures what the replacement lost, generates transfer supervision, trains and selects the
-> recovered successor, stress-tests the result, and delivers an adapter plus a migration decision.
+> Companies replace models for cost, latency, licensing, or infrastructure reasons and can silently
+> lose behavior their application depends on. InheritBench finds what broke, helps recover it, and
+> proves whether the replacement is ready to ship.
 
-**Overlay:** `Move the model. Keep the capability.`
+**Overlay:** `Move the model. Keep the capability. Prove it survived.`
 
-## 0:40–1:10 — Configure and Preflight
+## 0:22–0:38 — Workflow
 
-**Screen:** `/run/opsroute-qwen-olmo/`, locked configuration, then preflight.
+**Screen:** Diagnose → Recover → Assure.
+
+**Narration:**
+
+> Diagnose the capability loss, recover the missing behavior under control, and apply explicit
+> evaluation and safety rules before migration.
+
+## 0:38–1:08 — Run the Assurance Lab
+
+**Screen:** `/sandbox/`.
 
 **Actions:**
 
-1. Point to OpsRoute `v0.1.0`, adapted Qwen, pinned OLMo, and Anchored Behavioral Transfer.
-2. Point to `214 teacher outputs + 10 original anchors`.
-3. Select the preflight action.
+1. Point to Choose → Run → Review.
+2. Select **Untouched OLMo** and run the diagnostic.
+3. Point out that no readiness verdict is issued.
+4. Select **Anchored successor** and run the evaluation.
 
 **Narration:**
 
-> v0.1 supports one completed Qwen-to-OLMo succession. The hosted mode does not fake training. It
-> verifies a frozen, published result without a GPU, model download, API key, or backend. The target
-> used 214 teacher outputs and 10 original anchors; upstream, the teacher and matched distribution
-> each depended on the original 224-label corpus. The real training workflow remains the
-> preregistered phased CLI.
+> The browser verifies the committed files, evaluates precomputed predictions, aggregates required
+> behaviors, checks safety, applies readiness, and generates local verification details. Model
+> training and inference remain precomputed.
 
-**Overlay:** `Hosted mode: deterministic verified replay — no model execution.`
+## 1:08–1:33 — Show the Decision
 
-## 1:10–1:40 — Run Verified Replay
-
-**Screen:** Start replay and show the ordered operations.
-
-**Actions:** Start **Run verified succession replay**. Let real operations advance.
+**Screen:** Anchored-successor result.
 
 **Narration:**
 
-> In this browser, InheritBench validates the manifest, hashes compact prediction records,
-> recomputes clean and adversarial aggregates, classifies residuals, applies versioned readiness
-> rules, confirms the published adapter identity, and generates a fresh report and replay receipt.
-
-**Overlay:** `Manifest → hashes → metrics → residuals → readiness → adapter`.
-
-## 1:40–2:05 — Result
-
-**Screen:** First result viewport and clean metrics.
-
-**Narration:**
-
-> Verified succession replay completed. The recovered successor made all 64 clean decisions, tool
-> calls, arguments, approvals, and reason codes correctly, with 100 percent strict validity and zero
-> clean safety failures. Nine exact policy-code aliases reduce full-contract fidelity to 85.9
-> percent.
+> Candidate zero recovered all 64 clean operational behaviors. Exact-contract fidelity is 63 of 64,
+> strict validity is 64 of 64, and clean safety blockers are zero. The adversarial test still found
+> two safety failures on one record, so the unchanged rules return Conditional Pass.
 
 **Overlay:**
 
 ```text
-Untouched target: 0/64 semantic exact
-Recovered successor: 64/64 operational decisions
-Exact full contract: 55/64
-Clean safety failures: 0
+Operational correctness  64 / 64
+Exact-contract fidelity  63 / 64
+Strict validity          64 / 64
+Safety findings          2 on 1 adversarial record
+Readiness                CONDITIONAL_PASS
 ```
 
-Do not say “100% semantic transfer” or “production safe.”
+Do not say “production safe,” “universal transfer,” or “browser inference.”
 
-## 2:05–2:25 — Adversarial Limitation
+## 1:33–1:55 — Challenge the Result
 
-**Screen:** Adversarial result and failure explorer.
+**Screen:** Stress section.
 
-**Narration:**
-
-> The separate adversarial audit reached only 20 of 32 semantic-exact outputs, with eight
-> prompt-injection failures, three conflicting-identifier failures, one unauthorized action, and one
-> approval bypass. Deterministic rules therefore return Conditional Pass, requiring safeguards and
-> more validation before migration.
-
-**Overlay:** `Adversarial: 20/32 · Decision: CONDITIONAL_PASS`
-
-## 2:25–2:45 — GPT-5.6 and Evidence
-
-**Screen:** GPT memo, evidence drawer, adapter action, then integrity page.
+**Actions:** Apply **Approval bypass · apply and rerun**.
 
 **Narration:**
 
-> GPT-5.6 Sol explains the constraint-aware recommendation from a content-addressed evidence graph.
-> Deterministic code produced the metrics and safety gates, and a claim validator checked every
-> substantive memo claim. Codex accelerated the reproducible science, replay engines, tests, CI, and
-> product implementation under founder-defined protocols and stop rules. Judges can inspect the
-> evidence and open the released OLMo LoRA adapter.
+> Now I introduce a controlled approval bypass. The same evaluator and readiness rules run again,
+> the modified result stays separate from verified evidence, and migration is blocked.
 
-**Overlay:** `GPT-5.6 Sol · structured output · one repair · deterministic claim validation`
+**Overlay:** `Same rules · changed evidence · MIGRATION_BLOCKED`
+
+## 1:55–2:25 — Inspect the Completed Succession
+
+**Screen:** `/run/opsroute-qwen-olmo/`.
+
+**Narration:**
+
+> The inspector explains what changed, what failed, how ten targeted examples repaired the coverage
+> gap, why the final result is conditional, and why the candidate selection can be trusted.
+> Candidate ranking used validation only; final evaluation ran once after selection.
+
+**Actions:** Show the five at-a-glance questions, candidate comparison, final result, and replay
+proof. Open one evidence disclosure briefly.
+
+## 2:25–2:45 — Evidence and AI Collaboration
+
+**Screen:** Evidence page, GPT memo, then repository.
+
+**Narration:**
+
+> Deterministic code owns metrics, safety findings, and readiness. GPT-5.6 explains validated
+> evidence; it does not create scores or override gates. Codex helped implement the architecture,
+> evaluators, parity tests, numerical investigation, Assurance Lab, and release audit.
+
+**Overlay:** `GPT-5.6 and Codex built the tool; Qwen and OLMo are the succession models.`
 
 ## 2:45–2:58 — Closing
 
-**Screen:** Landing CTA, adapter link, and project name.
+**Screen:** Landing page and the two product paths.
 
 **Narration:**
 
-> The Qwen-to-OLMo case proves InheritBench has completed the succession job once. The browser makes
-> that result testable; the product is the system that rebuilt the capability, delivered the
-> successor, and honestly conditioned the migration. Move the model. Keep the capability.
-
-**Overlay:** `InheritBench · Move the model. Keep the capability.`
-
-## Optional Technical Appendix — Pack-Driven Local Run
-
-If time permits after the published-case replay, show:
-
-1. `capability validate` on the OpsRoute v0.2 reference pack.
-2. `succession inspect` on the local product-integration run.
-3. `/run/local/` verifying its exported `web_bundle.json`.
-4. The honest `MIGRATION_BLOCKED` result.
-
-Say:
-
-> The hosted case remains the immutable published result. Separately, the v0.2 local engine now runs
-> developer-owned packs through real source gating, target training, checkpoint selection,
-> evaluation, readiness, export, and replay. Its first direct-LoRA integration run was blocked by
-> the declared readiness rules, which is exactly what a migration tool should do.
-
-Do not compare the local integration score with the published Phase 3B score as if they were one
-benchmark result. The local run used known surfaces to test product integration.
-
-If showing the bounded multi-start bundle, say:
-
-> We froze four initialization seeds and new final surfaces before training. All four candidates
-> hit the unchanged numerical-instability guard before validation. InheritBench selected nothing,
-> kept the final sets sealed, and reported readiness as not run. A migration system must preserve
-> negative evidence instead of manufacturing a winner.
-
-Do not show a final score for this run; no final evaluation occurred.
+> Test the assurance engine, then inspect the completed Qwen-to-OLMo succession. Move the model. Keep
+> the capability. Prove it survived.
 
 ## Recording Checklist
 
-- [ ] Public URL is incognito-accessible.
-- [ ] No browser console or hydration error appears.
-- [ ] Replay downloads work.
-- [ ] Adapter link opens.
-- [ ] Captions identify hosted replay, not training.
-- [ ] Codex implementation collaboration is mentioned in narration or final credits.
-- [ ] GPT-5.6 evidence-locked analyst role is shown.
-- [ ] Direct and upstream label accounting remains visible.
-- [ ] Clean and adversarial scores never share an unlabeled aggregate.
-- [ ] Final duration is below three minutes.
+- [ ] Public URL is accessible in an incognito Chromium window.
+- [ ] `/sandbox/` and `/run/opsroute-qwen-olmo/` survive direct navigation and refresh.
+- [ ] No browser console, hydration, or document-overflow error appears.
+- [ ] Untouched OLMo remains diagnostic-only.
+- [ ] Anchored successor shows the exact documented metrics.
+- [ ] Approval-bypass mutation produces `MIGRATION_BLOCKED`.
+- [ ] Reset restores the verified reference result.
+- [ ] Captions distinguish browser evaluation from precomputed training and inference.
+- [ ] Clean and adversarial metrics remain separate.
+- [ ] GPT-5.6 and Codex roles are described accurately.
+- [ ] No third-party copyrighted media is used without permission.
+- [ ] Final duration is under three minutes.

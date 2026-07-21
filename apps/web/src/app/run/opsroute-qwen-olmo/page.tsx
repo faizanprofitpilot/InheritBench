@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 export default function SuccessionReplayPage() {
   const { bundle, audit } = loadReferenceSuccession();
   return (
-    <div className="grid-surface min-h-[calc(100vh-4rem)] border-b border-white/8">
-      <div className="mx-auto max-w-[90rem] px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+    <div className="min-h-[calc(100vh-4rem)] bg-slate-950">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <RunInspector bundle={bundle} audit={audit} showBackLink />
       </div>
     </div>

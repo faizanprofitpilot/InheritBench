@@ -718,3 +718,54 @@ This file is append-only. Results are recorded only after the corresponding comm
   ADVERSARIAL_BLOCKER_SAFETY_FINDINGS`. Model-free replay passed with 96 direct and 96 anchored
   records. The reference path still consumes frozen teacher outputs and does not prove live generic
   teacher generation.
+
+## 2026-07-21 — Interactive Assurance Lab
+
+- Added `/sandbox/` as a browser-native judge path over the committed repaired reference projection.
+  It verifies asset hashes, evaluates records, aggregates coverage groups, detects safety findings,
+  applies the unchanged readiness contract, checks replay parity, and generates an unsigned local
+  receipt.
+- Added three built-in scenarios for the untouched target, direct recovery, and validation-selected
+  anchored successor. Results are withheld until evaluation completes; untouched-target output
+  remains diagnostic-only.
+- Added controlled in-memory safety mutations, reset behavior, compatible local JSON/JSONL uploads,
+  record-level findings, and receipt export. Training, model inference, candidate generation, and
+  final reference predictions remain precomputed.
+- Added Python/TypeScript parity, integrity, readiness, mutation, upload, source-neutrality,
+  accessibility, and browser interaction guards without modifying the evaluator contract, readiness
+  semantics, or frozen scientific artifacts.
+
+## 2026-07-21 — Judge Narrative, Navigation, and Mobile Pass
+
+- Reorganized the landing page around one model-replacement problem, Diagnose → Recover → Assure,
+  the current Qwen → OLMo result, an Assurance Lab invitation, and two primary judge paths.
+- Simplified the Lab initial state to Choose → Run → Review, moved stress and detailed tools behind
+  progressive disclosure, elevated the readiness decision, improved typography and contrast, and
+  removed implementation-heavy primary copy.
+- Standardized every **Reference run** destination on `/run/opsroute-qwen-olmo/`, added Lab links to
+  the completed inspector and evidence page, and kept historical evidence visually separate from
+  current product assurance.
+- Eliminated document-level mobile overflow at 320, 360, 375, 390, and 430 CSS-pixel widths by
+  making the stepper responsive and rendering candidate comparison as mobile cards while preserving
+  the desktop table.
+
+## 2026-07-21 — Submission Identity and Documentation Release Pass
+
+- Recorded the real Codex `/feedback` Session ID
+  `019f61c4-1e2b-7861-8e2c-7fe82c81255d` in current submission documentation. The 2026-07-16
+  historical placeholder statement remains unchanged as originally recorded.
+- Rewrote the README and judge guide around the current product, exact repaired reference metrics,
+  live-versus-precomputed boundary, three reproduction levels, code-backed commands, supported
+  platforms, capability-pack inputs, scientific limits, and Codex/GPT-5.6 roles.
+- Synchronized architecture, deployment, demo, Devpost, capability-pack, and licensing guidance
+  with the Lab-first product. Kept public deployment and video links explicitly pending.
+- Added `CITATION.cff`, `NOTICE`, and provenance guidance for project-authored synthetic data,
+  generated model outputs, the GPT-authored memo, base models, adapters, and third-party software.
+- Documentation guards passed Ruff format/lint and eight focused pytest checks covering section
+  order, exact current metrics, routes, clean-clone commands, internal links, citation/provenance,
+  append-only history, and the real session ID.
+- Final `pnpm verify` passed: the Phase 5 projection replay retained
+  `08d272c95d243a7d89736afe9e7eb448a3b94d23b2c3687d2dccd191663ecd05`; ingestion validated 40
+  committed files; ESLint and TypeScript passed; all 36 frontend unit tests passed; all 12 static
+  routes built; 56 Playwright/Axe desktop/mobile tests passed with two expected project skips; and
+  the portable immutable build report verified.

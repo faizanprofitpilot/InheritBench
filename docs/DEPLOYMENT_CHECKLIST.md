@@ -56,6 +56,7 @@ The separate GitHub Actions `node-only-static-build` job must pass from a clean 
 
 - [ ] Stable HTTPS URL exists.
 - [ ] Root route opens in an incognito browser.
+- [ ] `/sandbox/` opens directly and after refresh.
 - [ ] `/run/opsroute-qwen-olmo/` opens directly and after refresh.
 - [ ] All `/lab/opsroute/` deep links open directly.
 - [ ] No login, authentication wall, cookie gate, API key, or secret is required.
@@ -64,18 +65,19 @@ The separate GitHub Actions `node-only-static-build` job must pass from a clean 
 
 ## Product Flow
 
-- [ ] Landing page primary action opens verified replay.
-- [ ] Locked configuration is accurate.
-- [ ] Preflight clearly states no training or inference occurs.
-- [ ] Nine real verification stages complete without timers or simulated work.
-- [ ] Result says **Verified succession replay completed**.
-- [ ] Decision is `CONDITIONAL_PASS`.
-- [ ] Clean and adversarial evidence remain separate.
-- [ ] `readiness_report.json` downloads and validates.
-- [ ] `replay_receipt.json` downloads and validates.
-- [ ] Recovered adapter link opens the verified GitHub release.
-- [ ] GPT-5.6 memo and evidence references render.
-- [ ] Showcase integrity verification passes in the browser.
+- [ ] Landing primary action opens `/sandbox/`; **Reference run** opens
+      `/run/opsroute-qwen-olmo/`.
+- [ ] Assurance Lab starts with Choose → Run → Review and hides results before evaluation.
+- [ ] Untouched OLMo is clearly diagnostic-only and receives no readiness verdict.
+- [ ] Anchored successor returns `CONDITIONAL_PASS` and the documented exact metrics.
+- [ ] Approval-bypass mutation recomputes the decision as `MIGRATION_BLOCKED`.
+- [ ] Reset restores the verified reference result.
+- [ ] Verification details expose integrity, replay/parity, and an unsigned local receipt.
+- [ ] Advanced tools stay collapsed initially; local JSON/JSONL remains in browser memory.
+- [ ] Completed inspector explains capability loss, recovery, validation-only selection, final
+      conditions, adapter identity, and replay evidence.
+- [ ] Historical Phase 4 evidence remains visually distinct from current product evidence.
+- [ ] No product copy claims browser training, inference, signature, or external attestation.
 
 ## Browser and Accessibility
 

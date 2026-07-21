@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 
 const routes = [
   "/",
+  "/sandbox/",
   "/lab/opsroute/",
   "/lab/opsroute/methods/",
   "/lab/opsroute/failures/",
@@ -22,6 +23,14 @@ function blockExternalRequests(page: Page): void {
   });
 }
 
+async function expectNoDocumentOverflow(page: Page): Promise<void> {
+  const dimensions = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    innerWidth: window.innerWidth,
+  }));
+  expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth);
+}
+
 for (const route of routes) {
   test(`${route} loads directly and remains accessible`, async ({ page }) => {
     blockExternalRequests(page);
@@ -30,10 +39,79 @@ for (const route of routes) {
     await page.goto(route);
     await expect(page.locator("h1").first()).toBeVisible();
     expect(errors).toEqual([]);
+    if (route === "/") await page.waitForTimeout(600);
     const accessibility = await new AxeBuilder({ page }).analyze();
     expect(accessibility.violations).toEqual([]);
   });
 }
+
+test("judge routes never create document-level mobile overflow", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium-mobile", "required mobile viewport matrix");
+  blockExternalRequests(page);
+  for (const viewport of [
+    { width: 320, height: 800 },
+    { width: 360, height: 800 },
+    { width: 375, height: 812 },
+    { width: 390, height: 844 },
+    { width: 430, height: 932 },
+  ]) {
+    await page.setViewportSize(viewport);
+    for (const route of routes) {
+      await page.goto(route);
+      await expect(page.locator("h1").first()).toBeVisible();
+      await expectNoDocumentOverflow(page);
+    }
+  }
+});
+
+test("Assurance Lab interactive states remain contained at mobile widths", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium-mobile", "required mobile interaction matrix");
+  test.setTimeout(120_000);
+  blockExternalRequests(page);
+  for (const viewport of [
+    { width: 320, height: 800 },
+    { width: 360, height: 800 },
+    { width: 375, height: 812 },
+    { width: 390, height: 844 },
+    { width: 430, height: 932 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/sandbox/");
+    for (const step of ["Choose", "Run", "Review"]) {
+      await expect(page.getByRole("listitem").filter({ hasText: step })).toBeVisible();
+    }
+    await expect(page.getByRole("listitem").filter({ hasText: "Stress" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: /^Anchored successor / })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await expectNoDocumentOverflow(page);
+
+    await page.getByRole("button", { name: "Run assurance evaluation" }).click();
+    await expect(page.getByRole("heading", { name: "CONDITIONAL_PASS" })).toBeVisible();
+    const workflow = page.getByRole("navigation", { name: "Assurance Lab workflow" });
+    for (const step of ["Stress", "Verify"]) {
+      await expect(workflow.getByRole("listitem").filter({ hasText: step })).toBeVisible();
+    }
+    await expect(page.getByText("Local verification receipt", { exact: true })).toBeAttached();
+    await expectNoDocumentOverflow(page);
+
+    await page.getByText("Detailed record inspection").click();
+    await expect(page.getByText("Showing 96 of 96 records")).toBeVisible();
+    await expectNoDocumentOverflow(page);
+
+    await page.getByRole("button", { name: /Approval bypass · apply and rerun/ }).click();
+    await expect(page.getByText(/Controlled mutation result/)).toBeVisible();
+    await expectNoDocumentOverflow(page);
+
+    const advancedTools = page.locator("details").filter({ hasText: "Advanced tools" }).locator("summary");
+    await advancedTools.scrollIntoViewIfNeeded();
+    await advancedTools.click({ force: true });
+    await expect(page.getByLabel("Prediction file")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Download sample" })).toBeVisible();
+    await expectNoDocumentOverflow(page);
+  }
+});
 
 test("surface metrics remain separate", async ({ page }) => {
   blockExternalRequests(page);
@@ -53,15 +131,47 @@ test("migration profiles explain when no trained method is viable", async ({ pag
   await expect(page.getByText(/Pure synthetic transfer never produced a balanced trainable target/)).toBeVisible();
 });
 
-test("header exposes product navigation and completed run CTA", async ({ page }) => {
+test("header and footer expose the product paths", async ({ page }) => {
   blockExternalRequests(page);
   await page.goto("/");
-  for (const label of ["Product", "How it works", "Reference run", "Evidence"]) {
+  for (const label of ["Product", "How it works", "Assurance Lab", "Reference run", "GitHub"]) {
     await expect(page.getByRole("link", { name: label, exact: true }).first()).toBeAttached();
   }
-  await expect(page.getByRole("link", { name: "View succession run" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "Try the Lab" })).toHaveAttribute("href", "/sandbox/");
+  for (const [label, href] of [
+    ["Assurance Lab", "/sandbox/"],
+    ["Reference run", "/run/opsroute-qwen-olmo/"],
+    ["Integrity", "/lab/opsroute/evidence/"],
+    ["Repository", "https://github.com/faizanprofitpilot/InheritBench"],
+  ] as const) {
+    await expect(page.locator("footer").getByRole("link", { name: label, exact: true })).toHaveAttribute("href", href);
+  }
+  const referenceRunLinks = page.getByRole("link", { name: "Reference run", exact: true });
+  await expect(referenceRunLinks).toHaveCount(2);
+  for (const link of await referenceRunLinks.all()) {
+    await expect(link).toHaveAttribute("href", "/run/opsroute-qwen-olmo/");
+    await expect(link).not.toHaveAttribute("href", /#/);
+  }
+  const allReferenceRunLinks = page.locator('a[href="/run/opsroute-qwen-olmo/"]').filter({
+    hasText: /^Reference run$/,
+  });
+  await expect(allReferenceRunLinks).toHaveCount(3);
+  const visibleReferenceRunLink = page.locator("header a:visible").filter({ hasText: /^Reference run$/ });
+  await expect(visibleReferenceRunLink).toHaveAttribute("href", "/run/opsroute-qwen-olmo/");
+  await visibleReferenceRunLink.click();
+  await expect(page).toHaveURL(/\/run\/opsroute-qwen-olmo\/$/);
+  await expect(page.getByTestId("run-inspector")).toBeVisible();
+});
+
+test("landing reference result retains a distinct hash anchor", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/#reference-result");
+  await expect(page).toHaveURL(/\/#reference-result$/);
+  await expect(page.locator("#reference-result")).toBeVisible();
+  await expect(page.locator("#reference-result").getByText("Reference result", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Reference run", exact: true }).first()).not.toHaveAttribute(
     "href",
-    "/run/opsroute-qwen-olmo/",
+    /#/,
   );
 });
 
@@ -70,7 +180,11 @@ test("landing page presents the product workflow and completed reference result"
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /Move the model/ })).toBeVisible();
   await expect(page.getByText("Diagnose → Recover → Assure", { exact: true }).first()).toBeVisible();
-  await expect(page.getByRole("link", { name: /View the Qwen → OLMo succession/ })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "Try the Assurance Lab", exact: true }).first()).toHaveAttribute(
+    "href",
+    "/sandbox/",
+  );
+  await expect(page.getByRole("link", { name: /View the Qwen → OLMo succession/ }).first()).toHaveAttribute(
     "href",
     "/run/opsroute-qwen-olmo/",
   );
@@ -79,8 +193,24 @@ test("landing page presents the product workflow and completed reference result"
   }
   await expect(page.getByText("64 / 64", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("63 / 64", { exact: true })).toBeVisible();
+  for (const label of [
+    "Operational correctness",
+    "Exact-contract fidelity",
+    "Strict validity",
+    "Safety findings",
+    "Readiness",
+  ]) {
+    await expect(page.getByText(label, { exact: true })).toBeVisible();
+  }
+  await expect(page.getByText("2 on 1 adversarial record", { exact: true })).toBeVisible();
   await expect(page.getByText("CONDITIONAL PASS", { exact: true }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Don’t migrate on benchmark scores alone." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Choose → Run → Review" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open the Assurance Lab" })).toHaveAttribute("href", "/sandbox/");
+  await expect(page.getByRole("link", { name: "Test this successor" })).toHaveAttribute("href", "/sandbox/");
+  await expect(page.getByRole("link", { name: "Inspect the full evidence" })).toHaveAttribute(
+    "href",
+    "/run/opsroute-qwen-olmo/",
+  );
 });
 
 test("raw outputs and memo evidence open without regeneration", async ({ page }) => {
@@ -107,7 +237,7 @@ test("browser integrity verification passes", async ({ page }) => {
   await page.goto("/lab/opsroute/evidence/");
   await page.getByRole("button", { name: "Verify served bytes" }).click();
   await expect(page.getByText("Showcase bundle verified")).toBeVisible();
-  await expect(page.getByText("29 files checked · 29 hashes matched")).toBeVisible();
+  await expect(page.getByText(/^(\d+) files checked · \1 hashes matched$/)).toBeVisible();
   await expect(page.getByText(/This verifies the deployed display bundle/)).toBeVisible();
   await page.getByText("Inspect source lineage").click();
   await expect(page.getByText("Independent distillation")).toBeVisible();
@@ -118,14 +248,31 @@ test("completed succession inspector preserves selection and sealed-evaluation b
   blockExternalRequests(page);
   await page.goto("/run/opsroute-qwen-olmo/");
   await expect(page.getByTestId("run-inspector")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What happened in this model succession" })).toBeVisible();
+  for (const question of [
+    "What changed?",
+    "What failed?",
+    "How was it recovered?",
+    "Why conditional?",
+    "Can I trust selection?",
+  ]) {
+    await expect(page.getByRole("heading", { name: question })).toBeVisible();
+  }
   await expect(page.getByRole("heading", { name: "Three identities. One controlled succession." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Qwen/Qwen2.5-0.5B-Instruct" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "allenai/OLMo-2-0425-1B-Instruct" }).first()).toBeVisible();
   await expect(page.getByText("Selected using validation evidence only. Final evaluation was unavailable during ranking.")).toBeVisible();
+  const candidateRows = page.locator(
+    '[data-testid="candidate-comparison-table"]:visible tbody tr, [data-testid="candidate-comparison-mobile"]:visible article',
+  );
   for (const candidate of [0, 1, 2, 3]) {
-    await expect(page.locator("tbody tr").filter({ hasText: `Candidate ${candidate}` })).toBeVisible();
+    await expect(candidateRows.filter({ hasText: `Candidate ${candidate}` })).toBeVisible();
   }
-  await expect(page.locator("tr[data-selected=true]")).toContainText("Candidate 0");
+  await expect(
+    page.locator(
+      '[data-testid="candidate-comparison-table"]:visible tr[data-selected=true], [data-testid="candidate-comparison-mobile"]:visible article[data-selected=true]',
+    ),
+  ).toContainText("Candidate 0");
   await expect(page.getByText("64/64", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("63/64", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("20/32", { exact: true }).first()).toBeVisible();
@@ -150,16 +297,19 @@ test("local inspector preserves a blocked bounded multi-start outcome", async ({
       mimeType: "application/json",
       buffer: Buffer.from(JSON.stringify(payload)),
     });
-  await expect(page.getByRole("heading", { name: "NOT RUN" })).toBeVisible();
-  await expect(page.getByText("BLOCKED BEFORE FINAL EVALUATION", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Candidate 0", { exact: true })).toBeVisible();
-  await expect(page.getByText("Candidate 3", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "NOT RUN", exact: true })).toBeVisible();
+  await expect(page.getByText("Recovery did not reach final evaluation.", { exact: true })).toBeVisible();
+  const visibleCandidates = page.locator(
+    '[data-testid="candidate-comparison-table"]:visible tbody tr, [data-testid="candidate-comparison-mobile"]:visible article',
+  );
+  await expect(visibleCandidates.filter({ hasText: "Candidate 0" })).toBeVisible();
+  await expect(visibleCandidates.filter({ hasText: "Candidate 3" })).toBeVisible();
   await expect(page.getByText("Selected using validation evidence only. Final evaluation was unavailable during ranking.")).toBeVisible();
 });
 
 test("public pages do not expose local absolute paths", async ({ page }) => {
   blockExternalRequests(page);
-  for (const route of ["/", "/run/opsroute-qwen-olmo/"]) {
+  for (const route of ["/", "/sandbox/", "/run/opsroute-qwen-olmo/"]) {
     await page.goto(route);
     expect(await page.locator("body").innerText()).not.toContain("/Users/");
   }
@@ -181,9 +331,163 @@ test("browser integrity verification fails closed on tampered bytes", async ({ p
 test("keyboard navigation and reduced motion remain usable", async ({ page }) => {
   blockExternalRequests(page);
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("/sandbox/");
   await page.keyboard.press("Tab");
   await expect(page.locator(":focus")).toBeVisible();
+  const untouchedScenario = page.getByRole("button", { name: /^Untouched OLMo / });
+  await untouchedScenario.focus();
+  await page.keyboard.press("Enter");
+  await expect(untouchedScenario).toHaveAttribute("aria-pressed", "true");
+  expect(
+    await page.getByRole("button", { name: "Run assurance evaluation" }).locator("svg").evaluateAll((icons) =>
+      icons.every((icon) => getComputedStyle(icon).animationName === "none"),
+    ),
+  ).toBe(true);
+});
+
+test("sandbox starts sealed and evaluates the selected successor with frozen parity", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/sandbox/");
+
+  for (const scenario of ["Untouched OLMo", "Direct recovery", "Anchored successor"]) {
+    await expect(page.getByRole("button", { name: new RegExp(`^${scenario} `) })).toBeVisible();
+  }
+  await expect(page.getByRole("heading", { name: "CONDITIONAL_PASS" })).toHaveCount(0);
+  await expect(page.getByText("Showing 96 of 96 records")).toHaveCount(0);
+  await expect(page.getByText("Advanced tools")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Challenge the successor" })).toHaveCount(0);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+
+  await page.getByRole("button", { name: "Run assurance evaluation" }).click();
+  await expect(page.getByRole("heading", { name: "CONDITIONAL_PASS" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Challenge the successor" })).toBeVisible();
+  const operations = page.getByRole("heading", { name: "Running the evaluation" }).locator("..");
+  for (const operation of [
+    "Verify the evaluation files",
+    "Evaluate the candidate records",
+    "Check the required behaviors",
+    "Check the safety rules",
+    "Check whether this candidate is ready to ship",
+    "Prepare verification details",
+  ]) {
+    await expect(operations.getByText(`${operation} — complete`)).toBeVisible();
+  }
+  await expect(page.getByText("Frozen reference", { exact: true })).toBeVisible();
+  await expect(page.getByText("VERIFIED", { exact: true }).first()).toBeVisible();
+  await page.getByText("Verification and receipt details").click();
+  await expect(page.getByText("Verified against frozen expectations")).toBeVisible();
+  await expect(page.getByText("Receipt hash").locator("..").getByText(/[0-9a-f]{12}…[0-9a-f]{8}/)).toBeVisible();
+  await expect(page.getByText("Input hash").locator("..").getByText(/[0-9a-f]{12}…[0-9a-f]{8}/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Clean evaluation" }).locator("..").locator("..")).toContainText(/\/64/);
+  await expect(page.getByRole("heading", { name: "Adversarial evaluation" }).locator("..").locator("..")).toContainText(/\/32/);
+  await page.getByText("Detailed record inspection").click();
+  await expect(page.getByText("Showing 96 of 96 records")).toBeVisible();
+  await expect(page.getByRole("table")).toBeVisible();
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+test("sandbox distinguishes diagnostic and blocked built-in scenarios", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/sandbox/");
+
+  await page.getByRole("button", { name: /Untouched OLMo/ }).click();
+  await page.getByRole("button", { name: "Run assurance evaluation" }).click();
+  await expect(page.getByRole("heading", { name: "DIAGNOSTIC BASELINE" })).toBeVisible();
+  await expect(page.getByText(/explicitly not readiness-eligible/)).toBeVisible();
+
+  await page.getByRole("button", { name: "Direct recovery" }).click();
+  await page.getByRole("button", { name: "Run assurance evaluation" }).click();
+  await expect(page.getByRole("heading", { name: "MIGRATION_BLOCKED" })).toBeVisible();
+  await expect(page.getByText("CLEAN_GROUP_FLOOR_BELOW_THRESHOLD", { exact: true })).toBeVisible();
+});
+
+test("sandbox mutations change the result and reset to frozen parity", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/sandbox/");
+  await page.getByRole("button", { name: "Run assurance evaluation" }).click();
+  await page.getByText("Verification and receipt details").click();
+  const inputHash = page.getByText("Input hash").locator("..").locator("code");
+  const originalHash = await inputHash.textContent();
+
+  await page.getByRole("button", { name: /Unauthorized action · apply and rerun/ }).click();
+  await expect(page.getByText("Controlled mutation result", { exact: false })).toBeVisible();
+  await expect(page.getByText("Outside frozen evidence", { exact: true })).toBeVisible();
+  await expect(inputHash).not.toHaveText(originalHash ?? "");
+  await expect(page.getByText("Not frozen parity")).toBeVisible();
+
+  await page.getByRole("button", { name: "Reset original" }).click();
+  await expect(inputHash).toHaveText(originalHash ?? "");
+  await expect(page.getByText("Verified against frozen expectations")).toBeVisible();
+  await expect(page.getByText("Outside frozen evidence", { exact: true })).toHaveCount(0);
+});
+
+test("sandbox evaluates a projected sample locally and downloads artifacts", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/sandbox/");
+  await page.getByRole("button", { name: "Run assurance evaluation" }).click();
+  await page.getByText("Advanced tools").click();
+
+  const sampleDownload = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download sample" }).click();
+  expect((await sampleDownload).suggestedFilename()).toBe("sample-predictions.json");
+
+  const sampleResponse = await page.request.get("/data/reference-succession/sandbox/sample-predictions.json");
+  expect(sampleResponse.ok()).toBe(true);
+  const projected = (await sampleResponse.json()) as {
+    samples: Array<{ scenario_id: string; prediction: Record<string, unknown> }>;
+  };
+  const records = projected.samples
+    .filter((sample) => sample.scenario_id === "anchored-successor")
+    .map((sample) => sample.prediction);
+  await page.getByLabel("Prediction file").setInputFiles({
+    name: "projected-sample.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify({ records })),
+  });
+  await expect(page.getByText("Evaluation only", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Evaluate local predictions" }).click();
+  await expect(page.getByText(/Local upload result/)).toBeVisible();
+  await expect(page.getByText("Local result", { exact: true })).toBeVisible();
+  await expect(page.getByText(/not readiness-eligible/)).toBeVisible();
+
+  await page.getByText("Verification and receipt details").click();
+  const receiptDownload = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download receipt" }).click();
+  expect((await receiptDownload).suggestedFilename()).toMatch(/^local-verification-receipt-.+\.json$/);
+});
+
+test("sandbox integrity fails closed on the exact tampered asset", async ({ page }) => {
+  blockExternalRequests(page);
+  const asset = "scenarios/anchored-successor.json";
+  await page.route(`**/data/reference-succession/sandbox/${asset}`, async (route) => {
+    await route.fulfill({ status: 200, contentType: "application/json", body: "{\"tampered\":true}" });
+  });
+  await page.goto("/sandbox/");
+  await page.getByRole("button", { name: "Run assurance evaluation" }).click();
+  const failure = page.getByRole("alert").filter({ hasText: "Evaluation stopped" });
+  await expect(failure).toContainText(asset);
+  await expect(failure).toContainText(/asset byte (length|hash) mismatch/);
+  await expect(page.getByRole("heading", { name: "CONDITIONAL_PASS" })).toHaveCount(0);
+});
+
+test("product calls to action route into the sandbox", async ({ page }) => {
+  blockExternalRequests(page);
+  for (const [route, linkName] of [
+    ["/", "Try the Assurance Lab"],
+    ["/run/opsroute-qwen-olmo/", "Test this successor in the Assurance Lab"],
+    ["/lab/opsroute/evidence/", "Open the Assurance Lab"],
+  ] as const) {
+    await page.goto(route);
+    const link = page.getByRole("link", { name: linkName }).first();
+    await expect(link).toHaveAttribute("href", "/sandbox/");
+    await link.click();
+    await expect(page).toHaveURL(/\/sandbox\/$/);
+    await expect(
+      page.getByRole("heading", {
+        name: "Choose a candidate. Run the evaluation. Review the decision.",
+      }),
+    ).toBeVisible();
+  }
 });
 
 function boundedMultistartFixture(): Record<string, unknown> {

@@ -9,11 +9,29 @@ describe("RunInspector", () => {
     const { bundle, audit } = loadReferenceSuccession();
     render(<RunInspector bundle={bundle} audit={audit} />);
 
-    expect(screen.getByRole("heading", { name: "CONDITIONAL PASS" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: "Capability recovered. Migration remains conditional.",
+      }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Three identities. One controlled succession." })).toBeInTheDocument();
     expect(screen.getByText("Targeted supervision required")).toBeInTheDocument();
     expect(screen.getByText("Selected using validation evidence only. Final evaluation was unavailable during ranking.")).toBeInTheDocument();
     expect(screen.getAllByRole("heading", { name: "Replay verified" }).length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("link", { name: /Test this successor in the Assurance Lab/ }),
+    ).toHaveAttribute("href", "/sandbox");
+    expect(screen.getByRole("link", { name: "Open full evidence" })).toHaveAttribute(
+      "href",
+      "/lab/opsroute/evidence",
+    );
+    for (const label of [
+      "Clean operational correctness",
+      "Clean exact-contract fidelity",
+      "Clean strict validity",
+    ]) {
+      expect(screen.getAllByText(label).length).toBeGreaterThan(0);
+    }
 
     const selected = document.querySelector("tr[data-selected=true]");
     expect(selected).not.toBeNull();

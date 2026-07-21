@@ -67,6 +67,23 @@ describe("committed product data", () => {
     }
   });
 
+  it("keeps Assurance Lab outcomes sourced from evaluated results", () => {
+    const sandbox = readFileSync(
+      path.resolve(process.cwd(), "src/components/sandbox/sandbox-experience.tsx"),
+      "utf8",
+    );
+    for (const handwrittenOutcome of [
+      "64 / 64",
+      "63 / 64",
+      "31 / 32",
+      "20 / 32",
+      "50 / 64",
+      "12 / 32",
+    ]) {
+      expect(sandbox).not.toContain(handwrittenOutcome);
+    }
+  });
+
   it("loads the completed reference succession from the verified projection", () => {
     const { bundle, audit } = loadReferenceSuccession();
     expect(bundle.schema_version).toBe("inheritbench.web-bundle.v0.4");

@@ -147,8 +147,10 @@ The pack interface is generic; the real model registry remains intentionally nar
 - explicit Q/K/V/O LoRA mappings;
 - Apple MPS as the executed real backend.
 
-Arbitrary Transformers identities, guessed target modules, remote code, hosted training, arbitrary
-uploads, and automatic prompt/model search are unsupported.
+Arbitrary Transformers identities, guessed target modules, remote code, hosted training, and
+automatic prompt/model search are unsupported. The Assurance Lab accepts local JSON/JSONL prediction
+uploads only when they match the committed capability and record contract; an upload does not add a
+new model, train a successor, or make a new capability pack available in the deployed product.
 
 See [Pack-Driven Succession v0.2](PACK_DRIVEN_SUCCESSION.md) for planning, execution, anchor
 intervention, replay, browser import, and real integration evidence.

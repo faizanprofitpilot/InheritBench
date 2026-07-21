@@ -25,6 +25,7 @@ test("public deployment satisfies the complete product gate", async ({ browser }
     });
     for (const route of [
       "/",
+      "/sandbox/",
       "/lab/opsroute/",
       "/lab/opsroute/methods/",
       "/lab/opsroute/failures/",
@@ -37,8 +38,17 @@ test("public deployment satisfies the complete product gate", async ({ browser }
       expect(response?.ok()).toBe(true);
       await expect(page.locator("h1").first()).toBeVisible();
     }
-    const accessibility = await new AxeBuilder({ page }).analyze();
-    accessibilityErrors.push(...accessibility.violations.map((item) => item.id));
+    await page.goto(`${url}/sandbox/`);
+    const sandboxBefore = await new AxeBuilder({ page }).analyze();
+    accessibilityErrors.push(...sandboxBefore.violations.map((item) => item.id));
+    await page.getByRole("button", { name: "Run assurance evaluation" }).click();
+    await expect(page.getByRole("heading", { name: "CONDITIONAL_PASS" })).toBeVisible();
+    await expect(page.getByText("Matches frozen expectations")).toBeVisible();
+    await expect(
+      page.getByText("Evidence integrity", { exact: true }).locator(".."),
+    ).toContainText("VERIFIED");
+    const sandboxAfter = await new AxeBuilder({ page }).analyze();
+    accessibilityErrors.push(...sandboxAfter.violations.map((item) => item.id));
     await page.goto(`${url}/lab/opsroute/evidence/`);
     await page.getByRole("button", { name: "Verify served bytes" }).click();
     await expect(page.getByText("Showcase bundle verified")).toBeVisible();

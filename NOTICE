@@ -1,0 +1,18 @@
+InheritBench
+Copyright 2026 Faizan Muhammad
+
+This product includes software and project-authored synthetic data developed for InheritBench.
+See LICENSE for the Apache License, Version 2.0.
+
+The reference workflow uses, but does not redistribute, model weights from:
+
+- Qwen/Qwen2.5-0.5B-Instruct, published by the Qwen team:
+  https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct
+- allenai/OLMo-2-0425-1B-Instruct, published by the Allen Institute for AI:
+  https://huggingface.co/allenai/OLMo-2-0425-1B-Instruct
+- HuggingFaceTB/SmolLM2-1.7B-Instruct, published by Hugging Face:
+  https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct
+
+Those model weights and third-party software packages remain subject to their own licenses and
+notices. See docs/LICENSING.md and the locked dependency manifests for provenance and dependency
+information.

@@ -3,6 +3,7 @@
 import {
   AlertTriangle,
   ArrowDown,
+  ArrowRight,
   Check,
   CheckCircle2,
   Clipboard,
@@ -80,6 +81,8 @@ function MultistartInspector({
   const direct = asRecord(finalComparison.direct);
   const anchoredMetrics = asRecord(anchored.metrics);
   const directMetrics = asRecord(direct.metrics);
+  const adversarialMetrics = asRecord(anchoredMetrics.adversarial);
+  const safetyCaseCount = Object.keys(asRecord(adversarialMetrics.blocker_cases)).length;
   const replay = asRecord(bundle.replay_verification);
   const repair = asRecord(audit?.repairLineage);
   const ranking = asRecord(audit?.candidateRanking);
@@ -100,9 +103,29 @@ function MultistartInspector({
       0,
       ...bundle.candidates.map((candidate) => candidate.validation_historical_strict_valid ?? 0),
     );
+  const decisionHeadline =
+    readiness === "CONDITIONAL_PASS"
+      ? ["Capability recovered.", "Migration remains conditional."]
+      : readiness === "PASS"
+        ? ["Capability recovered.", "Successor is ready."]
+        : readiness === "NOT_RUN"
+          ? ["Recovery stopped.", "Final evaluation did not run."]
+          : readiness === "MIGRATION_BLOCKED"
+            ? ["Recovery completed.", "Migration remains blocked."]
+            : ["Succession evaluated.", "Review the recorded decision."];
+  const decisionCopy =
+    readiness === "CONDITIONAL_PASS"
+      ? "The successor recovered every required clean behavior. One adversarial record still produced two safety findings, so the evidence supports a conditional decision—not an unconditional launch."
+      : readiness === "PASS"
+        ? "The successor satisfied the recorded capability, safety, and readiness requirements."
+        : readiness === "NOT_RUN"
+          ? "Recovery did not reach final evaluation. InheritBench preserved the stopped run instead of manufacturing a readiness result."
+          : readiness === "MIGRATION_BLOCKED"
+            ? "The successor did not satisfy the recorded readiness requirements, so migration remains blocked."
+            : "The final decision follows from the recorded evaluation and safety evidence.";
 
   return (
-    <div className="space-y-8" data-testid="run-inspector">
+    <div className="space-y-8 sm:space-y-10" data-testid="run-inspector">
       {showBackLink ? (
         <Link
           href="/"
@@ -112,41 +135,120 @@ function MultistartInspector({
         </Link>
       ) : null}
 
-      <Card className={`overflow-hidden p-6 sm:p-8 ${readinessTone(readiness)}`}>
-        <div className="flex flex-wrap items-center gap-3">
-          <StatusBadge status={readiness} />
+      <Card className={`grid-surface relative overflow-hidden rounded-3xl border-0 px-6 py-10 shadow-[0_30px_100px_rgba(2,8,23,.32)] sm:px-9 sm:py-12 lg:px-12 ${readinessTone(readiness)}`}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(34,211,238,.08),transparent_28rem)]" />
+        <div className="relative flex flex-wrap items-center gap-3">
           <Badge>Completed reference succession</Badge>
-          <Badge>{humanize(bundle.decision.classification)}</Badge>
-          <span className="font-mono text-xs text-slate-400">
-            {bundle.capability.id}@{bundle.capability.version}
-          </span>
+          <StatusBadge status={readiness} />
         </div>
-        <div className="mt-7 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="relative mt-8 grid gap-8 lg:grid-cols-[1.08fr_.92fr] lg:items-center">
           <div>
-            <p className="eyebrow">Succession readiness</p>
-            <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              {readiness.replaceAll("_", " ")}
+            <p className="eyebrow">Qwen → OLMo result</p>
+            <h1 className="mt-4 text-balance text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+              {decisionHeadline[0]}{" "}
+              <span className="block text-amber-200">{decisionHeadline[1]}</span>
             </h1>
-            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">
-              {readiness === "CONDITIONAL_PASS"
-                ? "Clean operational behavior was fully recovered, but sealed adversarial evaluation retained safety findings. The successor passed with explicit conditions."
-                : "This decision was reconstructed from the run’s validated evidence bundle."}
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+              {decisionCopy}
             </p>
           </div>
-          <dl className="grid min-w-72 gap-3 rounded-xl border border-white/10 bg-black/20 p-5 text-sm">
-            <Metric label="Run identity" value={bundle.run_id} mono />
-            <Metric label="Strategy" value={humanize(bundle.strategy)} />
-            <Metric
-              label="Evidence integrity"
-              value={verifiedHash ? "Bundle hash verified" : "Projection hash verified"}
-            />
-          </dl>
+          <div className="rounded-2xl bg-slate-950/45 p-6 shadow-inner shadow-black/20 sm:p-7">
+            <p className="text-sm font-medium text-slate-300">Final decision</p>
+            <h2 className="mt-3 text-2xl font-semibold text-white">
+              {readiness.replaceAll("_", " ")}
+            </h2>
+            <dl className="mt-6 grid gap-5 text-sm sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              <Metric label="Operational correctness" value={surfaceRatio(anchoredMetrics, "confirmatory", "operational")} />
+              <Metric label="Exact-contract fidelity" value={surfaceRatio(anchoredMetrics, "confirmatory", "exact")} />
+              <Metric
+                label="Safety findings"
+                value={
+                  completedReadiness
+                    ? `${completedReadiness.adversarial.blocker_safety_findings} on ${safetyCaseCount} adversarial record${safetyCaseCount === 1 ? "" : "s"}`
+                    : "Not available"
+                }
+              />
+            </dl>
+          </div>
         </div>
         {statusInvalid ? (
           <p role="alert" className="mt-5 flex items-center gap-2 text-sm text-rose-200">
             <AlertTriangle className="h-4 w-4" /> Invalid readiness state
           </p>
         ) : null}
+      </Card>
+
+      <section
+        aria-labelledby="run-summary-heading"
+        className="rounded-3xl bg-slate-900/55 p-6 sm:p-9 lg:p-12"
+      >
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="eyebrow">At a glance</p>
+            <h2 id="run-summary-heading" className="mt-2 text-2xl font-semibold text-white">
+              What happened in this model succession
+            </h2>
+          </div>
+          <span className="text-sm text-slate-400">
+            {verifiedHash ? "Uploaded evidence verified" : "Committed evidence verified"}
+          </span>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          <SummaryCard
+            question="What changed?"
+            answer={`${shortModel(stringValue(source.model_id, "Source model"))} → ${shortModel(
+              stringValue(target.model_id ?? asRecord(targetModel).model_id, "Target model"),
+            )}`}
+          />
+          <SummaryCard
+            question="What failed?"
+            answer={
+              completedReadiness
+                ? `${completedReadiness.target_baseline.semantic_correct}/${completedReadiness.target_baseline.expected} required behaviors survived.`
+                : "Recovery did not reach final evaluation."
+            }
+          />
+          <SummaryCard
+            question="How was it recovered?"
+            answer={`${bundle.label_accounting.anchor_labels} targeted examples; Candidate ${selectedIndex ?? "not selected"}.`}
+          />
+          <SummaryCard
+            question="Why conditional?"
+            answer={
+              completedReadiness
+                ? `${completedReadiness.adversarial.blocker_safety_findings} safety findings on ${safetyCaseCount} adversarial record${safetyCaseCount === 1 ? "" : "s"}.`
+                : "No conditional decision was issued."
+            }
+          />
+          <SummaryCard
+            question="Can I trust selection?"
+            answer={
+              bundle.decision.final_evaluation_exactly_once
+                ? "Validation-only ranking; final evaluation run once."
+                : "Selection and final evaluation evidence remain below."
+            }
+          />
+        </div>
+      </section>
+
+      <Card className="grid-surface flex flex-col gap-5 overflow-hidden rounded-3xl border-0 bg-gradient-to-br from-cyan-300/[0.09] via-slate-900/80 to-slate-900/70 p-6 shadow-[0_24px_80px_rgba(2,8,23,.28)] sm:flex-row sm:items-center sm:justify-between sm:p-9">
+        <div>
+          <p className="font-semibold text-white">Production evidence and active assurance</p>
+          <p className="mt-1 text-sm leading-6 text-slate-400">
+            This page proves how the successor was produced and selected. The Assurance Lab lets
+            you actively test its evaluation and readiness behavior.
+          </p>
+        </div>
+        <div className="flex shrink-0 flex-wrap gap-2">
+          <Button asChild>
+            <Link href="/sandbox/">
+              Test this successor in the Assurance Lab <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link href="/lab/opsroute/evidence/">Open full evidence</Link>
+          </Button>
+        </div>
       </Card>
 
       <Section
@@ -217,14 +319,14 @@ function MultistartInspector({
 
       {completedReadiness ? (
         <section className="grid gap-5 lg:grid-cols-2">
-          <Card className="p-6 sm:p-7">
+          <Card className="rounded-3xl border-0 bg-slate-900/55 p-6 shadow-none sm:p-9">
             <p className="eyebrow">Diagnosis</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">Capability loss detected</h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <MetricCard
                 label="Source capability"
                 value={`${completedReadiness.source_gate.semantic_correct}/${completedReadiness.source_gate.expected}`}
-                note="Operationally correct"
+                note="Source-gate semantic correctness"
               />
               <MetricCard
                 label="Untouched target"
@@ -238,7 +340,7 @@ function MultistartInspector({
               contract. Recovery was required before deployment.
             </p>
           </Card>
-          <Card className="border-amber-300/20 bg-amber-300/[0.04] p-6 sm:p-7">
+          <Card className="rounded-3xl border-0 bg-gradient-to-br from-amber-300/[0.07] to-slate-900/60 p-6 shadow-none sm:p-9">
             <p className="eyebrow">Coverage intervention</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">Targeted supervision required</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">
@@ -271,8 +373,8 @@ function MultistartInspector({
             ["Validation ranking", "Only"],
             ["Candidate freeze", selectedIndex === null ? "None" : `#${selectedIndex}`],
           ].map(([label, value], index) => (
-            <div key={label} className="relative rounded-xl border border-white/9 bg-black/20 p-4">
-              <p className="text-xs uppercase tracking-[0.12em] text-slate-500">{label}</p>
+            <div key={label} className="relative rounded-2xl bg-slate-950/40 p-4">
+              <p className="text-sm font-medium text-slate-400">{label}</p>
               <p className="mt-3 font-mono text-lg font-semibold text-white">{String(value)}</p>
               {index < 7 ? (
                 <ArrowDown className="mx-auto mt-3 h-4 w-4 text-cyan-300 md:hidden" aria-hidden />
@@ -287,14 +389,69 @@ function MultistartInspector({
         title={`${bundle.candidates.length} frozen seeds, ranked without final-test evidence.`}
         copy="Selected using validation evidence only. Final evaluation was unavailable during ranking."
       >
+        <div className="grid gap-4 lg:hidden" data-testid="candidate-comparison-mobile">
+          {bundle.candidates.map((candidate) => {
+            const ranked = findCandidate(rankedCandidates, candidate.candidate_index);
+            const repaired = findCandidate(repairedCandidates, candidate.candidate_index);
+            const selected = selectedIndex === candidate.candidate_index;
+            return (
+              <article
+                key={candidate.candidate_index}
+                data-selected={selected || undefined}
+                className={`min-w-0 rounded-2xl p-5 ${
+                  selected
+                    ? "bg-cyan-300/[0.1] ring-1 ring-inset ring-cyan-300/25"
+                    : "bg-slate-950/40"
+                }`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h3 className="font-semibold text-white">
+                    Candidate {candidate.candidate_index}
+                    {selected ? <span className="ml-2 text-xs text-cyan-200">Selected</span> : null}
+                  </h3>
+                  <StatusBadge status={candidate.training_status} compact />
+                </div>
+                <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
+                  <CandidateMetric label="Seed" value={String(candidate.initialization_seed)} mono />
+                  <CandidateMetric label="Restart" value={stringValue(repaired.restart_or_resume, "Not recorded")} />
+                  <CandidateMetric
+                    label="Validation ops"
+                    value={ratio(candidate.validation_operational_semantic_correct, validationRecords)}
+                  />
+                  <CandidateMetric
+                    label="Exact contract"
+                    value={ratio(optionalNumber(ranked.validation_exact_full_contract), validationRecords)}
+                  />
+                  <CandidateMetric
+                    label="Weakest group"
+                    value={formatRate(candidate.validation_minimum_group_operational_semantic_rate)}
+                  />
+                  <CandidateMetric
+                    label="Strict valid"
+                    value={ratio(candidate.validation_historical_strict_valid, validationRecords)}
+                  />
+                  <CandidateMetric label="Safety" value={candidate.safety_eligible ? "Eligible" : "Ineligible"} />
+                  <CandidateMetric label="Loss" value={formatNumber(candidate.validation_loss)} mono />
+                  <div className="col-span-2 min-w-0">
+                    <dt className="text-xs font-medium text-slate-400">Checkpoint</dt>
+                    <dd className="mt-1 break-all font-mono text-xs leading-5 text-slate-300">
+                      {candidate.selected_checkpoint_id ?? "None"}
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+            );
+          })}
+        </div>
         <div
-          className="overflow-x-auto rounded-xl border border-white/9"
+          className="hidden overflow-x-auto rounded-2xl bg-slate-950/35 lg:block"
           tabIndex={0}
           role="region"
           aria-label="Candidate comparison table"
+          data-testid="candidate-comparison-table"
         >
-          <table className="min-w-[1050px] w-full text-left text-sm">
-            <thead className="bg-white/[0.04] text-xs uppercase tracking-[0.1em] text-slate-400">
+          <table className="w-full min-w-[1050px] text-left text-sm">
+            <thead className="bg-white/[0.04] text-xs font-medium text-slate-400">
               <tr>
                 {["Candidate", "Seed", "Restart", "Checkpoint", "Validation ops", "Exact contract", "Weakest group", "Strict valid", "Safety", "Loss", "Status"].map(
                   (label) => <th key={label} className="px-4 py-3">{label}</th>,
@@ -337,7 +494,7 @@ function MultistartInspector({
       </Section>
 
       {completedReadiness ? (
-        <Card className={`p-6 sm:p-8 ${readinessTone(readiness)}`}>
+        <Card className={`rounded-3xl border-0 p-6 shadow-[0_24px_80px_rgba(2,8,23,.25)] sm:p-9 lg:p-12 ${readinessTone(readiness)}`}>
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div>
               <p className="eyebrow">Final readiness</p>
@@ -356,15 +513,15 @@ function MultistartInspector({
           </div>
           <dl className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Metric label="Contract" value={completedReadiness.rule_version} mono />
-            <Metric label="Clean operational" value={surfaceRatio(anchoredMetrics, "confirmatory", "operational")} />
-            <Metric label="Clean exact contract" value={surfaceRatio(anchoredMetrics, "confirmatory", "exact")} />
+            <Metric label="Clean operational correctness" value={surfaceRatio(anchoredMetrics, "confirmatory", "operational")} />
+            <Metric label="Clean exact-contract fidelity" value={surfaceRatio(anchoredMetrics, "confirmatory", "exact")} />
             <Metric label="Clean strict validity" value={surfaceRatio(anchoredMetrics, "confirmatory", "strict")} />
             <Metric label="Clean safety blockers" value={String(completedReadiness.confirmatory.blocker_safety_findings)} />
-            <Metric label="Adversarial exactness" value={surfaceRatio(anchoredMetrics, "adversarial", "exact")} />
+            <Metric label="Adversarial exact-contract fidelity" value={surfaceRatio(anchoredMetrics, "adversarial", "exact")} />
             <Metric label="Adversarial strict validity" value={surfaceRatio(anchoredMetrics, "adversarial", "strict")} />
-            <Metric label="Adversarial safety findings" value={String(completedReadiness.adversarial.blocker_safety_findings)} />
+            <Metric label="Adversarial blocker findings" value={String(completedReadiness.adversarial.blocker_safety_findings)} />
           </dl>
-          <details className="mt-7 rounded-xl border border-white/10 bg-black/20 p-4">
+          <details className="mt-7 rounded-2xl bg-slate-950/40 p-5">
             <summary className="cursor-pointer font-medium text-cyan-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300">
               Why this decision?
             </summary>
@@ -387,12 +544,12 @@ function MultistartInspector({
           {completedReadiness ? (
             <ComparisonCard
               title="Untouched target"
-              readiness="MIGRATION_BLOCKED"
+              readiness="DIAGNOSTIC BASELINE"
               metrics={[
-                ["Operational", `${completedReadiness.target_baseline.semantic_correct}/${completedReadiness.target_baseline.expected}`],
-                ["Exact contract", `${completedReadiness.target_baseline.structural_exact}/${completedReadiness.target_baseline.expected}`],
+                ["Source-gate semantic correctness", `${completedReadiness.target_baseline.semantic_correct}/${completedReadiness.target_baseline.expected}`],
+                ["Source-gate exact-contract fidelity", `${completedReadiness.target_baseline.structural_exact}/${completedReadiness.target_baseline.expected}`],
                 ["Strict validity", `${completedReadiness.target_baseline.strict_valid}/${completedReadiness.target_baseline.expected}`],
-                ["Safety findings", String(completedReadiness.target_baseline.blocker_safety_findings)],
+                ["Blocker safety findings", String(completedReadiness.target_baseline.blocker_safety_findings)],
               ]}
             />
           ) : null}
@@ -410,7 +567,7 @@ function MultistartInspector({
         </div>
       </Section>
 
-      <Card className="border-emerald-300/20 bg-emerald-300/[0.04] p-6 sm:p-8">
+      <Card className="rounded-3xl border-0 bg-gradient-to-br from-emerald-300/[0.06] to-slate-900/55 p-6 shadow-none sm:p-9 lg:p-12">
         <div className="flex items-start gap-4">
           <FileCheck2 className="mt-1 h-7 w-7 shrink-0 text-emerald-300" />
           <div className="min-w-0 flex-1">
@@ -454,7 +611,7 @@ function MultistartInspector({
           <EvidenceDisclosure label="Raw residual metrics" value={bundle.residuals} />
         </div>
         {repair.created_at ? (
-          <p className="mt-5 text-xs text-slate-500">
+          <p className="mt-5 text-xs text-slate-400">
             Repair lineage recorded {String(repair.created_at)} · scientific protocol changed:{" "}
             {String(repair.scientific_protocol_changed)}
           </p>
@@ -539,7 +696,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <Card className="p-6 sm:p-8">
+    <Card className="rounded-3xl border-0 bg-slate-900/55 p-6 shadow-none sm:p-9 lg:p-12">
       <p className="eyebrow">{eyebrow}</p>
       <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">{title}</h2>
       <p className="mt-3 max-w-3xl leading-7 text-slate-400">{copy}</p>
@@ -556,7 +713,7 @@ function StatusBadge({ status, compact = false }: { status: string; compact?: bo
       ? AlertTriangle
       : LockKeyhole;
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-black/20 font-semibold uppercase tracking-[0.1em] text-slate-200 ${compact ? "px-2 py-1 text-[0.62rem]" : "px-3 py-1.5 text-xs"}`}>
+    <span className={`inline-flex items-center gap-1.5 rounded-full bg-slate-950/45 font-semibold text-slate-200 ring-1 ring-inset ring-white/10 ${compact ? "px-2 py-1 text-[0.68rem]" : "px-3 py-1.5 text-xs"}`}>
       <Icon className="h-3.5 w-3.5" aria-hidden />
       {humanize(status)}
     </span>
@@ -575,8 +732,8 @@ function LineageCard({
   selected?: boolean;
 }) {
   return (
-    <article className={`rounded-xl border p-5 ${selected ? "border-cyan-300/30 bg-cyan-300/[0.06]" : "border-white/9 bg-black/20"}`}>
-      <p className="text-xs uppercase tracking-[0.12em] text-slate-500">{label}</p>
+    <article className={`rounded-2xl p-5 ${selected ? "bg-cyan-300/[0.09] ring-1 ring-inset ring-cyan-300/20" : "bg-slate-950/40"}`}>
+      <p className="text-sm font-medium text-slate-400">{label}</p>
       <h3 className="mt-3 break-words font-semibold text-white">{model}</h3>
       <ul className="mt-4 space-y-2 text-sm text-slate-400">
         {details.map((detail) => <li key={detail}>• {detail}</li>)}
@@ -587,7 +744,7 @@ function LineageCard({
 
 function LineageArrow({ label }: { label: string }) {
   return (
-    <div className="flex items-center justify-center gap-2 text-xs text-slate-500 lg:flex-col">
+    <div className="flex items-center justify-center gap-2 text-xs text-slate-400 lg:flex-col">
       <GitBranch className="h-5 w-5 text-cyan-300" aria-hidden />
       <span>{label}</span>
     </div>
@@ -596,11 +753,20 @@ function LineageArrow({ label }: { label: string }) {
 
 function MetricCard({ label, value, note, warning = false }: { label: string; value: string; note: string; warning?: boolean }) {
   return (
-    <div className={`rounded-xl border p-5 ${warning ? "border-rose-300/20 bg-rose-300/[0.04]" : "border-cyan-300/20 bg-cyan-300/[0.04]"}`}>
-      <p className="text-xs uppercase tracking-[0.12em] text-slate-500">{label}</p>
+    <div className={`rounded-2xl p-5 ${warning ? "bg-rose-300/[0.07]" : "bg-slate-950/40"}`}>
+      <p className="text-sm font-medium text-slate-400">{label}</p>
       <p className="mt-3 font-mono text-3xl font-semibold text-white">{value}</p>
       <p className="mt-2 text-sm text-slate-400">{note}</p>
     </div>
+  );
+}
+
+function SummaryCard({ question, answer }: { question: string; answer: string }) {
+  return (
+    <article className="rounded-2xl bg-slate-950/40 p-5">
+      <h3 className="text-sm font-semibold text-white">{question}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{answer}</p>
+    </article>
   );
 }
 
@@ -616,7 +782,7 @@ function ComparisonCard({
   selected?: boolean;
 }) {
   return (
-    <article className={`rounded-xl border p-5 ${selected ? "border-cyan-300/30 bg-cyan-300/[0.06]" : "border-white/9 bg-black/20"}`}>
+    <article className={`rounded-2xl p-5 ${selected ? "bg-cyan-300/[0.09] ring-1 ring-inset ring-cyan-300/20" : "bg-slate-950/40"}`}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h3 className="font-semibold text-white">{title}</h3>
         <StatusBadge status={readiness} compact />
@@ -637,8 +803,8 @@ function CopyField({ label, value }: { label: string; value: string }) {
   }
   return (
     <div className="mt-6">
-      <p className="text-xs uppercase tracking-[0.12em] text-slate-500">{label}</p>
-      <div className="mt-2 flex items-center gap-2 rounded-xl border border-white/10 bg-black/25 p-3">
+      <p className="text-sm font-medium text-slate-400">{label}</p>
+      <div className="mt-2 flex items-center gap-2 rounded-2xl bg-slate-950/45 p-3">
         <code className="min-w-0 flex-1 break-all text-xs text-cyan-100">{value}</code>
         <Button type="button" size="sm" variant="secondary" onClick={() => void copy()} aria-label={`Copy ${label}`}>
           {copied ? <Check className="h-4 w-4" /> : <Clipboard className="h-4 w-4" />}
@@ -652,7 +818,7 @@ function CopyField({ label, value }: { label: string; value: string }) {
 
 function EvidenceDisclosure({ label, value }: { label: string; value: unknown }) {
   return (
-    <details className="rounded-xl border border-white/9 bg-black/20 p-4">
+    <details className="rounded-2xl bg-slate-950/40 p-5">
       <summary className="cursor-pointer font-medium text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300">
         {label}
       </summary>
@@ -666,8 +832,19 @@ function EvidenceDisclosure({ label, value }: { label: string; value: unknown })
 function Metric({ label, value, mono = false }: { label: string; value: string; mono?: boolean }) {
   return (
     <div>
-      <dt className="text-xs uppercase tracking-[0.12em] text-slate-500">{label}</dt>
+      <dt className="text-sm font-medium text-slate-400">{label}</dt>
       <dd className={`mt-2 text-slate-100 ${mono ? "break-all font-mono text-xs" : "text-sm"}`}>{value}</dd>
+    </div>
+  );
+}
+
+function CandidateMetric({ label, value, mono = false }: { label: string; value: string; mono?: boolean }) {
+  return (
+    <div className="min-w-0">
+      <dt className="text-xs font-medium text-slate-400">{label}</dt>
+      <dd className={`mt-1 break-words text-slate-200 ${mono ? "font-mono text-xs" : "text-sm"}`}>
+        {value}
+      </dd>
     </div>
   );
 }
@@ -689,19 +866,23 @@ function journey(bundle: Extract<LocalRunBundle, { schema_version: "inheritbench
 }
 
 function readinessTone(status: string) {
-  if (status === "PASS") return "border-emerald-300/25 bg-emerald-300/[0.04]";
-  if (status === "CONDITIONAL_PASS") return "border-amber-300/25 bg-amber-300/[0.04]";
-  return "border-rose-300/25 bg-rose-300/[0.04]";
+  if (status === "PASS") {
+    return "bg-gradient-to-br from-emerald-300/[0.08] via-slate-900/80 to-slate-900/70";
+  }
+  if (status === "CONDITIONAL_PASS") {
+    return "bg-gradient-to-br from-amber-300/[0.08] via-slate-900/80 to-slate-900/70";
+  }
+  return "bg-gradient-to-br from-rose-300/[0.08] via-slate-900/80 to-slate-900/70";
 }
 
 function comparisonMetrics(metrics: Record<string, unknown>): Array<[string, string]> {
   return [
-    ["Clean operational", surfaceRatio(metrics, "confirmatory", "operational")],
-    ["Clean exact", surfaceRatio(metrics, "confirmatory", "exact")],
-    ["Clean strict", surfaceRatio(metrics, "confirmatory", "strict")],
-    ["Adversarial exact", surfaceRatio(metrics, "adversarial", "exact")],
-    ["Adversarial strict", surfaceRatio(metrics, "adversarial", "strict")],
-    ["Safety findings", String(numberValue(asRecord(metrics.adversarial).blocker_safety_findings))],
+    ["Clean operational correctness", surfaceRatio(metrics, "confirmatory", "operational")],
+    ["Clean exact-contract fidelity", surfaceRatio(metrics, "confirmatory", "exact")],
+    ["Clean strict validity", surfaceRatio(metrics, "confirmatory", "strict")],
+    ["Adversarial exact-contract fidelity", surfaceRatio(metrics, "adversarial", "exact")],
+    ["Adversarial strict validity", surfaceRatio(metrics, "adversarial", "strict")],
+    ["Adversarial blocker findings", String(numberValue(asRecord(metrics.adversarial).blocker_safety_findings))],
   ];
 }
 
@@ -741,6 +922,9 @@ function optionalNumber(value: unknown): number | undefined {
 }
 function stringValue(value: unknown, fallback: string): string {
   return typeof value === "string" && value ? value : fallback;
+}
+function shortModel(value: string): string {
+  return value.split("/").at(-1)?.replace("-Instruct", "") ?? value;
 }
 function ratio(value: number | null | undefined, denominator: number): string {
   return value === null || value === undefined || denominator <= 0

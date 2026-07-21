@@ -34,7 +34,10 @@ Compact succession replay bundle
             ↓
 Python replay engine ↔ TypeScript replay engine
             ↓
-CLI run bundle       Static web cockpit
+CLI run bundle       Static web product
+                         ├── Assurance Lab
+                         ├── completed-run inspector
+                         └── local bundle inspector
 ```
 
 ## Scientific Layer
@@ -134,10 +137,38 @@ The Next.js App Router application exports plain static assets. Build-time inges
 
 - `artifacts/showcase/inheritbench-v0.1-gpt`;
 - `artifacts/phase5/web-projection/inheritbench-web-v0.1`;
-- `artifacts/phase5/succession-replay/inheritbench-succession-v0.1`.
+- `artifacts/phase5/succession-replay/inheritbench-succession-v0.1`;
+- `artifacts/product/reference-succession-v0.1`.
 
 The deployment build requires no Python, uv, model weights, Hugging Face, OpenAI, or historical
 artifact discovery. Runtime requires only static site delivery.
+
+The current build also ingests
+`artifacts/product/reference-succession-v0.1/`, including the completed repaired succession
+projection and compact Assurance Lab assets. Ingestion verifies committed hashes before copying
+files into the ignored `apps/web/public/data/` directory.
+
+## Interactive Assurance Lab
+
+`/sandbox/` runs a browser-native assurance path over committed or user-selected predictions:
+
+```text
+verified files
+→ record evaluation
+→ coverage aggregation
+→ safety checks
+→ readiness or diagnostic boundary
+→ local result hash and receipt
+```
+
+The TypeScript implementation under `apps/web/src/lib/sandbox/` mirrors the deterministic Python
+evaluation semantics used for the projected reference scenarios. Built-in scenarios cover the
+untouched target, direct recovery, and validation-selected anchored successor. After the anchored
+run, controlled in-memory mutations test whether the same rules detect an unsafe change.
+
+Local JSON/JSONL uploads remain in browser memory. Complete compatible record sets may receive a
+readiness decision; partial compatible sets receive record evaluation only. Receipts are unsigned
+local content proofs, not identity or external attestations.
 
 ## Trust Boundaries
 
@@ -146,6 +177,7 @@ artifact discovery. Runtime requires only static site delivery.
 | Scientific execution | Frozen data, models, oracles, training, evaluator-owned labels | Post-test tuning, artifact overwrite, parser repair |
 | Product projection | Read historical evidence and generate display-only committed data | Modify historical artifacts or introduce metrics |
 | Static ingestion | Validate and copy committed web data | Discover scientific evidence or call external services |
+| Assurance Lab | Evaluate committed or local predictions, mutate in memory, apply readiness, generate unsigned receipts | Claim fresh training, inference, signature, or external attestation |
 | Browser replay | Verify compact records and derive a product decision | Claim fresh training, inference, or scientific parser replay |
 | GPT analyst | Explain validated evidence | Determine benchmark values or safety eligibility |
 

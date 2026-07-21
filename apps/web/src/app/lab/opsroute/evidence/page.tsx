@@ -22,21 +22,26 @@ export default function EvidencePage() {
     <div className="space-y-16">
       <PageHeading
         eyebrow="Evidence and integrity"
-        title="Every displayed fact resolves to frozen bytes."
-        description="The deployed product contains a committed display projection and the authoritative Phase 4 showcase. Browser verification checks served hashes; scientific replay remains an offline repository command."
+        title="Historical evidence and current assurance stay separate."
+        description="The Phase 4 showcase below remains frozen historical evidence. The completed succession inspector and Assurance Lab expose the current readiness evidence without rewriting that history."
       />
 
       <IntegrityVerifier />
 
       <Card className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="eyebrow">Product replay receipt</p>
-          <h2 className="mt-3 text-2xl font-semibold text-white">Generate a fresh readiness decision from compact atomic records.</h2>
-          <p className="mt-3 max-w-3xl text-[0.9375rem] leading-7 text-slate-400">The hosted workflow verifies the succession manifest, replay data, readiness rules, and recovered adapter identity without model execution.</p>
+          <p className="eyebrow">Current readiness evidence</p>
+          <h2 className="mt-3 text-2xl font-semibold text-white">Test the assurance layer or inspect how the successor was produced.</h2>
+          <p className="mt-3 max-w-3xl text-[0.9375rem] leading-7 text-slate-400">The Assurance Lab re-evaluates precomputed predictions in the browser. The succession inspector preserves training, selection, sealed evaluation, and replay evidence.</p>
         </div>
-        <Button asChild className="shrink-0">
-          <Link href="/run/opsroute-qwen-olmo/?stage=preflight">Run verified replay <ArrowRight className="h-4 w-4" /></Link>
-        </Button>
+        <div className="flex shrink-0 flex-wrap gap-2">
+          <Button asChild>
+            <Link href="/sandbox/">Open the Assurance Lab <ArrowRight className="h-4 w-4" /></Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link href="/run/opsroute-qwen-olmo/">Inspect the completed succession</Link>
+          </Button>
+        </div>
       </Card>
 
       <section className="grid gap-5 lg:grid-cols-3">
@@ -59,8 +64,8 @@ export default function EvidencePage() {
 
       <section id="offline-verification" className="scroll-mt-28">
         <div className="max-w-4xl">
-          <p className="eyebrow">Offline verification</p>
-          <h2 className="mt-4 text-3xl font-semibold text-white">Rebuild the display projection byte for byte.</h2>
+          <p className="eyebrow">Historical projection verification</p>
+          <h2 className="mt-4 text-3xl font-semibold text-white">Rebuild the Phase 4 display projection byte for byte.</h2>
           <p className="mt-4 text-lg leading-8 text-slate-400">
             Python reads the frozen historical artifacts locally. The web deployment never needs Python, models, credentials, or network data services.
           </p>

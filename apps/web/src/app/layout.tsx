@@ -8,9 +8,9 @@ import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "InheritBench Model Succession Lab", template: "%s · InheritBench" },
+  title: { default: "InheritBench Model Succession Engine", template: "%s · InheritBench" },
   description:
-    "A static, evidence-backed lab for understanding capability transfer across model architectures.",
+    "Diagnose learned-capability loss, execute controlled recovery, and test whether a replacement model is ready to ship.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

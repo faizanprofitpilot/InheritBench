@@ -108,3 +108,29 @@ export function loadReferenceSuccession() {
 }
 
 export type ReferenceSuccession = ReturnType<typeof loadReferenceSuccession>;
+
+const sandboxPresentationSchema = z.object({
+  record_counts: z.object({
+    source_gate: z.number().int().nonnegative(),
+    final_confirmatory: z.number().int().nonnegative(),
+    final_adversarial: z.number().int().nonnegative(),
+  }),
+});
+
+export function loadSandboxPresentation() {
+  const manifest = sandboxPresentationSchema.parse(
+    json("reference-succession/sandbox/sandbox-manifest.json"),
+  );
+  const reference = loadReferenceSuccession();
+  if (reference.bundle.schema_version !== "inheritbench.web-bundle.v0.4") {
+    throw new Error("Sandbox presentation requires the completed v0.4 reference succession.");
+  }
+  return {
+    sourceGateRecords: manifest.record_counts.source_gate,
+    finalRecords:
+      manifest.record_counts.final_confirmatory + manifest.record_counts.final_adversarial,
+    selectedCandidate: reference.bundle.selection.candidate_index,
+  };
+}
+
+export type SandboxPresentation = ReturnType<typeof loadSandboxPresentation>;

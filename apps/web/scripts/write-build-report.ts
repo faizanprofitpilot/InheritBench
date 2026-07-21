@@ -8,9 +8,11 @@ const repositoryRoot = path.resolve(appRoot, "../..");
 const outRoot = path.join(appRoot, "out");
 const publicDataRoot = path.join(appRoot, "public/data");
 const verifyPortable = process.argv.includes("--verify-portable");
+const expectedReferenceProjection =
+  "dee9ee1b5b59ad27823643c8dfde2e2d4cc709e12302b6afcf2981260164eb52";
 const destination = path.join(
   repositoryRoot,
-  "artifacts/phase5/web-build/inheritbench-web-build-v0.2/manifest.json",
+  "artifacts/phase5/web-build/inheritbench-web-build-v0.3/manifest.json",
 );
 
 function sha256(payload: Buffer | string): string {
@@ -63,6 +65,9 @@ const referenceProjection = JSON.parse(
     "utf8",
   ),
 ) as Record<string, unknown>;
+if (referenceProjection.content_sha256 !== expectedReferenceProjection) {
+  throw new Error("reference succession projection hash mismatch");
+}
 const outputFiles = await files(outRoot);
 const outputByPath = new Map(
   outputFiles.map((item) => [item.relative_path as string, item]),
@@ -76,15 +81,16 @@ const requiredRoutes = [
   "lab/opsroute/evidence/index.html",
   "run/opsroute-qwen-olmo/index.html",
   "run/local/index.html",
+  "sandbox/index.html",
 ];
 for (const route of requiredRoutes) {
   if (!outputByPath.has(route)) throw new Error(`static export is missing ${route}`);
 }
 const payload: Record<string, unknown> = {
-  schema_version: "phase5-web-build-manifest-v0.2",
-  build_id: "inheritbench-web-build-v0.2",
+  schema_version: "phase5-web-build-manifest-v0.3",
+  build_id: "inheritbench-web-build-v0.3",
   projection_content_sha256: projection.content_sha256,
-  reference_succession_content_sha256: referenceProjection.content_sha256,
+  reference_succession_content_sha256: expectedReferenceProjection,
   showcase_content_sha256:
     "85f6c02dcc430992a277d0cb500373a1b491893915f450b4523699b7b7d3e5cc",
   node_version: process.version.slice(1),

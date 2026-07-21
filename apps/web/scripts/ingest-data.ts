@@ -25,7 +25,7 @@ const expectedShowcase =
   "85f6c02dcc430992a277d0cb500373a1b491893915f450b4523699b7b7d3e5cc";
 const expectedProjectionId = "inheritbench-web-v0.1";
 const expectedReferenceProjection =
-  "e9467877333b3893c93736ff8178a1b735907f3f7dc5a6dd815f9a9ca210f45b";
+  "dee9ee1b5b59ad27823643c8dfde2e2d4cc709e12302b6afcf2981260164eb52";
 
 type ManifestEntry = {
   relative_path: string;

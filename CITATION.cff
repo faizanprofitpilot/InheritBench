@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use InheritBench, please cite this software."
+title: "InheritBench: Model Succession with Executable Assurance"
+type: software
+version: 0.1.0
+date-released: 2026-07-21
+authors:
+  - family-names: Muhammad
+    given-names: Faizan
+repository-code: "https://github.com/faizanprofitpilot/InheritBench"
+url: "https://github.com/faizanprofitpilot/InheritBench"
+license: Apache-2.0
+abstract: >-
+  InheritBench diagnoses capability loss during open-weight model replacement,
+  executes controlled recovery, and applies replayable evidence and readiness
+  rules to the successor.
+keywords:
+  - model succession
+  - capability transfer
+  - model migration
+  - evaluation
+  - developer tools
+preferred-citation:
+  type: software
+  title: "InheritBench: Model Succession with Executable Assurance"
+  version: 0.1.0
+  year: 2026
+  authors:
+    - family-names: Muhammad
+      given-names: Faizan
+  repository-code: "https://github.com/faizanprofitpilot/InheritBench"
