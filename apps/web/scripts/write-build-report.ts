@@ -12,7 +12,7 @@ const expectedReferenceProjection =
   "dee9ee1b5b59ad27823643c8dfde2e2d4cc709e12302b6afcf2981260164eb52";
 const destination = path.join(
   repositoryRoot,
-  "artifacts/phase5/web-build/inheritbench-web-build-v0.3/manifest.json",
+  "artifacts/product/web-build/inheritbench-web-build-v0.3/manifest.json",
 );
 
 function sha256(payload: Buffer | string): string {

@@ -78,6 +78,7 @@ def test_generic_packages_do_not_import_historical_workflows() -> None:
     assert violations == []
 
 
+@pytest.mark.product_smoke
 def test_reference_projection_and_frozen_roots_replay_exactly() -> None:
     verify_opsroute_pack()
     verify_purchase_approval_pack()

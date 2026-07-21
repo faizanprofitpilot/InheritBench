@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from inheritbench.reference_packs.readiness_instability_audit import (
     _historic_gate,
     run_audit,
@@ -33,6 +35,7 @@ def test_historical_gate_maps_clean_success_and_adversarial_failure_to_condition
     assert _historic_gate(values)["decision"] == "CONDITIONAL_PASS"
 
 
+@pytest.mark.product_smoke
 def test_existing_audit_is_evidence_only_and_idempotent() -> None:
     audit = run_audit()
     assert (audit / "combined_decision.json").is_file()

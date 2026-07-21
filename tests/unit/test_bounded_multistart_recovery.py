@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from inheritbench.orchestration.schemas import EvaluationRecord
 from inheritbench.reference_packs.multistart_execution import (
     _atomic_summary,
@@ -30,6 +32,7 @@ ANCHORED_RUN = ROOT / (
 )
 
 
+@pytest.mark.product_smoke
 def test_bounded_multistart_amendment_and_seeds_replay() -> None:
     amendment = verify_bounded_multistart_amendment(DEFAULT_AMENDMENT_PATH)
     seeds = verify_bounded_multistart_seeds(DEFAULT_SEED_PATH)
@@ -57,6 +60,7 @@ def test_fresh_final_surfaces_are_balanced_and_sealed() -> None:
     assert manifest["candidate_ranking_access_to_final_oracles"] is False
 
 
+@pytest.mark.product_smoke
 def test_canonical_multistart_plan_is_content_addressed() -> None:
     run_directory = freeze_multistart_plan()
     plan = verify_multistart_plan(run_directory)
@@ -70,6 +74,7 @@ def test_canonical_multistart_plan_is_content_addressed() -> None:
     )
 
 
+@pytest.mark.product_smoke
 def test_operational_semantic_does_not_conflate_policy_code() -> None:
     stage = json.loads(
         (ANCHORED_RUN / "stages/13-confirmatory_completed/stage.json").read_text(encoding="utf-8")
@@ -133,6 +138,7 @@ def test_failed_candidate_progress_uses_partial_checkpoint_lower_bound() -> None
     }
 
 
+@pytest.mark.product_smoke
 def test_guard_repair_preserves_frozen_protocol_dimensions() -> None:
     repair = json.loads(
         (

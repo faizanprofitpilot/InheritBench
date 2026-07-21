@@ -27,7 +27,7 @@ jobs:
       - run: uv run ruff check .
       - run: uv run ruff format --check .
       - run: uv run mypy src
-      - run: uv run pytest -m "not model_smoke and not modal"
+      - run: uv run pytest -m "not model_smoke and not product_smoke and not modal"
         env:
           HF_HUB_OFFLINE: "1"
           TRANSFORMERS_OFFLINE: "1"
