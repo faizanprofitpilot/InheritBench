@@ -12,17 +12,62 @@ const stages = [
   {
     title: "Diagnose",
     icon: Radar,
-    copy: "Compare the replacement with the behavior your application already depends on.",
+    copy: "Validate the capability pack, verify the adapted source, and measure what the untouched target lost.",
   },
   {
     title: "Recover",
     icon: Wrench,
-    copy: "Target the missing behavior and compare recovery candidates without using final-test results.",
+    copy: "Train a fresh target adapter, add authorized anchors only when required, and select using validation evidence.",
   },
   {
     title: "Assure",
     icon: ShieldCheck,
-    copy: "Apply the same evaluation and safety rules to decide whether the recovered successor is ready to ship.",
+    copy: "Open final records after selection, apply deterministic readiness rules, export, reload, and replay.",
+  },
+];
+
+const capabilityTree = `capability.yaml
+schemas/
+evaluator.yaml
+rules/
+data/
+oracles/
+anchors/`;
+
+const workflowCommands = [
+  {
+    number: "01",
+    title: "Define and validate",
+    copy: "Author model-visible records, evaluator-only contracts, schemas, vocabularies, safety rules, coverage groups, and readiness thresholds.",
+    command: `uv run inheritbench capability validate \\
+  capabilities/opsroute/v0.2.0`,
+  },
+  {
+    number: "02",
+    title: "Freeze the succession plan",
+    copy: "Resolve supported registry entries, validate authorized inputs, and hash the plan before model compute starts.",
+    command: `uv run inheritbench succession plan \\
+  --pack capabilities/opsroute/v0.2.0 \\
+  --source-config configs/models/source.yaml \\
+  --target-config configs/models/target.yaml \\
+  --strategy anchored-behavioral-transfer-v0.1 \\
+  --output runs`,
+  },
+  {
+    number: "03",
+    title: "Execute or intervene",
+    copy: "Verify the source, diagnose target loss, prepare supervision, train the target adapter, and pause for explicitly authorized anchors when coverage is insufficient.",
+    command: `uv run inheritbench succession run \\
+  --plan runs/<run-id> \\
+  --device mps`,
+  },
+  {
+    number: "04",
+    title: "Inspect, replay, and export",
+    copy: "Review readiness and residuals, reconstruct the decision, or create a browser-inspectable bundle.",
+    command: `uv run inheritbench succession inspect --run runs/<run-id> --json -
+uv run inheritbench succession replay --run runs/<run-id> --output runs/replays
+uv run inheritbench succession export-web --run runs/<run-id> --output web_bundle.json`,
   },
 ];
 
@@ -49,41 +94,47 @@ export function LandingExperience({ reference }: { reference: ReferenceSuccessio
         <div className="grid-surface relative mx-auto grid max-w-7xl gap-12 overflow-hidden rounded-3xl bg-slate-900/70 px-6 py-12 shadow-[0_30px_100px_rgba(2,8,23,.32)] sm:px-9 sm:py-16 lg:grid-cols-[1.03fr_.97fr] lg:items-center lg:px-12 lg:py-20">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(34,211,238,.1),transparent_28rem)]" />
           <div className="relative">
-            <Badge>Model succession engine</Badge>
+            <Badge>Local model-succession CLI</Badge>
             <h1 className="mt-7 text-balance text-5xl font-semibold tracking-[-0.05em] text-white sm:text-6xl lg:text-7xl">
               Move the model.
               <span className="block text-cyan-200">Keep the capability.</span>
             </h1>
             <p className="mt-7 max-w-2xl text-balance text-lg leading-8 text-slate-300 sm:text-xl">
-              Companies replace models and can silently lose behavior their application depends on.
-              InheritBench finds what broke, helps recover it, and proves whether the replacement is
-              ready to ship.
+              Fine-tuned behavior does not automatically move when the underlying model changes.
+              InheritBench gives developers a controlled local CLI workflow to diagnose what was
+              lost, recover a successor, and prove whether the migration is ready to ship.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Button asChild size="lg" className="landing-cta">
-                <Link href="/sandbox/">
-                  Try the Assurance Lab <ArrowRight className="h-4 w-4" />
+                <Link href="#developer-workflow">
+                  See the developer workflow <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="landing-cta">
                 <Link href="/run/opsroute-qwen-olmo/">
-                  View the Qwen → OLMo succession <ArrowRight className="h-4 w-4" />
+                  Inspect the Qwen → OLMo succession <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
+            <Link
+              href="/sandbox/"
+              className="mt-5 inline-flex items-center gap-2 rounded-sm text-sm font-medium text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+            >
+              Try the Assurance Lab <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
 
           <div className="relative">
             <Card className="relative overflow-hidden border-0 bg-slate-950/45 p-6 shadow-inner shadow-black/20 sm:p-8">
-              <p className="text-sm font-medium text-slate-300">What InheritBench does</p>
+              <p className="text-sm font-medium text-slate-300">Local developer workflow</p>
               <div className="mt-6 space-y-6">
-                <HeroStep number="1" title="Find what broke" copy="Measure which required behaviors disappeared after the model change." />
-                <HeroStep number="2" title="Recover the behavior" copy="Target the gaps and select a recovered successor under control." />
-                <HeroStep number="3" title="Decide whether to ship" copy="Run final evaluation and safety checks against explicit readiness rules." />
+                <HeroStep number="1" title="Define the capability contract" copy="Package examples, expected outputs, safety rules, coverage, and readiness thresholds." />
+                <HeroStep number="2" title="Run a controlled succession" copy="Verify the source, diagnose target loss, recover, and select without final-test leakage." />
+                <HeroStep number="3" title="Export replayable evidence" copy="Produce the successor adapter, readiness decision, residual failures, and replay bundle." />
               </div>
               <p className="mt-7 border-t border-white/8 pt-5 text-xs leading-5 text-slate-500">
-                The browser evaluates precomputed predictions. Model training and inference happen
-                outside the browser.
+                The CLI performs model loading, training, selection, and export. Browser surfaces
+                inspect and test the evidence that a succession run produced.
               </p>
             </Card>
           </div>
@@ -94,14 +145,14 @@ export function LandingExperience({ reference }: { reference: ReferenceSuccessio
         <div className="mx-auto max-w-7xl rounded-3xl bg-slate-900/45 p-6 sm:p-9 lg:p-12">
           <SectionHeading
             eyebrow="The replacement risk"
-            title="A replacement can sound right and still break your application."
-            copy="Teams switch models for cost, latency, licensing, infrastructure, or vendor reasons. General benchmarks do not prove that application-specific rules survived the move."
+            title="A replacement can sound intelligent and still lose the capability you fine-tuned."
+            copy="Teams switch models for cost, latency, privacy, licensing, infrastructure, or vendor reasons. General benchmarks do not prove that learned policies, contracts, tool use, approvals, and safety behavior survived the move."
           />
           <div className="mt-10 grid gap-6 rounded-2xl bg-slate-950/40 p-6 sm:p-8 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
             <p className="text-lg leading-8 text-slate-300">
               Plausible text can still use the wrong policy code, bypass an approval, violate a
-              contract, or choose an unsafe action. InheritBench tests the behavior the application
-              actually requires.
+              contract, or choose an unsafe action. Model succession makes that portability problem
+              explicit before a replacement ships.
             </p>
             <p className="rounded-2xl bg-rose-300/[0.06] p-5 text-sm leading-7 text-rose-100/85">
               The reference replacement produced valid-looking output while preserving only{" "}
@@ -115,12 +166,58 @@ export function LandingExperience({ reference }: { reference: ReferenceSuccessio
         </div>
       </section>
 
-      <section id="how-it-works" className="scroll-mt-24 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      <section id="developer-workflow" className="scroll-mt-24 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="mx-auto max-w-7xl rounded-3xl bg-slate-900/55 p-6 sm:p-9 lg:p-12">
           <SectionHeading
-            eyebrow="How it works"
+            eyebrow="How developers use InheritBench"
+            title="Define the capability. Freeze the plan. Execute the succession."
+            copy="A developer owns the capability contract and selects a supported source, target, and recovery strategy. The CLI owns ordered execution, evidence separation, readiness, export, and replay."
+          />
+          <div className="mt-10 grid gap-6 lg:grid-cols-[.72fr_1.28fr]">
+            <Card className="border-0 bg-slate-950/40 p-6 shadow-none sm:p-7">
+              <p className="text-sm font-medium text-slate-300">Developer-authored capability pack</p>
+              <pre
+                tabIndex={0}
+                aria-label="Example capability pack structure"
+                className="mt-5 overflow-auto rounded-2xl bg-black/25 p-5 font-mono text-sm leading-7 text-cyan-100"
+              >
+                {capabilityTree}
+              </pre>
+              <p className="mt-5 text-sm leading-6 text-slate-400">
+                Model-visible inputs stay separate from evaluator-only contracts and final records.
+                Packs become executable only after strict validation.
+              </p>
+            </Card>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {workflowCommands.map((step) => (
+                <WorkflowCommand key={step.number} {...step} />
+              ))}
+            </div>
+          </div>
+          <div className="mt-10 rounded-2xl bg-amber-300/[0.055] p-6">
+            <p className="font-semibold text-amber-100">When coverage is insufficient</p>
+            <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
+              An anchored run may stop at <code className="text-amber-100">ANCHORS_REQUIRED</code>,
+              identify the deficient group and required count, and wait for explicitly authorized
+              original examples. The developer adds anchors and resumes the same frozen plan without
+              regenerating completed teacher evidence.
+            </p>
+            <pre
+              tabIndex={0}
+              aria-label="Add anchors and resume commands"
+              className="mt-4 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-black/20 p-4 font-mono text-xs leading-6 text-slate-200"
+            >{`uv run inheritbench succession add-anchors --run runs/<run-id> --records anchors/approved-anchors.jsonl
+uv run inheritbench succession resume --run runs/<run-id> --device mps`}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" className="scroll-mt-24 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-3xl bg-slate-900/45 p-6 sm:p-9 lg:p-12">
+          <SectionHeading
+            eyebrow="Engine stages"
             title="Diagnose → Recover → Assure"
-            copy="Turn a model replacement into three clear questions: what was lost, can it be recovered, and is the successor ready to ship?"
+            copy="These are ordered CLI stages—not browser steps. The engine preserves the boundary between recovery evidence and sealed final evaluation."
           />
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {stages.map((stage, index) => (
@@ -139,32 +236,12 @@ export function LandingExperience({ reference }: { reference: ReferenceSuccessio
         </div>
       </section>
 
-      <section className="px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        <Card className="grid-surface mx-auto grid max-w-7xl gap-7 overflow-hidden rounded-3xl border-0 bg-gradient-to-br from-cyan-300/[0.09] via-slate-900/80 to-slate-900/70 p-6 shadow-[0_24px_80px_rgba(2,8,23,.28)] sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center lg:p-12">
-          <div>
-            <p className="eyebrow">Try it yourself</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-white">
-              Choose → Run → Review
-            </h2>
-            <p className="mt-3 max-w-2xl leading-7 text-slate-400">
-              Choose a built-in candidate, run the evaluation in your browser, and review the
-              readiness decision. Then introduce a controlled failure and see the decision change.
-            </p>
-          </div>
-          <Button asChild size="lg" className="landing-cta">
-            <Link href="/sandbox/">
-              Open the Assurance Lab <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </Card>
-      </section>
-
-      <section id="reference-result" className="scroll-mt-24 px-4 py-8 pb-16 sm:px-6 sm:py-10 sm:pb-20 lg:px-8">
+      <section id="reference-result" className="scroll-mt-24 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="mx-auto max-w-7xl rounded-3xl bg-slate-900/55 p-6 sm:p-9 lg:p-12">
           <SectionHeading
-            eyebrow="Reference result"
-            title="Qwen capability recovered on an OLMo successor."
-            copy="Four recovery candidates were compared without looking at final-test results. Candidate 0 was selected, then evaluated once on clean and adversarial records."
+            eyebrow="Proof of execution"
+            title="The CLI completed a real Qwen → OLMo succession."
+            copy="An adapted Qwen source and untouched OLMo target used different model architectures. Direct recovery undercovered important cases; anchored recovery added ten targeted original examples, completed four seeded candidates, and selected Candidate 0 using validation only before final records opened."
           />
         <Card className="mt-10 overflow-hidden border-0 bg-slate-950/40 p-6 shadow-none sm:p-8">
           <div className="grid gap-7 lg:grid-cols-[.8fr_1.2fr]">
@@ -180,6 +257,9 @@ export function LandingExperience({ reference }: { reference: ReferenceSuccessio
               <ResultMetric label="Operational correctness" value={`${clean.operational_semantic_correct} / ${clean.records}`} />
               <ResultMetric label="Exact-contract fidelity" value={`${clean.exact_full_contract} / ${clean.records}`} />
               <ResultMetric label="Strict validity" value={`${clean.historical_strict_valid} / ${clean.records}`} />
+              <ResultMetric label="Clean safety blockers" value={String(clean.blocker_safety_findings)} />
+              <ResultMetric label="Adversarial exact result" value={`${adversarial.exact_full_contract} / ${adversarial.records}`} />
+              <ResultMetric label="Adversarial strict validity" value={`${adversarial.historical_strict_valid} / ${adversarial.records}`} />
               <ResultMetric
                 label="Safety findings"
                 value={`${adversarial.blocker_safety_findings} on ${Object.keys(blockerCases).length} adversarial record`}
@@ -196,16 +276,53 @@ export function LandingExperience({ reference }: { reference: ReferenceSuccessio
             </p>
             <div className="flex flex-wrap gap-3">
               <Button asChild>
-                <Link href="/sandbox/">
-                  Test this successor <ArrowRight className="h-4 w-4" />
+                <Link href="/run/opsroute-qwen-olmo/">
+                  Inspect the full succession <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="secondary">
-                <Link href="/run/opsroute-qwen-olmo/">Inspect the full evidence</Link>
+                <Link href="/sandbox/">Test the assurance result</Link>
               </Button>
             </div>
           </div>
         </Card>
+        </div>
+      </section>
+
+      <section className="px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <Card className="grid-surface mx-auto grid max-w-7xl gap-7 overflow-hidden rounded-3xl border-0 bg-gradient-to-br from-cyan-300/[0.09] via-slate-900/80 to-slate-900/70 p-6 shadow-[0_24px_80px_rgba(2,8,23,.28)] sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center lg:p-12">
+          <div>
+            <p className="eyebrow">Judge verification</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-white">
+              Test the assurance layer in your browser.
+            </h2>
+            <p className="mt-3 max-w-3xl leading-7 text-slate-300">
+              The Assurance Lab is not the model-migration engine. It evaluates frozen or locally
+              uploaded predictions, recomputes safety and readiness, applies controlled mutations,
+              verifies integrity, and creates unsigned local receipts. Model loading, training, and
+              inference remain offline CLI operations.
+            </p>
+          </div>
+          <Button asChild size="lg" className="landing-cta">
+            <Link href="/sandbox/">
+              Try the Assurance Lab <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </Card>
+      </section>
+
+      <section className="px-4 py-8 pb-16 sm:px-6 sm:py-10 sm:pb-20 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-3xl bg-slate-900/45 p-6 sm:p-9 lg:p-12">
+          <SectionHeading
+            eyebrow="Current boundary"
+            title="Generic capability contracts. Explicitly supported model execution."
+            copy="Developers can author structured-JSON capability packs. Real execution currently supports the pinned Qwen2.5-0.5B → OLMo-2-1B registry and has been demonstrated on Apple MPS with OpsRoute. Other architectures require a validated registry and adapter integration."
+          />
+          <p className="mt-6 max-w-4xl text-sm leading-7 text-slate-400">
+            Purchase Approval is fixture-only. The reference uses verified frozen teacher outputs;
+            live generic teacher generation is not yet proven. Recovery is not guaranteed, and the
+            engine may correctly return <code className="text-slate-200">MIGRATION_BLOCKED</code>.
+          </p>
         </div>
       </section>
     </>
@@ -233,6 +350,33 @@ function HeroStep({ number, title, copy }: { number: string; title: string; copy
         <p className="mt-1 text-sm leading-6 text-slate-400">{copy}</p>
       </div>
     </div>
+  );
+}
+
+function WorkflowCommand({
+  number,
+  title,
+  copy,
+  command,
+}: {
+  number: string;
+  title: string;
+  copy: string;
+  command: string;
+}) {
+  return (
+    <Card className="min-w-0 border-0 bg-slate-950/40 p-5 shadow-none sm:p-6">
+      <span className="font-mono text-sm text-cyan-300">{number}</span>
+      <h3 className="mt-3 text-xl font-semibold text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{copy}</p>
+      <pre
+        tabIndex={0}
+        aria-label={`${title} command`}
+        className="mt-4 max-w-full overflow-auto whitespace-pre-wrap break-words rounded-xl bg-black/25 p-4 font-mono text-xs leading-6 text-slate-200"
+      >
+        {command}
+      </pre>
+    </Card>
   );
 }
 

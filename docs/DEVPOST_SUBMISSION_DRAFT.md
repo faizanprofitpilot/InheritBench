@@ -9,8 +9,8 @@ InheritBench — Model Succession with Executable Assurance
 
 ## One-Line Description
 
-Replace an open-weight model, recover the behavior your application depends on, and prove whether
-the successor is ready to ship.
+Use a local CLI to move a fine-tuned capability to a supported replacement model and produce a
+replayable migration-readiness decision.
 
 **Tagline:** Move the model. Keep the capability. Prove it survived.
 
@@ -30,35 +30,46 @@ benchmarks do not prove that a replacement preserves an organization's exact pol
 approval boundaries, and safety behavior. A plausible answer can still break the production
 contract.
 
-InheritBench turns that silent-regression problem into an executable succession workflow:
+InheritBench turns that fine-tuned capability-portability problem into an executable local workflow:
 **Diagnose → Recover → Assure**.
 
 ## What It Does
 
-1. Validate a developer-owned capability pack.
-2. Verify the adapted source and measure the untouched target.
-3. Create controlled source-derived transfer supervision.
-4. Train bounded recovery candidates.
-5. Select a candidate using validation evidence only.
-6. Open final clean and adversarial records once.
-7. Apply a versioned readiness contract.
-8. Export and verify the adapter.
-9. Replay the decision from content-addressed evidence.
+InheritBench is a local CLI. A developer authors a capability pack, selects an explicitly supported
+source and target, configures a recovery strategy, and freezes a content-addressed plan. The engine
+then verifies the adapted source, measures target loss, prepares authorized supervision, trains the
+target adapter, selects using validation only, opens final records after selection, applies
+readiness, exports and reloads the adapter, and produces replayable evidence.
 
-The static product exposes two judge paths:
+```text
+Capability pack
+→ immutable succession plan
+→ source verification and target diagnosis
+→ configured recovery strategy
+→ validation-only selection
+→ sealed clean and adversarial assurance
+→ adapter export, fresh-load verification, and replay
+```
 
-- **Assurance Lab:** evaluate precomputed predictions, challenge them with controlled mutations,
-  apply readiness, inspect record findings, upload compatible local results, and download an
-  unsigned local receipt.
-- **Completed succession:** inspect how capability loss was diagnosed, repaired, selected, evaluated,
-  and replayed.
+An anchored run may stop at `ANCHORS_REQUIRED`, identify the deficient group and count, accept
+explicitly authorized original examples, and resume without regenerating completed teacher
+evidence. The engine can also stop honestly with `MIGRATION_BLOCKED`.
+
+The static product exposes two supporting judge paths:
+
+- **Completed succession:** proof that the CLI executed a real Qwen → OLMo migration, including
+  recovery, validation-only selection, sealed evaluation, adapter identity, and replay.
+- **Assurance Lab:** evaluate generated predictions, challenge them with controlled mutations, apply
+  readiness, inspect findings, upload compatible local results, and download an unsigned receipt.
 
 The browser performs real evaluation, integrity, aggregation, safety, readiness, mutation, and replay
-logic. Training and model inference remain precomputed.
+logic. It is not the migration engine; model loading, training, inference, candidate generation, and
+adapter export are offline CLI operations.
 
 ## Reference Succession
 
-The demonstrated capability is OpsRoute, a strict refund and subscription action-routing contract.
+The demonstrated capability is OpsRoute, a strict refund and subscription action-routing contract,
+not the product itself.
 The source is adapted Qwen2.5 0.5B Instruct and the successor is pinned OLMo-2 1B Instruct.
 
 Untouched OLMo failed the source-gate diagnostic. InheritBench used Anchored Behavioral Transfer,
@@ -105,6 +116,10 @@ The product is designed to preserve negative evidence:
 Python, Pydantic, Typer, PyTorch, Transformers, PEFT, safetensors, declarative capability packs,
 content-addressed plans, phased execution, deterministic evaluation, adapter export, and evidence
 replay.
+
+Primary commands include `inheritbench capability init|validate|inspect`,
+`inheritbench succession plan|run|resume|add-anchors|inspect|replay|export-web`, and
+`inheritbench succeed`.
 
 ### Product and Assurance Lab
 
@@ -175,7 +190,24 @@ core implementation work occurred. It is included for OpenAI Build Week submissi
 
 ## Testing Instructions
 
-Browser product:
+Developer CLI workflow:
+
+```bash
+uv sync --frozen --extra model --group dev
+uv run inheritbench capability validate capabilities/opsroute/v0.2.0
+uv run inheritbench succession plan \
+  --pack capabilities/opsroute/v0.2.0 \
+  --source-config configs/models/source.yaml \
+  --target-config configs/models/target.yaml \
+  --strategy anchored-behavioral-transfer-v0.1 \
+  --output runs
+uv run inheritbench succession run --plan runs/<run-id> --device mps
+```
+
+This path requires model downloads and accelerator-backed execution; Apple MPS is the only real
+training backend demonstrated.
+
+Judge browser verification:
 
 ```bash
 git clone https://github.com/faizanprofitpilot/InheritBench.git

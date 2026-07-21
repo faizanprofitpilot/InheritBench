@@ -1,9 +1,9 @@
 # Capability Packs
 
-A capability pack defines the learned behavior that must survive a model replacement. Pack v0.2 is
-the task-neutral product contract for schemas, model-visible data, evaluator-only oracles,
-authorized labels, prompts, vocabularies, safety rules, readiness thresholds, coverage groups,
-strategies, and exact model-registry permissions.
+A capability pack is the developer-owned input to the local InheritBench CLI. It defines the learned
+capability that must survive a model replacement while keeping model-visible inputs separate from
+evaluator-only contracts and final records. Pack v0.2 is task-neutral for the supported
+`structured-json-v0.1` profile; it does not make arbitrary model architectures executable.
 
 ## Pack v0.2
 
@@ -11,6 +11,7 @@ strategies, and exact model-registry permissions.
 capability.yaml
 schemas/input.schema.json
 schemas/output.schema.json
+schemas/cross-field.schema.json
 evaluator.yaml
 prompts/system.txt
 vocabularies/decisions.json
@@ -30,7 +31,10 @@ oracles/transfer_pool.jsonl
 oracles/validation.jsonl
 oracles/confirmatory.jsonl
 oracles/adversarial.jsonl
-anchors/anchors.jsonl
+supervision/frozen_teacher_outputs.jsonl
+anchors/available.jsonl
+schedules/direct-reference.json
+schedules/anchored-reference.json
 README.md
 ```
 
@@ -40,12 +44,12 @@ or `REFERENCE`; `FIXTURE_ONLY` execution is available only to hidden tests.
 ## Authoring Commands
 
 ```bash
-inheritbench capability init NAME \
+uv run inheritbench capability init NAME \
   --template structured-json-v0.1 \
   --output PATH
 
-inheritbench capability validate PACK --json -
-inheritbench capability inspect PACK --json -
+uv run inheritbench capability validate PACK --json -
+uv run inheritbench capability inspect PACK --json -
 ```
 
 Validation rejects unknown fields, unsafe or missing paths, malformed JSON Schemas, invalid record
@@ -127,7 +131,9 @@ mappings.
 `capabilities/opsroute/v0.2.0` is the product-owned reference projection. It preserves capability
 identity `opsroute@0.1.0` while converting frozen historical inputs and oracles into task-neutral
 pack records. A deterministic projector regenerates it into temporary storage for byte comparison.
-Historical OpsRoute files are read-only.
+Historical OpsRoute files are read-only. The later
+`capabilities/opsroute/v0.3.0/evaluation/` confirmatory and adversarial surfaces support the bounded
+multi-start product reference; they are sealed evaluation data, not a second authoring format.
 
 ### Purchase Approval
 
@@ -151,6 +157,10 @@ Arbitrary Transformers identities, guessed target modules, remote code, hosted t
 automatic prompt/model search are unsupported. The Assurance Lab accepts local JSON/JSONL prediction
 uploads only when they match the committed capability and record contract; an upload does not add a
 new model, train a successor, or make a new capability pack available in the deployed product.
+
+The OpsRoute anchored reference uses verified frozen teacher outputs. Live generic teacher
+generation is not yet proven. A valid pack and supported model pair do not guarantee recovery or
+production safety; readiness may correctly be `MIGRATION_BLOCKED`.
 
 See [Pack-Driven Succession v0.2](PACK_DRIVEN_SUCCESSION.md) for planning, execution, anchor
 intervention, replay, browser import, and real integration evidence.

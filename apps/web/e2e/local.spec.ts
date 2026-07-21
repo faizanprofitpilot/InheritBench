@@ -134,13 +134,17 @@ test("migration profiles explain when no trained method is viable", async ({ pag
 test("header and footer expose the product paths", async ({ page }) => {
   blockExternalRequests(page);
   await page.goto("/");
-  for (const label of ["Product", "How it works", "Assurance Lab", "Reference run", "GitHub"]) {
+  for (const label of ["Product", "CLI workflow", "Reference run", "Assurance Lab", "GitHub"]) {
     await expect(page.getByRole("link", { name: label, exact: true }).first()).toBeAttached();
   }
-  await expect(page.getByRole("link", { name: "Try the Lab" })).toHaveAttribute("href", "/sandbox/");
+  await expect(page.getByRole("link", { name: "View workflow" })).toHaveAttribute(
+    "href",
+    "/#developer-workflow",
+  );
   for (const [label, href] of [
-    ["Assurance Lab", "/sandbox/"],
+    ["CLI workflow", "/#developer-workflow"],
     ["Reference run", "/run/opsroute-qwen-olmo/"],
+    ["Assurance Lab", "/sandbox/"],
     ["Integrity", "/lab/opsroute/evidence/"],
     ["Repository", "https://github.com/faizanprofitpilot/InheritBench"],
   ] as const) {
@@ -168,7 +172,7 @@ test("landing reference result retains a distinct hash anchor", async ({ page })
   await page.goto("/#reference-result");
   await expect(page).toHaveURL(/\/#reference-result$/);
   await expect(page.locator("#reference-result")).toBeVisible();
-  await expect(page.locator("#reference-result").getByText("Reference result", { exact: true })).toBeVisible();
+  await expect(page.locator("#reference-result").getByText("Proof of execution", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "Reference run", exact: true }).first()).not.toHaveAttribute(
     "href",
     /#/,
@@ -179,12 +183,32 @@ test("landing page presents the product workflow and completed reference result"
   blockExternalRequests(page);
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /Move the model/ })).toBeVisible();
+  await expect(page.getByText("Local model-succession CLI", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: "Define the capability. Freeze the plan. Execute the succession.",
+    }),
+  ).toBeVisible();
+  for (const command of [
+    "inheritbench capability validate",
+    "inheritbench succession plan",
+    "inheritbench succession run",
+    "inheritbench succession inspect",
+    "inheritbench succession replay",
+    "inheritbench succession export-web",
+  ]) {
+    await expect(page.getByText(new RegExp(command))).toBeVisible();
+  }
   await expect(page.getByText("Diagnose → Recover → Assure", { exact: true }).first()).toBeVisible();
   await expect(page.getByRole("link", { name: "Try the Assurance Lab", exact: true }).first()).toHaveAttribute(
     "href",
     "/sandbox/",
   );
-  await expect(page.getByRole("link", { name: /View the Qwen → OLMo succession/ }).first()).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "See the developer workflow" })).toHaveAttribute(
+    "href",
+    "#developer-workflow",
+  );
+  await expect(page.getByRole("link", { name: /Inspect the Qwen → OLMo succession/ }).first()).toHaveAttribute(
     "href",
     "/run/opsroute-qwen-olmo/",
   );
@@ -197,6 +221,9 @@ test("landing page presents the product workflow and completed reference result"
     "Operational correctness",
     "Exact-contract fidelity",
     "Strict validity",
+    "Clean safety blockers",
+    "Adversarial exact result",
+    "Adversarial strict validity",
     "Safety findings",
     "Readiness",
   ]) {
@@ -204,10 +231,9 @@ test("landing page presents the product workflow and completed reference result"
   }
   await expect(page.getByText("2 on 1 adversarial record", { exact: true })).toBeVisible();
   await expect(page.getByText("CONDITIONAL PASS", { exact: true }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Choose → Run → Review" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Open the Assurance Lab" })).toHaveAttribute("href", "/sandbox/");
-  await expect(page.getByRole("link", { name: "Test this successor" })).toHaveAttribute("href", "/sandbox/");
-  await expect(page.getByRole("link", { name: "Inspect the full evidence" })).toHaveAttribute(
+  await expect(page.getByRole("heading", { name: "Test the assurance layer in your browser." })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Test the assurance result" })).toHaveAttribute("href", "/sandbox/");
+  await expect(page.getByRole("link", { name: "Inspect the full succession" })).toHaveAttribute(
     "href",
     "/run/opsroute-qwen-olmo/",
   );
@@ -484,7 +510,7 @@ test("product calls to action route into the sandbox", async ({ page }) => {
     await expect(page).toHaveURL(/\/sandbox\/$/);
     await expect(
       page.getByRole("heading", {
-        name: "Choose a candidate. Run the evaluation. Review the decision.",
+        name: "Test evidence produced by a model succession.",
       }),
     ).toBeVisible();
   }

@@ -138,7 +138,7 @@ function MultistartInspector({
       <Card className={`grid-surface relative overflow-hidden rounded-3xl border-0 px-6 py-10 shadow-[0_30px_100px_rgba(2,8,23,.32)] sm:px-9 sm:py-12 lg:px-12 ${readinessTone(readiness)}`}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(34,211,238,.08),transparent_28rem)]" />
         <div className="relative flex flex-wrap items-center gap-3">
-          <Badge>Completed reference succession</Badge>
+          <Badge>Completed local CLI succession</Badge>
           <StatusBadge status={readiness} />
         </div>
         <div className="relative mt-8 grid gap-8 lg:grid-cols-[1.08fr_.92fr] lg:items-center">
@@ -150,6 +150,12 @@ function MultistartInspector({
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
               {decisionCopy}
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-400">
+              This browser projection comes from a completed local InheritBench CLI run. The engine
+              verified adapted Qwen, measured what untouched OLMo lost, executed direct and anchored
+              recovery, selected Candidate {selectedIndex} using validation only, opened sealed
+              final records, exported and reloaded the adapter, and replayed the decision.
             </p>
           </div>
           <div className="rounded-2xl bg-slate-950/45 p-6 shadow-inner shadow-black/20 sm:p-7">
@@ -233,11 +239,17 @@ function MultistartInspector({
 
       <Card className="grid-surface flex flex-col gap-5 overflow-hidden rounded-3xl border-0 bg-gradient-to-br from-cyan-300/[0.09] via-slate-900/80 to-slate-900/70 p-6 shadow-[0_24px_80px_rgba(2,8,23,.28)] sm:flex-row sm:items-center sm:justify-between sm:p-9">
         <div>
-          <p className="font-semibold text-white">Production evidence and active assurance</p>
+          <p className="font-semibold text-white">CLI-produced evidence and browser assurance</p>
           <p className="mt-1 text-sm leading-6 text-slate-400">
-            This page proves how the successor was produced and selected. The Assurance Lab lets
-            you actively test its evaluation and readiness behavior.
+            This page shows how the local succession engine produced and selected the successor.
+            The Assurance Lab separately lets you test its evaluation and readiness evidence.
           </p>
+          <Link
+            href="/#developer-workflow"
+            className="mt-3 inline-flex items-center gap-2 rounded-sm text-sm font-medium text-cyan-200 hover:text-cyan-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+          >
+            View CLI workflow <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
         <div className="flex shrink-0 flex-wrap gap-2">
           <Button asChild>

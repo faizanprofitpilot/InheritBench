@@ -21,6 +21,13 @@ describe("RunInspector", () => {
     expect(
       screen.getByRole("link", { name: /Test this successor in the Assurance Lab/ }),
     ).toHaveAttribute("href", "/sandbox");
+    expect(screen.getByRole("link", { name: "View CLI workflow" })).toHaveAttribute(
+      "href",
+      "/#developer-workflow",
+    );
+    expect(
+      screen.getByText(/browser projection comes from a completed local InheritBench CLI run/i),
+    ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Open full evidence" })).toHaveAttribute(
       "href",
       "/lab/opsroute/evidence",

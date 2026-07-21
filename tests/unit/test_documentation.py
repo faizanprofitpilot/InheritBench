@@ -36,10 +36,11 @@ def test_readme_has_release_contract() -> None:
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     required_sections = [
         "## Judge Links",
-        "## Five-Minute Judge Quickstart",
-        "## What Runs Live and What Is Precomputed",
-        "## Reference Result",
         "## Product Workflow",
+        "## Five-Minute Judge Browser Test",
+        "## Browser Boundary",
+        "## Reference Result",
+        "## Execution Stages",
         "## Installation and Supported Platforms",
         "## Reproduction Levels",
         "## Capability-Pack Extensibility",
@@ -57,6 +58,9 @@ def test_readme_has_release_contract() -> None:
     assert "### Level 2 — Local evidence replay and tests" in readme
     assert "### Level 3 — Full succession reproduction" in readme
     assert "uv run --no-dev inheritbench succession replay --output runs" in readme
+    assert "uv run inheritbench succession plan" in readme
+    assert "uv run inheritbench succession run" in readme
+    assert "ANCHORS_REQUIRED" in readme
     assert "succession replay \\\n  --case" not in readme
     assert "ten labels total" not in readme.lower()
     assert ":contentReference" not in readme
@@ -177,8 +181,101 @@ def test_succession_output_documentation_matches_implementation() -> None:
     }
     for filename in expected:
         assert f"`{filename}`" in documented or filename in documented
-    published_contract = documented.split("## Pack-Driven Execution Output", 1)[0]
+    published_contract = documented.split("## Pack-Driven CLI Execution Output", 1)[0]
     assert "run.json" not in published_contract
     assert "replay_manifest.json" not in published_contract
     assert "run.json" in documented
     assert "replay_manifest.json" in documented
+
+
+def test_published_cli_workflow_matches_registered_commands() -> None:
+    cli = (REPO_ROOT / "src/inheritbench/cli.py").read_text(encoding="utf-8")
+    command_groups = {
+        "capability": {"init", "validate", "inspect"},
+        "succession": {
+            "plan",
+            "run",
+            "resume",
+            "add-anchors",
+            "inspect",
+            "replay",
+            "export-web",
+        },
+    }
+    for group, commands in command_groups.items():
+        for command in commands:
+            assert f'@{group}_app.command("{command}")' in cli
+    assert '@app.command("succeed")' in cli
+
+    public_documents = [
+        (REPO_ROOT / "README.md").read_text(encoding="utf-8"),
+        (REPO_ROOT / "docs/JUDGE_REPLAY.md").read_text(encoding="utf-8"),
+        (REPO_ROOT / "docs/PACK_DRIVEN_SUCCESSION.md").read_text(encoding="utf-8"),
+    ]
+    for contents in public_documents:
+        assert "inheritbench capability validate" in contents
+        assert "inheritbench succession plan" in contents
+        assert "inheritbench succession run" in contents
+        assert "inheritbench succession inspect" in contents
+        assert "inheritbench succession replay --run" in contents
+
+
+def test_public_copy_preserves_product_boundaries() -> None:
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/PRODUCT_ARCHITECTURE.md").read_text(encoding="utf-8")
+    devpost = (REPO_ROOT / "docs/DEVPOST_SUBMISSION_DRAFT.md").read_text(encoding="utf-8")
+    landing = (REPO_ROOT / "apps/web/src/components/landing-experience.tsx").read_text(
+        encoding="utf-8"
+    )
+    sandbox = (REPO_ROOT / "apps/web/src/components/sandbox/sandbox-experience.tsx").read_text(
+        encoding="utf-8"
+    )
+
+    combined = "\n".join([readme, architecture, devpost, landing, sandbox])
+    for required in [
+        "Qwen2.5-0.5B",
+        "OLMo-2-1B",
+        "Apple MPS",
+        "Purchase Approval",
+        "fixture-only",
+        "live generic teacher generation",
+        "MIGRATION_BLOCKED",
+    ]:
+        assert required.lower() in combined.lower()
+    assert "This is not the model-migration engine" in sandbox
+    assert "no model training or fresh inference happens here" in sandbox
+    assert "historical 160-record" in readme
+    assert "192-prediction product projection" in readme
+
+
+def test_landing_presents_cli_before_browser_assurance() -> None:
+    landing = (REPO_ROOT / "apps/web/src/components/landing-experience.tsx").read_text(
+        encoding="utf-8"
+    )
+    assert "Local model-succession CLI" in landing
+    assert "Developer-authored capability pack" in landing
+    assert "inheritbench capability validate" in landing
+    assert "inheritbench succession plan" in landing
+    assert "inheritbench succession run" in landing
+    assert "Proof of execution" in landing
+    assert "The Assurance Lab is not the model-migration engine" in landing
+    assert landing.index('id="developer-workflow"') < landing.index('id="reference-result"')
+    assert landing.index('id="reference-result"') < landing.index("Judge verification")
+    for forbidden in [
+        "run the migration in your browser",
+        "upload your model",
+        "supports any model",
+        "production safe",
+    ]:
+        assert forbidden not in landing.lower()
+
+
+def test_demo_preserves_cli_and_assurance_truth() -> None:
+    demo = (REPO_ROOT / "docs/DEMO_SCRIPT.md").read_text(encoding="utf-8")
+    assert "InheritBench is a local CLI" in demo
+    assert "The Lab is not performing the migration" in demo
+    assert "validation only" in demo
+    assert "final tests remained sealed" in demo
+    assert "CONDITIONAL_PASS → MIGRATION_BLOCKED" in demo
+    assert "Codex helped implement" in demo
+    assert "GPT-5.6 produced a structured memo" in demo

@@ -276,6 +276,11 @@ describe("SandboxExperience", () => {
     render(<SandboxExperience presentation={presentation} dependencies={fixture.dependencies} />);
 
     expect(screen.queryByRole("heading", { name: "CONDITIONAL_PASS" })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Test evidence produced by a model succession." }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/This is not the model-migration engine/i)).toBeInTheDocument();
+    expect(screen.getByText(/no model training or fresh inference happens here/i)).toBeInTheDocument();
     expect(screen.getByText("Results remain hidden until evaluation.")).toBeInTheDocument();
     expect(screen.getByText("Advanced tools")).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Challenge the successor" })).not.toBeInTheDocument();

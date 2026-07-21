@@ -601,18 +601,19 @@ export function SandboxExperience({
         <div className="relative max-w-4xl">
           <div className="flex items-center gap-2 text-slate-300">
             <FlaskConical className="h-5 w-5 text-cyan-200" />
-            <p className="text-sm font-medium">Interactive Assurance Lab</p>
+            <p className="text-sm font-medium">Browser assurance verification</p>
           </div>
           <h1 className="mt-5 max-w-3xl text-balance text-4xl font-semibold tracking-[-0.035em] text-white lg:text-5xl">
-            Choose a candidate. Run the evaluation. Review the decision.
+            Test evidence produced by a model succession.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-            See whether required behavior survived the model change and whether the selected
-            successor is ready to ship.
+            Choose a recorded candidate, run the evaluation and readiness layers, review the
+            decision, and introduce a controlled failure.
           </p>
           <p className="mt-5 text-sm leading-6 text-slate-400">
-            Runs locally in your browser against precomputed predictions. No model training or
-            inference happens here.
+            This is not the model-migration engine. The local CLI performs model loading, recovery
+            training, candidate selection, and adapter export. This Lab evaluates frozen or locally
+            uploaded predictions; no model training or fresh inference happens here.
           </p>
         </div>
       </section>
@@ -826,8 +827,9 @@ export function SandboxExperience({
           <div className="flex gap-3">
             <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-slate-400" />
             <p className="max-w-4xl text-sm leading-6">
-              No model training or inference occurs here. Local receipts prove deterministic content
-              hashing, not identity, signature, notarization, or external attestation.
+              This browser surface tests evaluation, safety, readiness, integrity, mutation, upload,
+              replay, and unsigned receipt generation. Local receipts prove deterministic content
+              hashing—not identity, signature, notarization, or external attestation.
             </p>
           </div>
           <Link href="/run/opsroute-qwen-olmo/" className="shrink-0 text-sm font-medium text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300">Open full succession evidence</Link>

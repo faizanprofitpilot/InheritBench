@@ -1,103 +1,113 @@
 # Product Architecture
 
-InheritBench is a model-succession system with three responsibilities: define the capability that
-must survive, rebuild it on a replacement model, and determine whether the recovered successor is
-ready to migrate. The Qwen → OLMo implementation performs that full workflow through the scientific
-layer and delivers a trained adapter plus a migration decision.
+InheritBench is a local CLI and pack-driven engine for controlled model succession. Developers define
+the fine-tuned capability that must survive; the engine plans and executes recovery on an explicitly
+supported replacement model, applies readiness, exports the adapter, and preserves replayable
+evidence.
 
-The static product exposes the assurance layer for judge testing. It does real integrity and
-readiness work without pretending to train or run a model in the browser.
+The completed Qwen → OLMo inspector proves that this workflow executed end to end. The Assurance Lab
+is a supporting browser surface for testing evaluation and readiness against generated predictions;
+it does not load, train, or run the models.
 
 ## Component Map
 
 ```text
-Capability layer
-  └── OpsRoute capability pack
-      ├── capability.yaml
-      ├── policy_registry.json
-      └── safety_rules.yaml
-            ↓
-Succession layer
-  └── pinned model and method configs
-            ↓
-Preregistered phased scientific workflow
-            ↓
-Raw predictions + deterministic parser/metrics
-            ↓
-Immutable artifacts + selected adapter + publication verification
-            ↓
-Assurance layer
-            ↓
-Phase 4 evidence graph + validated GPT-5.6 memo
-            ↓
-Compact succession replay bundle
-            ↓
-Python replay engine ↔ TypeScript replay engine
-            ↓
-CLI run bundle       Static web product
-                         ├── Assurance Lab
-                         ├── completed-run inspector
-                         └── local bundle inspector
+Capability-pack layer
+  └── developer-owned structured-JSON contract
+      ├── model-visible inputs
+      ├── evaluator-only expected contracts
+      ├── schemas and controlled vocabularies
+      ├── safety and readiness rules
+      └── optional authorized anchors
+                    ↓
+Succession engine / local CLI
+  └── validate → freeze plan → verify source → diagnose target
+      → recover → select on validation → open final records
+      → readiness → adapter export/reload → replay
+                    ↓
+Browser evidence surfaces
+  ├── completed-run inspector: proof of CLI execution
+  ├── Assurance Lab: lightweight evaluation/readiness testing
+  └── local bundle inspector: browser-only inspection
 ```
 
-## Scientific Layer
+## Capability-Pack Layer
 
-Python owns dataset generation, policies, model loading, training, checkpoint selection, evaluation,
-artifact finalization, replay, and the Phase 5 display projection. Historical scientific artifacts
-are immutable inputs to the product layer.
+The pack at `capabilities/opsroute/v0.2.0` uses profile `structured-json-v0.1`. Its layout includes
+`capability.yaml`, input/output/cross-field schemas, `evaluator.yaml`, prompts, controlled
+vocabularies, safety and readiness rules, model-visible data, evaluator-only oracles, frozen teacher
+outputs, schedules, and authorized anchors.
 
-This is the execution path that transferred OpsRoute from adapted Qwen to a fresh OLMo base. It is
-implemented as a preregistered phased workflow rather than a generalized one-command orchestrator.
+`capability init` scaffolds a `DRAFT` pack. `capability validate` and `capability inspect` are
+read-only authoring tools. Planning accepts only validated `READY` or `REFERENCE` packs;
+`FIXTURE_ONLY` execution is hidden and test-only. The stage broker prevents final records and
+oracles from entering supervision or selection.
 
-The executed workflow uses:
+## Succession Engine and CLI
 
-- exact model revisions;
-- native prompt `0.1.0`;
-- parser `0.1.0`;
-- evaluator `v0`;
-- canonical JSON and JSONL;
-- byte and content hashes;
-- atomic no-overwrite storage;
-- Git-tree preregistration before real training and evaluation.
+Python owns pack validation, planning, model loading, source verification, target diagnosis,
+supervision preparation, LoRA training, validation-only checkpoint selection, final evaluation,
+readiness, adapter export/reload, and replay.
 
-## Capability Pack
+```bash
+uv run inheritbench capability validate capabilities/opsroute/v0.2.0
+uv run inheritbench succession plan \
+  --pack capabilities/opsroute/v0.2.0 \
+  --source-config configs/models/source.yaml \
+  --target-config configs/models/target.yaml \
+  --strategy anchored-behavioral-transfer-v0.1 \
+  --output runs
+uv run inheritbench succession run --plan runs/<run-id> --device mps
+uv run inheritbench succession inspect --run runs/<run-id> --json -
+uv run inheritbench succession replay --run runs/<run-id> --output runs/replays
+uv run inheritbench succession export-web --run runs/<run-id> --output web_bundle.json
+```
 
-`capabilities/opsroute/v0.1.0` declares the supported model pair, versions, scenario families,
-execution modes, policy registry, safety rules, adapter identity, and product limitations. The pack is
-strictly validated but does not make arbitrary capabilities plug-and-play. See
-[Capability Packs](CAPABILITY_PACKS.md).
+An anchored run may persist `ANCHORS_REQUIRED`. After `succession add-anchors`, `succession resume`
+reuses completed teacher evidence and continues the same content-addressed plan.
 
-## Succession Replay Bundle
+Real model execution is intentionally narrow: pinned Qwen2.5-0.5B Instruct as source, pinned
+OLMo-2-0425-1B-Instruct as target, explicit LoRA module maps, and Apple MPS as the demonstrated
+training backend. A capability pack cannot authorize an unknown model architecture.
 
-The committed bundle at `artifacts/phase5/succession-replay/inheritbench-succession-v0.1` contains:
+## Current Product Evidence
 
-- `succession_run_manifest.json` — identity, configuration, schemas, hashes, operations, readiness
-  version, source references, and adapter publication identity;
-- `replay_records.jsonl` — 160 compact atomic records covering untouched-target clean evidence,
-  recovered-successor clean evidence, and recovered-successor adversarial evidence;
-- `context.json` — label accounting, compute accounting, profile identity, and validated memo lineage.
+The current product projection at `artifacts/product/reference-succession-v0.1/` represents the
+repaired bounded four-seed Qwen → OLMo execution. It includes the completed browser bundle, canonical
+plan, validation-only ranking, selected-adapter identity, final comparison, replay verification, and
+compact Assurance Lab assets.
 
-The manifest does not store `CONDITIONAL_PASS`. Both replay engines derive it.
+The product readiness contract is `opsroute-readiness-product-v0.1`. Candidate 0 was selected before
+the 64-record confirmatory and 32-record adversarial surfaces opened. Replay verifies 96 direct and
+96 anchored predictions.
+
+## Historical Phase 3B Replay
+
+The separate frozen bundle at
+`artifacts/phase5/succession-replay/inheritbench-succession-v0.1` contains a manifest, 160 compact
+atomic records, and replay context for the historical public adapter. The base-only command
+`inheritbench succession replay --output runs` derives its own report under
+`succession-readiness-v0.1`. It does not reconstruct the later 192-prediction product projection.
 
 ## Truth Hierarchy
 
 ```text
-succession_run_manifest.json
+developer capability pack + supported model configs
         ↓
-immutable referenced scientific artifacts
+content-addressed CLI plan and stage evidence
         ↓
-compact deterministic replay records
+trained adapter + readiness + replay
         ↓
-shared deterministic replay specification
+deterministic product projection
         ↓
-fresh readiness report + replay receipt
+browser inspection and assurance testing
 ```
 
 Generated reports are product outputs, not manually maintained scientific sources.
 
 ## Replay Engines
 
-The Python and TypeScript implementations perform the same ordered operations:
+The historical Python and TypeScript replay implementations perform the same ordered operations:
 
 1. validate the manifest;
 2. enforce safe relative paths;
@@ -107,17 +117,19 @@ The Python and TypeScript implementations perform the same ordered operations:
 6. derive operational correctness;
 7. classify policy-code-only clean residuals;
 8. count adversarial failure profiles and safety events;
-9. apply `succession-readiness-v0.1`;
+9. apply the historical `succession-readiness-v0.1` contract;
 10. validate the verified adapter publication identity;
 11. generate the report and receipt.
 
-Cross-language golden tests require matching summary, residual, readiness, and receipt hashes.
+Cross-language golden tests require matching summary, residual, readiness, and receipt hashes. The
+Assurance Lab has a separate Python/TypeScript parity contract for the current product scenarios and
+applies `opsroute-readiness-product-v0.1`.
 
 ## Readiness Rules
 
-The deterministic rule returns:
+The deterministic product rule returns:
 
-- `BLOCK` when integrity, adapter verification, clean strict validity, or clean safety gates fail;
+- `MIGRATION_BLOCKED` when source or clean requirements fail;
 - `PASS` when no observed clean or adversarial semantic, parser, or safety blocker remains;
 - `CONDITIONAL_PASS` when clean gates pass but adversarial blockers remain.
 
@@ -143,14 +155,13 @@ The Next.js App Router application exports plain static assets. Build-time inges
 The deployment build requires no Python, uv, model weights, Hugging Face, OpenAI, or historical
 artifact discovery. Runtime requires only static site delivery.
 
-The current build also ingests
-`artifacts/product/reference-succession-v0.1/`, including the completed repaired succession
-projection and compact Assurance Lab assets. Ingestion verifies committed hashes before copying
-files into the ignored `apps/web/public/data/` directory.
+Ingestion verifies committed hashes before copying files into the ignored
+`apps/web/public/data/` directory.
 
 ## Interactive Assurance Lab
 
-`/sandbox/` runs a browser-native assurance path over committed or user-selected predictions:
+`/sandbox/` is not the succession engine. It runs browser-native assurance over committed or
+user-selected predictions produced outside the browser:
 
 ```text
 verified files
@@ -181,9 +192,9 @@ local content proofs, not identity or external attestations.
 | Browser replay | Verify compact records and derive a product decision | Claim fresh training, inference, or scientific parser replay |
 | GPT analyst | Explain validated evidence | Determine benchmark values or safety eligibility |
 
-## Pack-Driven Local Engine
+## Pack-Driven Execution Detail
 
-v0.2 adds a second, isolated execution path for developer-owned packs:
+The primary developer workflow follows:
 
 ```text
 capability pack

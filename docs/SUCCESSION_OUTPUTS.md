@@ -1,9 +1,11 @@
 # Succession Output Contract
 
-The verified replay produces a fresh deterministic product run from a frozen succession manifest and
-compact atomic records. It does not copy or rewrite scientific evidence.
+InheritBench has two output contracts. A pack-driven CLI succession writes the model-execution,
+selection, readiness, adapter, and replay evidence under `runs/<run-id>/`. The separate base-only
+historical replay reconstructs a nine-file Phase 3B report from a frozen manifest and compact atomic
+records. Neither path copies or rewrites scientific evidence.
 
-## Run Directory
+## Historical Phase 3B Replay Directory
 
 ```text
 runs/succession-replay-<content-hash>/
@@ -86,7 +88,7 @@ rule version. Timestamps and local paths do not affect it.
 The downloadable browser report and receipt follow the same deterministic specification, but browser
 downloads are session outputs rather than repository scientific artifacts.
 
-## Pack-Driven Execution Output
+## Pack-Driven CLI Execution Output
 
 The v0.2 local engine writes a separate task-neutral run:
 
@@ -127,6 +129,14 @@ and resume reuses completed teacher work.
 `succession replay --run` validates planned input and adapter hashes, rebuilds summaries, residuals,
 and readiness from saved atomic records, compares the result with stored files, and writes a fresh
 receipt without loading model weights.
+
+`succession export-web` writes `web_bundle.json`. The local inspector at `/run/local/` validates and
+renders that bundle in browser memory; the browser does not train, infer, select, export an adapter,
+or mutate the CLI run.
+
+The committed current product projection is a third presentation artifact generated from the
+repaired reference execution. It verifies 192 direct and anchored predictions and must not be
+confused with the 160-record historical Phase 3B replay described above.
 
 ## Verification Boundary
 

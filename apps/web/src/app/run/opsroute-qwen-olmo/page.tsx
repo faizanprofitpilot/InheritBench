@@ -6,7 +6,7 @@ import { loadReferenceSuccession } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Qwen to OLMo succession",
   description:
-    "Inspect the completed Qwen to OLMo capability succession, readiness decision, and replay evidence.",
+    "Inspect the browser projection of a completed local InheritBench CLI succession from adapted Qwen to OLMo.",
 };
 
 export default function SuccessionReplayPage() {

@@ -4,9 +4,9 @@ import { SandboxExperience } from "@/components/sandbox/sandbox-experience";
 import { loadSandboxPresentation } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Interactive Assurance Lab",
+  title: "Browser Assurance Lab",
   description:
-    "Test InheritBench evaluation, safety, readiness, integrity, and replay against frozen or local predictions.",
+    "Test InheritBench evaluation, safety, readiness, integrity, mutation, and replay against succession evidence without rerunning model training.",
 };
 
 export default function SandboxPage() {

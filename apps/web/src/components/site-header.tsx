@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 
 const links = [
   ["Product", "/#product"],
-  ["How it works", "/#how-it-works"],
-  ["Assurance Lab", "/sandbox/"],
+  ["CLI workflow", "/#developer-workflow"],
   ["Reference run", "/run/opsroute-qwen-olmo/"],
+  ["Assurance Lab", "/sandbox/"],
 ];
 
 export function SiteHeader() {
@@ -61,8 +61,8 @@ export function SiteHeader() {
           GitHub <GitHubMark className="h-4 w-4" />
         </a>
         <Button asChild size="sm">
-          <Link href="/sandbox/">
-            Try the Lab <ArrowRight className="h-4 w-4" />
+          <Link href="/#developer-workflow">
+            View workflow <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>
       </div>

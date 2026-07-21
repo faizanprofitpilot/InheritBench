@@ -1,12 +1,24 @@
 # Pack-Driven Succession v0.2
 
-InheritBench v0.2 adds a task-neutral local succession engine beside the immutable Day 1–Phase 5
-scientific workflows. Developer-owned capability packs now drive validation, planning, source and
+InheritBench v0.2 is the local developer product: a task-neutral succession engine for the supported
+structured-JSON capability profile. Developer-owned packs drive validation, planning, source and
 target execution, supervision, LoRA training, checkpoint selection, clean and adversarial
-evaluation, readiness, adapter export, replay, and browser inspection.
+evaluation, readiness, adapter export, replay, and optional browser inspection.
 
 The published Qwen → OLMo Phase 3B result remains unchanged. v0.2 does not reinterpret or replace
 that evidence.
+
+## What the Current Reference Proves
+
+The current browser product projects a later repaired, bounded four-seed execution under
+`artifacts/product/reference-succession-v0.1/`. It proves that the local engine completed a real
+Qwen → OLMo lifecycle: source verification, target-loss diagnosis, direct and anchored recovery,
+validation-only Candidate 0 selection, sealed final evaluation, `CONDITIONAL_PASS`, adapter export,
+fresh-load verification, and replay across 192 predictions.
+
+This product projection is distinct from both the earlier direct integration run below and the
+historical 160-record Phase 3B replay. Those tracks remain preserved under their original readiness
+contracts and metrics.
 
 ## Supported Boundary
 
@@ -119,9 +131,10 @@ The generic strategy replayed the historical matched-teacher evidence without Op
 The separate Purchase Approval fixture demonstrated the same generic intervention flow with a
 different schema, vocabulary, tools, safety predicates, thresholds, and group counts.
 
-## Real Product Integration Run
+## Earlier Direct Product Integration Run
 
-The required local `PRODUCT_INTEGRATION_RUN` executed the v0.2 OpsRoute reference pack with real
+Before the repaired reference, the required local `PRODUCT_INTEGRATION_RUN` executed the v0.2
+OpsRoute reference pack with real
 Qwen and OLMo models:
 
 - run ID: `succession-opsroute-direct-target-lora-v0.1-87c29fead2628e49`;
@@ -137,7 +150,7 @@ Qwen and OLMo models:
   `303339a221c616a585d07247896377a5b75c690f04c8a1b567edf3d45b6760a4`;
 - model-free replay: passed.
 
-The result is an honest product block:
+That earlier run produced an honest product block:
 
 - confirmatory semantic exactness: 36/64;
 - confirmatory strict validity: 52/64;
@@ -281,9 +294,10 @@ HISTORICAL_UNSEEDED_ADAPTER_INITIALIZATION_NOT_RECONSTRUCTIBLE
 That failed historical reconstruction is preserved. It no longer substitutes for the independent
 seeded self-reproduction gate described above.
 
-## Local Browser Inspection
+## Browser Evidence Surfaces
 
-Export `web_bundle.json`, open `/run/local/`, and select the file. Browser verification:
+Export `web_bundle.json`, open `/run/local/`, and select the file. The browser does not execute the
+succession; it verifies and renders the bundle produced by the CLI:
 
 - accepts at most 5 MiB;
 - validates a task-neutral Zod schema;
@@ -292,8 +306,9 @@ Export `web_bundle.json`, open `/run/local/`, and select the file. Browser verif
 - escapes raw JSON;
 - makes no upload, runtime API call, or external request.
 
-The browser validates a local product bundle. Offline Python replay remains the authoritative
-model-free execution verification.
+The completed reference inspector renders the committed Qwen → OLMo projection. The Assurance Lab
+separately evaluates frozen or locally uploaded predictions and recomputes readiness. Offline Python
+replay remains the authoritative model-free execution verification.
 
 ## Output and Replay
 

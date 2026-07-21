@@ -1,7 +1,8 @@
 # Judge Replay
 
 This guide tests InheritBench without downloading model weights, retraining OLMo, or calling a
-runtime API.
+runtime API. The Assurance Lab tests evidence and readiness layers; the actual model succession is
+executed through the local CLI.
 
 ## Current Status and Links
 
@@ -13,23 +14,49 @@ runtime API.
 - Demo video: **TODO BEFORE SUBMISSION: add video URL**
 - Expected current product decision: `CONDITIONAL_PASS`
 
-## Five-Minute Product Journey
+## What a Developer Runs
+
+A developer authors and validates a capability pack, freezes a supported model pair and recovery
+strategy, and executes the succession locally:
+
+```bash
+uv run inheritbench capability validate capabilities/opsroute/v0.2.0
+uv run inheritbench succession plan \
+  --pack capabilities/opsroute/v0.2.0 \
+  --source-config configs/models/source.yaml \
+  --target-config configs/models/target.yaml \
+  --strategy anchored-behavioral-transfer-v0.1 \
+  --output runs
+uv run inheritbench succession run --plan runs/<run-id> --device mps
+uv run inheritbench succession inspect --run runs/<run-id> --json -
+uv run inheritbench succession replay --run runs/<run-id> --output runs/replays
+uv run inheritbench succession export-web --run runs/<run-id> --output web_bundle.json
+```
+
+An anchored run may pause at `ANCHORS_REQUIRED`. `succession add-anchors` records explicitly
+authorized original examples, and `succession resume` continues the same frozen run without
+regenerating completed teacher evidence.
+
+## Five-Minute Browser Journey
 
 After deployment:
 
-1. Open the **Assurance Lab**.
-2. Select **Untouched OLMo** and run the diagnostic. Confirm that it receives no readiness verdict.
-3. Select **Anchored successor** and run the evaluation. Confirm `CONDITIONAL_PASS`.
-4. Apply **Approval bypass · apply and rerun**. Confirm the modified local result becomes
+1. Open the completed **Qwen → OLMo succession** and confirm that it is a projection of a local CLI
+   run.
+2. Open the **Assurance Lab**.
+3. Select **Untouched OLMo** and run the diagnostic. Confirm that it receives no readiness verdict.
+4. Select **Anchored successor** and run the evaluation. Confirm `CONDITIONAL_PASS`.
+5. Apply **Approval bypass · apply and rerun**. Confirm the modified local result becomes
    `MIGRATION_BLOCKED`.
-5. Reset the original predictions and confirm the verified reference result returns.
-6. Expand record inspection and verification details.
-7. Open the completed succession to inspect model lineage, candidate ranking, final evaluation,
+6. Reset the original predictions and confirm the verified reference result returns.
+7. Expand record inspection and verification details.
+8. Return to the completed succession to inspect model lineage, candidate ranking, final evaluation,
    adapter identity, replay, and raw evidence.
 
 The browser performs real integrity verification, record evaluation, aggregation, safety checks,
 readiness application, mutations, and local receipt generation. Progress is tied to those operations,
-not simulated timers.
+not simulated timers. It does not load Qwen or OLMo, train an adapter, create candidates, or select a
+checkpoint from live model runs.
 
 ## Expected Current Product Result
 
@@ -131,7 +158,7 @@ An identical replay returns the same byte-identical directory. A conflicting exi
 fails instead of overwriting evidence. This command reconstructs the frozen Phase 3B product replay;
 it is intentionally separate from the later repaired multi-start web projection.
 
-## Full-Workflow Preflight
+## Historical Scientific Preflight
 
 ```bash
 uv sync --frozen --extra model --group dev
@@ -141,10 +168,11 @@ uv run inheritbench succession preflight \
   --json -
 ```
 
-Preflight verifies model dependencies, revisions, local evidence, disk, memory, and accelerator
-availability. It requires at least 20 GiB free disk, warns below 16 GiB RAM, and may fail on a
-machine without a supported execution environment. It prints the preregistered phased commands but
-does not train.
+This command checks prerequisites for the preregistered Phase 3B scientific workflow, not the
+pack-driven `succession plan/run` sequence above. It verifies model dependencies, revisions, local
+evidence, disk, memory, and accelerator availability. It requires at least 20 GiB free disk, warns
+below 16 GiB RAM, and may fail on a machine without a supported execution environment. It does not
+train.
 
 Full execution requires the pinned Qwen and OLMo model downloads and ML dependencies. Apple MPS is
 the only real training backend demonstrated by the reference work. CUDA and CPU device options are
