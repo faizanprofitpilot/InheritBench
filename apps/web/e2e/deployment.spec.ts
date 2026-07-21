@@ -7,7 +7,8 @@ const url = process.env.DEPLOYMENT_URL;
 const report = process.env.PHASE5_DEPLOYMENT_REPORT;
 if (!url || !report) throw new Error("deployment verification environment is incomplete");
 
-test("public deployment satisfies the complete product gate", async ({ browser }) => {
+test("public deployment satisfies the complete product gate", async ({ browser }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium-desktop", "test covers desktop and mobile");
   const consoleErrors: string[] = [];
   const hydrationErrors: string[] = [];
   const accessibilityErrors: string[] = [];
@@ -43,7 +44,7 @@ test("public deployment satisfies the complete product gate", async ({ browser }
     accessibilityErrors.push(...sandboxBefore.violations.map((item) => item.id));
     await page.getByRole("button", { name: "Run assurance evaluation" }).click();
     await expect(page.getByRole("heading", { name: "CONDITIONAL_PASS" })).toBeVisible();
-    await expect(page.getByText("Matches frozen expectations")).toBeVisible();
+    await expect(page.getByText("Matches the verified reference")).toBeVisible();
     await expect(
       page.getByText("Evidence integrity", { exact: true }).locator(".."),
     ).toContainText("VERIFIED");
