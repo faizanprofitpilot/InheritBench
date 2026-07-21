@@ -16,6 +16,7 @@ build/
 
 # Model and package caches
 .cache/
+.pnpm-store/
 huggingface/
 *.safetensors
 *.bin
