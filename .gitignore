@@ -47,3 +47,4 @@ apps/web/playwright-report/
 # Atomic artifact staging directories
 artifacts/**/.tmp-*/
 data/**/.tmp-*/
+.vercel
