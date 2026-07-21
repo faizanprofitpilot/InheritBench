@@ -16,10 +16,16 @@ const successionRoot = path.join(
   repositoryRoot,
   "artifacts/phase5/succession-replay/inheritbench-succession-v0.1",
 );
+const referenceSuccessionRoot = path.join(
+  repositoryRoot,
+  "artifacts/product/reference-succession-v0.1",
+);
 const destinationRoot = path.join(appRoot, "public/data");
 const expectedShowcase =
   "85f6c02dcc430992a277d0cb500373a1b491893915f450b4523699b7b7d3e5cc";
 const expectedProjectionId = "inheritbench-web-v0.1";
+const expectedReferenceProjection =
+  "e9467877333b3893c93736ff8178a1b735907f3f7dc5a6dd815f9a9ca210f45b";
 
 type ManifestEntry = {
   relative_path: string;
@@ -149,6 +155,7 @@ async function main(): Promise<void> {
   const succession = JSON.parse(
     await readFile(path.join(successionRoot, "succession_run_manifest.json"), "utf8"),
   ) as SuccessionManifest;
+  const referenceSuccession = await loadManifest(referenceSuccessionRoot);
   const showcaseContent = sha256(canonical(stripContentFields(showcase)));
   const projectionContent = sha256(canonical(stripContentFields(projection)));
   if (
@@ -163,6 +170,14 @@ async function main(): Promise<void> {
   ) {
     throw new Error("frozen Phase 5 projection verification failed");
   }
+  const referenceContent = sha256(canonical(stripContentFields(referenceSuccession)));
+  if (
+    referenceSuccession.projection_id !== "reference-succession-v0.1" ||
+    referenceSuccession.content_sha256 !== expectedReferenceProjection ||
+    referenceContent !== expectedReferenceProjection
+  ) {
+    throw new Error("frozen reference succession projection verification failed");
+  }
   const successionContent = sha256(canonical(stripContentFields(succession)));
   if (
     succession.schema_version !== "succession-run-manifest-v0.1" ||
@@ -175,12 +190,18 @@ async function main(): Promise<void> {
     ...(await verifyAndCopy(showcaseRoot, "showcase", showcase)),
     ...(await verifyAndCopy(projectionRoot, "projection", projection)),
     ...(await verifyAndCopySuccession(succession)),
+    ...(await verifyAndCopy(
+      referenceSuccessionRoot,
+      "reference-succession",
+      referenceSuccession,
+    )),
   ].sort((left, right) => left.served_path.localeCompare(right.served_path));
   const webManifest = {
     schema_version: "phase5-web-data-manifest-v0.1",
     showcase_content_sha256: expectedShowcase,
     projection_content_sha256: projection.content_sha256,
     succession_content_sha256: succession.content_sha256,
+    reference_succession_content_sha256: expectedReferenceProjection,
     files,
   };
   await writeFile(

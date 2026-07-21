@@ -1,18 +1,15 @@
 "use client";
 
-import { Activity, Code2 } from "lucide-react";
+import { Activity, ArrowRight, Code2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 
 const links = [
-  ["Run Replay", "/run/opsroute-qwen-olmo"],
-  ["Local Run", "/run/local"],
-  ["Succession Case", "/lab/opsroute"],
-  ["Recovery Paths", "/lab/opsroute/methods"],
-  ["Failure Explorer", "/lab/opsroute/failures"],
-  ["Recommendation", "/lab/opsroute/memo"],
+  ["Product", "/#product"],
+  ["How it works", "/#how-it-works"],
+  ["Reference run", "/#reference-run"],
   ["Evidence", "/lab/opsroute/evidence"],
 ];
 
@@ -20,7 +17,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const activeHref = [...links]
     .sort((left, right) => right[1].length - left[1].length)
-    .find(([, href]) => pathname === href || pathname.startsWith(`${href}/`))?.[1];
+    .find(([, href]) => !href.includes("#") && (pathname === href || pathname.startsWith(`${href}/`)))?.[1];
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/8 bg-slate-950/80 backdrop-blur-xl">
@@ -47,14 +44,20 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <Button asChild variant="secondary" size="sm" className="ml-auto">
-          <a href="https://github.com/faizanprofitpilot/InheritBench">
-            <Code2 className="h-4 w-4" />
-            Repository
-          </a>
+        <a
+          href="https://github.com/faizanprofitpilot/InheritBench"
+          aria-label="InheritBench on GitHub"
+          className="ml-auto hidden rounded-lg p-2 text-slate-400 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 sm:block"
+        >
+          <Code2 className="h-5 w-5" />
+        </a>
+        <Button asChild size="sm">
+          <Link href="/run/opsroute-qwen-olmo/">
+            View succession run <ArrowRight className="h-4 w-4" />
+          </Link>
         </Button>
       </div>
-      <nav aria-label="Lab sections" className="flex gap-1 overflow-x-auto px-4 pb-2 lg:hidden">
+      <nav aria-label="Mobile primary" className="flex gap-1 overflow-x-auto px-4 pb-2 lg:hidden">
         {links.map(([label, href]) => (
           <Link
             key={href}

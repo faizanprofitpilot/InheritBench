@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "node --experimental-strip-types scripts/ingest-data.ts && next dev",
     "ingest": "node --experimental-strip-types scripts/ingest-data.ts",
+    "project:reference": "node --experimental-strip-types scripts/project-reference-run.ts",
     "prebuild": "node --experimental-strip-types scripts/ingest-data.ts",
     "build": "next build --webpack",
     "start": "serve out -l 4173",

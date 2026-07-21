@@ -53,90 +53,34 @@ test("migration profiles explain when no trained method is viable", async ({ pag
   await expect(page.getByText(/Pure synthetic transfer never produced a balanced trainable target/)).toBeVisible();
 });
 
-test("header highlights only the current lab section", async ({ page }) => {
-  blockExternalRequests(page);
-  const sections = [
-    ["/lab/opsroute/", "Succession Case"],
-    ["/lab/opsroute/methods/", "Recovery Paths"],
-    ["/lab/opsroute/failures/", "Failure Explorer"],
-    ["/lab/opsroute/memo/", "Recommendation"],
-    ["/lab/opsroute/evidence/", "Evidence"],
-    ["/run/opsroute-qwen-olmo/", "Run Replay"],
-  ] as const;
-
-  for (const [route, label] of sections) {
-    await page.goto(route);
-    const currentLinks = page.locator('header a[aria-current="page"]');
-    await expect(currentLinks).toHaveCount(2);
-    await expect(currentLinks.first()).toHaveText(label);
-    await expect(currentLinks.last()).toHaveText(label);
-  }
-});
-
-test("landing page presents the product workflow and frozen published case", async ({ page }) => {
+test("header exposes product navigation and completed run CTA", async ({ page }) => {
   blockExternalRequests(page);
   await page.goto("/");
-
-  await expect(page.getByText("MODEL SUCCESSION LAB", { exact: true })).toBeVisible();
-  await expect(page.getByText("PUBLISHED QWEN → OLMO CASE", { exact: true })).toBeVisible();
-  await expect(page.getByText("VALIDATED GPT-5.6 ANALYSIS", { exact: true })).toBeVisible();
-  const proofBadgeLayout = await page.getByTestId("hero-proof-badges").evaluate((row) => {
-    const bounds = row.getBoundingClientRect();
-    const badges = [...row.children].map((badge) => badge.getBoundingClientRect());
-    return {
-      row: { left: bounds.left, right: bounds.right },
-      badges: badges.map((badge) => ({ left: badge.left, right: badge.right, top: badge.top })),
-    };
-  });
-  expect(new Set(proofBadgeLayout.badges.map((badge) => Math.round(badge.top))).size).toBe(1);
-  expect(proofBadgeLayout.badges[0].right).toBeLessThan(proofBadgeLayout.badges[1].left);
-  expect(proofBadgeLayout.badges[1].right).toBeLessThan(proofBadgeLayout.badges[2].left);
-  expect(proofBadgeLayout.badges[0].left).toBeGreaterThanOrEqual(proofBadgeLayout.row.left);
-  expect(proofBadgeLayout.badges[2].right).toBeLessThanOrEqual(proofBadgeLayout.row.right);
-  await expect(page.getByRole("heading", { name: "Your successor model does not inherit capability by default." })).toBeVisible();
-  await expect(page.getByText(/evaluate a model-family replacement before production/)).toBeVisible();
-
-  await expect(page.getByRole("link", { name: /Run verified succession replay/ })).toHaveAttribute(
+  for (const label of ["Product", "How it works", "Reference run", "Evidence"]) {
+    await expect(page.getByRole("link", { name: label, exact: true }).first()).toBeAttached();
+  }
+  await expect(page.getByRole("link", { name: "View succession run" })).toHaveAttribute(
     "href",
     "/run/opsroute-qwen-olmo/",
   );
-  await expect(page.getByRole("link", { name: /Explore the published case/ })).toHaveAttribute(
+});
+
+test("landing page presents the product workflow and completed reference result", async ({ page }) => {
+  blockExternalRequests(page);
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: /Move the model/ })).toBeVisible();
+  await expect(page.getByText("Diagnose → Recover → Assure", { exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: /View the Qwen → OLMo succession/ })).toHaveAttribute(
     "href",
-    "/lab/opsroute/",
+    "/run/opsroute-qwen-olmo/",
   );
-
-  for (const label of ["Run Replay", "Succession Case", "Recovery Paths", "Failure Explorer", "Recommendation", "Evidence"]) {
-    await expect(page.getByRole("link", { name: label, exact: true }).first()).toBeVisible();
+  for (const step of ["Diagnose", "Recover", "Assure"]) {
+    await expect(page.getByRole("heading", { name: step, exact: true })).toBeVisible();
   }
-  for (const step of [
-    "Measure the capability break",
-    "Test recovery paths",
-    "Stress-test the candidates",
-    "Choose under constraints",
-  ]) {
-    await expect(page.getByRole("heading", { name: step })).toBeVisible();
-  }
-
-  for (const metric of [
-    "54.688%",
-    "0.000%",
-    "59 / 768 accepted",
-    "5 / 16",
-    "719 / 768 accepted",
-    "4 / 48",
-    "85.938%",
-  ]) {
-    await expect(page.getByText(metric, { exact: true }).first()).toBeAttached();
-  }
-  await expect(page.getByText(/10 original labels directly in target training/).first()).toBeVisible();
-  await expect(page.getByText(/214 teacher-generated labels/).first()).toBeVisible();
-  await expect(page.getByText(/teacher trained with 224 original labels/).first()).toBeVisible();
-  await expect(page.getByText(/designed from 224 labeled records/).first()).toBeVisible();
-
-  await expect(page.getByText("Clean capability retention", { exact: true })).toBeVisible();
-  await expect(page.getByText("Adversarial resilience", { exact: true })).toBeVisible();
-  await expect(page.getByText("Semantic exactness · N=64", { exact: true })).toBeVisible();
-  await expect(page.getByText("Semantic exactness · N=32", { exact: true })).toBeVisible();
+  await expect(page.getByText("64 / 64", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("63 / 64", { exact: true })).toBeVisible();
+  await expect(page.getByText("CONDITIONAL PASS", { exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Don’t migrate on benchmark scores alone." })).toBeVisible();
 });
 
 test("raw outputs and memo evidence open without regeneration", async ({ page }) => {
@@ -163,37 +107,32 @@ test("browser integrity verification passes", async ({ page }) => {
   await page.goto("/lab/opsroute/evidence/");
   await page.getByRole("button", { name: "Verify served bytes" }).click();
   await expect(page.getByText("Showcase bundle verified")).toBeVisible();
-  await expect(page.getByText("21 files checked · 21 hashes matched")).toBeVisible();
+  await expect(page.getByText("29 files checked · 29 hashes matched")).toBeVisible();
   await expect(page.getByText(/This verifies the deployed display bundle/)).toBeVisible();
   await page.getByText("Inspect source lineage").click();
   await expect(page.getByText("Independent distillation")).toBeVisible();
   await expect(page.getByText("GPT memo and validation")).toBeVisible();
 });
 
-test("verified succession replay derives and downloads a conditional outcome", async ({ page }) => {
+test("completed succession inspector preserves selection and sealed-evaluation boundaries", async ({ page }) => {
   blockExternalRequests(page);
   await page.goto("/run/opsroute-qwen-olmo/");
-  await expect(page.getByTestId("succession-configuration")).toBeVisible();
-  await expect(page.getByText("214 teacher outputs + 10 direct anchors")).toBeVisible();
-  await page.getByRole("button", { name: "Review replay preflight" }).click();
-  await expect(page.getByTestId("succession-preflight")).toBeVisible();
-  await expect(page.getByText("No training, inference, GPU, model download, or API key is required.")).toBeVisible();
-  await page.getByRole("button", { name: "Run verified succession replay" }).click();
-  await expect(page.getByRole("heading", { name: "Verified succession replay completed" })).toBeVisible();
-  await expect(page.getByText("55 / 64 — 85.9375%")).toBeVisible();
-  await expect(page.getByText("20 / 32 — 62.5%")).toBeVisible();
-  await expect(page.getByText("Recovered successor adapter verified")).toBeVisible();
-  await expect(page.getByText("Conditional pass", { exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Download JSON" })).toHaveCount(2);
-  expect(await page.evaluate(() => document.body.innerText.toLowerCase().includes("succession completed\n"))).toBe(false);
-});
-
-test("direct result links rerun verification before rendering", async ({ page }) => {
-  blockExternalRequests(page);
-  await page.goto("/run/opsroute-qwen-olmo/?stage=result");
-  await expect(page.getByRole("heading", { name: "Verified succession replay completed" })).toBeVisible();
-  await page.reload();
-  await expect(page.getByRole("heading", { name: "Verified succession replay completed" })).toBeVisible();
+  await expect(page.getByTestId("run-inspector")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Three identities. One controlled succession." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Qwen/Qwen2.5-0.5B-Instruct" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "allenai/OLMo-2-0425-1B-Instruct" }).first()).toBeVisible();
+  await expect(page.getByText("Selected using validation evidence only. Final evaluation was unavailable during ranking.")).toBeVisible();
+  for (const candidate of [0, 1, 2, 3]) {
+    await expect(page.locator("tbody tr").filter({ hasText: `Candidate ${candidate}` })).toBeVisible();
+  }
+  await expect(page.locator("tr[data-selected=true]")).toContainText("Candidate 0");
+  await expect(page.getByText("64/64", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("63/64", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("20/32", { exact: true }).first()).toBeVisible();
+  await expect(page.locator("h2").filter({ hasText: "Replay verified" })).toBeVisible();
+  await expect(page.locator("code").filter({ hasText: "bbfd685856645bde4bb1d45e1da239d567fa412a65e433483325227f6129f3e7" })).toBeVisible();
+  await page.getByText("Numerical-guard repair lineage").click();
+  await expect(page.getByText(/FINITE_PRECLIP_GRADIENT_NORM/)).toBeVisible();
 });
 
 test("local inspector preserves a blocked bounded multi-start outcome", async ({ page }) => {
@@ -205,28 +144,25 @@ test("local inspector preserves a blocked bounded multi-start outcome", async ({
     content_sha256: createHash("sha256").update(stableStringify(content)).digest("hex"),
   };
   await page
-    .getByLabel("Choose a finalized run bundle")
+    .getByLabel("Choose a run bundle")
     .setInputFiles({
       name: "web_bundle.json",
       mimeType: "application/json",
       buffer: Buffer.from(JSON.stringify(payload)),
     });
-  await expect(page.getByRole("heading", { name: "Final evaluation remained sealed" })).toBeVisible();
-  await expect(page.getByText("BLOCKED BEFORE FINAL EVALUATION", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "NOT RUN" })).toBeVisible();
+  await expect(page.getByText("BLOCKED BEFORE FINAL EVALUATION", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Candidate 0", { exact: true })).toBeVisible();
   await expect(page.getByText("Candidate 3", { exact: true })).toBeVisible();
-  await expect(page.getByText("None", { exact: true })).toBeVisible();
-  await expect(page.getByText("No confirmatory or adversarial evidence influenced candidate ranking.")).toBeVisible();
+  await expect(page.getByText("Selected using validation evidence only. Final evaluation was unavailable during ranking.")).toBeVisible();
 });
 
-test("succession replay fails closed on tampered compact records", async ({ page }) => {
+test("public pages do not expose local absolute paths", async ({ page }) => {
   blockExternalRequests(page);
-  await page.route("**/data/succession/replay_records.jsonl", async (route) => {
-    await route.fulfill({ status: 200, contentType: "application/json", body: "{\"tampered\":true}\n" });
-  });
-  await page.goto("/run/opsroute-qwen-olmo/?stage=result");
-  await expect(page.getByRole("heading", { name: "Frozen evidence could not be verified." })).toBeVisible();
-  await expect(page.getByText(/Compact replay-record verification failed|Served succession artifact verification failed/)).toBeVisible();
+  for (const route of ["/", "/run/opsroute-qwen-olmo/"]) {
+    await page.goto(route);
+    expect(await page.locator("body").innerText()).not.toContain("/Users/");
+  }
 });
 
 test("browser integrity verification fails closed on tampered bytes", async ({ page }) => {

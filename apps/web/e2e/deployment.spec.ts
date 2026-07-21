@@ -30,6 +30,8 @@ test("public deployment satisfies the complete product gate", async ({ browser }
       "/lab/opsroute/failures/",
       "/lab/opsroute/memo/",
       "/lab/opsroute/evidence/",
+      "/run/opsroute-qwen-olmo/",
+      "/run/local/",
     ]) {
       const response = await page.goto(`${url}${route}`);
       expect(response?.ok()).toBe(true);
@@ -37,8 +39,9 @@ test("public deployment satisfies the complete product gate", async ({ browser }
     }
     const accessibility = await new AxeBuilder({ page }).analyze();
     accessibilityErrors.push(...accessibility.violations.map((item) => item.id));
+    await page.goto(`${url}/lab/opsroute/evidence/`);
     await page.getByRole("button", { name: "Verify served bytes" }).click();
-    await expect(page.getByText(/committed files match their SHA-256 hashes/)).toBeVisible();
+    await expect(page.getByText("Showcase bundle verified")).toBeVisible();
     await context.close();
   }
   expect(consoleErrors).toEqual([]);

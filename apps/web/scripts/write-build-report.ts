@@ -10,7 +10,7 @@ const publicDataRoot = path.join(appRoot, "public/data");
 const verifyPortable = process.argv.includes("--verify-portable");
 const destination = path.join(
   repositoryRoot,
-  "artifacts/phase5/web-build/inheritbench-web-build-v0.1/manifest.json",
+  "artifacts/phase5/web-build/inheritbench-web-build-v0.2/manifest.json",
 );
 
 function sha256(payload: Buffer | string): string {
@@ -54,6 +54,15 @@ const projection = JSON.parse(
     "utf8",
   ),
 ) as Record<string, unknown>;
+const referenceProjection = JSON.parse(
+  await readFile(
+    path.join(
+      repositoryRoot,
+      "artifacts/product/reference-succession-v0.1/manifest.json",
+    ),
+    "utf8",
+  ),
+) as Record<string, unknown>;
 const outputFiles = await files(outRoot);
 const outputByPath = new Map(
   outputFiles.map((item) => [item.relative_path as string, item]),
@@ -66,14 +75,16 @@ const requiredRoutes = [
   "lab/opsroute/memo/index.html",
   "lab/opsroute/evidence/index.html",
   "run/opsroute-qwen-olmo/index.html",
+  "run/local/index.html",
 ];
 for (const route of requiredRoutes) {
   if (!outputByPath.has(route)) throw new Error(`static export is missing ${route}`);
 }
 const payload: Record<string, unknown> = {
-  schema_version: "phase5-web-build-manifest-v0.1",
-  build_id: "inheritbench-web-build-v0.1",
+  schema_version: "phase5-web-build-manifest-v0.2",
+  build_id: "inheritbench-web-build-v0.2",
   projection_content_sha256: projection.content_sha256,
+  reference_succession_content_sha256: referenceProjection.content_sha256,
   showcase_content_sha256:
     "85f6c02dcc430992a277d0cb500373a1b491893915f450b4523699b7b7d3e5cc",
   node_version: process.version.slice(1),
@@ -102,6 +113,7 @@ if (verifyPortable) {
     "schema_version",
     "build_id",
     "projection_content_sha256",
+    "reference_succession_content_sha256",
     "showcase_content_sha256",
     "node_version",
     "pnpm_version",

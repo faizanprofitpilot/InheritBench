@@ -9,6 +9,7 @@ import {
   loadMemo,
   loadMemoValidation,
   loadMigrationProfiles,
+  loadReferenceSuccession,
   loadSources,
   loadStory,
   loadSystems,
@@ -64,6 +65,30 @@ describe("committed product data", () => {
     ]) {
       expect(landing).not.toContain(handwrittenMetric);
     }
+  });
+
+  it("loads the completed reference succession from the verified projection", () => {
+    const { bundle, audit } = loadReferenceSuccession();
+    expect(bundle.schema_version).toBe("inheritbench.web-bundle.v0.4");
+    if (bundle.schema_version !== "inheritbench.web-bundle.v0.4") {
+      throw new Error("expected v0.4 reference succession");
+    }
+    expect(bundle.readiness.status).toBe("CONDITIONAL_PASS");
+    expect(bundle.candidates).toHaveLength(4);
+    expect(bundle.selection.candidate_index).toBe(0);
+    expect(bundle.selection.exported_adapter_sha256).toBe(
+      "bbfd685856645bde4bb1d45e1da239d567fa412a65e433483325227f6129f3e7",
+    );
+    expect(audit.candidateRanking.final_surface_information_used).toBe(false);
+  });
+
+  it("keeps shared inspector rendering capability-neutral", () => {
+    const inspector = readFileSync(
+      path.resolve(process.cwd(), "src/components/run-inspector.tsx"),
+      "utf8",
+    );
+    expect(inspector).not.toMatch(/capability(?:\.id)?\s*={2,3}\s*["']opsroute/i);
+    expect(inspector).not.toMatch(/if\s*\([^)]*opsroute/i);
   });
 
   it("formats memo decimals for humans without changing exact source data", () => {
